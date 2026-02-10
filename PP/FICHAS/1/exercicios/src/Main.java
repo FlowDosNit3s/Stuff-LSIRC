@@ -39,5 +39,19 @@ class Main {
         * */
 
         //Exercicio 2
+
+        //array de interios (int)
+        int [] numerosInt = {1,2,3,4,5,6,7,8,9,10};
+        //array de deciamis (double)
+        double [] numerosDouble = {1.1,2.2,3.3,4.4,5.5,6.6,7.7,8.8,9.9,10.10};
+        boolean [] semaforo = {true,false,true,false,true,false,true,false,true,false};
+
+        System.out.println(numerosInt[2]);
+        System.out.println(numerosDouble[3]);
+        System.out.println(semaforo[2]);
+
+        System.out.println("Ultimo numeroInt" + numerosInt[numerosInt.length-1]);
+        System.out.println("Primeiro numeroDouble" + numerosDouble[0]);
+
     }
 }
