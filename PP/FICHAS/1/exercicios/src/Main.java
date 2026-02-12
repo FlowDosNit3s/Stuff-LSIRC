@@ -20,6 +20,7 @@ class Main {
 
         char l = 'l' , p = 'p';
         int q = 4 , d = 2;
+        System.out.println("Resultado exercico 1:");
         System.out.println(l);
         System.out.println(p);
         System.out.println(d);
@@ -27,16 +28,6 @@ class Main {
         System.out.println(l + p + 2);
         System.out.println("" + l + p + 2);
         System.out.println(q + d);
-
-        /* Output:
-        *  l
-        *  p
-        *  2
-        *  4
-        *  222
-        *  lp2
-        *  6
-        * */
 
         //Exercicio 2
 
@@ -46,12 +37,51 @@ class Main {
         double [] numerosDouble = {1.1,2.2,3.3,4.4,5.5,6.6,7.7,8.8,9.9,10.10};
         boolean [] semaforo = {true,false,true,false,true,false,true,false,true,false};
 
+        //testes
+        System.out.println("Resultado exercico 2:");
         System.out.println(numerosInt[2]);
         System.out.println(numerosDouble[3]);
         System.out.println(semaforo[2]);
 
-        System.out.println("Ultimo numeroInt" + numerosInt[numerosInt.length-1]);
-        System.out.println("Primeiro numeroDouble" + numerosDouble[0]);
+        System.out.println("Ultimo numeroInt: " + numerosInt[numerosInt.length-1]);
+        System.out.println("Primeiro numeroDouble: " + numerosDouble[0]);
+
+        //Exercicio 3
+
+        /**
+         * O output deste programa vai ser true.
+         * Pois este passa a primeira verificação que dita que hisBalance >= myBalance, o que é verdade, entao canItakeHisMoney = true.
+         * Na segunda verificação, verificar o "and" (&), ou seja tem de comprir os dois quesitos, e como canItakeHisMoney = true e hisBalance >= 3 (porque 13>=3), então podemos dizer que podemos pegar o dinheiro.
+         */
+
+        boolean canITakeHisMoney;
+        int hisBalance = 5;
+        long myBalance = 4;
+        hisBalance += 8; //8+5 = 13
+        canITakeHisMoney = hisBalance >= myBalance; //true
+        canITakeHisMoney = canITakeHisMoney & (hisBalance >= 3); //true nos dois casos
+
+        System.out.println("Resultado exercico 3:");
+        System.out.println(canITakeHisMoney);
+
+        //exercico 4
+
+        int v = 0;
+        v++; //v = 1
+        int amount = v++; //v = 2 e amount = 1, amount fica 1 porque a variavel v ainda não foi incrementada, caso fosse ++v, amount ficaria 2
+
+        System.out.println("Resultado exercico 4:");
+        System.out.println(++v + " " + amount); //v = 3 porque v = v + 1, entao v = 2 + 1 = 3
+        System.out.println(v); //v = 3
+
+        //exercico 5
+
+        
+
+
+
+
+
 
     }
 }
