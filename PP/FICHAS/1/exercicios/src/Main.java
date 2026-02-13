@@ -4,7 +4,7 @@ class Main {
 
         //Exercicio 1
 
-        /**
+        /*
          * Imprimimos a duas variaveis char, ou seja, variaveis que armazenam um unico caractere (char l = 'l' , p = 'p';) :
          * -Resultado obtivemos os dois a serem imprimidos como l para o primeiro e p para o segundo.
          * De seguida, imprimimos mais duas variaveis int, ou seja, variaveis que armazenam números inteiros positivos ou negativos, sem casas decimais (int q = 4 , d = 2;) :
@@ -48,7 +48,7 @@ class Main {
 
         //Exercicio 3
 
-        /**
+        /*
          * O output deste programa vai ser true.
          * Pois este passa a primeira verificação que dita que hisBalance >= myBalance, o que é verdade, entao canItakeHisMoney = true.
          * Na segunda verificação, verificar o "and" (&), ou seja tem de comprir os dois quesitos, e como canItakeHisMoney = true e hisBalance >= 3 (porque 13>=3), então podemos dizer que podemos pegar o dinheiro.
@@ -76,12 +76,30 @@ class Main {
 
         //exercico 5
 
-        
+        System.out.println("Resultado exercico 5:");
+        long x = 0;
 
+        System.out.println("Valor do long: " + x);
 
+        x= 3;
 
+        System.out.println("Novo valor do long: " + x);
 
+        boolean y = false;
 
+        System.out.println("Valor do boolean: " + y);
+
+        //exercicio 6
+
+        double a;
+        int b;
+
+        System.out.println("Resultado exercico 6:");
+        //System.out.println(a);
+        //System.out.println(b);
+
+        //o complilador apresenta erros porque as variaveis não foram declaradas;
+        //java: variable a might not have been initialized
 
     }
 }
