@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.wildfirestats.pt/schema"
+    elementFormDefault="qualified">
+
+    <xs:element name="MeteorologiaStats">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Medicao" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="data" type="xs:string"/>
+                            <xs:element name="id_localizacao" type="xs:integer"/>
+                            <xs:element name="medicoes">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="temp_max" type="xs:decimal"/>
+                                        <xs:element name="temp_min" type="xs:decimal"/>
+                                        <xs:element name="temp_media" type="xs:decimal"/>
+                                        <xs:element name="vento_max" type="xs:decimal"/>
+                                        <xs:element name="vento_rafada" type="xs:decimal"/>
+                                        <xs:element name="vento_direcao" type="xs:integer"/>
+                                        <xs:element name="precipitacao" type="xs:decimal"/>
+                                        <xs:element name="radiacao" type="xs:decimal"/>
+                                        <xs:element name="insolacao" type="xs:decimal"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

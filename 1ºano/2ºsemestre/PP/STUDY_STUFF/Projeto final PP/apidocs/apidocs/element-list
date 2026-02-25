@@ -1,0 +1,8 @@
+com.ppstudios.footballmanager.api.contracts.data
+com.ppstudios.footballmanager.api.contracts.data.htmlgenerators
+com.ppstudios.footballmanager.api.contracts.event
+com.ppstudios.footballmanager.api.contracts.league
+com.ppstudios.footballmanager.api.contracts.match
+com.ppstudios.footballmanager.api.contracts.player
+com.ppstudios.footballmanager.api.contracts.simulation
+com.ppstudios.footballmanager.api.contracts.team

@@ -1,0 +1,261 @@
+{
+  "info": {
+    "_postman_id": "0e9ae7f3-e0b0-45aa-834d-47119703b683",
+    "name": "Wildfires TP - Analises API",
+    "description": "Coleção Postman para testar os endpoints do TP (Ponto 4) + health check.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51716104",
+    "_collection_link": "https://go.postman.co/collection/51716104-0e9ae7f3-e0b0-45aa-834d-47119703b683?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Media Area (month=8)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/media-area?month=8",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "media-area"
+          ],
+          "query": [
+            {
+              "key": "month",
+              "value": "8"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Media Area (season=Verao)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/media-area?season=Inverno",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "media-area"
+          ],
+          "query": [
+            {
+              "key": "season",
+              "value": "Inverno"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Fogo/Vento (minArea=50)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/fogo-vento?minArea=50",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "fogo-vento"
+          ],
+          "query": [
+            {
+              "key": "minArea",
+              "value": "50"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eficiencia Combate (region=distrito)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/eficiencia-combate?region=distrito",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "eficiencia-combate"
+          ],
+          "query": [
+            {
+              "key": "region",
+              "value": "distrito"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Eficiencia Combate (region=concelho)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/eficiencia-combate?region=concelho",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "eficiencia-combate"
+          ],
+          "query": [
+            {
+              "key": "region",
+              "value": "concelho"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Top Regioes (temp=30,n=10,region=distrito)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/top-regioes?temp=30&n=10&region=distrito",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "top-regioes"
+          ],
+          "query": [
+            {
+              "key": "temp",
+              "value": "30"
+            },
+            {
+              "key": "n",
+              "value": "10"
+            },
+            {
+              "key": "region",
+              "value": "distrito"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Recursos (incendios vs bombeiros)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/recursos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "recursos"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Temperaturas (start/end, region=distrito)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/analises/temperaturas?start=2024-02-02&end=2024-05-01&region=distrito",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "analises",
+            "temperaturas"
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "2024-02-02"
+            },
+            {
+              "key": "end",
+              "value": "2024-05-01"
+            },
+            {
+              "key": "region",
+              "value": "distrito"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Xml Import",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<WildfireStats xmlns=\"http://www.wildfirestats.pt/schema\">\r\n  <Ocorrencia>\r\n    <codigo_incendio>1942461</codigo_incendio>\r\n    <data_inicio>2024-01-05</data_inicio>\r\n    <duracao_horas>1.25</duracao_horas>\r\n    <estado>Concluído</estado>\r\n    <id_localizacao>88719</id_localizacao>\r\n    <id_causa>357</id_causa>\r\n    <areas>\r\n      <total>1.7</total>\r\n      <povoamento>0.5</povoamento>\r\n      <mato>1.2</mato>\r\n      <agricola>0.0</agricola>\r\n    </areas>\r\n  </Ocorrencia>\r\n</WildfireStats>\r\n",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/import/incendios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "import",
+            "incendios"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

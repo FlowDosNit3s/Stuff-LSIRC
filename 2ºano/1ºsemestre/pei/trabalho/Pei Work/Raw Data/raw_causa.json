@@ -1,0 +1,855 @@
+[{
+  "_id": {
+    "$oid": "697287f265957145aa743cab"
+  },
+  "id_causa": 286,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Acidentais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cac"
+  },
+  "id_causa": 296,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Apicultura"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cad"
+  },
+  "id_causa": 336,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Apicultura - Desinfestação"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cae"
+  },
+  "id_causa": 335,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Apicultura - Fumigação"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743caf"
+  },
+  "id_causa": 302,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Caça e vida selvagem",
+  "descricao_causa": "Caça e vida selvagem"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb0"
+  },
+  "id_causa": 359,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Caça e vida selvagem",
+  "descricao_causa": "Caça e vida selvagem - Conflitos de caça"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb1"
+  },
+  "id_causa": 360,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Caça e vida selvagem - Danos provocados pela vida selvagem"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb2"
+  },
+  "id_causa": 297,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Chaminés"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb3"
+  },
+  "id_causa": 338,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Chaminés - De habitação"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb4"
+  },
+  "id_causa": 337,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Chaminés - Industriais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb5"
+  },
+  "id_causa": 380,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Chaminés - Outras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb6"
+  },
+  "id_causa": 304,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Outras",
+  "descricao_causa": "Defesa contra incêndios"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb7"
+  },
+  "id_causa": 365,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Outras",
+  "descricao_causa": "Defesa contra incêndios - Instabilidade laboral nas actividades de DFCI"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb8"
+  },
+  "id_causa": 287,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Outras",
+  "descricao_causa": "Estruturais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cb9"
+  },
+  "id_causa": 294,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fogueiras",
+  "descricao_causa": "Fogueiras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cba"
+  },
+  "id_causa": 330,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fogueiras",
+  "descricao_causa": "Fogueiras - Aquecimento"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cbb"
+  },
+  "id_causa": 329,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fogueiras",
+  "descricao_causa": "Fogueiras - Confecção de comida"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cbc"
+  },
+  "id_causa": 332,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fogueiras",
+  "descricao_causa": "Fogueiras - Outras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cbd"
+  },
+  "id_causa": 328,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fogueiras",
+  "descricao_causa": "Fogueiras - Recreio e lazer"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cbe"
+  },
+  "id_causa": 331,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fogueiras",
+  "descricao_causa": "Fogueiras - Reparação de estradas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cbf"
+  },
+  "id_causa": 295,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fumar",
+  "descricao_causa": "Fumar"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc0"
+  },
+  "id_causa": 334,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fumar",
+  "descricao_causa": "Fumar - Em circulação motorizada"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc1"
+  },
+  "id_causa": 333,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Fumar",
+  "descricao_causa": "Fumar - Fumadores a pé"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc2"
+  },
+  "id_causa": 307,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Imputáveis",
+  "descricao_causa": "Imputáveis"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc3"
+  },
+  "id_causa": 372,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Imputáveis",
+  "descricao_causa": "Imputáveis - Conflitos entre vizinhos"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc4"
+  },
+  "id_causa": 370,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Imputáveis",
+  "descricao_causa": "Imputáveis - Manobras de diversão"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc5"
+  },
+  "id_causa": 375,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Imputáveis",
+  "descricao_causa": "Imputáveis - Outras situações"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc6"
+  },
+  "id_causa": 371,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Imputáveis",
+  "descricao_causa": "Imputáveis - Provocação aos meios de combate"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc7"
+  },
+  "id_causa": 374,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Imputáveis",
+  "descricao_causa": "Imputáveis - Vandalismo"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc8"
+  },
+  "id_causa": 373,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Imputáveis",
+  "descricao_causa": "Imputáveis - Vinganças"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cc9"
+  },
+  "id_causa": 288,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Sem motivação conhecida",
+  "descricao_causa": "Incendiarismo"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cca"
+  },
+  "id_causa": 290,
+  "tipo_causa": "Desconhecida",
+  "grupo_causa": "Indeterminadas",
+  "descricao_causa": "Indeterminadas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ccb"
+  },
+  "id_causa": 309,
+  "tipo_causa": "Desconhecida",
+  "grupo_causa": "Indeterminadas",
+  "descricao_causa": "Indeterminadas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ccc"
+  },
+  "id_causa": 378,
+  "tipo_causa": "Desconhecida",
+  "grupo_causa": "Indeterminadas",
+  "descricao_causa": "Indeterminadas - Outras informações"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ccd"
+  },
+  "id_causa": 376,
+  "tipo_causa": "Desconhecida",
+  "grupo_causa": "Indeterminadas",
+  "descricao_causa": "Indeterminadas - Prova material"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cce"
+  },
+  "id_causa": 377,
+  "tipo_causa": "Desconhecida",
+  "grupo_causa": "Indeterminadas",
+  "descricao_causa": "Indeterminadas - Prova pessoal"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ccf"
+  },
+  "id_causa": 306,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Inimputáveis"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd0"
+  },
+  "id_causa": 366,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Inimputáveis - Brincadeiras de crianças"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd1"
+  },
+  "id_causa": 367,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Inimputáveis - Irresponsabilidade de menores"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd2"
+  },
+  "id_causa": 369,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Inimputáveis - Outras situações"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd3"
+  },
+  "id_causa": 368,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Incendiarismo - Inimputáveis",
+  "descricao_causa": "Inimputáveis - Piromania"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd4"
+  },
+  "id_causa": 293,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Lançamento Foguetes",
+  "descricao_causa": "Lançamento de foguetes"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd5"
+  },
+  "id_causa": 327,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Lançamento Foguetes",
+  "descricao_causa": "Lançamento de Foguetes - Auto-ignição"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd6"
+  },
+  "id_causa": 326,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Lançamento Foguetes",
+  "descricao_causa": "Lançamento de foguetes - Clandestinos"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd7"
+  },
+  "id_causa": 325,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Lançamento Foguetes",
+  "descricao_causa": "Lançamento de foguetes - Com medidas preventivas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd8"
+  },
+  "id_causa": 300,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cd9"
+  },
+  "id_causa": 346,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento - Alfaias agrícolas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cda"
+  },
+  "id_causa": 348,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento - Equipamento florestal"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cdb"
+  },
+  "id_causa": 347,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento - Máquinas agrícolas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cdc"
+  },
+  "id_causa": 350,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento - Máquinas florestais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cdd"
+  },
+  "id_causa": 351,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento - Máquinas industriais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cde"
+  },
+  "id_causa": 349,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento - Motosserras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cdf"
+  },
+  "id_causa": 352,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Maquinaria",
+  "descricao_causa": "Maquinaria e equipamento - Outras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce0"
+  },
+  "id_causa": 289,
+  "tipo_causa": "Natural",
+  "grupo_causa": "Naturais",
+  "descricao_causa": "Naturais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce1"
+  },
+  "id_causa": 308,
+  "tipo_causa": "Natural",
+  "grupo_causa": "Naturais",
+  "descricao_causa": "Naturais - Raio"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce2"
+  },
+  "id_causa": 301,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Outras causas acidentais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce3"
+  },
+  "id_causa": 355,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Outras causas acidentais - Disparos de caçadores"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce4"
+  },
+  "id_causa": 356,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Outras causas acidentais - Exercícios militares"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce5"
+  },
+  "id_causa": 353,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Outras causas acidentais - Explosivos"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce6"
+  },
+  "id_causa": 358,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Outras causas acidentais - Outras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce7"
+  },
+  "id_causa": 354,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Outras causas acidentais - Soldaduras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce8"
+  },
+  "id_causa": 357,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Outros",
+  "descricao_causa": "Outras causas acidentais - Vidros"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ce9"
+  },
+  "id_causa": 305,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Outras",
+  "descricao_causa": "Outras causas estruturais"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cea"
+  },
+  "id_causa": 298,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Outros usos do fogo"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ceb"
+  },
+  "id_causa": 339,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Outros usos do fogo - Actividades esotéricas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cec"
+  },
+  "id_causa": 340,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Outros",
+  "descricao_causa": "Outros usos do fogo - Outros"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743ced"
+  },
+  "id_causa": 319,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimas amontoados de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queima de amontoados - Borralheiras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cee"
+  },
+  "id_causa": 291,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Queima de lixo",
+  "descricao_causa": "Queima de amontoados de lixo"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cef"
+  },
+  "id_causa": 313,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Queima de lixo",
+  "descricao_causa": "Queima de amontoados de lixo - Actividades clandestinas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf0"
+  },
+  "id_causa": 310,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Queima de lixo",
+  "descricao_causa": "Queima de amontoados de lixo - Autárquica"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf1"
+  },
+  "id_causa": 312,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Queima de lixo",
+  "descricao_causa": "Queima de amontoados de lixo - Comércio"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf2"
+  },
+  "id_causa": 311,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Queima de lixo",
+  "descricao_causa": "Queima de amontoados de lixo - Indústria"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf3"
+  },
+  "id_causa": 314,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Queima de lixo",
+  "descricao_causa": "Queima de amontoados de lixo - Núcleos habitacionais permanentes"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf4"
+  },
+  "id_causa": 315,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Uso do fogo - Queima de lixo",
+  "descricao_causa": "Queima de amontoados de lixo - Núcleos habitacionais temporários associados ao recreio"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf5"
+  },
+  "id_causa": 317,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queimadas  extensivas - Limpeza do solo florestal"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf6"
+  },
+  "id_causa": 292,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas para gestão de pasto para gado",
+  "descricao_causa": "Queimadas extensivas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf7"
+  },
+  "id_causa": 318,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queimadas extensivas - Limpeza de áreas urbanizadas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf8"
+  },
+  "id_causa": 322,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queimadas extensivas - Limpeza de caminhos, acessos e instalações"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cf9"
+  },
+  "id_causa": 316,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queimadas extensivas - Limpeza do solo agrícola"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cfa"
+  },
+  "id_causa": 324,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queimadas extensivas - Outras"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cfb"
+  },
+  "id_causa": 321,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queimadas extensivas - Penetração em áreas de caça e margens dos rios"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cfc"
+  },
+  "id_causa": 323,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas de sobrantes florestais ou agrícolas",
+  "descricao_causa": "Queimadas extensivas - Protecção contra incêndios"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cfd"
+  },
+  "id_causa": 320,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Queimadas para gestão de pasto para gado",
+  "descricao_causa": "Queimadas extensivas - Renovação de pastagens"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cfe"
+  },
+  "id_causa": 379,
+  "tipo_causa": "Reacendimento",
+  "grupo_causa": "Reacendimentos",
+  "descricao_causa": "Reacendimento - Fonte de calor do incêndio anterior"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743cff"
+  },
+  "id_causa": 299,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Transportes e Comunicações",
+  "descricao_causa": "Transportes e comunicações"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d00"
+  },
+  "id_causa": 344,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Transportes e Comunicações",
+  "descricao_causa": "Transportes e comunicações - Acidentes de viação"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d01"
+  },
+  "id_causa": 342,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Transportes e Comunicações",
+  "descricao_causa": "Transportes e comunicações - Caminhos de ferro"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d02"
+  },
+  "id_causa": 341,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Transportes e Comunicações",
+  "descricao_causa": "Transportes e comunicações - Linhas eléctricas"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d03"
+  },
+  "id_causa": 345,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Transportes e Comunicações",
+  "descricao_causa": "Transportes e comunicações - Outros"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d04"
+  },
+  "id_causa": 343,
+  "tipo_causa": "Negligente",
+  "grupo_causa": "Acidentais - Transportes e Comunicações",
+  "descricao_causa": "Transportes e comunicações - Tubos de escape"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d05"
+  },
+  "id_causa": 303,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Uso do solo",
+  "descricao_causa": "Uso do solo"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d06"
+  },
+  "id_causa": 361,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Uso do solo",
+  "descricao_causa": "Uso do solo - Alterações no uso do solo"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d07"
+  },
+  "id_causa": 364,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Uso do solo",
+  "descricao_causa": "Uso do solo - Contradições no uso e fruição dos baldios"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d08"
+  },
+  "id_causa": 363,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Uso do solo",
+  "descricao_causa": "Uso do solo - Limitação ao uso e gestão do solo"
+},
+{
+  "_id": {
+    "$oid": "697287f265957145aa743d09"
+  },
+  "id_causa": 362,
+  "tipo_causa": "Intencional",
+  "grupo_causa": "Estruturais - Uso do solo",
+  "descricao_causa": "Uso do solo - Pressão para venda de material lenhoso"
+}]

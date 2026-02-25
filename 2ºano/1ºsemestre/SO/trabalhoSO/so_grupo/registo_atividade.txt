@@ -1,0 +1,217 @@
+[2025-12-11 16:15:56] [Thread: SISTEMA        ] Monitor inicializado. A iniciar rastreio eBPF (simulado)...
+[2025-12-11 16:15:56] [Thread: TESTE-FASE-1   ] >>> INICIANDO TESTE DE CORREÇÃO (PREVENÇÃO) <<<
+[2025-12-11 16:15:56] [Thread: INFO           ] Estratégia: Ordenação de Recursos.
+[2025-12-11 16:15:56] [Thread: INFO           ] As threads vão adquirir recursos sempre na mesma ordem (Alfabética).
+[2025-12-11 16:15:56] [Thread: Safe-Thread-2  ] A tentar adquirir recursos na ordem: Servidor-01 -> Servidor-02
+[2025-12-11 16:15:56] [Thread: Safe-Thread-1  ] A tentar adquirir recursos na ordem: Servidor-01 -> Servidor-02
+[2025-12-11 16:15:56] [Thread: Safe-Thread-2  ] Conseguiu ambos os recursos! A processar...
+[2025-12-11 16:15:56] [Thread: Safe-Thread-2  ] Transação SEGURA concluída.
+[2025-12-11 16:15:56] [Thread: Safe-Thread-1  ] Conseguiu ambos os recursos! A processar...
+[2025-12-11 16:15:56] [Thread: Safe-Thread-1  ] Transação SEGURA concluída.
+[2025-12-11 16:15:56] [Thread: RESULTADO      ] >>> SUCESSO: Fase 1 completa! Nenhuma thread ficou bloqueada.
+[2025-12-11 16:15:56] [Thread: TESTE-FASE-2   ] >>> INICIANDO SIMULAÇÃO DE ATAQUE DoS (DEADLOCK) <<<
+[2025-12-11 16:15:56] [Thread: AVISO          ] Cenário: Threads a pedir recursos de forma cruzada (A->B e B->A).
+[2025-12-11 16:15:56] [Thread: AVISO          ] O sistema vai CONGELAR em 2 segundos...
+[2025-12-11 16:15:56] [Thread: DoS-Thread-2   ] Servidor-02: Bloqueado para processamento.
+[2025-12-11 16:15:56] [Thread: DoS-Thread-1   ] Servidor-01: Bloqueado para processamento.
+[2025-12-11 16:15:56] [Thread: DoS-Thread-2   ] Servidor-02: A tentar aceder ao Servidor-01...
+[2025-12-11 16:15:56] [Thread: DoS-Thread-1   ] Servidor-01: A tentar aceder ao Servidor-02...
+[2025-12-11 16:15:58] [Thread: VIGILANCIA     ] ------------------------------------------
+[2025-12-11 16:15:58] [Thread: VIGILANCIA     ] A verificar sinais vitais do sistema...
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA] ##################################################
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA] !!! ALERTA DE SEGURANÇA: DEADLOCK DETETADO !!!
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA] Ataque DoS (Denial of Service) em curso.
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA] ##################################################
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA] >> THREAD BLOQUEADA: DoS-Thread-1 (Estado: BLOCKED)
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA]    À espera do recurso bloqueado por: DoS-Thread-2
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA] >> THREAD BLOQUEADA: DoS-Thread-2 (Estado: BLOCKED)
+[2025-12-11 16:15:58] [Thread: MONITOR-SISTEMA]    À espera do recurso bloqueado por: DoS-Thread-1
+[2025-12-11 16:15:58] [Thread: VIGILANCIA     ] ------------------------------------------
+[2025-12-11 16:15:58] [Thread: AVISO-FINAL    ] O programa está tecnicamente morto (Deadlock).
+[2025-12-11 16:15:58] [Thread: AVISO-FINAL    ] Terá de terminar o processo manualmente (Stop/Kill).
+ [Thread: SISTEMA        ] Monitor inicializado. A iniciar rastreio eBPF (simulado)...
+ [Thread: TESTE-FASE-1   ] >>> INICIANDO TESTE DE VULNERABILIDADE (RACE CONDITION) <<<
+ [Thread: INFO           ] Cenário: 2 Hackers tentam depositar 100€ ao mesmo tempo sem proteção.
+ [Thread: INFO           ] Valor Esperado: 200.0 | Valor Inicial: 0.0
+ [Thread: Hacker-1       ] A tentar adicionar saldo (Inseguro): 100.0
+ [Thread: Hacker-2       ] A tentar adicionar saldo (Inseguro): 100.0
+ [Thread: Hacker-1       ] Saldo atualizado. Novo saldo: 100.0
+ [Thread: Hacker-2       ] Saldo atualizado. Novo saldo: 100.0
+ [Thread: RESULTADO      ] Saldo Final na Carteira: 100.0
+ [Thread: ALERTA         ] !!! CORRUPÇÃO DE DADOS DETETADA !!!
+ [Thread: ALERTA         ] Valor Desaparecido: 100.0€
+ [Thread: ALERTA         ] Isto representa uma falha grave de integridade.
+ [Thread: TESTE-FASE-2   ] >>> INICIANDO TESTE DA CORREÇÃO (SYNCHRONIZED) <<<
+ [Thread: INFO           ] As mesmas operações, mas agora protegidas por Monitor (Exclusão Mútua).
+ [Thread: Admin-1        ] Saldo atualizado (Seguro). Novo saldo: 100.0
+ [Thread: Admin-2        ] Saldo atualizado (Seguro). Novo saldo: 200.0
+ [Thread: RESULTADO      ] Saldo Final Seguro: 200.0
+ [Thread: SUCESSO        ] Integridade dos dados mantida. O sistema é seguro.
+ [Thread: STATS          ] ========================================
+ [Thread: STATS          ] RELATÓRIO FINAL DE ESTATÍSTICAS (eBPF)
+ [Thread: STATS          ] ========================================
+ [Thread: STATS          ] Thread [TESTE-FASE-1   ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [Hacker-1       ] -> 2 eventos registados.
+ [Thread: STATS          ] Thread [TESTE-FASE-2   ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [Hacker-2       ] -> 2 eventos registados.
+ [Thread: STATS          ] Thread [SUCESSO        ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [INFO           ] -> 3 eventos registados.
+ [Thread: STATS          ] Thread [RESULTADO      ] -> 2 eventos registados.
+ [Thread: STATS          ] Thread [Admin-1        ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [ALERTA         ] -> 3 eventos registados.
+ [Thread: STATS          ] Thread [Admin-2        ] -> 1 eventos registados.
+ [Thread: STATS          ] ========================================
+ [Thread: SISTEMA        ] Monitor encerrado.
+ [Thread: SISTEMA        ] Monitor inicializado. A iniciar rastreio eBPF (simulado)...
+ [Thread: TESTE-FASE-1   ] >>> INICIANDO TESTE DE VULNERABILIDADE (RACE CONDITION) <<<
+ [Thread: INFO           ] Cenário: 2 Hackers tentam depositar 100€ ao mesmo tempo sem proteção.
+ [Thread: INFO           ] Valor Esperado: 200.0 | Valor Inicial: 0.0
+ [Thread: Hacker-2       ] A tentar adicionar saldo (Inseguro): 100.0
+ [Thread: Hacker-1       ] A tentar adicionar saldo (Inseguro): 100.0
+ [Thread: Hacker-2       ] Saldo atualizado. Novo saldo: 100.0
+ [Thread: Hacker-1       ] Saldo atualizado. Novo saldo: 100.0
+ [Thread: RESULTADO      ] Saldo Final na Carteira: 100.0
+ [Thread: ALERTA         ] !!! CORRUPÇÃO DE DADOS DETETADA !!!
+ [Thread: ALERTA         ] Valor Desaparecido: 100.0€
+ [Thread: ALERTA         ] Isto representa uma falha grave de integridade.
+ [Thread: TESTE-FASE-2   ] >>> INICIANDO TESTE DA CORREÇÃO (SYNCHRONIZED) <<<
+ [Thread: INFO           ] As mesmas operações, mas agora protegidas por Monitor (Exclusão Mútua).
+ [Thread: Admin-1        ] Saldo atualizado (Seguro). Novo saldo: 100.0
+ [Thread: Admin-2        ] Saldo atualizado (Seguro). Novo saldo: 200.0
+ [Thread: RESULTADO      ] Saldo Final Seguro: 200.0
+ [Thread: SUCESSO        ] Integridade dos dados mantida. O sistema é seguro.
+ [Thread: STATS          ] ========================================
+ [Thread: STATS          ] RELATÓRIO FINAL DE ESTATÍSTICAS (eBPF)
+ [Thread: STATS          ] ========================================
+ [Thread: STATS          ] Thread [TESTE-FASE-1   ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [Hacker-1       ] -> 2 eventos registados.
+ [Thread: STATS          ] Thread [TESTE-FASE-2   ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [Hacker-2       ] -> 2 eventos registados.
+ [Thread: STATS          ] Thread [SUCESSO        ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [INFO           ] -> 3 eventos registados.
+ [Thread: STATS          ] Thread [RESULTADO      ] -> 2 eventos registados.
+ [Thread: STATS          ] Thread [Admin-1        ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [ALERTA         ] -> 3 eventos registados.
+ [Thread: STATS          ] Thread [Admin-2        ] -> 1 eventos registados.
+ [Thread: STATS          ] ========================================
+ [Thread: SISTEMA        ] Monitor encerrado.
+ [Thread: SISTEMA        ] Monitor inicializado. A iniciar rastreio eBPF (simulado)...
+ [Thread: TESTE-FASE-1   ] >>> INICIANDO TESTE DE CORREÇÃO (PREVENÇÃO) <<<
+ [Thread: INFO           ] Estratégia: Ordenação de Recursos.
+ [Thread: INFO           ] As threads vão adquirir recursos sempre na mesma ordem (Alfabética).
+ [Thread: Safe-Thread-2  ] A tentar adquirir recursos na ordem: Servidor-01 -> Servidor-02
+ [Thread: Safe-Thread-1  ] A tentar adquirir recursos na ordem: Servidor-01 -> Servidor-02
+ [Thread: Safe-Thread-2  ] Conseguiu ambos os recursos! A processar...
+ [Thread: Safe-Thread-2  ] Transação SEGURA concluída.
+ [Thread: Safe-Thread-1  ] Conseguiu ambos os recursos! A processar...
+ [Thread: Safe-Thread-1  ] Transação SEGURA concluída.
+ [Thread: RESULTADO      ] >>> SUCESSO: Fase 1 completa! Nenhuma thread ficou bloqueada.
+ [Thread: TESTE-FASE-2   ] >>> INICIANDO SIMULAÇÃO DE ATAQUE DoS (DEADLOCK) <<<
+ [Thread: AVISO          ] Cenário: Threads a pedir recursos de forma cruzada (A->B e B->A).
+ [Thread: AVISO          ] O sistema vai CONGELAR em 2 segundos...
+ [Thread: DoS-Thread-2   ] Servidor-02: Bloqueado para processamento.
+ [Thread: DoS-Thread-1   ] Servidor-01: Bloqueado para processamento.
+ [Thread: DoS-Thread-2   ] Servidor-02: A tentar aceder ao Servidor-01...
+ [Thread: DoS-Thread-1   ] Servidor-01: A tentar aceder ao Servidor-02...
+ [Thread: VIGILANCIA     ] ------------------------------------------
+ [Thread: VIGILANCIA     ] A verificar sinais vitais do sistema...
+ [Thread: MONITOR-SISTEMA] ##################################################
+ [Thread: MONITOR-SISTEMA] !!! ALERTA DE SEGURANÇA: DEADLOCK DETETADO !!!
+ [Thread: MONITOR-SISTEMA] Ataque DoS (Denial of Service) em curso.
+ [Thread: MONITOR-SISTEMA] ##################################################
+ [Thread: MONITOR-SISTEMA] >> THREAD BLOQUEADA: DoS-Thread-1 (Estado: BLOCKED)
+ [Thread: MONITOR-SISTEMA]    À espera do recurso bloqueado por: DoS-Thread-2
+ [Thread: MONITOR-SISTEMA] >> THREAD BLOQUEADA: DoS-Thread-2 (Estado: BLOCKED)
+ [Thread: MONITOR-SISTEMA]    À espera do recurso bloqueado por: DoS-Thread-1
+ [Thread: VIGILANCIA     ] ------------------------------------------
+ [Thread: AVISO-FINAL    ] O programa está tecnicamente morto (Deadlock).
+ [Thread: AVISO-FINAL    ] Terá de terminar o processo manualmente (Stop/Kill).
+ [Thread: SISTEMA        ] Monitor inicializado. A iniciar rastreio eBPF (simulado)...
+ [Thread: TESTE-FASE-1   ] >>> SIMULAÇÃO DE STARVATION (Modo Injusto/Unfair) <<<
+ [Thread: INFO           ] Cenário: Threads VIP (Alta Prioridade) vs Auditoria (Baixa Prioridade).
+ [Thread: INFO           ] A Auditoria tem 3 segundos para conseguir entrar. A valer...
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: AUDITORIA      ] A pedir acesso ao sistema...
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: AUDITORIA      ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: AUDITORIA      ] <<< Saiu do ficheiro.
+ [Thread: AUDITORIA      ] >>> SUCESSO: Acesso conseguido! <<<
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: RESULTADO      ] >>> SUCESSO: O sistema garantiu o acesso à Auditoria.
+ [Thread: TESTE-FASE-2   ] >>> TESTE DA CORREÇÃO (Modo Justo/Fairness) <<<
+ [Thread: INFO           ] A ativar fila FIFO. A prioridade da thread deixa de importar tanto.
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: AUDITORIA      ] A pedir acesso ao sistema...
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: AUDITORIA      ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: AUDITORIA      ] <<< Saiu do ficheiro.
+ [Thread: AUDITORIA      ] >>> SUCESSO: Acesso conseguido! <<<
+ [Thread: VIP-1          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-1          ] <<< Saiu do ficheiro.
+ [Thread: VIP-2          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-2          ] <<< Saiu do ficheiro.
+ [Thread: VIP-3          ] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+ [Thread: VIP-3          ] <<< Saiu do ficheiro.
+ [Thread: RESULTADO      ] >>> SUCESSO: O sistema garantiu o acesso à Auditoria.
+ [Thread: STATS          ] ========================================
+ [Thread: STATS          ] RELATÓRIO FINAL DE ESTATÍSTICAS (eBPF)
+ [Thread: STATS          ] ========================================
+ [Thread: STATS          ] Thread [TESTE-FASE-1   ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [AUDITORIA      ] -> 8 eventos registados.
+ [Thread: STATS          ] Thread [TESTE-FASE-2   ] -> 1 eventos registados.
+ [Thread: STATS          ] Thread [INFO           ] -> 3 eventos registados.
+ [Thread: STATS          ] Thread [VIP-2          ] -> 20 eventos registados.
+ [Thread: STATS          ] Thread [RESULTADO      ] -> 2 eventos registados.
+ [Thread: STATS          ] Thread [VIP-3          ] -> 20 eventos registados.
+ [Thread: STATS          ] Thread [VIP-1          ] -> 20 eventos registados.
+ [Thread: STATS          ] ========================================
+ [Thread: SISTEMA        ] Monitor encerrado.

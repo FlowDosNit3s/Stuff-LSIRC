@@ -1,0 +1,139 @@
+================================================================================
+GUIÃO DE ESTUDO E PREPARAÇÃO PARA DEFESA - SISTEMAS OPERATIVOS (GRUPO 19)
+TEMA: Simulador de Concorrência com Monitorização (Estilo eBPF)
+================================================================================
+
+ÍNDICE:
+1. EXPLICAÇÃO SIMPLIFICADA (ANALOGIA DO BANCO)
+2. DISCURSO FORMAL PARA A DEFESA (O PITCH)
+3. APROFUNDAMENTO TÉCNICO (DIFERENCIAÇÃO)
+4. PERGUNTAS GERAIS DE CONCORRÊNCIA
+5. PERGUNTAS ESPECÍFICAS DO ENUNCIADO E RELATÓRIO (CRÍTICO!)
+6. CHECKLIST FINAL
+
+================================================================================
+1. EXPLICAÇÃO SIMPLIFICADA (ANALOGIA DO BANCO)
+================================================================================
+Para teres a lógica na ponta da língua sem decorar código:
+
+A. O SEGURANÇA (SecurityMonitor.java)
+- O que é: Uma câmara de vigilância central.
+- Função: Só existe um segurança para o banco todo (Singleton). Ele tem um caderno (Logs) onde aponta tudo.
+- Ferramentas: Tem "binóculos" (ThreadMXBean) para ver bloqueios nos corredores e um cronómetro para ver se alguém está na fila há demasiado tempo.
+
+B. A CARTEIRA PARTILHADA (Race Condition)
+- Problema: Dois hackers tentam pôr 100€ na mesma carteira ao mesmo tempo. Ambos leem o saldo (0€) antes do outro escrever. Resultado: 100€ em vez de 200€. O dinheiro desapareceu.
+- Solução: "Synchronized". É uma fechadura na porta. Só entra um hacker de cada vez na sala.
+
+C. OS SERVIDORES TEIMOSOS (Deadlock)
+- Problema: O Servidor A tem o papel X e quer o Y. O Servidor B tem o papel Y e quer o X. Ninguém cede. Ficam parados para sempre.
+- Solução: "Resource Ordering" (Ordem Alfabética). Criámos uma regra: toda a gente pede os papéis por ordem alfabética. Assim é impossível haver bloqueio circular.
+
+D. A FILA DO BALCÃO (Starvation)
+- Problema: Clientes VIP (alta prioridade) passam sempre à frente. O Auditor (baixa prioridade) nunca é atendido.
+- Solução: "Fairness" (Justiça). Usámos uma máquina de senhas (ReentrantLock com fair=true). Não interessa se és VIP, respeitas a ordem de chegada.
+
+================================================================================
+2. DISCURSO FORMAL PARA A DEFESA (O QUE DIZER)
+================================================================================
+(Usa este texto para abrir a apresentação ou responder a "Expliquem o trabalho")
+
+INTRODUÇÃO:
+"O nosso projeto consiste num simulador de ambientes concorrentes em Java. O objetivo foi demonstrar vulnerabilidades críticas de sistemas operativos — Race Conditions, Deadlocks e Starvation — e a sua mitigação.
+Para tal, desenvolvemos o 'SecurityMonitor', um núcleo de observabilidade inspirado na tecnologia eBPF, que interceta eventos e deteta anomalias em tempo real."
+
+CENÁRIO 1: RACE CONDITIONS (INTEGRIDADE)
+"Na 'CarteiraDigital', simulámos uma Race Condition onde múltiplas threads efetuavam leituras e escritas sem atomicidade, causando perda de dados (corrupção de memória).
+Solução: Aplicámos a primitiva 'synchronized', garantindo exclusão mútua na secção crítica."
+
+CENÁRIO 2: DEADLOCKS (DISPONIBILIDADE)
+"No 'ServidorBaseDeDados', replicámos um Deadlock clássico com aquisição cruzada de recursos, o que num sistema real causaria um ataque de Negação de Serviço (DoS).
+Deteção: Usámos a API 'ThreadMXBean' da JVM para detetar ciclos de dependência.
+Solução: Implementámos 'Resource Ordering' (Ordenação de Recursos). Ao forçar a aquisição de locks por ordem alfabética, eliminamos matematicamente a possibilidade de ciclos."
+
+CENÁRIO 3: STARVATION (AUDITORIA)
+"No 'SistemaFicheiros', threads de alta prioridade monopolizavam o acesso, impedindo a execução da thread de Auditoria. Isso simula um atacante a tentar esconder rastos.
+Solução: Usámos 'ReentrantLock' com a política de Fairness (Justiça) ativa, forçando uma fila FIFO."
+
+================================================================================
+3. APROFUNDAMENTO TÉCNICO (DIFERENCIAÇÃO)
+================================================================================
+(Conceitos para responder a perguntas difíceis e garantir nota máxima)
+
+A. MONITOR (JAVA) VS. eBPF (LINUX)
+- Java: Corre em User Space. Monitorização voluntária (o código chama o monitor).
+- eBPF: Corre em Kernel Space (Sandbox). Monitorização por Hooks (ganchos) nas syscalls. É invisível e obrigatório.
+
+B. CONDIÇÕES DE COFFMAN (DEADLOCKS)
+Para haver Deadlock, 4 condições têm de ser verdade simultaneamente:
+1. Exclusão Mútua.
+2. Hold and Wait.
+3. No Preemption.
+4. Circular Wait (Espera Circular).
+-> A vossa solução quebrou a condição 4 (Circular Wait) através da Ordenação.
+
+C. RACE CONDITION E A CPU
+O problema ocorre porque `saldo = saldo + 10` não é atómico. São 3 instruções: READ -> MODIFY -> WRITE.
+Se o SO fizer um Context Switch a meio, os dados corrompem-se.
+
+================================================================================
+4. PERGUNTAS GERAIS DE CONCORRÊNCIA
+================================================================================
+
+P: "Porque usaram ConcurrentHashMap no Monitor?"
+R: "Porque o Monitor é acedido por várias threads ao mesmo tempo. Um HashMap normal não é thread-safe e corromperia os logs."
+
+P: "A Race Condition acontece num CPU de um só núcleo (Single Core)?"
+R: "Sim! O Sistema Operativo faz 'Time Slicing'. Pode interromper uma thread a meio de uma instrução para dar vez a outra."
+
+P: "Qual a diferença entre Processo e Thread neste trabalho?"
+R: "Usámos Threads. Partilham a mesma memória (Heap). Processos teriam memórias separadas e precisariam de IPC (sockets/pipes)."
+
+P: "Porque usaram AtomicBoolean no teste de Starvation?"
+R: "Para garantir visibilidade imediata. Um boolean normal pode ficar em cache no CPU e a thread não ver a alteração."
+
+================================================================================
+5. PERGUNTAS ESPECÍFICAS DO ENUNCIADO E RELATÓRIO (MUITO IMPORTANTE)
+================================================================================
+(Estas perguntas validam se cumpriram os requisitos do enunciado e se sabem o que escreveram no relatório)
+
+A. BASEADAS NO ENUNCIADO (Requisitos do Professor)
+
+P1: "O enunciado pede uma 'perspetiva de cibersegurança'. Como é que uma Race Condition leva a aumento de privilégios?"
+R: "Simulámos o conceito de TOCTOU (Time-of-Check to Time-of-Use). Num sistema real, se houver um intervalo entre verificar uma permissão e usar o ficheiro, um atacante pode trocar o ficheiro nesse milissegundo. No nosso código, mostrámos como o valor muda inesperadamente entre a leitura e a escrita."
+
+P2: "O enunciado menciona o eBPF. O que é que o eBPF tem que os módulos de kernel tradicionais não têm?"
+R: "Segurança e estabilidade. O eBPF corre numa 'sandbox' dentro do kernel e passa por um verificador antes de executar. Ao contrário dos módulos tradicionais, que podem crashar o SO se tiverem bugs, o eBPF garante que o sistema não para."
+
+P3: "Pedimos para detetar Starvation. Qual foi o critério numérico?"
+R: "Definimos um timeout de segurança. Se uma thread esperar mais de 1000ms (1 segundo) pelo lock, o Monitor gera um alerta de risco."
+
+B. BASEADAS NO RELATÓRIO (O vosso texto)
+
+P4: "Na secção 3.2.1 do relatório, falam em 'Introspeção'. O que significa?"
+R: "Significa olhar para dentro da memória da JVM. O Monitor usa a API `ThreadMXBean` para ver o estado real dos objetos e locks, permitindo detetar ciclos de dependência com certeza absoluta."
+
+P5: "No relatório (pág. 13), dizem que a ordem alfabética resolve o Deadlock. Porquê?"
+R: "Porque o Deadlock exige um ciclo (A espera por B, B espera por A). Se obrigarmos todos a pedir A e depois B, nunca ninguém vai pedir A já tendo B na mão. Quebramos a condição de Espera Circular."
+
+P6: "Na conclusão (pág. 21), dizem que no Linux real usariam 'kprobes' e 'BPF Maps'. Expliquem."
+R: "No Java usamos métodos e HashMaps. No Linux:
+   - 'kprobes' são os ganchos nas funções do sistema (como `mutex_lock`) para disparar a monitorização.
+   - 'BPF Maps' são as estruturas de dados no Kernel para guardar as estatísticas e partilhar com o User Space de forma eficiente."
+
+P7: "Na figura 6 do relatório, usam um bloco 'try-finally'. Para quê?"
+R: "Para garantir que o `unlock` acontece SEMPRE. Mesmo que haja um erro no código, a chave é libertada no `finally`, impedindo que o sistema bloqueie para sempre."
+
+P8: "Falam em 'Defesa em Profundidade' (pág. 11). O que é que o monitor acrescenta?"
+R: "Age como um IDS (Sistema de Deteção de Intrusões). A sincronização previne o erro, mas o Monitor avisa-nos que o ataque está a acontecer (ex: alertas de Starvation indicam tentativa de cegar logs)."
+
+================================================================================
+6. CHECKLIST FINAL
+================================================================================
+[ ] Estrutura de Pastas correta (src/monitor, src/resources, src/scenarios).
+[ ] Ficheiro ZIP com nome: so_grupo19.zip
+[ ] Relatório PDF incluído.
+[ ] Código compila e corre sem erros.
+[ ] Preparados para explicar o detetarDeadlocks() e o synchronized.
+
+BOA SORTE, GRUPO 19!

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WildfireStats xmlns="http://www.wildfirestats.pt/schema">
+  <Ocorrencia>
+    <codigo_incendio>1942461</codigo_incendio>
+    <data_inicio>2024-01-05</data_inicio>
+    <duracao_horas>1.25</duracao_horas>
+    <estado>Concluído</estado>
+    <id_localizacao>88719</id_localizacao>
+    <id_causa>357</id_causa>
+    <areas>
+      <total>1.7</total>
+      <povoamento>0.5</povoamento>
+      <mato>1.2</mato>
+      <agricola>0.0</agricola>
+    </areas>
+  </Ocorrencia>
+</WildfireStats>

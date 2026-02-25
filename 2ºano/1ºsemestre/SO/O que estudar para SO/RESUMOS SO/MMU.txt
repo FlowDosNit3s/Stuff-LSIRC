@@ -1,0 +1,36 @@
+Sistema de memória 128KB = 1KB X 128 (=) 2^10 X 2^7 (=) 2^17
+
+Paging com páginas de 16KB = 1KB X 16 (=) 2^10 X 2^4 (=) 2^14
+
+Passa-mos o endereço virtual para binário:
+
+25820 em binário = 110 0100 1101 1100
+
+mas como temos de equiparar o numero de elementos do código binário com o do sistema de memoria, temos de adicionar 0 a esquerda de acordo com os elementos em falta. A memoria é 2^17 e o nosso numero binário tem 15 elementos, logo 17-15 = 2. Temos de adicionar dois 0 a esquerda no nosso numero em binário.
+
+Fica 0 0110 0100 1101 1100.
+
+Os bits mais importantes são os que estão a esquerda. E a quantidade que selecionamos é definida com a potencia do sistema da memória menos a potencia do paging. 17-14 = 3.
+
+Selecionamos então os 3 bits mais a esquerda do nosso numero binário, ficando assim com 001.
+
+Após isso, passamos o numero binário 001 para numero decimal, ficando com o resultado de 1 em decimal. Agora vamos a tabela do stor e selecionamos a posição 1 da tabela.
+
+Posição 0 -> 110	1
+Posição 1 -> 101	1   Posição selecionada
+Posição 2 -> 001	0
+Posição 3 -> 001	1
+Posição 4 -> 000	0
+Posição 5 -> 110	1
+
+Pegamos no nosso numero binário e substituímos os 3 bits mais á esquerda pelos bits da posição selecionada.
+
+Fica 1 0110 0100 1101 1100.
+
+Passamos este numero binário para decimal.
+
+Fica 91356.
+
+Entao endereço físico do endereço virtual 25820 é o endereço físico 91356.
+
+

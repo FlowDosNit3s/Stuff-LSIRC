@@ -1,0 +1,2224 @@
+[{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e22"
+  },
+  "ano": 2024,
+  "concelho": "ABRANTES",
+  "numero_bombeiros": 77
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e23"
+  },
+  "ano": 2024,
+  "concelho": "ÁGUEDA",
+  "numero_bombeiros": 103
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e24"
+  },
+  "ano": 2024,
+  "concelho": "AGUIAR DA BEIRA",
+  "numero_bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e25"
+  },
+  "ano": 2024,
+  "concelho": "ALANDROAL",
+  "numero_bombeiros": 31
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e26"
+  },
+  "ano": 2024,
+  "concelho": "ALBERGARIA-A-VELHA",
+  "numero_bombeiros": 79
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e27"
+  },
+  "ano": 2024,
+  "concelho": "ALBUFEIRA",
+  "numero_bombeiros": 107
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e28"
+  },
+  "ano": 2024,
+  "concelho": "ALCÁCER DO SAL",
+  "numero_bombeiros": 59
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e29"
+  },
+  "ano": 2024,
+  "concelho": "ALCANENA",
+  "numero_bombeiros": 93
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e2a"
+  },
+  "ano": 2024,
+  "concelho": "ALCOBAÇA",
+  "numero_bombeiros": 222
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e2b"
+  },
+  "ano": 2024,
+  "concelho": "ALCOCHETE",
+  "numero_bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e2c"
+  },
+  "ano": 2024,
+  "concelho": "ALCOUTIM",
+  "numero_bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e2d"
+  },
+  "ano": 2024,
+  "concelho": "ALENQUER",
+  "numero_bombeiros": 133
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e2e"
+  },
+  "ano": 2024,
+  "concelho": "ALFÂNDEGA DA FÉ",
+  "numero_bombeiros": 67
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e2f"
+  },
+  "ano": 2024,
+  "concelho": "ALIJÓ",
+  "numero_bombeiros": 198
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e30"
+  },
+  "ano": 2024,
+  "concelho": "ALJEZUR",
+  "numero_bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e31"
+  },
+  "ano": 2024,
+  "concelho": "ALJUSTREL",
+  "numero_bombeiros": 50
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e32"
+  },
+  "ano": 2024,
+  "concelho": "ALMADA",
+  "numero_bombeiros": 257
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e33"
+  },
+  "ano": 2024,
+  "concelho": "ALMEIDA",
+  "numero_bombeiros": 50
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e34"
+  },
+  "ano": 2024,
+  "concelho": "ALMEIRIM",
+  "numero_bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e35"
+  },
+  "ano": 2024,
+  "concelho": "ALMODÔVAR",
+  "numero_bombeiros": 52
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e36"
+  },
+  "ano": 2024,
+  "concelho": "ALPIARÇA",
+  "numero_bombeiros": 41
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e37"
+  },
+  "ano": 2024,
+  "concelho": "ALTER DO CHÃO",
+  "numero_bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e38"
+  },
+  "ano": 2024,
+  "concelho": "ALVAIÁZERE",
+  "numero_bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e39"
+  },
+  "ano": 2024,
+  "concelho": "ALVITO",
+  "numero_bombeiros": 33
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e3a"
+  },
+  "ano": 2024,
+  "concelho": "AMADORA",
+  "numero_bombeiros": 90
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e3b"
+  },
+  "ano": 2024,
+  "concelho": "AMARANTE",
+  "numero_bombeiros": 162
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e3c"
+  },
+  "ano": 2024,
+  "concelho": "AMARES",
+  "numero_bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e3d"
+  },
+  "ano": 2024,
+  "concelho": "ANADIA",
+  "numero_bombeiros": 52
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e3e"
+  },
+  "ano": 2024,
+  "concelho": "ANSIÃO",
+  "numero_bombeiros": 81
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e3f"
+  },
+  "ano": 2024,
+  "concelho": "ARCOS DE VALDEVEZ",
+  "numero_bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e40"
+  },
+  "ano": 2024,
+  "concelho": "ARGANIL",
+  "numero_bombeiros": 112
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e41"
+  },
+  "ano": 2024,
+  "concelho": "ARMAMAR",
+  "numero_bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e42"
+  },
+  "ano": 2024,
+  "concelho": "AROUCA",
+  "numero_bombeiros": 80
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e43"
+  },
+  "ano": 2024,
+  "concelho": "ARRAIOLOS",
+  "numero_bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e44"
+  },
+  "ano": 2024,
+  "concelho": "ARRONCHES",
+  "numero_bombeiros": 28
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e45"
+  },
+  "ano": 2024,
+  "concelho": "ARRUDA DOS VINHOS",
+  "numero_bombeiros": 39
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e46"
+  },
+  "ano": 2024,
+  "concelho": "AVEIRO",
+  "numero_bombeiros": 180
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e47"
+  },
+  "ano": 2024,
+  "concelho": "AVIS",
+  "numero_bombeiros": 41
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e48"
+  },
+  "ano": 2024,
+  "concelho": "AZAMBUJA",
+  "numero_bombeiros": 123
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e49"
+  },
+  "ano": 2024,
+  "concelho": "BAIÃO",
+  "numero_bombeiros": 154
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e4a"
+  },
+  "ano": 2024,
+  "concelho": "BARCELOS",
+  "numero_bombeiros": 285
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e4b"
+  },
+  "ano": 2024,
+  "concelho": "BARRANCOS",
+  "numero_bombeiros": 33
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e4c"
+  },
+  "ano": 2024,
+  "concelho": "BARREIRO",
+  "numero_bombeiros": 164
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e4d"
+  },
+  "ano": 2024,
+  "concelho": "BATALHA",
+  "numero_bombeiros": 111
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e4e"
+  },
+  "ano": 2024,
+  "concelho": "BEJA",
+  "numero_bombeiros": 84
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e4f"
+  },
+  "ano": 2024,
+  "concelho": "BELMONTE",
+  "numero_bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e50"
+  },
+  "ano": 2024,
+  "concelho": "BENAVENTE",
+  "numero_bombeiros": 106
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e51"
+  },
+  "ano": 2024,
+  "concelho": "BOMBARRAL",
+  "numero_bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e52"
+  },
+  "ano": 2024,
+  "concelho": "BORBA",
+  "numero_bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e53"
+  },
+  "ano": 2024,
+  "concelho": "BOTICAS",
+  "numero_bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e54"
+  },
+  "ano": 2024,
+  "concelho": "BRAGA",
+  "numero_bombeiros": 175
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e55"
+  },
+  "ano": 2024,
+  "concelho": "BRAGANÇA",
+  "numero_bombeiros": 144
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e56"
+  },
+  "ano": 2024,
+  "concelho": "CABECEIRAS DE BASTO",
+  "numero_bombeiros": 67
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e57"
+  },
+  "ano": 2024,
+  "concelho": "CADAVAL",
+  "numero_bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e58"
+  },
+  "ano": 2024,
+  "concelho": "CALDAS DA RAINHA",
+  "numero_bombeiros": 114
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e59"
+  },
+  "ano": 2024,
+  "concelho": "CAMINHA",
+  "numero_bombeiros": 86
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e5a"
+  },
+  "ano": 2024,
+  "concelho": "CAMPO MAIOR",
+  "numero_bombeiros": 25
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e5b"
+  },
+  "ano": 2024,
+  "concelho": "CANTANHEDE",
+  "numero_bombeiros": 94
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e5c"
+  },
+  "ano": 2024,
+  "concelho": "CARRAZEDA DE ANSIÃES",
+  "numero_bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e5d"
+  },
+  "ano": 2024,
+  "concelho": "CARREGAL DO SAL",
+  "numero_bombeiros": 130
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e5e"
+  },
+  "ano": 2024,
+  "concelho": "CARTAXO",
+  "numero_bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e5f"
+  },
+  "ano": 2024,
+  "concelho": "CASCAIS",
+  "numero_bombeiros": 381
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e60"
+  },
+  "ano": 2024,
+  "concelho": "CASTANHEIRA DE PÊRA",
+  "numero_bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e61"
+  },
+  "ano": 2024,
+  "concelho": "CASTELO BRANCO",
+  "numero_bombeiros": 125
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e62"
+  },
+  "ano": 2024,
+  "concelho": "CASTELO DE PAIVA",
+  "numero_bombeiros": 124
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e63"
+  },
+  "ano": 2024,
+  "concelho": "CASTELO DE VIDE",
+  "numero_bombeiros": 39
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e64"
+  },
+  "ano": 2024,
+  "concelho": "CASTRO DAIRE",
+  "numero_bombeiros": 174
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e65"
+  },
+  "ano": 2024,
+  "concelho": "CASTRO MARIM",
+  "numero_bombeiros": 0
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e66"
+  },
+  "ano": 2024,
+  "concelho": "CASTRO VERDE",
+  "numero_bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e67"
+  },
+  "ano": 2024,
+  "concelho": "CELORICO DA BEIRA",
+  "numero_bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e68"
+  },
+  "ano": 2024,
+  "concelho": "CELORICO DE BASTO",
+  "numero_bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e69"
+  },
+  "ano": 2024,
+  "concelho": "CHAMUSCA",
+  "numero_bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e6a"
+  },
+  "ano": 2024,
+  "concelho": "CHAVES",
+  "numero_bombeiros": 173
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e6b"
+  },
+  "ano": 2024,
+  "concelho": "CINFÃES",
+  "numero_bombeiros": 147
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e6c"
+  },
+  "ano": 2024,
+  "concelho": "COIMBRA",
+  "numero_bombeiros": 273
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e6d"
+  },
+  "ano": 2024,
+  "concelho": "CONDEIXA-A-NOVA",
+  "numero_bombeiros": 85
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e6e"
+  },
+  "ano": 2024,
+  "concelho": "CONSTÂNCIA",
+  "numero_bombeiros": 67
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e6f"
+  },
+  "ano": 2024,
+  "concelho": "CORUCHE",
+  "numero_bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e70"
+  },
+  "ano": 2024,
+  "concelho": "COVILHÃ",
+  "numero_bombeiros": 97
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e71"
+  },
+  "ano": 2024,
+  "concelho": "CRATO",
+  "numero_bombeiros": 23
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e72"
+  },
+  "ano": 2024,
+  "concelho": "CUBA",
+  "numero_bombeiros": 29
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e73"
+  },
+  "ano": 2024,
+  "concelho": "ELVAS",
+  "numero_bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e74"
+  },
+  "ano": 2024,
+  "concelho": "ENTRONCAMENTO",
+  "numero_bombeiros": 44
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e75"
+  },
+  "ano": 2024,
+  "concelho": "ESPINHO",
+  "numero_bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e76"
+  },
+  "ano": 2024,
+  "concelho": "ESPOSENDE",
+  "numero_bombeiros": 114
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e77"
+  },
+  "ano": 2024,
+  "concelho": "ESTARREJA",
+  "numero_bombeiros": 79
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e78"
+  },
+  "ano": 2024,
+  "concelho": "ESTREMOZ",
+  "numero_bombeiros": 51
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e79"
+  },
+  "ano": 2024,
+  "concelho": "ÉVORA",
+  "numero_bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e7a"
+  },
+  "ano": 2024,
+  "concelho": "FAFE",
+  "numero_bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e7b"
+  },
+  "ano": 2024,
+  "concelho": "FARO",
+  "numero_bombeiros": 113
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e7c"
+  },
+  "ano": 2024,
+  "concelho": "FELGUEIRAS",
+  "numero_bombeiros": 181
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e7d"
+  },
+  "ano": 2024,
+  "concelho": "FERREIRA DO ALENTEJO",
+  "numero_bombeiros": 62
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e7e"
+  },
+  "ano": 2024,
+  "concelho": "FERREIRA DO ZÊZERE",
+  "numero_bombeiros": 47
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e7f"
+  },
+  "ano": 2024,
+  "concelho": "FIGUEIRA DA FOZ",
+  "numero_bombeiros": 107
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e80"
+  },
+  "ano": 2024,
+  "concelho": "FIGUEIRA DE CASTELO RODRIGO",
+  "numero_bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e81"
+  },
+  "ano": 2024,
+  "concelho": "FIGUEIRÓ DOS VINHOS",
+  "numero_bombeiros": 76
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e82"
+  },
+  "ano": 2024,
+  "concelho": "FORNOS DE ALGODRES",
+  "numero_bombeiros": 60
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e83"
+  },
+  "ano": 2024,
+  "concelho": "FREIXO DE ESPADA À CINTA",
+  "numero_bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e84"
+  },
+  "ano": 2024,
+  "concelho": "FRONTEIRA",
+  "numero_bombeiros": 34
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e85"
+  },
+  "ano": 2024,
+  "concelho": "FUNDÃO",
+  "numero_bombeiros": 144
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e86"
+  },
+  "ano": 2024,
+  "concelho": "GAVIÃO",
+  "numero_bombeiros": 63
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e87"
+  },
+  "ano": 2024,
+  "concelho": "GÓIS",
+  "numero_bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e88"
+  },
+  "ano": 2024,
+  "concelho": "GOLEGÃ",
+  "numero_bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e89"
+  },
+  "ano": 2024,
+  "concelho": "GONDOMAR",
+  "numero_bombeiros": 322
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e8a"
+  },
+  "ano": 2024,
+  "concelho": "GOUVEIA",
+  "numero_bombeiros": 157
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e8b"
+  },
+  "ano": 2024,
+  "concelho": "GRÂNDOLA",
+  "numero_bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e8c"
+  },
+  "ano": 2024,
+  "concelho": "GUARDA",
+  "numero_bombeiros": 180
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e8d"
+  },
+  "ano": 2024,
+  "concelho": "GUIMARÃES",
+  "numero_bombeiros": 203
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e8e"
+  },
+  "ano": 2024,
+  "concelho": "IDANHA-A-NOVA",
+  "numero_bombeiros": 97
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e8f"
+  },
+  "ano": 2024,
+  "concelho": "ÍLHAVO",
+  "numero_bombeiros": 85
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e90"
+  },
+  "ano": 2024,
+  "concelho": "LAGOA",
+  "numero_bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e91"
+  },
+  "ano": 2024,
+  "concelho": "LAGOS",
+  "numero_bombeiros": 105
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e92"
+  },
+  "ano": 2024,
+  "concelho": "LAMEGO",
+  "numero_bombeiros": 90
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e93"
+  },
+  "ano": 2024,
+  "concelho": "LEIRIA",
+  "numero_bombeiros": 332
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e94"
+  },
+  "ano": 2024,
+  "concelho": "LISBOA",
+  "numero_bombeiros": 1152
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e95"
+  },
+  "ano": 2024,
+  "concelho": "LOULÉ",
+  "numero_bombeiros": 129
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e96"
+  },
+  "ano": 2024,
+  "concelho": "LOURES",
+  "numero_bombeiros": 483
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e97"
+  },
+  "ano": 2024,
+  "concelho": "LOURINHÃ",
+  "numero_bombeiros": 66
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e98"
+  },
+  "ano": 2024,
+  "concelho": "LOUSÃ",
+  "numero_bombeiros": 137
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e99"
+  },
+  "ano": 2024,
+  "concelho": "LOUSADA",
+  "numero_bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e9a"
+  },
+  "ano": 2024,
+  "concelho": "MAÇÃO",
+  "numero_bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e9b"
+  },
+  "ano": 2024,
+  "concelho": "MACEDO DE CAVALEIROS",
+  "numero_bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e9c"
+  },
+  "ano": 2024,
+  "concelho": "MAFRA",
+  "numero_bombeiros": 216
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e9d"
+  },
+  "ano": 2024,
+  "concelho": "MAIA",
+  "numero_bombeiros": 162
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e9e"
+  },
+  "ano": 2024,
+  "concelho": "MANGUALDE",
+  "numero_bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4e9f"
+  },
+  "ano": 2024,
+  "concelho": "MANTEIGAS",
+  "numero_bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea0"
+  },
+  "ano": 2024,
+  "concelho": "MARCO DE CANAVESES",
+  "numero_bombeiros": 120
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea1"
+  },
+  "ano": 2024,
+  "concelho": "MARINHA GRANDE",
+  "numero_bombeiros": 111
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea2"
+  },
+  "ano": 2024,
+  "concelho": "MARVÃO",
+  "numero_bombeiros": 27
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea3"
+  },
+  "ano": 2024,
+  "concelho": "MATOSINHOS",
+  "numero_bombeiros": 243
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea4"
+  },
+  "ano": 2024,
+  "concelho": "MEALHADA",
+  "numero_bombeiros": 123
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea5"
+  },
+  "ano": 2024,
+  "concelho": "MÊDA",
+  "numero_bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea6"
+  },
+  "ano": 2024,
+  "concelho": "MELGAÇO",
+  "numero_bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea7"
+  },
+  "ano": 2024,
+  "concelho": "MÉRTOLA",
+  "numero_bombeiros": 41
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea8"
+  },
+  "ano": 2024,
+  "concelho": "MESÃO FRIO",
+  "numero_bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ea9"
+  },
+  "ano": 2024,
+  "concelho": "MIRA",
+  "numero_bombeiros": 66
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eaa"
+  },
+  "ano": 2024,
+  "concelho": "MIRANDA DO CORVO",
+  "numero_bombeiros": 100
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eab"
+  },
+  "ano": 2024,
+  "concelho": "MIRANDA DO DOURO",
+  "numero_bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eac"
+  },
+  "ano": 2024,
+  "concelho": "MIRANDELA",
+  "numero_bombeiros": 114
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ead"
+  },
+  "ano": 2024,
+  "concelho": "MOGADOURO",
+  "numero_bombeiros": 77
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eae"
+  },
+  "ano": 2024,
+  "concelho": "MOIMENTA DA BEIRA",
+  "numero_bombeiros": 82
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eaf"
+  },
+  "ano": 2024,
+  "concelho": "MOITA",
+  "numero_bombeiros": 57
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb0"
+  },
+  "ano": 2024,
+  "concelho": "MONÇÃO",
+  "numero_bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb1"
+  },
+  "ano": 2024,
+  "concelho": "MONCHIQUE",
+  "numero_bombeiros": 80
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb2"
+  },
+  "ano": 2024,
+  "concelho": "MONDIM DE BASTO",
+  "numero_bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb3"
+  },
+  "ano": 2024,
+  "concelho": "MONFORTE",
+  "numero_bombeiros": 33
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb4"
+  },
+  "ano": 2024,
+  "concelho": "MONTALEGRE",
+  "numero_bombeiros": 93
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb5"
+  },
+  "ano": 2024,
+  "concelho": "MONTEMOR-O-NOVO",
+  "numero_bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb6"
+  },
+  "ano": 2024,
+  "concelho": "MONTEMOR-O-VELHO",
+  "numero_bombeiros": 76
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb7"
+  },
+  "ano": 2024,
+  "concelho": "MONTIJO",
+  "numero_bombeiros": 128
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb8"
+  },
+  "ano": 2024,
+  "concelho": "MORA",
+  "numero_bombeiros": 47
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eb9"
+  },
+  "ano": 2024,
+  "concelho": "MORTÁGUA",
+  "numero_bombeiros": 65
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eba"
+  },
+  "ano": 2024,
+  "concelho": "MOURA",
+  "numero_bombeiros": 62
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ebb"
+  },
+  "ano": 2024,
+  "concelho": "MOURÃO",
+  "numero_bombeiros": 26
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ebc"
+  },
+  "ano": 2024,
+  "concelho": "MURÇA",
+  "numero_bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ebd"
+  },
+  "ano": 2024,
+  "concelho": "MURTOSA",
+  "numero_bombeiros": 61
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ebe"
+  },
+  "ano": 2024,
+  "concelho": "NAZARÉ",
+  "numero_bombeiros": 55
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ebf"
+  },
+  "ano": 2024,
+  "concelho": "NELAS",
+  "numero_bombeiros": 107
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec0"
+  },
+  "ano": 2024,
+  "concelho": "NISA",
+  "numero_bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec1"
+  },
+  "ano": 2024,
+  "concelho": "ÓBIDOS",
+  "numero_bombeiros": 100
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec2"
+  },
+  "ano": 2024,
+  "concelho": "ODEMIRA",
+  "numero_bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec3"
+  },
+  "ano": 2024,
+  "concelho": "ODIVELAS",
+  "numero_bombeiros": 213
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec4"
+  },
+  "ano": 2024,
+  "concelho": "OEIRAS",
+  "numero_bombeiros": 477
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec5"
+  },
+  "ano": 2024,
+  "concelho": "OLEIROS",
+  "numero_bombeiros": 112
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec6"
+  },
+  "ano": 2024,
+  "concelho": "OLHÃO",
+  "numero_bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec7"
+  },
+  "ano": 2024,
+  "concelho": "OLIVEIRA DE AZEMÉIS",
+  "numero_bombeiros": 132
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec8"
+  },
+  "ano": 2024,
+  "concelho": "OLIVEIRA DE FRADES",
+  "numero_bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ec9"
+  },
+  "ano": 2024,
+  "concelho": "OLIVEIRA DO BAIRRO",
+  "numero_bombeiros": 60
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eca"
+  },
+  "ano": 2024,
+  "concelho": "OLIVEIRA DO HOSPITAL",
+  "numero_bombeiros": 143
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ecb"
+  },
+  "ano": 2024,
+  "concelho": "OURÉM",
+  "numero_bombeiros": 321
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ecc"
+  },
+  "ano": 2024,
+  "concelho": "OURIQUE",
+  "numero_bombeiros": 59
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ecd"
+  },
+  "ano": 2024,
+  "concelho": "OVAR",
+  "numero_bombeiros": 166
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ece"
+  },
+  "ano": 2024,
+  "concelho": "PAÇOS DE FERREIRA",
+  "numero_bombeiros": 154
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ecf"
+  },
+  "ano": 2024,
+  "concelho": "PALMELA",
+  "numero_bombeiros": 225
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed0"
+  },
+  "ano": 2024,
+  "concelho": "PAMPILHOSA DA SERRA",
+  "numero_bombeiros": 65
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed1"
+  },
+  "ano": 2024,
+  "concelho": "PAREDES",
+  "numero_bombeiros": 393
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed2"
+  },
+  "ano": 2024,
+  "concelho": "PAREDES DE COURA",
+  "numero_bombeiros": 60
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed3"
+  },
+  "ano": 2024,
+  "concelho": "PEDRÓGÃO GRANDE",
+  "numero_bombeiros": 61
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed4"
+  },
+  "ano": 2024,
+  "concelho": "PENACOVA",
+  "numero_bombeiros": 104
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed5"
+  },
+  "ano": 2024,
+  "concelho": "PENAFIEL",
+  "numero_bombeiros": 231
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed6"
+  },
+  "ano": 2024,
+  "concelho": "PENALVA DO CASTELO",
+  "numero_bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed7"
+  },
+  "ano": 2024,
+  "concelho": "PENAMACOR",
+  "numero_bombeiros": 56
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed8"
+  },
+  "ano": 2024,
+  "concelho": "PENEDONO",
+  "numero_bombeiros": 38
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ed9"
+  },
+  "ano": 2024,
+  "concelho": "PENELA",
+  "numero_bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eda"
+  },
+  "ano": 2024,
+  "concelho": "PENICHE",
+  "numero_bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4edb"
+  },
+  "ano": 2024,
+  "concelho": "PESO DA RÉGUA",
+  "numero_bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4edc"
+  },
+  "ano": 2024,
+  "concelho": "PINHEL",
+  "numero_bombeiros": 57
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4edd"
+  },
+  "ano": 2024,
+  "concelho": "POMBAL",
+  "numero_bombeiros": 148
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ede"
+  },
+  "ano": 2024,
+  "concelho": "PONTE DA BARCA",
+  "numero_bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4edf"
+  },
+  "ano": 2024,
+  "concelho": "PONTE DE LIMA",
+  "numero_bombeiros": 121
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee0"
+  },
+  "ano": 2024,
+  "concelho": "PONTE DE SOR",
+  "numero_bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee1"
+  },
+  "ano": 2024,
+  "concelho": "PORTALEGRE",
+  "numero_bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee2"
+  },
+  "ano": 2024,
+  "concelho": "PORTEL",
+  "numero_bombeiros": 28
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee3"
+  },
+  "ano": 2024,
+  "concelho": "PORTIMÃO",
+  "numero_bombeiros": 126
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee4"
+  },
+  "ano": 2024,
+  "concelho": "PORTO",
+  "numero_bombeiros": 441
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee5"
+  },
+  "ano": 2024,
+  "concelho": "PORTO DE MÓS",
+  "numero_bombeiros": 174
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee6"
+  },
+  "ano": 2024,
+  "concelho": "PÓVOA DE LANHOSO",
+  "numero_bombeiros": 103
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee7"
+  },
+  "ano": 2024,
+  "concelho": "PÓVOA DE VARZIM",
+  "numero_bombeiros": 73
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee8"
+  },
+  "ano": 2024,
+  "concelho": "PROENÇA-A-NOVA",
+  "numero_bombeiros": 78
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ee9"
+  },
+  "ano": 2024,
+  "concelho": "REDONDO",
+  "numero_bombeiros": 27
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eea"
+  },
+  "ano": 2024,
+  "concelho": "REGUENGOS DE MONSARAZ",
+  "numero_bombeiros": 43
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eeb"
+  },
+  "ano": 2024,
+  "concelho": "RESENDE",
+  "numero_bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eec"
+  },
+  "ano": 2024,
+  "concelho": "RIBEIRA DE PENA",
+  "numero_bombeiros": 93
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eed"
+  },
+  "ano": 2024,
+  "concelho": "RIO MAIOR",
+  "numero_bombeiros": 51
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eee"
+  },
+  "ano": 2024,
+  "concelho": "SABROSA",
+  "numero_bombeiros": 97
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eef"
+  },
+  "ano": 2024,
+  "concelho": "SABUGAL",
+  "numero_bombeiros": 134
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef0"
+  },
+  "ano": 2024,
+  "concelho": "SALVATERRA DE MAGOS",
+  "numero_bombeiros": 58
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef1"
+  },
+  "ano": 2024,
+  "concelho": "SANTA COMBA DÃO",
+  "numero_bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef2"
+  },
+  "ano": 2024,
+  "concelho": "SANTA MARIA DA FEIRA",
+  "numero_bombeiros": 211
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef3"
+  },
+  "ano": 2024,
+  "concelho": "SANTA MARTA DE PENAGUIÃO",
+  "numero_bombeiros": 92
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef4"
+  },
+  "ano": 2024,
+  "concelho": "SANTARÉM",
+  "numero_bombeiros": 262
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef5"
+  },
+  "ano": 2024,
+  "concelho": "SANTIAGO DO CACÉM",
+  "numero_bombeiros": 124
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef6"
+  },
+  "ano": 2024,
+  "concelho": "SANTO TIRSO",
+  "numero_bombeiros": 229
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef7"
+  },
+  "ano": 2024,
+  "concelho": "SÃO BRÁS DE ALPORTEL",
+  "numero_bombeiros": 63
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef8"
+  },
+  "ano": 2024,
+  "concelho": "SÃO JOÃO DA MADEIRA",
+  "numero_bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4ef9"
+  },
+  "ano": 2024,
+  "concelho": "SÃO JOÃO DA PESQUEIRA",
+  "numero_bombeiros": 78
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4efa"
+  },
+  "ano": 2024,
+  "concelho": "SÃO PEDRO DO SUL",
+  "numero_bombeiros": 162
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4efb"
+  },
+  "ano": 2024,
+  "concelho": "SARDOAL",
+  "numero_bombeiros": 59
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4efc"
+  },
+  "ano": 2024,
+  "concelho": "SÁTÃO",
+  "numero_bombeiros": 61
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4efd"
+  },
+  "ano": 2024,
+  "concelho": "SEIA",
+  "numero_bombeiros": 193
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4efe"
+  },
+  "ano": 2024,
+  "concelho": "SEIXAL",
+  "numero_bombeiros": 158
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4eff"
+  },
+  "ano": 2024,
+  "concelho": "SERNANCELHE",
+  "numero_bombeiros": 47
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f00"
+  },
+  "ano": 2024,
+  "concelho": "SERPA",
+  "numero_bombeiros": 51
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f01"
+  },
+  "ano": 2024,
+  "concelho": "SERTÃ",
+  "numero_bombeiros": 221
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f02"
+  },
+  "ano": 2024,
+  "concelho": "SESIMBRA",
+  "numero_bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f03"
+  },
+  "ano": 2024,
+  "concelho": "SETÚBAL",
+  "numero_bombeiros": 242
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f04"
+  },
+  "ano": 2024,
+  "concelho": "SEVER DO VOUGA",
+  "numero_bombeiros": 52
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f05"
+  },
+  "ano": 2024,
+  "concelho": "SILVES",
+  "numero_bombeiros": 142
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f06"
+  },
+  "ano": 2024,
+  "concelho": "SINES",
+  "numero_bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f07"
+  },
+  "ano": 2024,
+  "concelho": "SINTRA",
+  "numero_bombeiros": 684
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f08"
+  },
+  "ano": 2024,
+  "concelho": "SOBRAL DE MONTE AGRAÇO",
+  "numero_bombeiros": 81
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f09"
+  },
+  "ano": 2024,
+  "concelho": "SOURE",
+  "numero_bombeiros": 86
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f0a"
+  },
+  "ano": 2024,
+  "concelho": "SOUSEL",
+  "numero_bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f0b"
+  },
+  "ano": 2024,
+  "concelho": "TÁBUA",
+  "numero_bombeiros": 126
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f0c"
+  },
+  "ano": 2024,
+  "concelho": "TABUAÇO",
+  "numero_bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f0d"
+  },
+  "ano": 2024,
+  "concelho": "TAROUCA",
+  "numero_bombeiros": 82
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f0e"
+  },
+  "ano": 2024,
+  "concelho": "TAVIRA",
+  "numero_bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f0f"
+  },
+  "ano": 2024,
+  "concelho": "TERRAS DE BOURO",
+  "numero_bombeiros": 87
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f10"
+  },
+  "ano": 2024,
+  "concelho": "TOMAR",
+  "numero_bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f11"
+  },
+  "ano": 2024,
+  "concelho": "TONDELA",
+  "numero_bombeiros": 138
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f12"
+  },
+  "ano": 2024,
+  "concelho": "TORRE DE MONCORVO",
+  "numero_bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f13"
+  },
+  "ano": 2024,
+  "concelho": "TORRES NOVAS",
+  "numero_bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f14"
+  },
+  "ano": 2024,
+  "concelho": "TORRES VEDRAS",
+  "numero_bombeiros": 115
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f15"
+  },
+  "ano": 2024,
+  "concelho": "TRANCOSO",
+  "numero_bombeiros": 143
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f16"
+  },
+  "ano": 2024,
+  "concelho": "TROFA",
+  "numero_bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f17"
+  },
+  "ano": 2024,
+  "concelho": "VAGOS",
+  "numero_bombeiros": 71
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f18"
+  },
+  "ano": 2024,
+  "concelho": "VALE DE CAMBRA",
+  "numero_bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f19"
+  },
+  "ano": 2024,
+  "concelho": "VALENÇA",
+  "numero_bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f1a"
+  },
+  "ano": 2024,
+  "concelho": "VALONGO",
+  "numero_bombeiros": 169
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f1b"
+  },
+  "ano": 2024,
+  "concelho": "VALPAÇOS",
+  "numero_bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f1c"
+  },
+  "ano": 2024,
+  "concelho": "VENDAS NOVAS",
+  "numero_bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f1d"
+  },
+  "ano": 2024,
+  "concelho": "VIANA DO ALENTEJO",
+  "numero_bombeiros": 36
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f1e"
+  },
+  "ano": 2024,
+  "concelho": "VIANA DO CASTELO",
+  "numero_bombeiros": 147
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f1f"
+  },
+  "ano": 2024,
+  "concelho": "VIDIGUEIRA",
+  "numero_bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f20"
+  },
+  "ano": 2024,
+  "concelho": "VIEIRA DO MINHO",
+  "numero_bombeiros": 106
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f21"
+  },
+  "ano": 2024,
+  "concelho": "VILA DE REI",
+  "numero_bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f22"
+  },
+  "ano": 2024,
+  "concelho": "VILA DO BISPO",
+  "numero_bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f23"
+  },
+  "ano": 2024,
+  "concelho": "VILA DO CONDE",
+  "numero_bombeiros": 91
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f24"
+  },
+  "ano": 2024,
+  "concelho": "VILA FLOR",
+  "numero_bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f25"
+  },
+  "ano": 2024,
+  "concelho": "VILA FRANCA DE XIRA",
+  "numero_bombeiros": 274
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f26"
+  },
+  "ano": 2024,
+  "concelho": "VILA NOVA DA BARQUINHA",
+  "numero_bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f27"
+  },
+  "ano": 2024,
+  "concelho": "VILA NOVA DE CERVEIRA",
+  "numero_bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f28"
+  },
+  "ano": 2024,
+  "concelho": "VILA NOVA DE FAMALICÃO",
+  "numero_bombeiros": 373
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f29"
+  },
+  "ano": 2024,
+  "concelho": "VILA NOVA DE FOZ CÔA",
+  "numero_bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f2a"
+  },
+  "ano": 2024,
+  "concelho": "VILA NOVA DE GAIA",
+  "numero_bombeiros": 594
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f2b"
+  },
+  "ano": 2024,
+  "concelho": "VILA NOVA DE PAIVA",
+  "numero_bombeiros": 62
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f2c"
+  },
+  "ano": 2024,
+  "concelho": "VILA NOVA DE POIARES",
+  "numero_bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f2d"
+  },
+  "ano": 2024,
+  "concelho": "VILA POUCA DE AGUIAR",
+  "numero_bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f2e"
+  },
+  "ano": 2024,
+  "concelho": "VILA REAL",
+  "numero_bombeiros": 261
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f2f"
+  },
+  "ano": 2024,
+  "concelho": "VILA REAL DE SANTO ANTÓNIO",
+  "numero_bombeiros": 80
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f30"
+  },
+  "ano": 2024,
+  "concelho": "VILA VELHA DE RÓDÃO",
+  "numero_bombeiros": 36
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f31"
+  },
+  "ano": 2024,
+  "concelho": "VILA VERDE",
+  "numero_bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f32"
+  },
+  "ano": 2024,
+  "concelho": "VILA VIÇOSA",
+  "numero_bombeiros": 40
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f33"
+  },
+  "ano": 2024,
+  "concelho": "VIMIOSO",
+  "numero_bombeiros": 63
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f34"
+  },
+  "ano": 2024,
+  "concelho": "VINHAIS",
+  "numero_bombeiros": 105
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f35"
+  },
+  "ano": 2024,
+  "concelho": "VISEU",
+  "numero_bombeiros": 157
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f36"
+  },
+  "ano": 2024,
+  "concelho": "VIZELA",
+  "numero_bombeiros": 120
+},
+{
+  "_id": {
+    "$oid": "697295c1a19e50e185ff4f37"
+  },
+  "ano": 2024,
+  "concelho": "VOUZELA",
+  "numero_bombeiros": 62
+}]

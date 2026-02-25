@@ -1,0 +1,1946 @@
+[{
+  "_id": {
+    "$oid": "697287e265957145aa743b94"
+  },
+  "Concelho/municipio": "ABRANTES",
+  "Numero_Bombeiros": 77
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b95"
+  },
+  "Concelho/municipio": "ÁGUEDA",
+  "Numero_Bombeiros": 103
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b96"
+  },
+  "Concelho/municipio": "AGUIAR DA BEIRA",
+  "Numero_Bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b97"
+  },
+  "Concelho/municipio": "ALANDROAL",
+  "Numero_Bombeiros": 31
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b98"
+  },
+  "Concelho/municipio": "ALBERGARIA-A-VELHA",
+  "Numero_Bombeiros": 79
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b99"
+  },
+  "Concelho/municipio": "ALBUFEIRA",
+  "Numero_Bombeiros": 107
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b9a"
+  },
+  "Concelho/municipio": "ALCÁCER DO SAL",
+  "Numero_Bombeiros": 59
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b9b"
+  },
+  "Concelho/municipio": "ALCANENA",
+  "Numero_Bombeiros": 93
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b9c"
+  },
+  "Concelho/municipio": "ALCOBAÇA",
+  "Numero_Bombeiros": 222
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b9d"
+  },
+  "Concelho/municipio": "ALCOCHETE",
+  "Numero_Bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b9e"
+  },
+  "Concelho/municipio": "ALCOUTIM",
+  "Numero_Bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743b9f"
+  },
+  "Concelho/municipio": "ALENQUER",
+  "Numero_Bombeiros": 133
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba0"
+  },
+  "Concelho/municipio": "ALFÂNDEGA DA FÉ",
+  "Numero_Bombeiros": 67
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba1"
+  },
+  "Concelho/municipio": "ALIJÓ",
+  "Numero_Bombeiros": 198
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba2"
+  },
+  "Concelho/municipio": "ALJEZUR",
+  "Numero_Bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba3"
+  },
+  "Concelho/municipio": "ALJUSTREL",
+  "Numero_Bombeiros": 50
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba4"
+  },
+  "Concelho/municipio": "ALMADA",
+  "Numero_Bombeiros": 257
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba5"
+  },
+  "Concelho/municipio": "ALMEIDA",
+  "Numero_Bombeiros": 50
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba6"
+  },
+  "Concelho/municipio": "ALMEIRIM",
+  "Numero_Bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba7"
+  },
+  "Concelho/municipio": "ALMODÔVAR",
+  "Numero_Bombeiros": 52
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba8"
+  },
+  "Concelho/municipio": "ALPIARÇA",
+  "Numero_Bombeiros": 41
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ba9"
+  },
+  "Concelho/municipio": "ALTER DO CHÃO",
+  "Numero_Bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743baa"
+  },
+  "Concelho/municipio": "ALVAIÁZERE",
+  "Numero_Bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bab"
+  },
+  "Concelho/municipio": "ALVITO",
+  "Numero_Bombeiros": 33
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bac"
+  },
+  "Concelho/municipio": "AMADORA",
+  "Numero_Bombeiros": 90
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bad"
+  },
+  "Concelho/municipio": "AMARANTE",
+  "Numero_Bombeiros": 162
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bae"
+  },
+  "Concelho/municipio": "AMARES",
+  "Numero_Bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743baf"
+  },
+  "Concelho/municipio": "ANADIA",
+  "Numero_Bombeiros": 52
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb0"
+  },
+  "Concelho/municipio": "ANSIÃO",
+  "Numero_Bombeiros": 81
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb1"
+  },
+  "Concelho/municipio": "ARCOS DE VALDEVEZ",
+  "Numero_Bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb2"
+  },
+  "Concelho/municipio": "ARGANIL",
+  "Numero_Bombeiros": 112
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb3"
+  },
+  "Concelho/municipio": "ARMAMAR",
+  "Numero_Bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb4"
+  },
+  "Concelho/municipio": "AROUCA",
+  "Numero_Bombeiros": 80
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb5"
+  },
+  "Concelho/municipio": "ARRAIOLOS",
+  "Numero_Bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb6"
+  },
+  "Concelho/municipio": "ARRONCHES",
+  "Numero_Bombeiros": 28
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb7"
+  },
+  "Concelho/municipio": "ARRUDA DOS VINHOS",
+  "Numero_Bombeiros": 39
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb8"
+  },
+  "Concelho/municipio": "AVEIRO",
+  "Numero_Bombeiros": 180
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bb9"
+  },
+  "Concelho/municipio": "AVIS",
+  "Numero_Bombeiros": 41
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bba"
+  },
+  "Concelho/municipio": "AZAMBUJA",
+  "Numero_Bombeiros": 123
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bbb"
+  },
+  "Concelho/municipio": "BAIÃO",
+  "Numero_Bombeiros": 154
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bbc"
+  },
+  "Concelho/municipio": "BARCELOS",
+  "Numero_Bombeiros": 285
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bbd"
+  },
+  "Concelho/municipio": "BARRANCOS",
+  "Numero_Bombeiros": 33
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bbe"
+  },
+  "Concelho/municipio": "BARREIRO",
+  "Numero_Bombeiros": 164
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bbf"
+  },
+  "Concelho/municipio": "BATALHA",
+  "Numero_Bombeiros": 111
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc0"
+  },
+  "Concelho/municipio": "BEJA",
+  "Numero_Bombeiros": 84
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc1"
+  },
+  "Concelho/municipio": "BELMONTE",
+  "Numero_Bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc2"
+  },
+  "Concelho/municipio": "BENAVENTE",
+  "Numero_Bombeiros": 106
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc3"
+  },
+  "Concelho/municipio": "BOMBARRAL",
+  "Numero_Bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc4"
+  },
+  "Concelho/municipio": "BORBA",
+  "Numero_Bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc5"
+  },
+  "Concelho/municipio": "BOTICAS",
+  "Numero_Bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc6"
+  },
+  "Concelho/municipio": "BRAGA",
+  "Numero_Bombeiros": 175
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc7"
+  },
+  "Concelho/municipio": "BRAGANÇA",
+  "Numero_Bombeiros": 144
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc8"
+  },
+  "Concelho/municipio": "CABECEIRAS DE BASTO",
+  "Numero_Bombeiros": 67
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bc9"
+  },
+  "Concelho/municipio": "CADAVAL",
+  "Numero_Bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bca"
+  },
+  "Concelho/municipio": "CALDAS DA RAINHA",
+  "Numero_Bombeiros": 114
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bcb"
+  },
+  "Concelho/municipio": "CAMINHA",
+  "Numero_Bombeiros": 86
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bcc"
+  },
+  "Concelho/municipio": "CAMPO MAIOR",
+  "Numero_Bombeiros": 25
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bcd"
+  },
+  "Concelho/municipio": "CANTANHEDE",
+  "Numero_Bombeiros": 94
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bce"
+  },
+  "Concelho/municipio": "CARRAZEDA DE ANSIÃES",
+  "Numero_Bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bcf"
+  },
+  "Concelho/municipio": "CARREGAL DO SAL",
+  "Numero_Bombeiros": 130
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd0"
+  },
+  "Concelho/municipio": "CARTAXO",
+  "Numero_Bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd1"
+  },
+  "Concelho/municipio": "CASCAIS",
+  "Numero_Bombeiros": 381
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd2"
+  },
+  "Concelho/municipio": "CASTANHEIRA DE PÊRA",
+  "Numero_Bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd3"
+  },
+  "Concelho/municipio": "CASTELO BRANCO",
+  "Numero_Bombeiros": 125
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd4"
+  },
+  "Concelho/municipio": "CASTELO DE PAIVA",
+  "Numero_Bombeiros": 124
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd5"
+  },
+  "Concelho/municipio": "CASTELO DE VIDE",
+  "Numero_Bombeiros": 39
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd6"
+  },
+  "Concelho/municipio": "CASTRO DAIRE",
+  "Numero_Bombeiros": 174
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd7"
+  },
+  "Concelho/municipio": "CASTRO MARIM",
+  "Numero_Bombeiros": 0
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd8"
+  },
+  "Concelho/municipio": "CASTRO VERDE",
+  "Numero_Bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bd9"
+  },
+  "Concelho/municipio": "CELORICO DA BEIRA",
+  "Numero_Bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bda"
+  },
+  "Concelho/municipio": "CELORICO DE BASTO",
+  "Numero_Bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bdb"
+  },
+  "Concelho/municipio": "CHAMUSCA",
+  "Numero_Bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bdc"
+  },
+  "Concelho/municipio": "CHAVES",
+  "Numero_Bombeiros": 173
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bdd"
+  },
+  "Concelho/municipio": "CINFÃES",
+  "Numero_Bombeiros": 147
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bde"
+  },
+  "Concelho/municipio": "COIMBRA",
+  "Numero_Bombeiros": 273
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bdf"
+  },
+  "Concelho/municipio": "CONDEIXA-A-NOVA",
+  "Numero_Bombeiros": 85
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be0"
+  },
+  "Concelho/municipio": "CONSTÂNCIA",
+  "Numero_Bombeiros": 67
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be1"
+  },
+  "Concelho/municipio": "CORUCHE",
+  "Numero_Bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be2"
+  },
+  "Concelho/municipio": "COVILHÃ",
+  "Numero_Bombeiros": 97
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be3"
+  },
+  "Concelho/municipio": "CRATO",
+  "Numero_Bombeiros": 23
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be4"
+  },
+  "Concelho/municipio": "CUBA",
+  "Numero_Bombeiros": 29
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be5"
+  },
+  "Concelho/municipio": "ELVAS",
+  "Numero_Bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be6"
+  },
+  "Concelho/municipio": "ENTRONCAMENTO",
+  "Numero_Bombeiros": 44
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be7"
+  },
+  "Concelho/municipio": "ESPINHO",
+  "Numero_Bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be8"
+  },
+  "Concelho/municipio": "ESPOSENDE",
+  "Numero_Bombeiros": 114
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743be9"
+  },
+  "Concelho/municipio": "ESTARREJA",
+  "Numero_Bombeiros": 79
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bea"
+  },
+  "Concelho/municipio": "ESTREMOZ",
+  "Numero_Bombeiros": 51
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743beb"
+  },
+  "Concelho/municipio": "ÉVORA",
+  "Numero_Bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bec"
+  },
+  "Concelho/municipio": "FAFE",
+  "Numero_Bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bed"
+  },
+  "Concelho/municipio": "FARO",
+  "Numero_Bombeiros": 113
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bee"
+  },
+  "Concelho/municipio": "FELGUEIRAS",
+  "Numero_Bombeiros": 181
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bef"
+  },
+  "Concelho/municipio": "FERREIRA DO ALENTEJO",
+  "Numero_Bombeiros": 62
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf0"
+  },
+  "Concelho/municipio": "FERREIRA DO ZÊZERE",
+  "Numero_Bombeiros": 47
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf1"
+  },
+  "Concelho/municipio": "FIGUEIRA DA FOZ",
+  "Numero_Bombeiros": 107
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf2"
+  },
+  "Concelho/municipio": "FIGUEIRA DE CASTELO RODRIGO",
+  "Numero_Bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf3"
+  },
+  "Concelho/municipio": "FIGUEIRÓ DOS VINHOS",
+  "Numero_Bombeiros": 76
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf4"
+  },
+  "Concelho/municipio": "FORNOS DE ALGODRES",
+  "Numero_Bombeiros": 60
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf5"
+  },
+  "Concelho/municipio": "FREIXO DE ESPADA À CINTA",
+  "Numero_Bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf6"
+  },
+  "Concelho/municipio": "FRONTEIRA",
+  "Numero_Bombeiros": 34
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf7"
+  },
+  "Concelho/municipio": "FUNDÃO",
+  "Numero_Bombeiros": 144
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf8"
+  },
+  "Concelho/municipio": "GAVIÃO",
+  "Numero_Bombeiros": 63
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bf9"
+  },
+  "Concelho/municipio": "GÓIS",
+  "Numero_Bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bfa"
+  },
+  "Concelho/municipio": "GOLEGÃ",
+  "Numero_Bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bfb"
+  },
+  "Concelho/municipio": "GONDOMAR",
+  "Numero_Bombeiros": 322
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bfc"
+  },
+  "Concelho/municipio": "GOUVEIA",
+  "Numero_Bombeiros": 157
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bfd"
+  },
+  "Concelho/municipio": "GRÂNDOLA",
+  "Numero_Bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bfe"
+  },
+  "Concelho/municipio": "GUARDA",
+  "Numero_Bombeiros": 180
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743bff"
+  },
+  "Concelho/municipio": "GUIMARÃES",
+  "Numero_Bombeiros": 203
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c00"
+  },
+  "Concelho/municipio": "IDANHA-A-NOVA",
+  "Numero_Bombeiros": 97
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c01"
+  },
+  "Concelho/municipio": "ÍLHAVO",
+  "Numero_Bombeiros": 85
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c02"
+  },
+  "Concelho/municipio": "LAGOA",
+  "Numero_Bombeiros": 89
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c03"
+  },
+  "Concelho/municipio": "LAGOS",
+  "Numero_Bombeiros": 105
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c04"
+  },
+  "Concelho/municipio": "LAMEGO",
+  "Numero_Bombeiros": 90
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c05"
+  },
+  "Concelho/municipio": "LEIRIA",
+  "Numero_Bombeiros": 332
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c06"
+  },
+  "Concelho/municipio": "LISBOA",
+  "Numero_Bombeiros": 1152
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c07"
+  },
+  "Concelho/municipio": "LOULÉ",
+  "Numero_Bombeiros": 129
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c08"
+  },
+  "Concelho/municipio": "LOURES",
+  "Numero_Bombeiros": 483
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c09"
+  },
+  "Concelho/municipio": "LOURINHÃ",
+  "Numero_Bombeiros": 66
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c0a"
+  },
+  "Concelho/municipio": "LOUSÃ",
+  "Numero_Bombeiros": 137
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c0b"
+  },
+  "Concelho/municipio": "LOUSADA",
+  "Numero_Bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c0c"
+  },
+  "Concelho/municipio": "MAÇÃO",
+  "Numero_Bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c0d"
+  },
+  "Concelho/municipio": "MACEDO DE CAVALEIROS",
+  "Numero_Bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c0e"
+  },
+  "Concelho/municipio": "MAFRA",
+  "Numero_Bombeiros": 216
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c0f"
+  },
+  "Concelho/municipio": "MAIA",
+  "Numero_Bombeiros": 162
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c10"
+  },
+  "Concelho/municipio": "MANGUALDE",
+  "Numero_Bombeiros": 75
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c11"
+  },
+  "Concelho/municipio": "MANTEIGAS",
+  "Numero_Bombeiros": 42
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c12"
+  },
+  "Concelho/municipio": "MARCO DE CANAVESES",
+  "Numero_Bombeiros": 120
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c13"
+  },
+  "Concelho/municipio": "MARINHA GRANDE",
+  "Numero_Bombeiros": 111
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c14"
+  },
+  "Concelho/municipio": "MARVÃO",
+  "Numero_Bombeiros": 27
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c15"
+  },
+  "Concelho/municipio": "MATOSINHOS",
+  "Numero_Bombeiros": 243
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c16"
+  },
+  "Concelho/municipio": "MEALHADA",
+  "Numero_Bombeiros": 123
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c17"
+  },
+  "Concelho/municipio": "MÊDA",
+  "Numero_Bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c18"
+  },
+  "Concelho/municipio": "MELGAÇO",
+  "Numero_Bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c19"
+  },
+  "Concelho/municipio": "MÉRTOLA",
+  "Numero_Bombeiros": 41
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c1a"
+  },
+  "Concelho/municipio": "MESÃO FRIO",
+  "Numero_Bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c1b"
+  },
+  "Concelho/municipio": "MIRA",
+  "Numero_Bombeiros": 66
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c1c"
+  },
+  "Concelho/municipio": "MIRANDA DO CORVO",
+  "Numero_Bombeiros": 100
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c1d"
+  },
+  "Concelho/municipio": "MIRANDA DO DOURO",
+  "Numero_Bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c1e"
+  },
+  "Concelho/municipio": "MIRANDELA",
+  "Numero_Bombeiros": 114
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c1f"
+  },
+  "Concelho/municipio": "MOGADOURO",
+  "Numero_Bombeiros": 77
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c20"
+  },
+  "Concelho/municipio": "MOIMENTA DA BEIRA",
+  "Numero_Bombeiros": 82
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c21"
+  },
+  "Concelho/municipio": "MOITA",
+  "Numero_Bombeiros": 57
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c22"
+  },
+  "Concelho/municipio": "MONÇÃO",
+  "Numero_Bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c23"
+  },
+  "Concelho/municipio": "MONCHIQUE",
+  "Numero_Bombeiros": 80
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c24"
+  },
+  "Concelho/municipio": "MONDIM DE BASTO",
+  "Numero_Bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c25"
+  },
+  "Concelho/municipio": "MONFORTE",
+  "Numero_Bombeiros": 33
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c26"
+  },
+  "Concelho/municipio": "MONTALEGRE",
+  "Numero_Bombeiros": 93
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c27"
+  },
+  "Concelho/municipio": "MONTEMOR-O-NOVO",
+  "Numero_Bombeiros": 69
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c28"
+  },
+  "Concelho/municipio": "MONTEMOR-O-VELHO",
+  "Numero_Bombeiros": 76
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c29"
+  },
+  "Concelho/municipio": "MONTIJO",
+  "Numero_Bombeiros": 128
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c2a"
+  },
+  "Concelho/municipio": "MORA",
+  "Numero_Bombeiros": 47
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c2b"
+  },
+  "Concelho/municipio": "MORTÁGUA",
+  "Numero_Bombeiros": 65
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c2c"
+  },
+  "Concelho/municipio": "MOURA",
+  "Numero_Bombeiros": 62
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c2d"
+  },
+  "Concelho/municipio": "MOURÃO",
+  "Numero_Bombeiros": 26
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c2e"
+  },
+  "Concelho/municipio": "MURÇA",
+  "Numero_Bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c2f"
+  },
+  "Concelho/municipio": "MURTOSA",
+  "Numero_Bombeiros": 61
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c30"
+  },
+  "Concelho/municipio": "NAZARÉ",
+  "Numero_Bombeiros": 55
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c31"
+  },
+  "Concelho/municipio": "NELAS",
+  "Numero_Bombeiros": 107
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c32"
+  },
+  "Concelho/municipio": "NISA",
+  "Numero_Bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c33"
+  },
+  "Concelho/municipio": "ÓBIDOS",
+  "Numero_Bombeiros": 100
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c34"
+  },
+  "Concelho/municipio": "ODEMIRA",
+  "Numero_Bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c35"
+  },
+  "Concelho/municipio": "ODIVELAS",
+  "Numero_Bombeiros": 213
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c36"
+  },
+  "Concelho/municipio": "OEIRAS",
+  "Numero_Bombeiros": 477
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c37"
+  },
+  "Concelho/municipio": "OLEIROS",
+  "Numero_Bombeiros": 112
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c38"
+  },
+  "Concelho/municipio": "OLHÃO",
+  "Numero_Bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c39"
+  },
+  "Concelho/municipio": "OLIVEIRA DE AZEMÉIS",
+  "Numero_Bombeiros": 132
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c3a"
+  },
+  "Concelho/municipio": "OLIVEIRA DE FRADES",
+  "Numero_Bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c3b"
+  },
+  "Concelho/municipio": "OLIVEIRA DO BAIRRO",
+  "Numero_Bombeiros": 60
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c3c"
+  },
+  "Concelho/municipio": "OLIVEIRA DO HOSPITAL",
+  "Numero_Bombeiros": 143
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c3d"
+  },
+  "Concelho/municipio": "OURÉM",
+  "Numero_Bombeiros": 321
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c3e"
+  },
+  "Concelho/municipio": "OURIQUE",
+  "Numero_Bombeiros": 59
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c3f"
+  },
+  "Concelho/municipio": "OVAR",
+  "Numero_Bombeiros": 166
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c40"
+  },
+  "Concelho/municipio": "PAÇOS DE FERREIRA",
+  "Numero_Bombeiros": 154
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c41"
+  },
+  "Concelho/municipio": "PALMELA",
+  "Numero_Bombeiros": 225
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c42"
+  },
+  "Concelho/municipio": "PAMPILHOSA DA SERRA",
+  "Numero_Bombeiros": 65
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c43"
+  },
+  "Concelho/municipio": "PAREDES",
+  "Numero_Bombeiros": 393
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c44"
+  },
+  "Concelho/municipio": "PAREDES DE COURA",
+  "Numero_Bombeiros": 60
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c45"
+  },
+  "Concelho/municipio": "PEDRÓGÃO GRANDE",
+  "Numero_Bombeiros": 61
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c46"
+  },
+  "Concelho/municipio": "PENACOVA",
+  "Numero_Bombeiros": 104
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c47"
+  },
+  "Concelho/municipio": "PENAFIEL",
+  "Numero_Bombeiros": 231
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c48"
+  },
+  "Concelho/municipio": "PENALVA DO CASTELO",
+  "Numero_Bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c49"
+  },
+  "Concelho/municipio": "PENAMACOR",
+  "Numero_Bombeiros": 56
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c4a"
+  },
+  "Concelho/municipio": "PENEDONO",
+  "Numero_Bombeiros": 38
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c4b"
+  },
+  "Concelho/municipio": "PENELA",
+  "Numero_Bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c4c"
+  },
+  "Concelho/municipio": "PENICHE",
+  "Numero_Bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c4d"
+  },
+  "Concelho/municipio": "PESO DA RÉGUA",
+  "Numero_Bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c4e"
+  },
+  "Concelho/municipio": "PINHEL",
+  "Numero_Bombeiros": 57
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c4f"
+  },
+  "Concelho/municipio": "POMBAL",
+  "Numero_Bombeiros": 148
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c50"
+  },
+  "Concelho/municipio": "PONTE DA BARCA",
+  "Numero_Bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c51"
+  },
+  "Concelho/municipio": "PONTE DE LIMA",
+  "Numero_Bombeiros": 121
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c52"
+  },
+  "Concelho/municipio": "PONTE DE SOR",
+  "Numero_Bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c53"
+  },
+  "Concelho/municipio": "PORTALEGRE",
+  "Numero_Bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c54"
+  },
+  "Concelho/municipio": "PORTEL",
+  "Numero_Bombeiros": 28
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c55"
+  },
+  "Concelho/municipio": "PORTIMÃO",
+  "Numero_Bombeiros": 126
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c56"
+  },
+  "Concelho/municipio": "PORTO",
+  "Numero_Bombeiros": 441
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c57"
+  },
+  "Concelho/municipio": "PORTO DE MÓS",
+  "Numero_Bombeiros": 174
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c58"
+  },
+  "Concelho/municipio": "PÓVOA DE LANHOSO",
+  "Numero_Bombeiros": 103
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c59"
+  },
+  "Concelho/municipio": "PÓVOA DE VARZIM",
+  "Numero_Bombeiros": 73
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c5a"
+  },
+  "Concelho/municipio": "PROENÇA-A-NOVA",
+  "Numero_Bombeiros": 78
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c5b"
+  },
+  "Concelho/municipio": "REDONDO",
+  "Numero_Bombeiros": 27
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c5c"
+  },
+  "Concelho/municipio": "REGUENGOS DE MONSARAZ",
+  "Numero_Bombeiros": 43
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c5d"
+  },
+  "Concelho/municipio": "RESENDE",
+  "Numero_Bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c5e"
+  },
+  "Concelho/municipio": "RIBEIRA DE PENA",
+  "Numero_Bombeiros": 93
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c5f"
+  },
+  "Concelho/municipio": "RIO MAIOR",
+  "Numero_Bombeiros": 51
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c60"
+  },
+  "Concelho/municipio": "SABROSA",
+  "Numero_Bombeiros": 97
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c61"
+  },
+  "Concelho/municipio": "SABUGAL",
+  "Numero_Bombeiros": 134
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c62"
+  },
+  "Concelho/municipio": "SALVATERRA DE MAGOS",
+  "Numero_Bombeiros": 58
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c63"
+  },
+  "Concelho/municipio": "SANTA COMBA DÃO",
+  "Numero_Bombeiros": 53
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c64"
+  },
+  "Concelho/municipio": "SANTA MARIA DA FEIRA",
+  "Numero_Bombeiros": 211
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c65"
+  },
+  "Concelho/municipio": "SANTA MARTA DE PENAGUIÃO",
+  "Numero_Bombeiros": 92
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c66"
+  },
+  "Concelho/municipio": "SANTARÉM",
+  "Numero_Bombeiros": 262
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c67"
+  },
+  "Concelho/municipio": "SANTIAGO DO CACÉM",
+  "Numero_Bombeiros": 124
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c68"
+  },
+  "Concelho/municipio": "SANTO TIRSO",
+  "Numero_Bombeiros": 229
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c69"
+  },
+  "Concelho/municipio": "SÃO BRÁS DE ALPORTEL",
+  "Numero_Bombeiros": 63
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c6a"
+  },
+  "Concelho/municipio": "SÃO JOÃO DA MADEIRA",
+  "Numero_Bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c6b"
+  },
+  "Concelho/municipio": "SÃO JOÃO DA PESQUEIRA",
+  "Numero_Bombeiros": 78
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c6c"
+  },
+  "Concelho/municipio": "SÃO PEDRO DO SUL",
+  "Numero_Bombeiros": 162
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c6d"
+  },
+  "Concelho/municipio": "SARDOAL",
+  "Numero_Bombeiros": 59
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c6e"
+  },
+  "Concelho/municipio": "SÁTÃO",
+  "Numero_Bombeiros": 61
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c6f"
+  },
+  "Concelho/municipio": "SEIA",
+  "Numero_Bombeiros": 193
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c70"
+  },
+  "Concelho/municipio": "SEIXAL",
+  "Numero_Bombeiros": 158
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c71"
+  },
+  "Concelho/municipio": "SERNANCELHE",
+  "Numero_Bombeiros": 47
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c72"
+  },
+  "Concelho/municipio": "SERPA",
+  "Numero_Bombeiros": 51
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c73"
+  },
+  "Concelho/municipio": "SERTÃ",
+  "Numero_Bombeiros": 221
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c74"
+  },
+  "Concelho/municipio": "SESIMBRA",
+  "Numero_Bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c75"
+  },
+  "Concelho/municipio": "SETÚBAL",
+  "Numero_Bombeiros": 242
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c76"
+  },
+  "Concelho/municipio": "SEVER DO VOUGA",
+  "Numero_Bombeiros": 52
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c77"
+  },
+  "Concelho/municipio": "SILVES",
+  "Numero_Bombeiros": 142
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c78"
+  },
+  "Concelho/municipio": "SINES",
+  "Numero_Bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c79"
+  },
+  "Concelho/municipio": "SINTRA",
+  "Numero_Bombeiros": 684
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c7a"
+  },
+  "Concelho/municipio": "SOBRAL DE MONTE AGRAÇO",
+  "Numero_Bombeiros": 81
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c7b"
+  },
+  "Concelho/municipio": "SOURE",
+  "Numero_Bombeiros": 86
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c7c"
+  },
+  "Concelho/municipio": "SOUSEL",
+  "Numero_Bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c7d"
+  },
+  "Concelho/municipio": "TÁBUA",
+  "Numero_Bombeiros": 126
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c7e"
+  },
+  "Concelho/municipio": "TABUAÇO",
+  "Numero_Bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c7f"
+  },
+  "Concelho/municipio": "TAROUCA",
+  "Numero_Bombeiros": 82
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c80"
+  },
+  "Concelho/municipio": "TAVIRA",
+  "Numero_Bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c81"
+  },
+  "Concelho/municipio": "TERRAS DE BOURO",
+  "Numero_Bombeiros": 87
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c82"
+  },
+  "Concelho/municipio": "TOMAR",
+  "Numero_Bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c83"
+  },
+  "Concelho/municipio": "TONDELA",
+  "Numero_Bombeiros": 138
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c84"
+  },
+  "Concelho/municipio": "TORRE DE MONCORVO",
+  "Numero_Bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c85"
+  },
+  "Concelho/municipio": "TORRES NOVAS",
+  "Numero_Bombeiros": 95
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c86"
+  },
+  "Concelho/municipio": "TORRES VEDRAS",
+  "Numero_Bombeiros": 115
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c87"
+  },
+  "Concelho/municipio": "TRANCOSO",
+  "Numero_Bombeiros": 143
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c88"
+  },
+  "Concelho/municipio": "TROFA",
+  "Numero_Bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c89"
+  },
+  "Concelho/municipio": "VAGOS",
+  "Numero_Bombeiros": 71
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c8a"
+  },
+  "Concelho/municipio": "VALE DE CAMBRA",
+  "Numero_Bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c8b"
+  },
+  "Concelho/municipio": "VALENÇA",
+  "Numero_Bombeiros": 45
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c8c"
+  },
+  "Concelho/municipio": "VALONGO",
+  "Numero_Bombeiros": 169
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c8d"
+  },
+  "Concelho/municipio": "VALPAÇOS",
+  "Numero_Bombeiros": 99
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c8e"
+  },
+  "Concelho/municipio": "VENDAS NOVAS",
+  "Numero_Bombeiros": 46
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c8f"
+  },
+  "Concelho/municipio": "VIANA DO ALENTEJO",
+  "Numero_Bombeiros": 36
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c90"
+  },
+  "Concelho/municipio": "VIANA DO CASTELO",
+  "Numero_Bombeiros": 147
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c91"
+  },
+  "Concelho/municipio": "VIDIGUEIRA",
+  "Numero_Bombeiros": 37
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c92"
+  },
+  "Concelho/municipio": "VIEIRA DO MINHO",
+  "Numero_Bombeiros": 106
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c93"
+  },
+  "Concelho/municipio": "VILA DE REI",
+  "Numero_Bombeiros": 64
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c94"
+  },
+  "Concelho/municipio": "VILA DO BISPO",
+  "Numero_Bombeiros": 54
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c95"
+  },
+  "Concelho/municipio": "VILA DO CONDE",
+  "Numero_Bombeiros": 91
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c96"
+  },
+  "Concelho/municipio": "VILA FLOR",
+  "Numero_Bombeiros": 49
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c97"
+  },
+  "Concelho/municipio": "VILA FRANCA DE XIRA",
+  "Numero_Bombeiros": 274
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c98"
+  },
+  "Concelho/municipio": "VILA NOVA DA BARQUINHA",
+  "Numero_Bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c99"
+  },
+  "Concelho/municipio": "VILA NOVA DE CERVEIRA",
+  "Numero_Bombeiros": 48
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c9a"
+  },
+  "Concelho/municipio": "VILA NOVA DE FAMALICÃO",
+  "Numero_Bombeiros": 373
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c9b"
+  },
+  "Concelho/municipio": "VILA NOVA DE FOZ CÔA",
+  "Numero_Bombeiros": 30
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c9c"
+  },
+  "Concelho/municipio": "VILA NOVA DE GAIA",
+  "Numero_Bombeiros": 594
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c9d"
+  },
+  "Concelho/municipio": "VILA NOVA DE PAIVA",
+  "Numero_Bombeiros": 62
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c9e"
+  },
+  "Concelho/municipio": "VILA NOVA DE POIARES",
+  "Numero_Bombeiros": 70
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743c9f"
+  },
+  "Concelho/municipio": "VILA POUCA DE AGUIAR",
+  "Numero_Bombeiros": 74
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca0"
+  },
+  "Concelho/municipio": "VILA REAL",
+  "Numero_Bombeiros": 261
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca1"
+  },
+  "Concelho/municipio": "VILA REAL DE SANTO ANTÓNIO",
+  "Numero_Bombeiros": 80
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca2"
+  },
+  "Concelho/municipio": "VILA VELHA DE RÓDÃO",
+  "Numero_Bombeiros": 36
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca3"
+  },
+  "Concelho/municipio": "VILA VERDE",
+  "Numero_Bombeiros": 68
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca4"
+  },
+  "Concelho/municipio": "VILA VIÇOSA",
+  "Numero_Bombeiros": 40
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca5"
+  },
+  "Concelho/municipio": "VIMIOSO",
+  "Numero_Bombeiros": 63
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca6"
+  },
+  "Concelho/municipio": "VINHAIS",
+  "Numero_Bombeiros": 105
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca7"
+  },
+  "Concelho/municipio": "VISEU",
+  "Numero_Bombeiros": 157
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca8"
+  },
+  "Concelho/municipio": "VIZELA",
+  "Numero_Bombeiros": 120
+},
+{
+  "_id": {
+    "$oid": "697287e265957145aa743ca9"
+  },
+  "Concelho/municipio": "VOUZELA",
+  "Numero_Bombeiros": 62
+}]

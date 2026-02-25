@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.wildfirestats.pt/schema"
+    xmlns:wf="http://www.wildfirestats.pt/schema"
+    elementFormDefault="qualified">
+
+    <xs:element name="RecursosHumanos">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Alocacao" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Concelho" type="xs:string"/>
+                            <xs:element name="Ano" type="xs:gYear"/>
+                            <xs:element name="Distrito" type="xs:string"/>
+                            <xs:element name="QuantidadeBombeiros" type="xs:integer"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

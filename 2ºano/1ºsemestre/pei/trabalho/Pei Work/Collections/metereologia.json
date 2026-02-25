@@ -1,0 +1,98 @@
+[{
+  "_id": "FARO",
+  "temp_media": 17.45,
+  "temp_max": 21.633333333333336,
+  "temp_min": 13.266666666666666,
+  "dias": 3
+},
+{
+  "_id": "PORTO",
+  "temp_media": 13.695454545454545,
+  "temp_max": 18.420454545454547,
+  "temp_min": 8.970454545454546,
+  "dias": 44
+},
+{
+  "_id": "BEJA",
+  "temp_media": 13.5,
+  "temp_max": 17.400000000000002,
+  "temp_min": 9.6,
+  "dias": 6
+},
+{
+  "_id": "PORTALEGRE",
+  "temp_media": 13.075,
+  "temp_max": 15.75,
+  "temp_min": 10.4,
+  "dias": 2
+},
+{
+  "_id": "ÉVORA",
+  "temp_media": 13.009090909090908,
+  "temp_max": 16.945454545454545,
+  "temp_min": 9.072727272727272,
+  "dias": 11
+},
+{
+  "_id": "AVEIRO",
+  "temp_media": 12.960185185185185,
+  "temp_max": 17.227777777777778,
+  "temp_min": 8.692592592592591,
+  "dias": 54
+},
+{
+  "_id": "LEIRIA",
+  "temp_media": 12.887500000000001,
+  "temp_max": 16.1,
+  "temp_min": 9.675,
+  "dias": 4
+},
+{
+  "_id": "VIANA DO CASTELO",
+  "temp_media": 11.908379888268156,
+  "temp_max": 16.675977653631286,
+  "temp_min": 7.140782122905028,
+  "dias": 179
+},
+{
+  "_id": "LISBOA",
+  "temp_media": 11.6,
+  "temp_max": 14.799999999999999,
+  "temp_min": 8.4,
+  "dias": 3
+},
+{
+  "_id": "CASTELO BRANCO",
+  "temp_media": 11.265,
+  "temp_max": 16.05,
+  "temp_min": 6.4799999999999995,
+  "dias": 10
+},
+{
+  "_id": "BRAGA",
+  "temp_media": 11.022769953051643,
+  "temp_max": 15.618779342723005,
+  "temp_min": 6.426760563380282,
+  "dias": 213
+},
+{
+  "_id": "VISEU",
+  "temp_media": 10.328378378378378,
+  "temp_max": 14.620270270270272,
+  "temp_min": 6.036486486486487,
+  "dias": 74
+},
+{
+  "_id": "VILA REAL",
+  "temp_media": 10.241269841269842,
+  "temp_max": 14.253968253968255,
+  "temp_min": 6.228571428571429,
+  "dias": 63
+},
+{
+  "_id": "GUARDA",
+  "temp_media": 8.754166666666666,
+  "temp_max": 13.208333333333334,
+  "temp_min": 4.3,
+  "dias": 12
+}]

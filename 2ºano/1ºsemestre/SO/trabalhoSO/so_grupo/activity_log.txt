@@ -1,0 +1,335 @@
+[2025-12-04 16:59:05] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 16:59:05] [Thread: MAIN] --- Início da Simulação: Race Condition ---
+[2025-12-04 16:59:05] [Thread: Hacker-2] A tentar adicionar saldo: 100.0
+[2025-12-04 16:59:05] [Thread: Hacker-1] A tentar adicionar saldo: 100.0
+[2025-12-04 16:59:05] [Thread: Hacker-2] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-04 16:59:05] [Thread: Hacker-1] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-04 16:59:05] [Thread: MAIN] Saldo Final: 100.0
+[2025-12-04 16:59:05] [Thread: ALERT] Race Condition Detetada! Perda de integridade dos dados.
+[2025-12-04 16:59:05] [Thread: MAIN] --- Fim da Simulação ---
+[2025-12-04 17:07:31] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:07:31] [Thread: MAIN] --- Início da Simulação: Deadlock (Ataque DoS) ---
+[2025-12-04 17:07:31] [Thread: Processo-Bancario-1] Servidor-A: Bloqueado para processamento.
+[2025-12-04 17:07:31] [Thread: Processo-Bancario-2] Servidor-B: Bloqueado para processamento.
+[2025-12-04 17:07:31] [Thread: Processo-Bancario-2] Servidor-B: A tentar aceder ao Servidor-A...
+[2025-12-04 17:07:31] [Thread: Processo-Bancario-1] Servidor-A: A tentar aceder ao Servidor-B...
+[2025-12-04 17:07:33] [Thread: VIGILANCIA] A verificar saúde do sistema...
+[2025-12-04 17:07:33] [Thread: MONITOR-SYSTEM] !!! ALERTA CRÍTICO: DEADLOCK DETETADO !!!
+[2025-12-04 17:07:33] [Thread: MONITOR-SYSTEM] Ataque DoS em curso. O sistema está a congelar.
+[2025-12-04 17:07:33] [Thread: MONITOR-SYSTEM] Thread presa: Processo-Bancario-1 (Estado: BLOCKED)
+[2025-12-04 17:07:33] [Thread: MONITOR-SYSTEM] Thread presa: Processo-Bancario-2 (Estado: BLOCKED)
+[2025-12-04 17:12:58] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:12:58] [Thread: MAIN] --- Início da Simulação: Starvation (Modo Justo: false) ---
+[2025-12-04 17:12:58] [Thread: User-VIP-1] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:12:59] [Thread: User-VIP-1] <<< Saiu do sistema.
+[2025-12-04 17:12:59] [Thread: User-VIP-2] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:12:59] [Thread: User-VIP-2] <<< Saiu do sistema.
+[2025-12-04 17:12:59] [Thread: User-VIP-3] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:12:59] [Thread: User-VIP-3] <<< Saiu do sistema.
+[2025-12-04 17:12:59] [Thread: User-VIP-1] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:12:59] [Thread: User-VIP-1] <<< Saiu do sistema.
+[2025-12-04 17:12:59] [Thread: User-VIP-2] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:12:59] [Thread: AUDITORIA] A tentar iniciar verificação de segurança...
+[2025-12-04 17:12:59] [Thread: User-VIP-2] <<< Saiu do sistema.
+[2025-12-04 17:12:59] [Thread: User-VIP-3] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:13:00] [Thread: User-VIP-3] <<< Saiu do sistema.
+[2025-12-04 17:13:00] [Thread: User-VIP-1] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:13:00] [Thread: User-VIP-1] <<< Saiu do sistema.
+[2025-12-04 17:13:00] [Thread: Auditoria-Security] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:13:00] [Thread: Auditoria-Security] <<< Saiu do sistema.
+[2025-12-04 17:13:00] [Thread: AUDITORIA] Verificação concluída com sucesso!
+[2025-12-04 17:13:00] [Thread: User-VIP-2] >>> Acedeu ao sistema de arquivos.
+[2025-12-04 17:13:00] [Thread: MAIN] SUCESSO: A Auditoria conseguiu correr.
+[2025-12-04 17:15:57] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:15:57] [Thread: MAIN] === FASE 1: Demonstração do ERRO (Race Condition) ===
+[2025-12-04 17:15:57] [Thread: Hacker-2] A tentar adicionar saldo: 100.0
+[2025-12-04 17:15:57] [Thread: Hacker-1] A tentar adicionar saldo: 100.0
+[2025-12-04 17:15:57] [Thread: Hacker-2] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-04 17:15:57] [Thread: Hacker-1] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-04 17:15:57] [Thread: MAIN] Saldo Final (Inseguro): 100.0
+[2025-12-04 17:15:57] [Thread: TEST] >>> SUCESSO: Inconsistência demonstrada! Esperado: 200, Obtido: 100.0
+[2025-12-04 17:15:57] [Thread: MAIN] === FASE 2: Demonstração da CORREÇÃO (Sincronização) ===
+[2025-12-04 17:15:58] [Thread: Admin-1] Saldo atualizado (Seguro). Novo saldo: 100.0
+[2025-12-04 17:15:58] [Thread: Admin-2] Saldo atualizado (Seguro). Novo saldo: 200.0
+[2025-12-04 17:15:58] [Thread: MAIN] Saldo Final (Seguro): 200.0
+[2025-12-04 17:15:58] [Thread: TEST] >>> SUCESSO: Problema corrigido! O saldo está correto.
+[2025-12-04 17:20:50] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:20:50] [Thread: MAIN] === FASE 1: Teste da Correção (Prevenção de DoS) ===
+[2025-12-04 17:20:50] [Thread: Safe-Thread-1] A tentar adquirir recursos na ordem: Servidor-01 -> Servidor-02
+[2025-12-04 17:20:50] [Thread: Safe-Thread-2] A tentar adquirir recursos na ordem: Servidor-01 -> Servidor-02
+[2025-12-04 17:20:51] [Thread: Safe-Thread-1] Conseguiu ambos os recursos! Processando...
+[2025-12-04 17:20:51] [Thread: Safe-Thread-1] Transação SEGURA concluída.
+[2025-12-04 17:20:51] [Thread: Safe-Thread-2] Conseguiu ambos os recursos! Processando...
+[2025-12-04 17:20:51] [Thread: Safe-Thread-2] Transação SEGURA concluída.
+[2025-12-04 17:20:51] [Thread: MAIN] >>> SUCESSO: Fase 1 completa sem bloqueios.
+[2025-12-04 17:20:51] [Thread: MAIN] === FASE 2: Simulação do Ataque DoS (Deadlock) ===
+[2025-12-04 17:20:51] [Thread: MAIN] O programa vai congelar em breve...
+[2025-12-04 17:20:51] [Thread: DoS-Thread-1] Servidor-01: Bloqueado (Inseguro).
+[2025-12-04 17:20:51] [Thread: DoS-Thread-2] Servidor-02: Bloqueado (Inseguro).
+[2025-12-04 17:20:51] [Thread: DoS-Thread-1] Servidor-01: A tentar aceder ao Servidor-02...
+[2025-12-04 17:20:51] [Thread: DoS-Thread-2] Servidor-02: A tentar aceder ao Servidor-01...
+[2025-12-04 17:20:53] [Thread: VIGILANCIA] A verificar integridade do sistema...
+[2025-12-04 17:20:53] [Thread: MONITOR-SYSTEM] !!! ALERTA CRÍTICO: DEADLOCK DETETADO !!!
+[2025-12-04 17:20:53] [Thread: MONITOR-SYSTEM] Ataque DoS em curso. O sistema está a congelar.
+[2025-12-04 17:20:53] [Thread: MONITOR-SYSTEM] Thread presa: DoS-Thread-1 (Estado: BLOCKED)
+[2025-12-04 17:20:53] [Thread: MONITOR-SYSTEM] Thread presa: DoS-Thread-2 (Estado: BLOCKED)
+[2025-12-04 17:23:23] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:23:23] [Thread: MAIN] === FASE 1: Demonstração de STARVATION (Modo Injusto) ===
+[2025-12-04 17:23:23] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: AUDITORIA] A tentar entrar no sistema...
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: Auditoria-LowPrio] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: Auditoria-LowPrio] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: AUDITORIA] SUCESSO: Auditoria realizada.
+[2025-12-04 17:23:24] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: TEST] >>> SUCESSO: A Auditoria foi executada corretamente.
+[2025-12-04 17:23:24] [Thread: MAIN] === FASE 2: Demonstração da CORREÇÃO (Fairness/FIFO) ===
+[2025-12-04 17:23:24] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:24] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:24] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:25] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:25] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:25] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:25] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:25] [Thread: AUDITORIA] A tentar entrar no sistema...
+[2025-12-04 17:23:25] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:23:25] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:25] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:23:25] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:25] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:23:25] [Thread: Auditoria-LowPrio] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:25] [Thread: Auditoria-LowPrio] <<< Saiu do ficheiro.
+[2025-12-04 17:23:25] [Thread: AUDITORIA] SUCESSO: Auditoria realizada.
+[2025-12-04 17:23:25] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:23:25] [Thread: TEST] >>> SUCESSO: A Auditoria foi executada corretamente.
+[2025-12-04 17:26:08] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:26:08] [Thread: MAIN] === FASE 1: Demonstração de STARVATION (Modo Injusto) ===
+[2025-12-04 17:26:08] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:08] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:08] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: AUDITORIA] A tentar entrar no sistema...
+[2025-12-04 17:26:09] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: Auditoria-LowPrio] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: Auditoria-LowPrio] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: AUDITORIA] SUCESSO: Auditoria realizada.
+[2025-12-04 17:26:09] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: TEST] >>> SUCESSO: A Auditoria foi executada corretamente.
+[2025-12-04 17:26:09] [Thread: MAIN] === FASE 2: Demonstração da CORREÇÃO (Fairness/FIFO) ===
+[2025-12-04 17:26:09] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:09] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:09] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: AUDITORIA] A tentar entrar no sistema...
+[2025-12-04 17:26:10] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: Auditoria-LowPrio] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: Auditoria-LowPrio] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: AUDITORIA] SUCESSO: Auditoria realizada.
+[2025-12-04 17:26:10] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:26:10] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:26:10] [Thread: TEST] >>> SUCESSO: A Auditoria foi executada corretamente.
+[2025-12-04 17:36:56] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:36:56] [Thread: MAIN] === FASE 1: Demonstração de STARVATION (Modo Injusto) ===
+[2025-12-04 17:36:56] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:56] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:56] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:56] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:56] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:56] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:56] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:56] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:56] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:56] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:56] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:56] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:56] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:56] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:56] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: AUDITORIA] A tentar entrar no sistema...
+[2025-12-04 17:36:57] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: Auditoria-LowPrio] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: Auditoria-LowPrio] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: AUDITORIA] SUCESSO: Auditoria realizada.
+[2025-12-04 17:36:57] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [INJUSTO (Unfair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: TEST] >>> SUCESSO: A Auditoria foi executada corretamente.
+[2025-12-04 17:36:57] [Thread: MAIN] === FASE 2: Demonstração da CORREÇÃO (Fairness/FIFO) ===
+[2025-12-04 17:36:57] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:57] [Thread: AUDITORIA] A tentar entrar no sistema...
+[2025-12-04 17:36:57] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:57] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:58] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:58] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:58] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:58] [Thread: Auditoria-LowPrio] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:58] [Thread: Auditoria-LowPrio] <<< Saiu do ficheiro.
+[2025-12-04 17:36:58] [Thread: AUDITORIA] SUCESSO: Auditoria realizada.
+[2025-12-04 17:36:58] [Thread: User-VIP-1] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:58] [Thread: User-VIP-1] <<< Saiu do ficheiro.
+[2025-12-04 17:36:58] [Thread: User-VIP-2] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:58] [Thread: User-VIP-2] <<< Saiu do ficheiro.
+[2025-12-04 17:36:58] [Thread: User-VIP-3] >>> Acedeu ao ficheiro [JUSTO (Fair)].
+[2025-12-04 17:36:58] [Thread: User-VIP-3] <<< Saiu do ficheiro.
+[2025-12-04 17:36:58] [Thread: TEST] >>> SUCESSO: A Auditoria foi executada corretamente.
+[2025-12-04 17:37:22] [Thread: SYSTEM] Monitor inicializado.
+[2025-12-04 17:37:22] [Thread: MAIN] === FASE 1: Demonstração do ERRO (Race Condition) ===
+[2025-12-04 17:37:22] [Thread: Hacker-1] A tentar adicionar saldo: 100.0
+[2025-12-04 17:37:22] [Thread: Hacker-2] A tentar adicionar saldo: 100.0
+[2025-12-04 17:37:22] [Thread: Hacker-2] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-04 17:37:22] [Thread: Hacker-1] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-04 17:37:22] [Thread: MAIN] Saldo Final (Inseguro): 100.0
+[2025-12-04 17:37:22] [Thread: TEST] >>> SUCESSO: Inconsistência demonstrada! Esperado: 200, Obtido: 100.0
+[2025-12-04 17:37:22] [Thread: MAIN] === FASE 2: Demonstração da CORREÇÃO (Sincronização) ===
+[2025-12-04 17:37:22] [Thread: Admin-1] Saldo atualizado (Seguro). Novo saldo: 100.0
+[2025-12-04 17:37:23] [Thread: Admin-2] Saldo atualizado (Seguro). Novo saldo: 200.0
+[2025-12-04 17:37:23] [Thread: MAIN] Saldo Final (Seguro): 200.0
+[2025-12-04 17:37:23] [Thread: TEST] >>> SUCESSO: Problema corrigido! O saldo está correto.
+[2025-12-11 16:10:46] [Thread: SYSTEM         ] Monitor inicializado. A iniciar rastreio eBPF (simulado)...
+[2025-12-11 16:10:46] [Thread: TEST-FASE-1    ] >>> INICIANDO TESTE DE VULNERABILIDADE (RACE CONDITION) <<<
+[2025-12-11 16:10:46] [Thread: INFO           ] Cenário: 2 Hackers tentam depositar 100€ ao mesmo tempo sem proteção.
+[2025-12-11 16:10:46] [Thread: INFO           ] Valor Esperado: 200.0 | Valor Inicial: 0.0
+[2025-12-11 16:10:46] [Thread: Hacker-1       ] A tentar adicionar saldo: 100.0
+[2025-12-11 16:10:46] [Thread: Hacker-2       ] A tentar adicionar saldo: 100.0
+[2025-12-11 16:10:46] [Thread: Hacker-1       ] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-11 16:10:46] [Thread: Hacker-2       ] Saldo atualizado (Inseguro). Novo saldo: 100.0
+[2025-12-11 16:10:46] [Thread: RESULTADO      ] Saldo Final na Carteira: 100.0
+[2025-12-11 16:10:46] [Thread: ALERTA         ] !!! CORRUPÇÃO DE DADOS DETETADA !!!
+[2025-12-11 16:10:46] [Thread: ALERTA         ] Valor Desaparecido: 100.0€
+[2025-12-11 16:10:46] [Thread: ALERTA         ] Isto representa uma falha grave de integridade.
+[2025-12-11 16:10:46] [Thread: TEST-FASE-2    ] >>> INICIANDO TESTE DA CORREÇÃO (SYNCHRONIZED) <<<
+[2025-12-11 16:10:46] [Thread: INFO           ] As mesmas operações, mas agora protegidas por Monitor.
+[2025-12-11 16:10:46] [Thread: Admin-1        ] Saldo atualizado (Seguro). Novo saldo: 100.0
+[2025-12-11 16:10:46] [Thread: Admin-2        ] Saldo atualizado (Seguro). Novo saldo: 200.0
+[2025-12-11 16:10:46] [Thread: RESULTADO      ] Saldo Final Seguro: 200.0
+[2025-12-11 16:10:46] [Thread: SUCESSO        ] Integridade dos dados mantida. O sistema é seguro.
+[2025-12-11 16:10:46] [Thread: STATS          ] ========================================
+[2025-12-11 16:10:46] [Thread: STATS          ] RELATÓRIO FINAL DE ESTATÍSTICAS (eBPF)
+[2025-12-11 16:10:46] [Thread: STATS          ] ========================================
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [TEST-FASE-2    ] -> 1 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [TEST-FASE-1    ] -> 1 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [Hacker-1       ] -> 2 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [Hacker-2       ] -> 2 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [SUCESSO        ] -> 1 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [INFO           ] -> 3 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [RESULTADO      ] -> 2 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [Admin-1        ] -> 1 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [ALERTA         ] -> 3 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] Thread [Admin-2        ] -> 1 eventos registados.
+[2025-12-11 16:10:46] [Thread: STATS          ] ========================================
+[2025-12-11 16:10:46] [Thread: SYSTEM         ] Monitor encerrado.

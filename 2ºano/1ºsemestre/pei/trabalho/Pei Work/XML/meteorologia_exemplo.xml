@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MeteorologiaStats xmlns="http://www.wildfirestats.pt/schema">
+  <Medicao>
+    <data>2024-01-02</data>
+    <id_localizacao>88719</id_localizacao>
+    <medicoes>
+      <temp_max>13.4</temp_max>
+      <temp_min>9.1</temp_min>
+      <temp_media>11.25</temp_media>
+      <vento_max>25.8</vento_max>
+      <vento_rafada>70.2</vento_rafada>
+      <vento_direcao>184</vento_direcao>
+      <precipitacao>37.4</precipitacao>
+      <radiacao>0.59</radiacao>
+      <insolacao>0</insolacao>
+    </medicoes>
+  </Medicao>
+</MeteorologiaStats>

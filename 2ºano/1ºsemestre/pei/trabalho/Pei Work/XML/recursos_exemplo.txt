@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecursosHumanos xmlns="http://www.wildfirestats.pt/schema">
+  <Alocacao>
+    <Concelho>ABRANTES</Concelho>
+    <Ano>2024</Ano>
+    <Distrito>SANTARÉM</Distrito>
+    <QuantidadeBombeiros>77</QuantidadeBombeiros>
+  </Alocacao>
+</RecursosHumanos>

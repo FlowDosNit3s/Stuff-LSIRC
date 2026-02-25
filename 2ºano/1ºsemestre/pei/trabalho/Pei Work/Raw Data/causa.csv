@@ -1,0 +1,96 @@
+﻿id_causa,tipo_causa,grupo_causa,descricao_causa
+286,Negligente,Acidentais - Outros,Acidentais
+296,Negligente,Uso do fogo - Outros,Apicultura
+336,Negligente,Uso do fogo - Outros,Apicultura - Desinfestação
+335,Negligente,Uso do fogo - Outros,Apicultura - Fumigação
+302,Intencional,Estruturais - Caça e vida selvagem,Caça e vida selvagem
+359,Intencional,Estruturais - Caça e vida selvagem,Caça e vida selvagem - Conflitos de caça
+360,Negligente,Acidentais - Outros,Caça e vida selvagem - Danos provocados pela vida selvagem
+297,Negligente,Uso do fogo - Outros,Chaminés
+338,Negligente,Uso do fogo - Outros,Chaminés - De habitação
+337,Negligente,Uso do fogo - Outros,Chaminés - Industriais
+380,Negligente,Uso do fogo - Outros,Chaminés - Outras
+304,Intencional,Estruturais - Outras,Defesa contra incêndios
+365,Intencional,Estruturais - Outras,Defesa contra incêndios - Instabilidade laboral nas actividades de DFCI
+287,Intencional,Estruturais - Outras,Estruturais
+294,Negligente,Uso do fogo - Fogueiras,Fogueiras
+330,Negligente,Uso do fogo - Fogueiras,Fogueiras - Aquecimento
+329,Negligente,Uso do fogo - Fogueiras,Fogueiras - Confecção de comida
+332,Negligente,Uso do fogo - Fogueiras,Fogueiras - Outras
+328,Negligente,Uso do fogo - Fogueiras,Fogueiras - Recreio e lazer
+331,Negligente,Uso do fogo - Fogueiras,Fogueiras - Reparação de estradas
+295,Negligente,Uso do fogo - Fumar,Fumar
+334,Negligente,Uso do fogo - Fumar,Fumar - Em circulação motorizada
+333,Negligente,Uso do fogo - Fumar,Fumar - Fumadores a pé
+307,Intencional,Incendiarismo - Imputáveis,Imputáveis
+372,Intencional,Incendiarismo - Imputáveis,Imputáveis - Conflitos entre vizinhos
+370,Intencional,Incendiarismo - Imputáveis,Imputáveis - Manobras de diversão
+375,Intencional,Incendiarismo - Imputáveis,Imputáveis - Outras situações
+371,Intencional,Incendiarismo - Imputáveis,Imputáveis - Provocação aos meios de combate
+374,Intencional,Incendiarismo - Imputáveis,Imputáveis - Vandalismo
+373,Intencional,Incendiarismo - Imputáveis,Imputáveis - Vinganças
+288,Intencional,Incendiarismo - Sem motivação conhecida,Incendiarismo
+290,Desconhecida,Indeterminadas,Indeterminadas
+309,Desconhecida,Indeterminadas,Indeterminadas
+378,Desconhecida,Indeterminadas,Indeterminadas - Outras informações
+376,Desconhecida,Indeterminadas,Indeterminadas - Prova material
+377,Desconhecida,Indeterminadas,Indeterminadas - Prova pessoal
+306,Negligente,Acidentais - Outros,Inimputáveis
+366,Negligente,Acidentais - Outros,Inimputáveis - Brincadeiras de crianças
+367,Negligente,Acidentais - Outros,Inimputáveis - Irresponsabilidade de menores
+369,Negligente,Acidentais - Outros,Inimputáveis - Outras situações
+368,Intencional,Incendiarismo - Inimputáveis,Inimputáveis - Piromania
+293,Negligente,Uso do fogo - Lançamento Foguetes,Lançamento de foguetes
+327,Negligente,Uso do fogo - Lançamento Foguetes,Lançamento de Foguetes - Auto-ignição
+326,Negligente,Uso do fogo - Lançamento Foguetes,Lançamento de foguetes - Clandestinos
+325,Negligente,Uso do fogo - Lançamento Foguetes,Lançamento de foguetes - Com medidas preventivas
+300,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento
+346,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento - Alfaias agrícolas
+348,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento - Equipamento florestal
+347,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento - Máquinas agrícolas
+350,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento - Máquinas florestais
+351,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento - Máquinas industriais
+349,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento - Motosserras
+352,Negligente,Acidentais - Maquinaria,Maquinaria e equipamento - Outras
+289,Natural,Naturais,Naturais
+308,Natural,Naturais,Naturais - Raio
+301,Negligente,Acidentais - Outros,Outras causas acidentais
+355,Negligente,Acidentais - Outros,Outras causas acidentais - Disparos de caçadores
+356,Negligente,Acidentais - Outros,Outras causas acidentais - Exercícios militares
+353,Negligente,Acidentais - Outros,Outras causas acidentais - Explosivos
+358,Negligente,Acidentais - Outros,Outras causas acidentais - Outras
+354,Negligente,Acidentais - Outros,Outras causas acidentais - Soldaduras
+357,Negligente,Acidentais - Outros,Outras causas acidentais - Vidros
+305,Intencional,Estruturais - Outras,Outras causas estruturais
+298,Negligente,Uso do fogo - Outros,Outros usos do fogo
+339,Negligente,Uso do fogo - Outros,Outros usos do fogo - Actividades esotéricas
+340,Negligente,Uso do fogo - Outros,Outros usos do fogo - Outros
+319,Negligente,Queimas amontoados de sobrantes florestais ou agrícolas,Queima de amontoados - Borralheiras
+291,Negligente,Uso do fogo - Queima de lixo,Queima de amontoados de lixo
+313,Negligente,Uso do fogo - Queima de lixo,Queima de amontoados de lixo - Actividades clandestinas
+310,Negligente,Uso do fogo - Queima de lixo,Queima de amontoados de lixo - Autárquica
+312,Negligente,Uso do fogo - Queima de lixo,Queima de amontoados de lixo - Comércio
+311,Negligente,Uso do fogo - Queima de lixo,Queima de amontoados de lixo - Indústria
+314,Negligente,Uso do fogo - Queima de lixo,Queima de amontoados de lixo - Núcleos habitacionais permanentes
+315,Negligente,Uso do fogo - Queima de lixo,Queima de amontoados de lixo - Núcleos habitacionais temporários associados ao recreio
+317,Negligente,Queimadas de sobrantes florestais ou agrícolas,Queimadas  extensivas - Limpeza do solo florestal
+292,Negligente,Queimadas para gestão de pasto para gado,Queimadas extensivas
+318,Negligente,Queimadas de sobrantes florestais ou agrícolas,Queimadas extensivas - Limpeza de áreas urbanizadas
+322,Negligente,Queimadas de sobrantes florestais ou agrícolas,"Queimadas extensivas - Limpeza de caminhos, acessos e instalações"
+316,Negligente,Queimadas de sobrantes florestais ou agrícolas,Queimadas extensivas - Limpeza do solo agrícola
+324,Negligente,Queimadas de sobrantes florestais ou agrícolas,Queimadas extensivas - Outras
+321,Negligente,Queimadas de sobrantes florestais ou agrícolas,Queimadas extensivas - Penetração em áreas de caça e margens dos rios
+323,Negligente,Queimadas de sobrantes florestais ou agrícolas,Queimadas extensivas - Protecção contra incêndios
+320,Negligente,Queimadas para gestão de pasto para gado,Queimadas extensivas - Renovação de pastagens
+379,Reacendimento,Reacendimentos,Reacendimento - Fonte de calor do incêndio anterior
+299,Negligente,Acidentais - Transportes e Comunicações,Transportes e comunicações
+344,Negligente,Acidentais - Transportes e Comunicações,Transportes e comunicações - Acidentes de viação
+342,Negligente,Acidentais - Transportes e Comunicações,Transportes e comunicações - Caminhos de ferro
+341,Negligente,Acidentais - Transportes e Comunicações,Transportes e comunicações - Linhas eléctricas
+345,Negligente,Acidentais - Transportes e Comunicações,Transportes e comunicações - Outros
+343,Negligente,Acidentais - Transportes e Comunicações,Transportes e comunicações - Tubos de escape
+303,Intencional,Estruturais - Uso do solo,Uso do solo
+361,Intencional,Estruturais - Uso do solo,Uso do solo - Alterações no uso do solo
+364,Intencional,Estruturais - Uso do solo,Uso do solo - Contradições no uso e fruição dos baldios
+363,Intencional,Estruturais - Uso do solo,Uso do solo - Limitação ao uso e gestão do solo
+362,Intencional,Estruturais - Uso do solo,Uso do solo - Pressão para venda de material lenhoso
