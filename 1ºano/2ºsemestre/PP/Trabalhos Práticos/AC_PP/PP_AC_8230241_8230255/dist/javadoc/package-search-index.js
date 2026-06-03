@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"trabalho_pp"},{"l":"trabalho_pp.core"},{"l":"trabalho_pp.Data"},{"l":"trabalho_pp.distances"},{"l":"trabalho_pp.exceptions"},{"l":"trabalho_pp.io"},{"l":"trabalho_pp.menus"},{"l":"trabalho_pp.pickingManagement"}]

@@ -1,0 +1,9 @@
+Configuração e Validação da VM #4 (Kioptrix)
+
+A integração da máquina Kioptrix na infraestrutura do laboratório foi realizada tirando partido da configuração prévia do serviço DHCP na Gateway (VM #2).
+
+Durante o arranque da VM #4, e estando a sua interface de rede corretamente associada ao "LAN Segment → Rede_Alvos", o Kioptrix solicitou e obteve com sucesso uma concessão de endereço IP dinâmico (10.120.59.100) a partir do pool configurado no servidor isc-dhcp-server da Gateway.
+
+Devido a restrições e incompatibilidades de layout de teclado no sistema legacy do Kioptrix durante a fase de login local (o que impossibilitou a configuração manual via ifconfig), optou-se por utilizar o endereço atribuído via DHCP para a realização das provas de conectividade exigidas.
+
+Esta abordagem permitiu demonstrar o correto funcionamento da infraestrutura de rede. Conforme evidenciado nos testes de conectividade anexos, foi possível validar a comunicação bidirecional com o Kioptrix a partir das restantes máquinas da topologia (como a VM #3 e VM #5), confirmando que a VM #4 se encontra devidamente integrada na rede de alvos e pronta para a fase de testes de intrusão.
