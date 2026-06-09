@@ -1,0 +1,4 @@
+Caso estejam com problemas a ver a normalizaçao ou alguma tabela
+abram o arquivo.md do que querem ver na app obsidian:
+
+link: https://obsidian.md/download
