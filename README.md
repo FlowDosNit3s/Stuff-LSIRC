@@ -9,3 +9,10 @@ Este espaço tem como objetivo centralizar apontamentos, resumos, exercícios pr
 ## Contribuições
 
 As contribuições são muito bem-vindas! Se tiver material que considere útil ou quiser corrigir/melhorar algum documento existente, sinta-se à vontade para abrir uma *Issue* ou enviar um *Pull Request*.
+
+## 💬 Comunidade & Discord (eL SIRCo)
+
+Junta-te ao servidor do Discord **eL SIRCo** para estares a par do universo de LSIRC, debateres matérias de estudo, partilhares recursos ou esclareceres dúvidas:
+
+* **Convite:** [Entrar no eL SIRCo](https://discord.gg/pEFA96Rqg)
+* **Contacto alternativo:** Podes adicionar o utilizador `flow#2312` para ser adicionado.
