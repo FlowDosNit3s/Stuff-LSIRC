@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html","k":"18"},{"l":"com.estg.core"},{"l":"com.estg.core.exceptions"},{"l":"com.estg.io"},{"l":"com.estg.pickingManagement"},{"l":"com.estg.pickingManagement.exceptions"}];updateSearchResults();

@@ -1,0 +1,460 @@
+======================================================================
+FILE: com\estg\core\AidBox.html
+SIGNATURE: public interface  AidBox  extends  Cloneable
+DESCRIPTION: Contract describing the AidBox behaviour Adds a new  container  to the aid box Getter Aid Box code. Considering a  item type , returns the correspondent  container Return a copy of a existing  containers Getter for  geographic coordinates Getter for Distance between current Aid Box and parameter  Aid Box . Getter for the duration between current Aid Box and parameter  Aid Box . Getter for a description of the place in which the Aid Box is installed. Getter for zone.
+======================================================================
+  SIGNATURE: String getCode ()
+  DOC: Getter Aid Box code.
+  NOTES: All Superinterfaces: Cloneable Returns: Aid Box code
+  --------------------------------------------------------------------
+  SIGNATURE: String getZone ()
+  DOC: Getter for zone.
+  NOTES: Returns: Aid Box zone
+  --------------------------------------------------------------------
+  SIGNATURE: String getRefLocal ()
+  DOC: Getter for a description of the place in which the Aid Box is installed.
+  NOTES: Returns: description of the place in which the Aid Box is installed
+  --------------------------------------------------------------------
+  SIGNATURE: double getDistance ( AidBox  aidBox)  throws  AidBoxException
+  DOC: Getter for Distance between current Aid Box and parameter  Aid Box .
+  NOTES: Parameters: aidBox  - to the target. Returns: the distance. Throws: AidBoxException  - if  aid box  does not exist.
+  --------------------------------------------------------------------
+  SIGNATURE: double getDuration ( AidBox  aidBox)  throws  AidBoxException
+  DOC: Getter for the duration between current Aid Box and parameter  Aid Box .
+  NOTES: Parameters: aidBox  - to the target. Returns: the duration. Throws: AidBoxException  - if  aid box  does not exist.
+  --------------------------------------------------------------------
+  SIGNATURE: GeographicCoordinates getCoordinates ()
+  DOC: Getter for  geographic coordinates
+  NOTES: Returns: geographic coordinates
+  --------------------------------------------------------------------
+  SIGNATURE: boolean addContainer ( Container  container)  throws  ContainerException
+  DOC: Adds a new  container  to the aid box
+  NOTES: Parameters: container  - the  container Returns: true  if the  container  was inserted in the collection storing all  containers false  if the  container  already exists  Throws: ContainerException  - if:  container  is  null if the AidBox already have a  container  from a given  type
+  --------------------------------------------------------------------
+  SIGNATURE: Container getContainer ( ItemType  itemType)
+  DOC: Considering a  item type , returns the correspondent  container
+  NOTES: Parameters: itemType  -  item type Returns: the  container  or null if the  container  doesn't exist
+  --------------------------------------------------------------------
+  SIGNATURE: Container [] getContainers ()
+  DOC: Return a copy of a existing  containers
+  NOTES: Returns: a copy of the existing  containers
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\exceptions\AidBoxException.html
+SIGNATURE: public class  AidBoxException extends  Exception
+DESCRIPTION: Exception thrown when an error occurs related to AidBox class Constructs a new exception with  null  as its detail message. Constructs a new exception with the specified detail message.
+======================================================================
+  SIGNATURE: public AidBoxException ()
+  DOC: Constructs a new exception with  null  as its detail message.
+  --------------------------------------------------------------------
+  SIGNATURE: public AidBoxException ( String  msg)
+  DOC: Constructs a new exception with the specified detail message.
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: msg  - the detail message.
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\Container.html
+SIGNATURE: public interface  Container  extends  Cloneable
+DESCRIPTION: Contract representing a container behaviour Adds a new  measurement  to the  container Getter for container capacity (Kg) Getter for container code. Return a deep copy of a existing  measurements Return a deep copy of an existing  measurements  for a given date Getter for the  item type  that container supports
+======================================================================
+  SIGNATURE: String getCode ()
+  DOC: Getter for container code. The first character identifies the container type:  Non-Perishable Food (N) Clothing (V) Medicine (M) Perishable Food (P)
+  NOTES: All Superinterfaces: Cloneable Returns: The container code
+  --------------------------------------------------------------------
+  SIGNATURE: double getCapacity ()
+  DOC: Getter for container capacity (Kg)
+  NOTES: Returns: the container capacity (Kg)
+  --------------------------------------------------------------------
+  SIGNATURE: ItemType getType ()
+  DOC: Getter for the  item type  that container supports
+  NOTES: Returns: the  item type  that container supports
+  --------------------------------------------------------------------
+  SIGNATURE: Measurement [] getMeasurements ()
+  DOC: Return a deep copy of a existing  measurements
+  NOTES: Returns: a deep copy of a existing  measurements
+  --------------------------------------------------------------------
+  SIGNATURE: Measurement [] getMeasurements ( LocalDate  date)
+  DOC: Return a deep copy of an existing  measurements  for a given date
+  NOTES: Parameters: date  - date to search for measurements Returns: a deep copy of an existing  measurements  for a given date
+  --------------------------------------------------------------------
+  SIGNATURE: boolean addMeasurement ( Measurement  measurement)  throws  MeasurementException
+  DOC: Adds a new  measurement  to the  container
+  NOTES: Parameters: measurement  -  measurement  to be added to the  container Returns: true if the  measurement  was inserted in the collection storing all  measurements false if the  measurement  already exists for a given date Throws: MeasurementException  -  if the  measurement  is null if the  value  is lesser than 0 if the date is before the existing last measurement date if the for a given date the measurement already exists but the  values  are different
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\exceptions\ContainerException.html
+SIGNATURE: public class  ContainerException extends  Exception
+DESCRIPTION: Exception thrown when an error occurs related to Container class Constructs a new exception with  null  as its detail message. Constructs a new exception with the specified detail message.
+======================================================================
+  SIGNATURE: public ContainerException ()
+  DOC: Constructs a new exception with  null  as its detail message.
+  --------------------------------------------------------------------
+  SIGNATURE: public ContainerException ( String  msg)
+  DOC: Constructs a new exception with the specified detail message.
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: msg  - the detail message.
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\GeographicCoordinates.html
+SIGNATURE: public interface  GeographicCoordinates
+DESCRIPTION: Contract representing geographic coordinates behaviour Getter for  latitude Getter for  longitude
+======================================================================
+  SIGNATURE: double getLatitude ()
+  DOC: Getter for  latitude
+  NOTES: Returns: latitude
+  --------------------------------------------------------------------
+  SIGNATURE: double getLongitude ()
+  DOC: Getter for  longitude
+  NOTES: Returns: longitude
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\io\Importer.html
+SIGNATURE: public interface  Importer
+DESCRIPTION: Reads the input JSON file
+======================================================================
+  SIGNATURE: void importData ( Institution  institution)  throws  FileNotFoundException ,  IOException ,  InstitutionException
+  DOC: Reads the input JSON file
+  NOTES: Parameters: institution  - The city in which the file data will be read Throws: FileNotFoundException  - if the file is not found IOException  - if the file cannot be read InstitutionException  - if the city is null
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\Institution.html
+SIGNATURE: public interface  Institution
+DESCRIPTION: Contract representing an Aid Institution behaviour when dealing with Aid Boxes, containers and their measurements Adds a new  Aid Box  to the  Institution Adds a new  measurement  to the  Institution  considering the  Aid Box  and  container Adds a new  picking map  to the institution Adds a new  vehicle  to the institution Disables a  vehicle  in the institution Enables a  vehicle  in the institution Return a copy of a existing  Aid Boxes Return a copy of an existing  measurements  from a  Aid Boxes  and  item type Getter for the current (most recent)  picking map  in the institution Getter for Distance between the instituition and parameter  Aid Box . Getter for Institution name Getter for the  picking maps  in the institution Getter for the  picking maps  in the institution Getter for a (deep) copy of the  vehicles  in the institution
+======================================================================
+  SIGNATURE: String getName ()
+  DOC: Getter for Institution name
+  NOTES: Returns: Institution name
+  --------------------------------------------------------------------
+  SIGNATURE: boolean addAidBox ( AidBox  aidBox)  throws  AidBoxException
+  DOC: Adds a new  Aid Box  to the  Institution
+  NOTES: Parameters: aidBox  -  Aid Box Returns: true  if the  Aid Box  was inserted in the collection storing all  Aid Box false  if the  Aid Box  already exists  Throws: AidBoxException  - if:   The Aid Box is  null  The Aid Box is invalid, i.e. if the Aid Box have duplicate  containers  of a certain  waste type
+  --------------------------------------------------------------------
+  SIGNATURE: boolean addMeasurement ( Measurement  measurement,  Container  container)  throws  ContainerException ,  MeasurementException
+  DOC: Adds a new  measurement  to the  Institution  considering the  Aid Box  and  container
+  NOTES: Parameters: measurement  -  Measurement  considering the  Aid Box  and  container container  - The  Container  for the  measurement Returns: true  if the  measurement  was inserted in the collection storing all  measurements false  if the  measurement  already exists for a given  date . (Each  container  has only one measurement for a given date)  Throws: ContainerException  - if the  container  doesn't exist MeasurementException  - if the  value  is lesser than 0 and higher to the  capacity
+  --------------------------------------------------------------------
+  SIGNATURE: AidBox [] getAidBoxes ()
+  DOC: Return a copy of a existing  Aid Boxes
+  NOTES: Returns: a copy of a existing  Aid Boxes
+  --------------------------------------------------------------------
+  SIGNATURE: Container getContainer ( AidBox  aidBox,  ItemType  itemType)  throws  ContainerException
+  DOC: Return a copy of an existing  measurements  from a  Aid Boxes  and  item type
+  NOTES: Parameters: aidBox  -  Aid Box  for getting  measurements itemType  -  item Type  for getting  measurements Returns: a copy of a existing  measurements Throws: ContainerException  - if the  Aid Box  doesn't exist, or if a container with the given  item type  doesn't exist
+  --------------------------------------------------------------------
+  SIGNATURE: Vehicle [] getVehicles ()
+  DOC: Getter for a (deep) copy of the  vehicles  in the institution
+  NOTES: Returns: a (deep) copy of the  vehicles  in the institution
+  --------------------------------------------------------------------
+  SIGNATURE: boolean addVehicle ( Vehicle  vehicle)  throws  VehicleException
+  DOC: Adds a new  vehicle  to the institution
+  NOTES: Parameters: vehicle  -  vehicle  to be added to the institution Returns: true if the  vehicle  was inserted in the collection storing all  vehicles  false if the  vehicle  already exists Throws: VehicleException  - if:  the  vehicle  is null
+  --------------------------------------------------------------------
+  SIGNATURE: void disableVehicle ( Vehicle  vehicle)  throws  VehicleException
+  DOC: Disables a  vehicle  in the institution
+  NOTES: Parameters: vehicle  -  vehicle  to be disabled Throws: VehicleException  - if the  vehicle  does not exist or if the  vehicle  is already disabled
+  --------------------------------------------------------------------
+  SIGNATURE: void enableVehicle ( Vehicle  vehicle)  throws  VehicleException
+  DOC: Enables a  vehicle  in the institution
+  NOTES: Parameters: vehicle  -  vehicle  to be enabled Throws: VehicleException  - if the  vehicle  does not exist or if the  vehicle  is already enabled
+  --------------------------------------------------------------------
+  SIGNATURE: PickingMap [] getPickingMaps ()
+  DOC: Getter for the  picking maps  in the institution
+  NOTES: Returns: the  picking maps  in the institution
+  --------------------------------------------------------------------
+  SIGNATURE: PickingMap [] getPickingMaps ( LocalDateTime  from,  LocalDateTime  to)
+  DOC: Getter for the  picking maps  in the institution
+  NOTES: Parameters: from  - start date to  - end date Returns: the  picking maps  in the institution
+  --------------------------------------------------------------------
+  SIGNATURE: PickingMap getCurrentPickingMap () throws  PickingMapException
+  DOC: Getter for the current (most recent)  picking map  in the institution
+  NOTES: Returns: the current  picking map  in the institution Throws: PickingMapException  - if there are no  picking maps  in the institution
+  --------------------------------------------------------------------
+  SIGNATURE: boolean addPickingMap ( PickingMap  pickingMap)  throws  PickingMapException
+  DOC: Adds a new  picking map  to the institution
+  NOTES: Parameters: pickingMap  - the  picking map  to be added to the institution Returns: true if the  picking map  was inserted in the collection storing all  picking maps  false if the  picking map  already exists Throws: PickingMapException  - if the  picking map  is null
+  --------------------------------------------------------------------
+  SIGNATURE: double getDistance ( AidBox  aidBox)  throws  AidBoxException
+  DOC: Getter for Distance between the instituition and parameter  Aid Box .
+  NOTES: Parameters: aidBox  - to the target. Returns: the distance. Throws: AidBoxException  - if  aid box  does not exist.
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\exceptions\InstitutionException.html
+SIGNATURE: public class  InstitutionException extends  Exception
+DESCRIPTION: Exception thrown when an error occurs in the AidBox class Constructs a new exception with  null  as its detail message. Constructs a new exception with the specified detail message.
+======================================================================
+  SIGNATURE: public InstitutionException ()
+  DOC: Constructs a new exception with  null  as its detail message.
+  --------------------------------------------------------------------
+  SIGNATURE: public InstitutionException ( String  msg)
+  DOC: Constructs a new exception with the specified detail message.
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: msg  - the detail message.
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\ItemType.html
+SIGNATURE: public enum  ItemType extends  Enum < ItemType >
+DESCRIPTION: Enumeration describing the item type Clothing Medicine Non-perishable food Perishable food Returns the string representation for the waste type enumeration values Returns the enum constant of this class with the specified name. Returns an array containing the constants of this enum class, in the order they are declared.
+======================================================================
+  SIGNATURE: public static final ItemType PERISHABLE_FOOD
+  DOC: Perishable food
+  --------------------------------------------------------------------
+  SIGNATURE: public static final ItemType NON_PERISHABLE_FOOD
+  DOC: Non-perishable food
+  --------------------------------------------------------------------
+  SIGNATURE: public static final ItemType CLOTHING
+  DOC: Clothing
+  --------------------------------------------------------------------
+  SIGNATURE: public static final ItemType MEDICINE
+  DOC: Medicine
+  --------------------------------------------------------------------
+  SIGNATURE: public static ItemType [] values ()
+  DOC: Returns an array containing the constants of this enum class, in the order they are declared.
+  NOTES: All Implemented Interfaces: Serializable ,  Comparable < ItemType >,  Constable Returns: an array containing the constants of this enum class, in the order they are declared
+  --------------------------------------------------------------------
+  SIGNATURE: public static ItemType valueOf ( String  name)
+  DOC: Returns the enum constant of this class with the specified name. The string must match  exactly  an identifier used to declare an enum constant in this class. (Extraneous whitespace characters are not permitted.)
+  NOTES: Parameters: name  - the name of the enum constant to be returned. Returns: the enum constant with the specified name Throws: IllegalArgumentException  - if this enum class has no constant with the specified name NullPointerException  - if the argument is null
+  --------------------------------------------------------------------
+  SIGNATURE: public static String getString ( ItemType  type)
+  DOC: Returns the string representation for the waste type enumeration values
+  NOTES: Parameters: type  - enumeration value Returns: string representation for the enumeration
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\Measurement.html
+SIGNATURE: public interface  Measurement
+DESCRIPTION: Contract representing a Measurement from a  container Getter for measurement date Getter for measurement value (Kg)
+======================================================================
+  SIGNATURE: LocalDateTime getDate ()
+  DOC: Getter for measurement date
+  NOTES: Returns: measurement date
+  --------------------------------------------------------------------
+  SIGNATURE: double getValue ()
+  DOC: Getter for measurement value (Kg)
+  NOTES: Returns: measurement value (Kg)
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\exceptions\MeasurementException.html
+SIGNATURE: public class  MeasurementException extends  Exception
+DESCRIPTION: Exception thrown when an error occurs related to the Measurement class Creates a new instance of  MeasurementException  without detail message. Constructs an instance of  MeasurementException  with the specified detail message.
+======================================================================
+  SIGNATURE: public MeasurementException ()
+  DOC: Creates a new instance of  MeasurementException  without detail message.
+  --------------------------------------------------------------------
+  SIGNATURE: public MeasurementException ( String  msg)
+  DOC: Constructs an instance of  MeasurementException  with the specified detail message.
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: msg  - the detail message.
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\PickingMap.html
+SIGNATURE: public interface  PickingMap
+DESCRIPTION: Contract representing a Collection of Routes for a date. Getter for the date of the PickingMap Getter for the routes of the PickingMap
+======================================================================
+  SIGNATURE: LocalDateTime getDate ()
+  DOC: Getter for the date of the PickingMap
+  NOTES: Returns: the date of the PickingMap
+  --------------------------------------------------------------------
+  SIGNATURE: Route [] getRoutes ()
+  DOC: Getter for the routes of the PickingMap
+  NOTES: Returns: the routes of the PickingMap
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\exceptions\PickingMapException.html
+SIGNATURE: public class  PickingMapException extends  Exception
+DESCRIPTION: Exception thrown when an error occurs related to Picking Map class Constructs a new exception with  null  as its detail message. Constructs a new exception with the specified detail message.
+======================================================================
+  SIGNATURE: public PickingMapException ()
+  DOC: Constructs a new exception with  null  as its detail message.
+  --------------------------------------------------------------------
+  SIGNATURE: public PickingMapException ( String  msg)
+  DOC: Constructs a new exception with the specified detail message.
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: msg  - the detail message.
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\exceptions\PickingMapException.html
+SIGNATURE: public class  PickingMapException extends  Exception
+DESCRIPTION: Represents an exception that occurs when a picking map is invalid Creates a new instance of PickingMapException Creates a new instance of PickingMapException
+======================================================================
+  SIGNATURE: public PickingMapException ( String  message)
+  DOC: Creates a new instance of PickingMapException
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: message  - the detail message
+  --------------------------------------------------------------------
+  SIGNATURE: public PickingMapException ()
+  DOC: Creates a new instance of PickingMapException
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\Report.html
+SIGNATURE: public interface  Report
+DESCRIPTION: Getter for the date of the report Getter for the number of non-picked containers Getter for the number of not used vehicles Getter for the number of picked containers Getter for the total distance covered by the vehicles Getter for the total duration of the routes Getter for the number of used vehicles
+======================================================================
+  SIGNATURE: int getUsedVehicles ()
+  DOC: Getter for the number of used vehicles
+  NOTES: Returns: the number of used vehicles
+  --------------------------------------------------------------------
+  SIGNATURE: int getPickedContainers ()
+  DOC: Getter for the number of picked containers
+  NOTES: Returns: the number of picked containers
+  --------------------------------------------------------------------
+  SIGNATURE: double getTotalDistance ()
+  DOC: Getter for the total distance covered by the vehicles
+  NOTES: Returns: the total distance covered by the vehicles
+  --------------------------------------------------------------------
+  SIGNATURE: double getTotalDuration ()
+  DOC: Getter for the total duration of the routes
+  NOTES: Returns: the total duration of the routes
+  --------------------------------------------------------------------
+  SIGNATURE: int getNonPickedContainers ()
+  DOC: Getter for the number of non-picked containers
+  NOTES: Returns: the number of non-picked containers
+  --------------------------------------------------------------------
+  SIGNATURE: int getNotUsedVehicles ()
+  DOC: Getter for the number of not used vehicles
+  NOTES: Returns: the number of not used vehicles
+  --------------------------------------------------------------------
+  SIGNATURE: LocalDateTime getDate ()
+  DOC: Getter for the date of the report
+  NOTES: Returns: the date of the report
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\Route.html
+SIGNATURE: public interface  Route
+DESCRIPTION: Contract representing a route for item picking Adds a new  Aid Box  to the route Checks if the route contains an  Aid Box Getter for a deep copy of the route Getter for the vehicle of the route Inserts an  Aid Box  before another  Aid Box  in the route Removes an  Aid Box  from the route Replaces an  Aid Box  from the route
+======================================================================
+  SIGNATURE: void addAidBox ( AidBox  aidBox)  throws  RouteException
+  DOC: Adds a new  Aid Box  to the route
+  NOTES: Parameters: aidBox  - the  Aid Box  to add Throws: RouteException  - if the  Aid Box  cannot be added to the route:  if the  Aid Box  is null if the  Aid Box  is already in the route if the  Aid Box  is not compatible (doesn't have a  container  that can be picked by the vehicle) with the  Vehicle  of the route
+  --------------------------------------------------------------------
+  SIGNATURE: AidBox removeAidBox ( AidBox  aidBox)  throws  RouteException
+  DOC: Removes an  Aid Box  from the route
+  NOTES: Parameters: aidBox  - the  Aid Box  to remove Returns: the removed  Aid Box Throws: RouteException  - if the  Aid Box  parameter is null or if the  Aid Box  is not in the route
+  --------------------------------------------------------------------
+  SIGNATURE: boolean containsAidBox ( AidBox  aidBox)
+  DOC: Checks if the route contains an  Aid Box
+  NOTES: Parameters: aidBox  - the  Aid Box  to check Returns: true if the route contains the  Aid Box , false otherwise
+  --------------------------------------------------------------------
+  SIGNATURE: void replaceAidBox ( AidBox  from,  AidBox  to)  throws  RouteException
+  DOC: Replaces an  Aid Box  from the route
+  NOTES: Parameters: from  - the  Aid Box  to replace to  - the  Aid Box  to replace with Throws: RouteException  - if the  Aid Box  cannot be added to the route:  if any  Aid Box  is null if the  Aid Box  to replace is not in the route if the  Aid Box  to insert is already in the route if the  Aid Box  to insert is not compatible (doesn't have a  container  that can be picked by the vehicle) with the  Vehicle  of the route
+  --------------------------------------------------------------------
+  SIGNATURE: void insertAfter ( AidBox  after,  AidBox  toInsert)  throws  RouteException
+  DOC: Inserts an  Aid Box  before another  Aid Box  in the route
+  NOTES: Parameters: after  - the  Aid Box  to insert before toInsert  - the  Aid Box  to insert Throws: RouteException  - if the  Aid Box  cannot be added to the route:  if any  Aid Box  is null if the  Aid Box  to replace is not in the route if the  Aid Box  to insert is already in the route if the  Aid Box  to insert is not compatible (doesn't have a  container  that can be picked by the vehicle) with the  Vehicle  of the route
+  --------------------------------------------------------------------
+  SIGNATURE: AidBox [] getRoute ()
+  DOC: Getter for a deep copy of the route
+  NOTES: Returns: the route
+  --------------------------------------------------------------------
+  SIGNATURE: Vehicle getVehicle ()
+  DOC: Getter for the vehicle of the route
+  NOTES: Returns: the vehicle of the route
+  --------------------------------------------------------------------
+  SIGNATURE: double getTotalDistance ()
+  DOC: 
+  --------------------------------------------------------------------
+  SIGNATURE: double getTotalDuration ()
+  DOC: 
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\exceptions\RouteException.html
+SIGNATURE: public class  RouteException extends  Exception
+DESCRIPTION: Represents an exception that occurs when a route is invalid Creates a new instance of RouteException Creates a new instance of RouteException
+======================================================================
+  SIGNATURE: public RouteException ( String  message)
+  DOC: Creates a new instance of RouteException
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: message  - the detail message
+  --------------------------------------------------------------------
+  SIGNATURE: public RouteException ()
+  DOC: Creates a new instance of RouteException
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\RouteGenerator.html
+SIGNATURE: public interface  RouteGenerator
+DESCRIPTION: Contract representing a Route Generator Generates the routes for the given institution, strategy, route restrictions and report
+======================================================================
+  SIGNATURE: Route [] generateRoutes ( Institution  institution,  Strategy  strategy,  RouteValidator  routeValidator,  Report  report)
+  DOC: Generates the routes for the given institution, strategy, route restrictions and report
+  NOTES: Parameters: institution  - the institution to generate the routes for strategy  - the strategy to use for picking the  containers routeValidator  - the route restrictions to apply report  - the report to generate statistics Returns: the generated routes
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\RouteValidator.html
+SIGNATURE: public interface  RouteValidator
+DESCRIPTION: Validates if the route is valid if the aid box is inserted in the route
+======================================================================
+  SIGNATURE: boolean validate ( Route  route,  AidBox  aidBox)
+  DOC: Validates if the route is valid if the aid box is inserted in the route
+  NOTES: Parameters: route  - the route to validate aidBox  - the aid box to insert in the route Returns: true if the route is valid, false otherwise
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\Strategy.html
+SIGNATURE: public interface  Strategy
+DESCRIPTION: Generates the routes for the given institution and route restrictions following some strategy to pick the containers
+======================================================================
+  SIGNATURE: Route [] generate ( Institution  institution,  RouteValidator  routeValidator)
+  DOC: Generates the routes for the given institution and route restrictions following some strategy to pick the containers
+  NOTES: Parameters: institution  - the institution to generate the routes for routeValidator  - the route restrictions to apply Returns: the generated routes
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\pickingManagement\Vehicle.html
+SIGNATURE: public interface  Vehicle
+DESCRIPTION: Represents a vehicle behavior that can be used to transport containers Getter for the maximum capacity (Kg) that the vehicle can transport Getter for the  type of supply  that the vehicle can transport
+======================================================================
+  SIGNATURE: ItemType getSupplyType ()
+  DOC: Getter for the  type of supply  that the vehicle can transport
+  NOTES: Returns: the  type of supply that the vehicle can transport
+  --------------------------------------------------------------------
+  SIGNATURE: double getMaxCapacity ()
+  DOC: Getter for the maximum capacity (Kg) that the vehicle can transport
+  NOTES: Returns: the maximum capacity (Kg) that the vehicle can transport
+  --------------------------------------------------------------------
+
+
+======================================================================
+FILE: com\estg\core\exceptions\VehicleException.html
+SIGNATURE: public class  VehicleException extends  Exception
+DESCRIPTION: Exception thrown when an error occurs related to Vehicle class Constructs a new exception with  null  as its detail message. Constructs a new exception with the specified detail message.
+======================================================================
+  SIGNATURE: public VehicleException ()
+  DOC: Constructs a new exception with  null  as its detail message.
+  --------------------------------------------------------------------
+  SIGNATURE: public VehicleException ( String  msg)
+  DOC: Constructs a new exception with the specified detail message.
+  NOTES: All Implemented Interfaces: Serializable See Also: Serialized Form Parameters: msg  - the detail message.
+  --------------------------------------------------------------------
+
+

@@ -1,0 +1,440 @@
+[{
+  "Codigo": "CAIXF37",
+  "Zona": "Pombeiro",
+  "Latitude": 41.381961,
+  "Longitude": -8.228073,
+  "Contentores": [
+    {
+      "codigo": "N1EI",
+      "capacidade": 500
+    },
+    {
+      "codigo": "V116",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MY6L",
+      "capacidade": 500
+    },
+    {
+      "codigo": "PL7KI",
+      "capacidade": 120
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF44",
+  "Zona": "Caramos",
+  "Latitude": 41.342536,
+  "Longitude": -8.169107,
+  "Contentores": [
+    {
+      "codigo": "NLIK",
+      "capacidade": 400
+    },
+    {
+      "codigo": "V76L",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MQQ6",
+      "capacidade": 500
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF38",
+  "Zona": "Lagares",
+  "Latitude": 41.371914,
+  "Longitude": -8.237,
+  "Contentores": [
+    {
+      "codigo": "N1Y0",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V11L",
+      "capacidade": 530
+    },
+    {
+      "codigo": "MY7Y",
+      "capacidade": 500
+    },
+    {
+      "codigo": "PL9E0",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF32",
+  "Zona": "Moure",
+  "Latitude": 41.357226,
+  "Longitude": -8.168678,
+  "Contentores": [
+    {
+      "codigo": "N100",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V099",
+      "capacidade": 750
+    },
+    {
+      "codigo": "PL66K",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF34",
+  "Zona": "Sousa",
+  "Latitude": 41.346402,
+  "Longitude": -8.253136,
+  "Contentores": [
+    {
+      "codigo": "N10L",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V0QQ",
+      "capacidade": 750
+    },
+    {
+      "codigo": "M6Q1",
+      "capacidade": 500
+    },
+    {
+      "codigo": "PL6Q1",
+      "capacidade": 70
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF42",
+  "Zona": "Margaride",
+  "Latitude": 41.376615,
+  "Longitude": -8.192797,
+  "Contentores": [
+    {
+      "codigo": "N7YL",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V6E1",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MQL1",
+      "capacidade": 500
+    },
+    {
+      "codigo": "PQE0",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF33",
+  "Zona": "Rande",
+  "Latitude": 41.336092,
+  "Longitude": -8.239746,
+  "Contentores": [
+    {
+      "codigo": "N106",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V0EK",
+      "capacidade": 900
+    },
+    {
+      "codigo": "M69E",
+      "capacidade": 500
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF41",
+  "Zona": "Sendim",
+  "Latitude": 41.385567,
+  "Longitude": -8.181038,
+  "Contentores": [
+    {
+      "codigo": "N7YK",
+      "capacidade": 1200
+    },
+    {
+      "codigo": "V1Y0",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MYEI",
+      "capacidade": 500
+    },
+    {
+      "codigo": "PPIK",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF43",
+  "Zona": "Margaride",
+  "Latitude": 41.364635,
+  "Longitude": -8.188334,
+  "Contentores": [
+    {
+      "codigo": "N9Y7",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V6Q0",
+      "capacidade": 500
+    },
+    {
+      "codigo": "MQQ0",
+      "capacidade": 500
+    },
+    {
+      "codigo": "P6Q0",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF39",
+  "Zona": "Torrados",
+  "Latitude": 41.353876,
+  "Longitude": -8.233566,
+  "Contentores": [
+    {
+      "codigo": "N6Q0",
+      "capacidade": 300
+    },
+    {
+      "codigo": "V11Q",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MY9E",
+      "capacidade": 660
+    },
+    {
+      "codigo": "PLIQL",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF35",
+  "Zona": "Barrosas",
+  "Latitude": 41.35233,
+  "Longitude": -8.302574,
+  "Contentores": [
+    {
+      "codigo": "N110",
+      "capacidade": 1000
+    },
+    {
+      "codigo": "V106",
+      "capacidade": 750
+    },
+    {
+      "codigo": "M70L",
+      "capacidade": 600
+    },
+    {
+      "codigo": "PPL70L",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF49",
+  "Zona": "Penacova",
+  "Latitude": 41.372364,
+  "Longitude": -8.252878,
+  "Contentores": [
+    {
+      "codigo": "NYI7",
+      "capacidade": 600
+    },
+    {
+      "codigo": "VLIK",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MY00",
+      "capacidade": 500
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF45",
+  "Zona": "Lixa",
+  "Latitude": 41.326811,
+  "Longitude": -8.147564,
+  "Contentores": [
+    {
+      "codigo": "NLKQ",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V7KI",
+      "capacidade": 400
+    },
+    {
+      "codigo": "MQQQ",
+      "capacidade": 500
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF51",
+  "Zona": "Pombeiro",
+  "Latitude": 41.380351,
+  "Longitude": -8.22361,
+  "Contentores": [
+    {
+      "codigo": "NYK0",
+      "capacidade": 600
+    },
+    {
+      "codigo": "VQE1",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MY17",
+      "capacidade": 500
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF46",
+  "Zona": "Lixa",
+  "Latitude": 41.322428,
+  "Longitude": -8.145332,
+  "Contentores": [
+    {
+      "codigo": "NQE0",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V9E0",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MQQY",
+      "capacidade": 900
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF48",
+  "Zona": "Sernande",
+  "Latitude": 41.342149,
+  "Longitude": -8.230906,
+  "Contentores": [
+    {
+      "codigo": "NYI6",
+      "capacidade": 600
+    },
+    {
+      "codigo": "VIQQ",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MQYL",
+      "capacidade": 350
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF50",
+  "Zona": "Vila Fria",
+  "Latitude": 41.384859,
+  "Longitude": -8.244982,
+  "Contentores": [
+    {
+      "codigo": "NYIQ",
+      "capacidade": 600
+    },
+    {
+      "codigo": "VQE0",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MY07",
+      "capacidade": 500
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF47",
+  "Zona": "Pinheiro",
+  "Latitude": 41.366696,
+  "Longitude": -8.155203,
+  "Contentores": [
+    {
+      "codigo": "NQE1",
+      "capacidade": 350
+    },
+    {
+      "codigo": "VIQL",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MQY6",
+      "capacidade": 500
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF36",
+  "Zona": "Tagilde",
+  "Latitude": 41.371656,
+  "Longitude": -8.270645,
+  "Contentores": [
+    {
+      "codigo": "N111",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V111",
+      "capacidade": 280
+    },
+    {
+      "codigo": "ME0I",
+      "capacidade": 500
+    },
+    {
+      "codigo": "PLE0I",
+      "capacidade": 100
+    }
+  ]
+},
+{
+  "Codigo": "CAIXF40",
+  "Zona": "Margaride",
+  "Latitude": 41.361349,
+  "Longitude": -8.198204,
+  "Contentores": [
+    {
+      "codigo": "N7KI",
+      "capacidade": 600
+    },
+    {
+      "codigo": "V1QL",
+      "capacidade": 750
+    },
+    {
+      "codigo": "MYE6",
+      "capacidade": 500
+    },
+    {
+      "codigo": "PLIQQ",
+      "capacidade": 80
+    }
+  ]
+}]
