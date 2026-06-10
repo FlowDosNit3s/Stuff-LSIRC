@@ -1,0 +1,476 @@
+PARADIGMAS DE 
+PROGRAMAÇÃO
+2025/2026
+
+Aula 09
+
+1. Palavras Reservadas
+
+2. Herança
+
+3.
+
+Interfaces
+
+4. Palavras Reservadas Usadas
+
+5. Links Úteis
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Ricardo Santos | rjs@estg.ipp.pt
+
+Palavras Reservadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Herança
+
+Conceito 
+– Java não permite herança múltipla
+
+Porquê?
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+public class Dummy 
+
+extends Object, String {
+
+...
+
+}
+
+Em Java não é possível herança 
+múltipla!
+
+Supondo que se quer modelar uma 
+criança a qual herda 
+(comportamentos) do pai e da mãe
+
+Como o fazer em Java?
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+É do conhecimento geral que:
+
+Saber pregar um prego
+
+ e fritar um ovo...
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ ...dá muito jeito!
+
+É também do conhecimento geral 
+que por norma:
+
+ O comportamento "martelar" é
+
+ herdado do pai
+
+ O comportamento "fritar" é 
+
+ herdado da mãe
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Pseudo-Solução
+
+class Pai {
+
+DedoPartido martelar(int pregos) { ... }
+
+}
+
+class Mae {
+
+Omolete fritar(int ovos) { ... }
+
+}
+
+class Crianca extends Pai, Mae { ... }
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Solução
+
+Recorrer a interfaces!
+– Não são interfaces gráficas
+
+Uma interface Java é uma entidade próxima 
+de uma classe 100% abstracta
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Possível Solução
+
+Class
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Interface
+
+Possível Solução
+
+Interface?
+
+Class
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Solução
+
+Class
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Interface
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Interfaces
+
+Conceito 
+– Uma interface é um contrato!
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Vantagens em recorrer a interfaces:
+
+– Quem implementa a interface fá-lo de 
+
+acordo com o que foi contratado
+
+– Quem usa a interface fá-lo de acordo com 
+
+o que contratou
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Vantagens em recorrer a interfaces:
+
+– Separa a implementação do código cliente 
+escondendo os detalhes de implementação
+
+– A implementação pode ser refeita sem que 
+
+o código cliente se aperceba
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Exemplo de como definir uma interface:
+
+public interface HelloWorld {
+
+void sayHelloTo(String name);
+
+}
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+public interface HelloWorld {
+
+void sayHelloTo(String name);
+
+}
+
+Um método de uma interface é public abstract, 
+mais uma vez... não é obrigatório explicitá-lo!
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+A assinatura de cada método acaba com ponto e 
+vírgula!
+
+Exemplo de como definir uma interface:
+
+public class Test implements HelloWorld {
+
+public void sayHelloTo(String name) {
+
+System.out.println("Hello" + name + "!");
+
+}
+
+}
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+public class Test implements HelloWorld {
+
+public void sayHelloTo(String name) {
+
+System.out.println("Hello" + name + "!");
+
+}
+
+}
+
+A class Test tem que implementar o método 
+satHelloTo, caso contrário terá de ser abstracta!
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Por norma, recorrendo a classes abstractas e a 
+interfaces para especificar e prototipar um módulo de 
+software é vantajoso.
+
+O módulo torna-se, assim, mais flexível, ou seja, mais 
+polimórfico!
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+As interfaces são um mecanismo que as 
+linguagens OO (e.g., Java, C#, ...) 
+disponibilizam, contudo são 
+(infelizmente) pouco usada pelos 
+desenvolvedores de software...
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Vamos mudar isto!
+
+Palavras Reservadas Usadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Links Úteis
+
+http://docs.oracle.com/javase/tutorial/java/concepts/
+inheritance.html
+
+http://docs.oracle.com/javase/tutorial/java/IandI/
+abstract.html
+
+http://docs.oracle.com/javase/tutorial/java/IandI/
+final.html
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+

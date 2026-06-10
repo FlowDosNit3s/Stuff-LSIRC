@@ -1,0 +1,160 @@
+Tipo de Prova 
+Trabalho prático - Época Normal 
+Curso 
+Licenciatura em Engenharia Informática / Licenciatura em Segurança 
+Informática em Redes de computadores 
+Unidade Curricular 
+Paradigmas de Programação 
+
+Ano letivo 
+2025/2026 
+
+ Data 
+
+ Hora 
+
+ Duração 
+
+Objetivos 
+
+Com  a  realização  do  trabalho  prático,  pretende-se  que  os  alunos  ponham  em  prática  todos  os  conhecimentos 
+adquiridos  na  utilização  do  Paradigma  de  Programação  Orientado  a  Objetos  (POO)  e  a  sua  implementação  na 
+linguagem de programação Java, demonstrando as suas competências em: 
+
+Conhecer e compreender os conceitos fundamentais associada à POO; 
+Conceber e implementar, para problemas concretos, soluções que tenham por base a POO. 
+
+• 
+• 
+•  Reconhecer e compreender a semântica e a sintaxe da linguagem Java. 
+•  Reutilizar,  alterar  e  desenvolver  código  recorrendo  à  linguagem  Java  tendo  em  vista  um  determinado 
+
+problema com regras semânticas específicas. 
+
+Considere ainda que: 
+
+•  Não é permitida a utilização de API’s/conceitos Java que não tenham sido alvo de lecionação no ano letivo 
+corrente  na  unidade  curricular  de  Paradigmas  de  Programação  (LEI  e  LSIRC).  Os  alunos  que  pretendam 
+utilizar  API’s  adicionais  devem  atempadamente  pedir  autorização  a  um  dos  docentes  da  unidade 
+curricular. 
+
+•  Não  é  permitida  a  utilização  de  coleções  Java  predefinidas  (Java  Collections  Framework)  nem  qualquer 
+
+API não lecionada ou não autorizada previamente por um dos docentes. 
+
+•  Os recursos de suporte ao trabalho referenciados no enunciado, são de utilização obrigatória. 
+
+Introdução 
+
+Uma instituição de ajuda humanitária decidiu implementar um  projeto para a recolha de bens essenciais.  Desde 
+alimentos e roupas até medicamentos, esses itens são fundamentais para ajudar a reconstruir vidas despedaçadas 
+por desastres naturais, conflitos ou pobreza extrema. 
+
+Através de um conjunto de parceiros, um conjunto de caixas de suprimentos foram instaladas em diversas zonas 
+de uma  determinada  região  onde podem ser entregues bens, que  posteriormente são recolhidos. Cada  caixa de 
+suprimentos pode possuir diferentes contentores associados a um tipo de item: Alimentos não perecíveis (como 
+arroz  ou  enlatados),  Alimentos  perecíveis  (como  fruta  ou  congelados),  Vestuário  ou  Medicamentos.  Os 
+contentores estão equipados com sensores que comunicam diariamente a sua lotação, e que está relacionada com 
+a  sua  capacidade  de  armazenamento.  Os  alimentos  perecíveis  têm  de  ser  recolhidos  rapidamente 
+independentemente da lotação, enquanto que os restantes podem aguardar até um os contentores fiquem cheios 
+ou com uma lotação elevada. 
+
+Utilizando veículos equipados para o efeito, a instituição realiza frequentemente a recolha de contentores baseado 
+nas  leituras  recebidas  por  cada  uma  das  caixas  de  suprimentos.  A  ideia  do  projeto  passa  por  disponiblizar  esta 
+informação publicamente de forma a que possa recolher os bens de forma mais rápida e eficiente.  
+
+Descrição técnica 
+
+As  caixas  de  suprimentos  (AidBox)  são  compostas  por  contentores  (Container)  de  determinado  tipo 
+(ContainerType): Alimentos Perecível (Perishable  food), Alimentos não Perecível (Non-perishable  food),  Vestuário 
+(Clothing)  e  Medicamentos  (Medicine).  Considerando  uma  determinada  rota  (Route),  devem  ser  realizadas 
+recolhas aos contentores tendo por base as medições (Measurement) recebidas por contentor.  
+
+Existem ainda veículos (Vehicle) que apenas podem recolher um tipo de item (ItemType) de cada vez (um veículo 
+não  pode  recolher,  por  exemplo,  alimentos  e  vestuário),  possuindo  sempre  uma  carga  máxima  que  conseguem 
+transportar. Para a recolha de alimentos perecíveis, existem veículos específicos (RefrigeratedVehicles) que estão 
+equipados com câmaras de refrigeração para garantir que os alimentos não perdem qualidades essenciais ao seu 
+consumo. Este tipo de veículos não deve circular mais do que um determinado número de quilómetros com carga. 
+Note que pode ser necessário realizar mais do que um caminho entre o ponto de partida e o destino para recolher 
+todos  os  itens.  A  recolha  deve  ser  despoletada  de  acordo  com  um  critério  definido  por  cada  grupo.  Em  cada 
+leitura/recolha (Collection) é necessário identificar o veículo envolvido e a respetiva rota (Route) realizadas. 
+
+Página 1 de2 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Tipo de Prova 
+Trabalho prático - Época Normal 
+Curso 
+Licenciatura em Engenharia Informática / Licenciatura em Segurança 
+Informática em Redes de computadores 
+Unidade Curricular 
+Paradigmas de Programação 
+
+Ano letivo 
+2025/2026 
+
+ Data 
+
+ Hora 
+
+ Duração 
+
+Como suporte ao desenvolvimento da API, são disponibilizados um conjunto de recursos (resources), de utilização 
+obrigatória  e  que  definem  os  contratos  e  definem  o  ponto  de  partida  para  o  desenvolvimento  da  API.    Os 
+conteúdos  fornecidos  são  um  complemento  ao  presente  enunciado,  contendo  informação  adicional  e  específica 
+sobre as particularidades de implementação. Deverá realizar a implementação do código necessário para suportar 
+cada  uma  das  operações  definidas  nos  contratos.  A  existência  dos  contratos  não  deve  ser  impeditiva  para  a 
+implementação  de  novos  contratos,  funcionalidades  e/ou  novos  métodos  ou  classes.  A  utilização  dos  contratos 
+constitui um ponto de partida, cujos ficheiros não podem ser alterados.  
+
+Dados fornecidos 
+
+Como  suporte  ao  trabalho  prático,  são  disponibilizados  ficheiros  JSON  que  armazenam  dados  que  devem  ser 
+utilizados: 
+
+•  AidBoxes.json:  Comtém  as  caixas  de  suprimentos  existentes  (incluindo  a  sua  localização)  e  respetivos 
+
+contentores. O valor da capacidade máxima dos contentores é definido na unidade de medida: kg.  
+
+•  Distances.json:  As  distâncias  entre  as  caixas  de  suprimentos.  Para  a  distância,  é  utilizada  a  unidade: 
+metros e para a duração é utilizada a unidade: segundos. Na definição das distâncias existe a “Base” que 
+representa o ponto de partida e de chegada dos veículos de recolha.  
+
+Cada  grupo  deverá  realizar  as  ações  necessárias  para  interpretar  os  dados  recebidos  e  instanciar  os  respetivos 
+objetos  de  acordo  com  os  requisitos  estabelecidos  nos  recursos  de  suporte  ao  trabalho  prático.  Aconselha-se  a 
+utilização da biblioteca Java json-simple1, para facilitar a interpretação de documentos JSON.  
+
+Requisitos adicionais 
+
+Deve  implementar  uma  classe  que  simule  a  verificação  do  peso  de  um  contentor,  gerando  aleatóriamente 
+(utilizando uma biblioteca/classe à escolha) a leituras dos sensores num dado instante (considerando os limites do 
+contentor).  
+
+Para  além  dos  requisitos  apresentados,  deverá  incorporar  a  API  desenvolvida  numa  aplicação  funcional  que 
+permita  ao  utilizador  aceder  a  todas  as  funcionalidades  apresentados  nos  recursos  de  suporte  ao  trabalho  e  no 
+presente enunciado. 
+
+Teste  o  mais  exaustivamente  possível  o  código  que  desenvolveu  como  resposta  aos  requisitos  apresentados. 
+Recorra a  comentários JavaDoc e não só de modo a  documentar, o mais exaustivamente possível, o código que 
+desenvolveu.  
+
+1 https://code.google.com/archive/p/json-simple/ 
+
+Página 2 de2 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

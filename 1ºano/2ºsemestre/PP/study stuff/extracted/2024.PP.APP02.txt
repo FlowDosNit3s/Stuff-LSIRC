@@ -1,0 +1,697 @@
+PARADIGMAS DE 
+PROGRAMAÇÃO
+2023/2024
+
+Aula 02
+
+1. Palavras Reservadas
+
+2. Operadores
+
+3. Execução Condicional
+
+4. Execução Iterativa
+
+5. Palavras Reservadas Usadas
+
+6. Links Úteis
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Ricardo Santos | rjs@estg.ipp.pt
+
+Palavras Reservadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+Operadores Multifunção
+
+Operador Multifunção
+
+Interpretação
+
+++
+
+--
+
++=
+
+-=
+
+*=
+
+/=
+
+&=
+
+|=
+
+^=
+
+%=
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Incrementa um valor de uma unidade
+
+Decrementa um valor de uma unidade
+
+Incremento (de um valor especifico)
+
+Decremento (de um valor especifico)
+
+Multiplicação (por um valor especifico)
+
+Divisão (por um valor específico)
+
+E de bits (de um valor específico)
+
+Ou inclusivo de bits (de um valor específico)
+
+Ou exclusivo de bits (de um valor específico)
+
+resto da divisão inteira (por um valor específico)
+
+A tabela seguinte mostra os exemplos e 
+interpretações:
+
+Operador Multifunção
+
+Exemplo
+
+Equivalente
+
+++
+
+--
+
++=
+
+-=
+
+*=
+
+/=
+
+&=
+
+|=
+
+^=
+
+%=
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+x++, ++x
+
+x--, --x
+
+x += y
+
+x -= y
+
+x *= y 
+
+x /= y
+
+x &= y 
+
+x |= y
+
+x ^= y
+
+x %= y 
+
+x = x + 1 
+
+x = x - 1 
+
+x = x + y 
+
+x = x - y 
+
+x = x * y
+
+x = x / y
+
+x = x & y
+
+x = x | y
+
+x = x ^ y
+
+x = x % y
+
+Repare que ++x e x++ ou --x e x-- não são iguais!
+
+int x = 9;
+int y = 11; 
+
+if(++x == 10) 
+
+/* the if condition is true since the value of x is 
+incremented before the expression is evaluated*/
+
+if(y-- == 10)
+
+/* the if condition is false since the value of y is 
+decremented after the expression is evaluated*/
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Repare que ++x e x++ ou --x e x-- não são iguais!
+
+int x = 9;
+int y = 11; 
+
+if(++x == 10) 
+
+/* the if condition is true since the value of x is 
+incremented before the expression is evaluated*/
+
+if(y-- == 10)
+
+/* the if condition is false since the value of y is 
+decremented after the expression is evaluated*/
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Execução Condicional
+
+Como noutras linguagens de programação a 
+linguagem Java fornece construções para a execução 
+condicional, especificamente o if, switch e o 
+operador condicional/ternário ?: 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Construções Condicionais 
+
+if (<boolean-expression>) 
+  <statement>... 
+else 
+  <statement>...
+
+switch (<expression>) { 
+  case <const-expression>: 
+    <statements>... 
+    break; 
+ more-case-statement-break-groups... 
+  default: 
+    <statements>...} 
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+(<boolean-expression>) ? <if boolean-expression is true> 
+: <if boolean-expression is false>
+
+Uma <boolean-expression> é uma qualquer 
+expressão quer permita ter um valor booleano: 
+
+Expressões booleanas
+
+Interpretação
+
+x<3
+
+x==y
+
+x>=y
+
+x!=10
+
+x é menor que 3 
+
+x é igual a y
+
+x é maior ou igual a y
+
+x não é igual a10 
+
+<variable>
+
+a variável (!=0) é verdade
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+As expressões booleanas podem incluir um ou mais 
+operadores de comparação: 
+
+Operador de Comparação
+
+Interpretação
+
+<
+
+<=
+
+>
+
+>=
+
+==
+
+!=
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Menor que
+
+Menor ou igual que
+
+Maior que
+
+Maior ou igual que
+
+Igual
+
+Diferente
+
+The if-then-else Statement
+
+class IfElseDemo {
+    public static void main(String[] args) {
+
+        int testscore = 76;
+        char grade;
+
+        if (testscore >= 90) {
+            grade = 'A';
+        } else if (testscore >= 80) {
+            grade = 'B';
+        } else if (testscore >= 70) {
+            grade = 'C';
+        } else if (testscore >= 60) {
+            grade = 'D';
+        } else {
+            grade = 'F';
+        }
+        System.out.println("Grade = " + grade);
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+The switch Statement
+
+class SwitchDemo {
+    public static void main(String[] args) {
+
+        int month = 8;
+        switch (month) {
+            case 1:  System.out.println("January"); break;
+            case 2:  System.out.println("February"); break;
+            case 3:  System.out.println("March"); break;
+            case 4:  System.out.println("April"); break;
+            case 5:  System.out.println("May"); break;
+            case 6:  System.out.println("June"); break;
+            case 7:  System.out.println("July"); break;
+            case 8:  System.out.println("August"); break;
+            case 9:  System.out.println("September"); break;
+            case 10: System.out.println("October"); break;
+            case 11: System.out.println("November"); break;
+            case 12: System.out.println("December"); break;
+            default: System.out.println("Invalid month.");break;
+        }
+    }
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+The conditional operator ?
+
+class ConditionalOpDemo {
+    public static void main(String[] args) {
+
+int max,a=2, b=3;
+
+max = (a > b) ? a : b;
+
+System.out.println(max);
+
+    }
+}
+
+if (a > b) {
+    max = a;
+}
+else {
+    max = b;
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Execução Iterativa
+
+A linguagem de programação Java fornece as 
+estruturas de construção "while", "do-while", e 
+“for” para a iteração de acções múltiplas vezes 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Construções Iterativas
+
+while (<boolean-expression>) {
+  <statements> 
+}
+
+do {
+  <statements>
+}
+while (<boolean-expression>); 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+for (<init-stmts>...; <boolean-expression>; <exprs>...) 
+{
+  <statements>
+}
+
+The while Statement
+
+class WhileDemo {
+     public static void main(String[] args){
+
+          int count = 1;
+
+          while (count < 11) {
+               System.out.println("Count is: " + count);
+               count++;
+          }
+     }
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+A construção iterativa while executa, enquanto a 
+expressão boleana é verdadeira, um conjunto de acções. 
+
+Deve ser usada quando não sabemos o número de vezes 
+que vamos executar um conjunto de acções.
+
+The do-while Statement
+
+class DoWhileDemo {
+     public static void main(String[] args){
+
+          int count = 1;
+
+          do {
+               System.out.println("Count is: " + count);
+               count++;
+          } while (count <= 11);
+     }
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+A construção iterativa do-while executa um conjunto de 
+acções e uma expressão enquanto a expressão é verdadeira 
+
+Deve ser usada quando queremos executar um conjunto de 
+acções pelo menos uma vez.
+
+The for Statement
+
+class ForDemo {
+     public static void main(String[] args){
+          for(int i=1; i<11; i++){
+               System.out.println("Count is: " + i); }
+     }
+}
+
+Passos de execução para a construção iterativa for:
+1.A área de inicialização é executada unicamente na primeira 
+
+vez que o ciclo é executado
+
+2.Avaliação da expressão boleana
+
+i. Se verdadeira, execução do conjunto de acções
+ii. Se falsa quebra a execução do ciclo
+
+3.Executa o incremento
+4.Voltar ao ponto 2
+
+Deve ser usada quando queremos executar um determinado 
+conjunto de acções um número específico de vezes
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Palavras Reservadas Usadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Links Úteis
+
+http://download.oracle.com/javase/tutorial/java/nutsan
+dbolts/variables.html
+
+http://www.netbeans.org/kb/trails/java-se.html
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+

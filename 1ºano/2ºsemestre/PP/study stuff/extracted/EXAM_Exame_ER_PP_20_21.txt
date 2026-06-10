@@ -1,0 +1,225 @@
+Tipo de Prova 
+Exame Época de Recurso 
+Curso 
+Licenciatura em Engenharia Informática e Licenciatura em 
+Segurança Informática em Redes de Computadores 
+
+Ano lectivo 
+2020/2021 
+
+Unidade Curricular 
+Paradigmas de Programação 
+
+ Data 
+12-7-2021 
+
+ Hora 
+10:00 
+
+ Duração 
+2:00 horas 
+
+Observações 
+O exame é sem consulta 
+
+Grupo I (8 valores) 
+
+Nota: Respostas erradas não descontam. 
+
+a)  A sobrecarga (overloading) de métodos construtores é: (2 valores) 
+
+i)  Um processo de substituição de comportamento ao nível do construtor numa 
+
+subclasse. 
+
+ii)  Uma forma de inicializar objetos com valores por defeito. 
+iii)  É uma forma de criar diferentes construtores com nomes diferentes. 
+iv)  Nenhuma das anteriores. 
+
+b)  Assinale a opções corretas: (2 valores) 
+
+i)  Apenas  métodos  abstratos  são  permitidos  nas  interfaces  enquanto  nas 
+
+classes abstratas são permitidos métodos concretos e abstratos. 
+
+ii)  As interfaces permitem herança múltipla enquanto as classes abstratas não. 
+iii)  Uma classe abstrata não pode implementar interfaces. 
+iv)  Uma interface pode estender de uma classe abstrata. 
+
+c)  Considere o seguinte excerto de código: (2 valores) 
+
+Assinale a opção correta: 
+i)  A execução do código resulta na exceção: NullPointerException. 
+ii)  O output gerado na consola é: null. 
+iii)  O output gerado na consola é a string correspondente ao retorno do método 
+
+toString(). 
+
+iv)  Nenhuma das anteriores 
+
+ESTGF-PR05-Mod013V2 
+
+Página 1 de 3 
+
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Tipo de Prova 
+Exame Época de Recurso 
+Curso 
+Licenciatura em Engenharia Informática e Licenciatura em 
+Segurança Informática em Redes de Computadores 
+
+Ano lectivo 
+2020/2021 
+
+Unidade Curricular 
+Paradigmas de Programação 
+
+ Data 
+12-7-2021 
+
+ Hora 
+10:00 
+
+ Duração 
+2:00 horas 
+
+d)  Um método declarado com o modificador static: (2 valores) 
+
+i)  Pertence exclusivamente aos objetos instanciados. 
+ii)  Pode modificar o valor de uma variável de instância. 
+iii)  Não pode ser sobreposto (override). 
+iv)  Nenhuma das anteriores. 
+
+Grupo II (6 valores) 
+
+Considere o seguinte excerto de código:  
+
+a)  Qual  é  o  output  apresentado  na  consola?  Justifique  explicando  o  código 
+
+apresentado (2 valores) 
+
+b)  Defina  e  implemente  na  classe  Carro,  uma  interface  GPS.  A  interface  GPS 
+estipula  uma 
+funcionalidade  que  permite  retornar  uma  string  com  as 
+coordenadas atuais do veículo. Implemente a interface considerando que existe 
+uma  classe  Geocoder  que  possui  um  método  de  classe  com  o  nome: 
+
+ESTGF-PR05-Mod013V2 
+
+Página 2 de 3 
+
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Tipo de Prova 
+Exame Época de Recurso 
+Curso 
+Licenciatura em Engenharia Informática e Licenciatura em 
+Segurança Informática em Redes de Computadores 
+
+Ano lectivo 
+2020/2021 
+
+Unidade Curricular 
+Paradigmas de Programação 
+
+ Data 
+12-7-2021 
+
+ Hora 
+10:00 
+
+ Duração 
+2:00 horas 
+
+getCurrentLocation(),  que  retorna  uma  string  contendo  a  latitude  e 
+longitude da posição atual. (4 valores) 
+
+Considere o seguinte domínio: 
+
+Grupo III (6 valores) 
+
+Pretende-se que desenvolva uma API para suportar o funcionamento de uma empresa 
+de gestão das viagens dos seus clientes nos veículos dos condutores associados.  
+
+Considere que: 
+
+•  Cada cliente é caracterizado pelo seu nome, NIF e numero de telefone; 
+•  Para cada veículo, é mantido um identificador, o nome do seu condutor e a sua 
+
+capacidade em termos de passageiros. Existem veículos de dois tipos: 
+
+o  Bicicleta Tandem - caracterizada por uma cor. 
+o  Carro – para o qual se regista a cilindrada e a marca. 
+
+A  Viagem  é  o  conceito  central  no  modelo  de  negócio.  Para  cada  viagem,  a  empresa 
+pretende registar o cliente, o veículo em que esta decorre, o nº de kms a percorrer e o 
+seu estado (se está terminada ou ainda a decorrer). 
+
+Os  serviços  são  centrados  em  dois  tipos  de  viagem,  com  características  distintas,  e 
+com formas diferentes de cálculo do seu preço: 
+
+•  Viagem Low Cost – Este tipo de viagem pode ser feita tanto em Carro como em 
+Bicicleta Tandem. Se feita de carro, o seu custo (em euros) é obtido de acordo 
+com a seguinte fórmula: preco=kms*2+cilindrada/1000*kms. Se feita de Bicicleta 
+Tandem, o seu custo é de 3 € por km.  
+
+•  Viagem  VIP  –  Este  tipo  de  viagem  apenas  pode  ser  feito  de  Carro.  O  cliente 
+pode ainda pedir um determinado serviço (por exemplo, garrafas de champanhe 
+a  consumir),  que  deve  ser  registado.  O  preço  de  uma  viagem  deste  tipo  é  de 
+2.5€ por km mais o custo do serviço.  
+
+a)  Apresente as interfaces (pode optar pela utilização de um diagrama de classes) que 
+
+considera necessárias para representar o problema apresentado (3 valores) 
+
+b)  Apresente  uma  classe  GestaoViagens  (não  tem  que  implementar  as  interfaces 
+anteriormente apresentadas) que realize a gestão de uma coleção de viagens e que 
+possua os seguintes métodos: 
+
+a.  Calcular o preço total a pagar numa determinada viagem. O método deverá 
+retornar  o  preço  a  pagar,  ou  caso  a  viagem  não  exista,  deverá  lançar  uma 
+checked exception. (1,5 valores) 
+
+b.  Disponibilizar  um  método  que  o  número  de  viagens  VIP  realizadas  até  ao 
+
+momento. (1,5 valores) 
+
+ESTGF-PR05-Mod013V2 
+
+Página 3 de 3 
+
+ 
+   
+ 
+ 
+ 
+ 
+ 
+ 
+

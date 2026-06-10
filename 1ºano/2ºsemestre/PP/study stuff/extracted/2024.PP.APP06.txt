@@ -1,0 +1,827 @@
+PARADIGMAS DE 
+PROGRAMAÇÃO
+2023/2024
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Aula 06
+
+1. Palavras Reservadas
+
+2. Herança
+
+3. Exemplos
+
+4. Super
+
+5. Casting Objects
+
+6. Associação, Composição e Agregação
+
+7. Generalização vs Especialização
+
+8. Palavras Reservadas Usadas
+
+9. Links Úteis
+
+Ricardo Santos | rjs@estg.ipp.pt
+
+Palavras Reservadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+public class MountainBike{
+
+    private int cadence;
+    private int gear;
+    private int speed;
+    private boolean suspension;
+
+    public MountainBike(int startCadence, int startSpeed,
+            int startGear, boolean suspension) {
+
+        gear = startGear;
+        cadence = startCadence;
+        speed = startSpeed;
+        this.suspension = suspension;
+    }
+
+    public void setCadence(int newValue) {
+        cadence = newValue;
+    }
+
+    public void setGear(int newValue) {
+        gear = newValue;
+    }
+
+   // continua no próximo slide
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    // continuação do slide anterior
+
+    public void applyBrake(int decrement) {
+        speed -= decrement;
+    }
+
+    public void speedUp(int increment) {
+        speed += increment;
+    }
+
+    public boolean hasSuspension() {
+        return this.suspension;
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+public class RoadBike{
+
+    private int cadence;
+    private int gear;
+    private int speed;
+    private int numberOfBags;
+
+    public RoadBike(int startCadence, int startSpeed,
+            int startGear, int numberOfBags) {
+
+        gear = startGear;
+        cadence = startCadence;
+        speed = startSpeed;
+        this.numberOfBags = numberOfBags;
+    }
+
+    public void setCadence(int newValue) {
+        cadence = newValue;
+    }
+
+    public void setGear(int newValue) {
+        gear = newValue;
+    }
+
+   // continua no próximo slide
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    // continuação do slide anterior
+
+    public void applyBrake(int decrement) {
+        speed -= decrement;
+    }
+
+    public void speedUp(int increment) {
+        speed += increment;
+    }
+
+    public int getNumberOfBags() {
+        return this.numberOfBags;
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+O que é a herança?
+
+Objectos diferentes têm por vezes bastantes 
+semelhanças uns com os outros 
+
+Por exemplo, bicicletas de montanha, bicicletas de 
+estrada e bicicletas tandem partilham todas as 
+mesmas características (velocidade actual, velocidade 
+do pedalar, mudança)
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+No entanto cada uma delas define características 
+adicionais que a diferencia das outras: 
+
+– bicicletas tandem têm dois acentos e dois 
+
+guiadores; 
+
+– bicicletas de estrada têm suporte da malas 
+
+laterais; 
+
+– bicicletas de montanha têm suspensão
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+A programação orientada a objectos permite que as 
+classes herdem estados e comportamentos que são 
+comuns de outras classes.
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Na figura anterior, a bicicleta (Bicycle) torna-se a 
+super classe de bicicleta de montanha 
+(MountainBike), bicicleta de estrada (RoadBike) e 
+bicicleta de tandem (TandemBike)
+
+Em java cada classe apenas pode ter uma super 
+classe directa e um número ilimitado de sub-classes
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+A sintaxe de criação de uma sub-classe é simples 
+
+Na declaração da classe usar a palavra reservada 
+extends seguida do nome da classe que irá herdar 
+
+Para o caso da MountainBike:
+
+class MountainBike extends Bicycle {
+
+     /* new fields and methods defining a 
+        mountain bike would go here*/
+
+}
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+public class Bicycle {
+
+    // the Bicycle class has three fields
+    private int cadence;
+    private int gear;
+    private int speed;
+
+    // the Bicycle class has one constructor
+    public Bicycle(int startCadence, int startSpeed, int startGear) {
+        gear = startGear;
+        cadence = startCadence;
+        speed = startSpeed;
+    }
+
+    // the Bicycle class has four methods
+    public void setCadence(int newValue) {
+        cadence = newValue;
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    public void setGear(int newValue) {
+        gear = newValue;
+    }
+
+    // continua no próximo slide
+
+    // continuação do slide anterior
+
+    public void applyBrake(int decrement) {
+        speed -= decrement;
+    }
+
+    public void speedUp(int increment) {
+        speed += increment;
+    }
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    
+public class MountainBike extends Bicycle {
+
+    // the MountainBike subclass adds one field
+    private boolean suspension;
+
+    // the MountainBike subclass has one constructor
+    public MountainBike(boolean suspension, int startCadence, 
+                              int startSpeed, int startGear) {
+
+        super(startCadence, startSpeed, startGear);
+        this.suspension = suspension;
+    }
+
+    // the MountainBike subclass adds one method
+    public boolean hasSuspension() {
+        return this.suspension;
+    }
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+  
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Super
+
+A sintaxe para chamar o método construtor de uma 
+superclasse é a seguinte:
+
+super();  
+--or--
+super(parameter list);
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Com super() é chamado o método construtor sem 
+argumentos enquanto que com super(parameter 
+list) é chamado o construtor com a assinatura 
+correspondente à lista de parâmetros passado para o 
+super
+
+O super() deve ser chamado na primeira linha do 
+método construtor
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Para o exemplo da MountainBike o construtor de 
+bicycle é o seguinte:
+
+  public Bicycle(int startCadence, int startSpeed, 
+                 int startGear) { 
+
+        gear = startGear;
+        cadence = startCadence;
+        speed = startSpeed;
+    }
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Repare que na primeira linha do construtor de 
+MountainBike é feito o super com a respectiva lista 
+de parâmetros:
+
+public MountainBike(boolean suspension, 
+                  int startCadence, int startSpeed, 
+                  int startGear) {
+
+    super(startCadence, startSpeed, startGear);
+    this.suspension = suspension;
+}
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Hierarquia de classes da 
+plataforma java
+
+A classe Object definida no package java.lang, 
+define e implementa comportamentos comuns a 
+todas as classes (incluído as criadas por nós)
+
+Na plataforma java muitas classes derivam 
+directamente de Object enquanto que outras 
+derivam dessas classes... formando a hierarquia de 
+classes
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Casting Objects
+
+Temos visto que o tipo de dados de um objecto é da 
+classe com que foi instanciado. Por exemplo:
+
+public MountainBike myBike = new MountainBike();
+
+myBike é do tipo MountainBike
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Como MountainBike é um descendente de 
+Bicycle e Object uma MountainBike é sempre 
+do tipo Bicycle e Object
+
+O contrário já não é verdade: Bicycle pode não ser 
+MountainBike. O mesmo acontece com o Object
+
+Por exemplo:
+
+Object obj = new MountainBike();
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+obj é Object e MountainBike
+
+Podemos fazer o seguinte:
+
+MountainBike myBike = obj;
+
+Como para o compilador a expressão anterior não é 
+verdadeira temos que lhe dizer explicitamente que o 
+objecto em Object irá ser do tipo MountainBike
+
+MountainBike myBike = (MountainBike)obj;
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+if (obj instanceof MountainBike) {
+   MountainBike myBike = (MountainBike)obj;
+}
+
+Podemos fazer um teste lógico para determinar se a 
+instância é de um determinado tipo
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Notação UML
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Associação
+
+Chamamos de associação aqueles relacionamentos 
+cujos objetos têm um ciclo de vida independente e 
+onde não há propriedade entre os objetos
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Um aluno pode associar-se a múltiplos professores
+
+Cada professor pode ter um ou mais alunos
+
+Também pode ser indicado o comportamento de 
+cada objeto na associação 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Agregação
+
+Chamamos de agregação os relacionamentos cujos 
+objetos têm um ciclo de vida independente, mas há 
+propriedade e os objetos filhos não podem pertencer 
+a outro objeto pai
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Composição
+
+Usamos o termo composição para nos referir a 
+relacionamentos cujos objetos não têm um ciclo de 
+vida independente e, se o objeto pai for excluído, 
+todos os objetos filhos também serão excluídos.
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Generalização vs Especialização
+
+A generalização é um mecanismo para combinar 
+classes semelhantes de objetos numa única classe 
+mais geral
+
+Generalização identifica semelhanças entre um 
+conjunto de entidades
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Por outras palavras, uma superclasse possui os 
+atributos, comportamentos e relacionamentos mais 
+gerais que podem ser compartilhados com 
+subclasses
+
+Uma subclasse pode ter atributos e comportamentos 
+mais especializados
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Especialização é o processo inverso de 
+Generalização significa criar novas subclasses de 
+uma classe existente
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Os donos alimentam animais de estimação, os 
+animais de estimação fazem companhia aos donos 
+(associação)
+
+A cauda é uma parte tanto dos cães como dos gatos 
+gatos (agregação / composição)
+
+um gato é um tipo de animal de estimação (herança / 
+generalização)
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Palavras Reservadas Usadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Links Úteis
+
+http://docs.oracle.com/javase/tutorial/java/concepts/
+inheritance.html
+
+http://docs.oracle.com/javase/tutorial/java/IandI/
+subclasses.html
+
+https://www.visual-paradigm.com/guide/uml-unified-
+modeling-language/uml-aggregation-vs-composition/
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+

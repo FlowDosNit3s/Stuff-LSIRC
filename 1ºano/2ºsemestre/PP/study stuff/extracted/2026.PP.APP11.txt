@@ -1,0 +1,599 @@
+PARADIGMAS DE 
+PROGRAMAÇÃO
+2025/2026
+
+Aula 11
+
+1. Palavras Reservadas
+
+2. O que é uma Excepção?
+
+3. Tratamento de Excepções
+
+4. Criar uma Excepção
+
+5. Lançar uma Excepção
+
+6. Palavras Reservadas Usadas
+
+7. Links Úteis
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Ricardo Santos | rjs@estg.ipp.pt
+
+Palavras Reservadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+O que é uma Excepção?
+
+Uma excepção é um evento que ocorre durante a 
+execução de um programa que interrompe o ciclo 
+normal das instruções
+
+Ao usar o subsistema de tratamento de excepções do 
+Java podemos, de uma forma estruturada e 
+controlada, tratar os erros em tempo de execução
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Em Java as excepções são representadas por classes
+
+Quando ocorre uma excepção num programa é 
+criado um objecto de uma determinada classe
+
+Existem três tipos de excepções: 
+
+– Checked Exception
+
+– Error
+
+– Runtime Exception
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Tratamento de Excepções
+
+No core do tratamento de excepções está o try e o 
+catch
+
+Estas palavras reservadas são utilizadas em conjunto 
+não podendo ser usada uma sem a outra
+
+De seguida é apresentada a forma geral do try-
+catch:
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+try {
+
+...
+
+1
+
+} catch(Tipo_de_excepção1 var1){
+
+...
+
+2
+
+} catch(Tipo_de_excepção2 var2){
+
+...
+
+} finally {
+
+...
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+3
+
+4
+
+1. Código normal do programa, onde podem ser 
+
+detectadas excepções
+
+2. Código de tratamento da excepção do tipo declarado; 
+var1 é a instância da excepção, que pode ser usada 
+aqui
+
+3. Código de tratamento de outra excepção, do tipo 
+
+declarado; var2 é a instância desta excepção, que 
+pode ser usada aqui
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+4. Código sempre executado, quer ocorra uma 
+
+excepção ou não no bloco try
+
+Há excepção: - se houver catch local apropriado, 
+este é executado e só depois o bloco finally; - se 
+não houver catch, é executado o bloco finally e 
+depois o catch externo, se existir, por exemplo no 
+método invocador
+
+Não há excepção: - controlo de execução 
+transferido do bloco try quando termina sequência 
+de instruções ou quando é executada uma instrução 
+return, break ou continue
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+public class ExException0
+{
+
+public static void main(String args[]) {
+
+int numero[] = new int[4];
+System.out.println("Antes da excepção ser” + 
+
+“gerada.");
+
+     // gera uma excepção index out of bounds
+     numero[7] = 10;
+
+}
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Exception in thread "main" 
+java.lang.ArrayIndexOutOfBoundsException: 7
+at ExException0.main(ExException0.java:9)
+
+public class ExException1 {
+
+public static void main(String args[]) {
+
+int numeros[] = new int[4];
+
+     try {
+
+System.out.println("Antes da excepcao ser” + 
+
+“gerada.");
+
+//Gerar uma excepção index out-of-bounds.
+numeros[7] = 10;
+System.out.println("esta mensagem nao sera” + 
+
+“apresentada");
+
+}
+
+     catch (ArrayIndexOutOfBoundsException exc) {
+
+     // apanhar a excepção
+
+System.out.println("Index for dos limites!!");
+
+     }
+
+     System.out.println("Depois do catch.");
+    }
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+public class ExException2 {
+
+public static void main(String args[]) {
+
+int numero[] = { 4, 8, 16, 32, 64, 128 };
+int denominador[] = { 2, 0, 4, 4, 0, 8 };
+
+for(int i=0; i<numero.length; i++) {
+
+try {
+
+System.out.println(numero[i] + " / " +
+
+denominador[i] + " é " +
+numero[i]/denominador[i]);
+
+}
+catch (ArithmeticException exc) {
+
+// apanhar a excepção
+System.out.println("Nao se pode dividir por” + 
+
+“zero!");
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   }
+}
+
+}
+
+}
+
+        
+public class ExException3 {
+
+public static void main(String args[]) {
+
+int numero[] = { 4, 8, 16, 32, 64, 128, 256, 512 };
+
+     int denominador[] = { 2, 0, 4, 4, 0, 8 };
+     for(int i=0; i<numero.length; i++) {
+
+     try {
+
+System.out.println(numero[i] + " / " + 
+
+denominador[i] + " é " +
+numero[i] / denominador[i]);
+
+}
+catch (ArithmeticException exc) {
+
+System.out.println("Não é possível div. por” + 
+
+“zero!");
+
+}
+catch (ArrayIndexOutOfBoundsException exc) {
+
+System.out.println("Não foi encontrado o” + 
+
+“elemento correspondente.");
+
+}
+
+}
+
+}
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Criar uma Excepção
+
+O mecanismo de excepções em Java, permite que o 
+programador construa as suas próprias classes de 
+excepção, de forma muito simples, por herança da 
+superclasse das excepções, a classe Exception
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+O código necessário para criar uma classe de 
+excepções toma a seguinte forma:
+
+class MinhaExcepcao extends Exception {
+
+MinhaExcepcao() {
+
+super();
+
+}
+
+MinhaExcepcao(String s) 
+{
+
+super(s);
+
+}
+
+}
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Lançar uma Excepção
+
+Quando existe uma situação de erro, por exemplo ao 
+retirar um elemento da colecção quando ele não 
+existe, o programador pode explicitamente sinalizar o 
+envio de um erro que deve ser posteriormente tratado
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Para tal apenas é necessário criar uma instância da 
+excepção pretendida, da seguinte forma:
+
+...
+throw new <nomeClasseExcepcao>(); 
+//construtor vazio
+...
+...
+throw new <nomeClasseExcepcao>("mensagem que” + 
+
+“queira enviar");
+
+//construtor parametrizado por uma String
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+A única forma que um programador tem de saber que 
+um determinado método pode lançar uma excepção, 
+é estar ao explicitamente reflectido na assinatura do 
+método
+
+Para tal a assinatura do método deve ser feita de 
+forma a indicar que o método pode “libertar alguma” 
+excepção que deve ser feito de acordo com a 
+seguinte sintaxe:
+
+public <tipoDados><nomeMetodo>(<listaParametros>)
+
+throws <listaClassesExcepcao>
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Um método que invoque outro que pode lançar uma 
+excepção, deve precaver-se e ter disponível código 
+de tratamento para essa excepção. Se não o fizer, 
+então esse método deve explicitamente (na sua 
+cláusula de throws) declarar que também pode 
+libertar uma excepção desse tipo
+
+Palavras Reservadas Usadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Links Úteis
+
+http://docs.oracle.com/javase/tutorial/essential/
+exceptions/index.html
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+

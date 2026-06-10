@@ -1,0 +1,532 @@
+PARADIGMAS DE 
+PROGRAMAÇÃO
+2023/2024
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Aula 01
+
+1. Palavras Reservadas (Java Keywords)
+
+2. Tipos primitivos
+
+3. Literais (Literals)
+
+4. Variáveis de Tipos Primitivos
+
+5. Constantes
+
+6. Variáveis Unidimensionais (Arrays)
+
+7. Exemplos
+
+8. Palavras Reservadas Usadas
+
+9. Links Úteis
+
+Ricardo Santos | rjs@estg.ipp.pt
+
+Palavras Reservadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Tipos Primitivos
+
+A linguagem de programação Java tem os seguintes 
+tipos de dados primitivos: 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Tipo Primitivo
+
+Descrição
+
+boolean
+
+byte
+
+char
+
+short
+
+int
+
+long
+
+float
+
+true/false
+
+8 bits
+
+16 bits (UNICODE)
+
+16 bits
+
+32 bits
+
+64 bits
+
+32 bits IEEE 754-1985
+
+double
+
+64 bits IEEE 754-1985
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Tipo Primitivo
+
+Valor por defeito
+
+boolean
+
+byte
+
+char
+
+short
+
+int
+
+long
+
+float
+
+double
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+FALSE
+
+0
+
+‘\u0000’
+
+0
+
+0
+
+0L
+
+0.0f
+
+0.0d
+
+Literals
+
+boolean result = true;
+char capitalC = 'C';
+byte b = 100; 
+short s = 10000; 
+int i = 100000; 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Em Java, existem tipos literais primitivos para 
+representar valores booleanos (verdadeiro ou falso), 
+caracteres, valores numéricos inteiros e valores 
+numéricos em vírgula flutuante
+
+int decVal = 26;  // The number 26, in decimal
+int octVal = 032; // The number 26, in octal
+int hexVal = 0x1a;// The number 26, in hexadecimal
+
+double d1 = 123.4;
+double d2 = 1.234e2; /* same value as d1, but in     
+scientific notation */
+
+float f1  = 123.4f;
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Constantes
+
+Para declarar uma constante é necessário usar a 
+palavra reservada final, exemplo:
+
+final int CONSTANTE = 100;
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Arrays
+
+Um array é um repositório que armazena um número 
+fixo de valores de um determinado tipo
+
+O tamanho do array é definido na sua criação
+
+Depois de criado o seu tamanho é fixo
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Cada item de um array é denominado de elemento. 
+
+Podemos aceder a cada um dos elementos pelo seu 
+index numérico como podemos ver na figura.
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Declarar um Array
+
+<data-type>[ ] <variable-name> = 
+                  new <data-type>[length]; 
+
+Exemplo de como declarar um array e inicializar os seus 
+elementos
+
+int[] anArray;              
+
+anArray = new int[10];     
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+anArray[0] = 100; 
+anArray[1] = 200;
+...
+anArray[9] = 1000;
+
+            
+Existe também uma notação para declarar um array e 
+inicializar todos os elementos em apenas um passo 
+ao usar dados separados por vírgulas e entre 
+chavetas:
+
+Declarar e inicializar um array numa "única" 
+instrução
+
+<data-type>[ ] <variable-name> = { 
+  <expression>, <expression>, ... 
+}; 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Declarar e inicializar um array numa "única" 
+instrução
+
+int x = 4; 
+int[] anArray = {3, x, 9, 2};
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Declarar e inicializar um array numa "única" 
+instrução
+
+int x = 4; 
+int[] anArray = {3, x, 9, 2};
+x= 5;
+anArray[1] = ???
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+/* 
+Isto é um pequeno programa Java de demonstração. 
+No sistema de ficheiros o nome do ficheiro que 
+possui o código fonte é Exemplo.java
+*/ 
+
+class Exemplo { 
+
+/* Em Java, o ponto de entrada (entry point) de 
+uma aplicação de consola é o método main() */
+
+public static void main(String[] args) { 
+
+System.out.println(“Saudações Javanesas!!!"); 
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+} 
+
+}
+
+class Exemplo { 
+
+/*Um programa Java começa com uma chamada ao 
+método main() */
+
+public static void main(String args[]) { 
+
+/* Nos primeiros exemplos todo o código 
+será implementado neste método */
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+} 
+
+}
+
+class ArrayDemo {
+     public static void main(String[] args) {
+          int[] anArray;             
+          anArray = new int[10];    
+
+          anArray[0] = 100; 
+          anArray[1] = 200; 
+          anArray[2] = 300; 
+          anArray[3] = 400;
+          anArray[4] = 500;
+          anArray[5] = 600;
+          anArray[6] = 700;
+          anArray[7] = 800;
+          anArray[8] = 900;
+          anArray[9] = 1000;
+
+          System.out.println("Element at index 0: " + anArray[0]);
+          System.out.println("Element at index 1: " + anArray[1]);
+          System.out.println("Element at index 2: " + anArray[2]);
+          System.out.println("Element at index 3: " + anArray[3]);
+          System.out.println("Element at index 4: " + anArray[4]);
+          System.out.println("Element at index 5: " + anArray[5]);
+          System.out.println("Element at index 6: " + anArray[6]);
+          System.out.println("Element at index 7: " + anArray[7]);
+          System.out.println("Element at index 8: " + anArray[8]);
+          System.out.println("Element at index 9: " + anArray[9]);
+     }
+} 
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+            
+Palavras Reservadas Usadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Links Úteis
+
+http://download.oracle.com/javase/tutorial/java/nutsan
+dbolts/variables.html
+
+http://www.netbeans.org/kb/trails/java-se.html
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+

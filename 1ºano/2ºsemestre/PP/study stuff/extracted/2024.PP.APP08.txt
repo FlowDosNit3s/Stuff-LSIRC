@@ -1,0 +1,901 @@
+PARADIGMAS DE 
+PROGRAMAÇÃO
+2023/2024
+
+Aula 08
+
+1. Palavras Reservadas
+
+2. Classes Abstractas
+
+3. Exemplos
+
+4. Usar o final
+
+5. Palavras Reservadas Usadas
+
+6. Links Úteis
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Ricardo Santos | rjs@estg.ipp.pt
+
+Palavras Reservadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+public class Rectangle {
+
+    private double width;
+    private double height;
+    private String name="rectangle";
+
+    Rectangle(double w, double h) {
+        this.width=w;
+        this.height=h;
+    }
+
+    double getWidth() { return width; }
+    double getHeight() { return height; }
+    void setWidth(double w) { width = w; }
+    void setHeight(double h) { height = h; }
+    String getName() { return name; }
+
+    boolean isSquare() {
+        if(getWidth() == getHeight()) return true;
+        return false;
+    }
+
+    double area() {
+        return getWidth() * getHeight();
+    }
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+public class Triangle {
+
+    private String style;
+    private double width;
+    private double height;
+    private String name="triangle";
+
+    // Constructor for Triangle.
+    Triangle(double w, double h) {
+        this.width=w;
+        this.height=h;
+    }
+
+    // Accessor methods for width and height.
+    double getWidth() { return width; }
+    double getHeight() { return height; }
+    void setWidth(double w) { width = w; }
+    void setHeight(double h) { height = h; }
+    String getName() { return name; }
+
+    double area() {
+        return getWidth() * getHeight() / 2;
+    }
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+E GESTÃO ?
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+
+public class TwoDShape {
+
+    private double width;
+    private double height;
+    private String name;
+
+    // A default constructor.
+    TwoDShape() {
+        width = height = 0.0;
+        name = "null";
+    }
+
+    // Parameterized constructor.
+    TwoDShape(double w, double h, String n) {
+        width = w;
+        height = h;
+        name = n;
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    // Construct object with equal width and height.
+    TwoDShape(double x, String n) {
+        width = height = x;
+        name = n;
+    }
+
+  // continua no próximo slide
+
+    // continuação do slide anterior
+
+    // Construct an object from an object.
+    TwoDShape(TwoDShape ob) {
+        width = ob.width;
+        height = ob.height;
+        name = ob.name;
+    }
+
+    // Accessor methods for width and height.
+    double getWidth() { return width; }
+    double getHeight() { return height; }
+    void setWidth(double w) { width = w; }
+    void setHeight(double h) { height = h; }
+    String getName() { return name; }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    void showDim() {
+        System.out.println("Width and height are " +
+                width + " and " + height);
+    }
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Reparem que não é possível criar o método area() geral para todas 
+as formas
+
+Como obrigamos todas as formas (subclasses de TwoDShape) a 
+criarem o método area()?
+
+class Triangle extends TwoDShape{
+
+    private String style;
+
+    // A default constructor.
+    Triangle() {
+        super();
+        style = "null";
+    }
+
+    // Constructor for Triangle.
+    Triangle(String s, double w, double h) {
+        super(w, h, "triangle");
+        style = s;
+    }
+
+    // Construct an isosceles triangle.
+    Triangle(double x) {
+        // call superclass constructor
+        super(x, "triangle");
+        style = "isosceles";
+    }
+
+// continua no próximo slide
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    // continuação do slide anterior
+
+    double area() {
+        return getWidth() * getHeight() / 2;
+    }
+
+    void showStyle() {
+        System.out.println("Triangle is " + style);
+    }
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+class Rectangle extends TwoDShape{
+    // A default constructor.
+    Rectangle() {
+        super();
+    }
+
+    // Constructor for Rectangle.
+    Rectangle(double w, double h) {
+        // call superclass constructor
+        super(w, h, "rectangle"); 
+    }
+
+    // Construct a square.
+    Rectangle(double x) {
+        // call superclass constructor
+        super(x, "rectangle"); 
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    boolean isSquare() {
+        if(getWidth() == getHeight()) return true;
+        return false;
+    }
+
+ }
+
+A classe Rectangle não tem definido o método area()
+
+Podiamos também ter o caso de ter um método que calculasse a 
+área com um nome diferente
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Como resolver 
+o problema? 
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Por vezes queremos criar uma super classe que 
+defina a forma geral que será partilhada por todas as 
+suas subclasses
+
+Para o exemplo anterior seria necessário definir um 
+método area() na super classe (TwoDShape) sem 
+qualquer implementação que fosse obrigatório ser 
+implementado nas suas subclasses
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Classes Abstractas
+
+Classes abstractas são exactamente todas as classes 
+nas quais pelo menos um ou mesmo todos os 
+métodos de instância não se encontram 
+implementados, mas declarados sintacticamente
+
+Torna-se igualmente evidente que, por tal motivo, uma 
+classe abstracta não pode criar instâncias
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Uma classe abstracta, ao não implementar certos 
+métodos, delega nas suas subclasses a 
+implementação particular de tais métodos, facilitando  
+o aparecimento de diferentes implementações dos 
+mesmos métodos nas suas diferentes subclasses
+
+Na relação normal entre classes e subclasses a 
+redefinição de métodos é opcional
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+A sintaxe de criação de uma classe abstracta é 
+simples. 
+
+Na declaração da classe usar a palavra reservada 
+abstract seguida da palavra reservada class e do 
+nome da classe. Para o caso da TwoDShape:
+
+abstract class TwoDShape {
+
+     /* fields and methods*/
+
+}
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+abstract class TwoDShape {
+
+    private double width;
+    private double height;
+    private String name;
+
+    // A default constructor.
+    TwoDShape() {
+        width = height = 0.0;
+        name = "null";
+    }
+
+    // Parameterized constructor.
+    TwoDShape(double w, double h, String n) {
+        width = w;
+        height = h;
+        name = n;
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    // Construct object with equal width and height.
+    TwoDShape(double x, String n) {
+        width = height = x;
+        name = n;
+    }
+
+// continua no próximo slide
+
+    // continuação do slide anterior
+
+    // Accessor methods for width and height.
+    double getWidth() { return width; }
+    double getHeight() { return height; }
+    void setWidth(double w) { width = w; }
+    void setHeight(double h) { height = h; }
+    String getName() { return name; }
+
+    void showDim() {
+        System.out.println("Width and height are " +
+                width + " and " + height);
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    // Now, area() is abstract.
+    abstract double area();
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+class Rectangle extends TwoDShape{
+    // A default constructor.
+    Rectangle() {
+        super();
+    }
+
+    // Constructor for Rectangle.
+    Rectangle(double w, double h) {
+        // call superclass constructor
+        super(w, h, "rectangle"); 
+    }
+
+    // Construct a square.
+    Rectangle(double x) {
+        // call superclass constructor
+        super(x, "rectangle"); 
+    }
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    boolean isSquare() {
+        if(getWidth() == getHeight()) return true;
+        return false;
+    }
+
+// continua no próximo slide
+
+    // continuação do slide anterior
+
+    double area() {
+        return getWidth() * getHeight();
+    }
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+class Triangle extends TwoDShape{
+
+    private String style;
+
+    // A default constructor.
+    Triangle() {
+        super();
+        style = "null";
+    }
+
+    // Constructor for Triangle.
+    Triangle(String s, double w, double h) {
+        super(w, h, "triangle");
+        style = s;
+    }
+
+    // Construct an isosceles triangle.
+    Triangle(double x) {
+        // call superclass constructor
+        super(x, "triangle");
+        style = "isosceles";
+    }
+
+// continua no próximo slide
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+    // continuação do slide anterior
+
+    double area() {
+        return getWidth() * getHeight() / 2;
+    }
+
+    void showStyle() {
+        System.out.println("Triangle is " + style);
+    }
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+public class AbsShape {
+
+    public static void main(String[] args) {
+        TwoDShape shapes[] = new TwoDShape[4];
+        shapes[0] = new Triangle("right", 8.0, 12.0);
+        shapes[1] = new Rectangle(10);
+        shapes[2] = new Rectangle(10, 4);
+        shapes[3] = new Triangle(7.0);
+
+        for(int i=0; i < shapes.length; i++) {
+            System.out.println("object is " +
+            shapes[i].getName());
+            System.out.println("Area is " + shapes[i].area());
+            System.out.println();
+        }
+    }
+
+}
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Output:
+
+object is triangle
+Area is 48.0
+
+object is rectangle
+Area is 100.0
+
+object is rectangle
+Area is 40.0
+
+object is triangle
+Area is 24.5
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Usar o final
+
+Por mais útil que seja o overriding e a herança por 
+vezes poderemos querer evitar o seu uso em alguns 
+membros
+
+Em java é muito fácil evitar o overriding de um 
+método ou a herança de uma classe com recurso à 
+palavra reservada final
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+O final evita o overriding
+
+class A { 
+
+final void meth() { 
+
+System.out.println("This is a final method."); 
+
+} 
+
+} 
+
+class B extends A { 
+
+void meth() { // ERROR! Can't override. 
+
+System.out.println("Illegal!"); 
+
+} 
+
+} 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+O final evita a herança
+
+final class A { 
+
+// ... 
+
+} 
+
+// The following class is illegal. 
+class B extends A { // ERROR! Can't subclass A 
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+// ... 
+
+} 
+
+O final para declarar constantes
+
+class ErrorMsg { 
+
+// Error codes. 
+final int OUTERR   = 0; 
+final int INERR    = 1; 
+final int DISKERR  = 2; 
+final int INDEXERR = 3; 
+
+String msgs[] = { 
+
+"Output Error", "Input Error", 
+"Disk Full", "Index Out-Of-Bounds" 
+
+};
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+// Return the error message. 
+String getErrorMsg(int i) { 
+if(i >=0 & i < msgs.length) 
+
+return msgs[i]; 
+
+else 
+
+return "Invalid Error Code"; 
+
+}
+
+} 
+
+ 
+class FinalD { 
+
+public static void main(String args[]) { 
+
+ErrorMsg err = new ErrorMsg(); 
+
+System.out.println(err.getErrorMsg(err.OUTERR)); 
+System.out.println(err.getErrorMsg(err.DISKERR)); 
+
+} 
+
+} 
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+Palavras Reservadas Usadas
+
+abstract
+assert***
+boolean
+break
+byte
+case
+catch
+char
+class
+const*
+
+continue
+default
+do
+double
+else
+enum****
+extends
+final
+finally
+float
+
+for
+goto*
+if
+implements
+import
+instanceof
+int
+interface
+long
+native
+
+new
+package
+private
+protected
+public
+return
+short
+static
+strictfp**
+super
+
+switch
+synchronized
+this
+throw
+throws
+transient
+try
+void
+volatile
+while
+
+ESCOLA
+ESCOLA
+SUPERIOR
+SUPERIOR
+DE TECNOLOGIA
+DE TECNOLOGIA
+E GESTÃO
+E GESTÃO
+
+   * not used  
+  ** added in 1.2
+ *** added in 1.4
+**** added in 5.0
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+Links Úteis
+
+http://docs.oracle.com/javase/tutorial/java/concepts/
+inheritance.html
+
+http://docs.oracle.com/javase/tutorial/java/IandI/
+abstract.html
+
+http://docs.oracle.com/javase/tutorial/java/IandI/
+final.html
+
+ESCOLA
+SUPERIOR
+DE TECNOLOGIA
+E GESTÃO
+
+
