@@ -1,28 +1,30 @@
-# 🎯 BD — TOP Perguntas para Exame (Prioridade Máxima)
+# 🎯 BD — TOP 15 Perguntas para Exame (Prioridade Máxima)
 
-> Estas perguntas cobrem ~90% da componente teórica dos exames de BD.
+> Estas 15 perguntas cobrem a esmagadora maioria da componente teórica de desenvolvimento nos exames de BD.
 > Ordenadas por frequência de aparecimento nos exames (2004–2025).
 > 📌 **Atualizado com TODOS os exames disponíveis incluindo 2024/2025 e o ficheiro "BD - Resumos & Perguntas".**
 
 ---
 
 ## ⭐⭐⭐ PERGUNTA 1 — Integridade Referencial + ON DELETE / ON UPDATE
-**Saiu em: 8+ exames incluindo 2024/2025, 2022/2023, EN2021, Normal 07/08, Especial 07/08**
+**Saiu em: 8+ exames incluindo 2024/2025, 2022/2023 (Normal 23/24), EN2021, Normal 07/08, Especial 07/08**
 
 ### Pergunta:
 Explique o que entende por Integridade Referencial. Identifique e descreva quais as ações que se podem utilizar nas subcláusulas ON DELETE e ON UPDATE.
 
-### Resposta:
-A **INTEGRIDADE REFERENCIAL** é uma regra do modelo relacional que garante a consistência das ligações entre tabelas. Assegura que os valores de uma chave estrangeira (foreign key) em uma tabela correspondem a valores existentes na chave primária da tabela relacionada.
+### Resposta Detalhada (Estudo):
+A **INTEGRIDADE REFERENCIAL** é uma regra de integridade do modelo relacional que garante a consistência das ligações entre tabelas. Assegura que os valores de uma chave estrangeira (foreign key - FK) numa tabela correspondem a valores existentes na chave primária (primary key - PK) da tabela relacionada (tabela pai) ou sejam nulos.
 
-**Exemplo:** Se a tabela Encomendas tiver uma coluna ID_Cliente como chave estrangeira, este valor deve existir na tabela Clientes como ID.
+**Exemplo:** Se a tabela Encomendas tiver a coluna FK `ID_Cliente` ligada à tabela Clientes, este valor deve obrigatoriamente existir na coluna PK `ID` de Clientes (ou ser NULL).
 
-As subcláusulas que podem ser usadas ON DELETE e em ON UPDATE são:
+Para gerir a eliminação ou alteração de registos pais e evitar órfãos, utilizam-se as subcláusulas ON DELETE e ON UPDATE com as seguintes ações:
+*   **CASCADE**: Propaga a operação automaticamente para os registos filhos (ex: ao apagar o pai, apaga os filhos; ao atualizar o ID do pai, atualiza nos filhos).
+*   **SET NULL**: Altera a coluna FK de todos os registos filhos correspondentes para `NULL` (requer que a coluna FK permita valores nulos).
+*   **SET DEFAULT**: Altera a coluna FK de todos os registos filhos para o valor por defeito especificado para essa coluna.
+*   **NO ACTION / RESTRICT**: Rejeita a operação de eliminação/atualização no registo pai se houver registos dependentes na tabela filha. É o comportamento por defeito (Default).
 
-- **CASCADE**: apaga a linha da tabela pai e linhas correspondentes das tabelas filhas, e assim sucessivamente em cascata. Em UPDATE, a alteração é propagada automaticamente para a tabela dependente.
-- **SET NULL**: apaga a linha da tabela pai e muda todas as colunas FK na tabela filha para NULL. Só é válido se as colunas FK não estiverem a NOT NULL.
-- **SET DEFAULT**: apaga a linha da tabela pai e muda cada componente da FK da tabela filha para o valor default especificado. Só é válido se houver um valor DEFAULT especificado para as colunas FK.
-- **NO ACTION** / **RESTRICT**: rejeita a operação da tabela pai. Não permite a alteração se houver registos dependentes. É o comportamento por defeito (Default).
+### 📝 Resposta Rápida (Para o Exame):
+A integridade referencial é uma regra do modelo relacional que garante a consistência lógica entre tabelas, obrigando a que os valores de uma chave estrangeira (FK) na tabela filha existam previamente na chave primária (PK) da tabela pai ou sejam nulos. Para gerir alterações, a ação CASCADE propaga a eliminação ou atualização do registo pai diretamente para os registos filhos, a ação SET NULL define a FK dos filhos como nula (caso a coluna o permita), a ação SET DEFAULT altera a FK dos filhos para o valor padrão configurado, e a ação NO ACTION (ou RESTRICT) rejeita a operação no registo pai caso existam registos filhos dependentes.
 
 ---
 
@@ -32,40 +34,29 @@ As subcláusulas que podem ser usadas ON DELETE e em ON UPDATE são:
 ### Pergunta:
 No contexto do modelo relacional de bases de dados, quais os objetivos da normalização de dados? De que forma o processo de normalização poderá afetar, posteriormente, o desempenho da respetiva implementação?
 
-### Resposta:
-O **OBJETIVO DA NORMALIZAÇÃO** é analisar uma relação com base na sua chave primária e nas dependências funcionais entre atributos, com os seguintes objetivos:
-1. **Eliminar redundância de dados** — evita a repetição desnecessária
-2. **Evitar anomalias de atualização** — corrige problemas de inserção, remoção e modificação
-3. **Melhorar a integridade e consistência** — garante organização correta e dependências respeitadas
-4. **Organizar os dados de forma lógica e eficiente** — torna o modelo mais compreensível
+### Resposta Detalhada (Estudo):
+O **OBJETIVO DA NORMALIZAÇÃO** é decompor relações complexas em esquemas mais simples com base nas suas chaves primárias/candidatas e dependências funcionais, de forma a:
+1.  **Minimizar a redundância de dados** — evita duplicar informação desnecessariamente.
+2.  **Eliminar anomalias de atualização** — garante consistência em inserções, remoções e alterações.
+3.  **Garantir a integridade e consistência lógica** — as dependências mantêm-se corretas.
+4.  **Organizar os dados logicamente** — o modelo relacional fica mais limpo e legível.
 
 ### Definições das Formas Normais:
-
-| Forma Normal | Definição |
-|:---:|---|
-| **FNN** | Uma tabela que contém um ou mais grupos repetidos |
-| **1FN** | Uma relação em que a intersecção entre uma linha e uma coluna contenha um e um só valor (valores atómicos) |
-| **2FN** | Uma relação que está na 1FN e todos os atributos não pertencentes à chave primária são totalmente dependentes de qualquer chave candidata (sem dependências parciais) |
-| **3FN** | Uma relação que está na 1FN e na 2FN e na qual nenhum atributo não pertencente à chave primária depende transitivamente de qualquer chave candidata (sem dependências transitivas) |
-| **BCNF** | Uma relação na 3FN em que, para todas as dependências funcionais, o determinante é superchave |
+*   **FNN**: Tabela que contém um ou mais grupos repetidos.
+*   **1FN**: Uma relação em que a intersecção entre uma linha e uma coluna contém um e um só valor (valores atómicos).
+*   **2FN**: Está na 1FN e todos os atributos não primos dependem totalmente da chave primária (sem dependências parciais).
+*   **3FN**: Está na 2FN e não possui dependências transitivas (nenhum atributo não primo depende de outro não primo).
+*   **BCNF (Boyce-Codd)**: Relação na 3FN onde todo o determinante é uma chave candidata.
 
 ### Impacto no desempenho:
-**Vantagens:** Menos dados repetidos → menor ocupação de espaço. Evita atualizações desnecessárias → menos operações de escrita.
-
-**Desvantagens:** Os dados ficam distribuídos por várias tabelas. Consultas complexas exigem mais junções (JOIN). O número de acessos ao disco pode aumentar, afetando o tempo de resposta.
-
-**Resumo do impacto no desempenho (Leitura vs Escrita):**
-- **Leitura/Consulta (OLAP):** É prejudicado porque as consultas exigem mais junções (JOINs) entre tabelas menores, elevando o custo de processamento e acessos ao disco.
-- **Escrita/Atualização (OLTP):** É otimizado porque as tabelas são mais estreitas, não há dados duplicados a sincronizar e as atualizações ocorrem num único local de forma mais rápida.
+*   **Nas Operações de Leitura/Consulta (OLAP)**: O desempenho pode ser **prejudicado**. Como os dados são distribuídos por várias tabelas menores, as consultas necessitam de efetuar múltiplas junções (`JOIN`), aumentando o processamento de CPU e o número de acessos de E/S (leitura em disco).
+*   **Nas Operações de Escrita/Atualização (OLTP)**: O desempenho é **otimizado**. Como as tabelas são mais estreitas e não há redundância, as escritas ocorrem num único registo de forma muito mais célere e segura, sem necessidade de atualizar réplicas em múltiplos locais.
 
 ### Desnormalização:
 É o processo intencional de reverter parcialmente a normalização, introduzindo alguma redundância nos dados, com o objetivo de melhorar o desempenho. Exemplo: uma tabela de blog onde cada publicação é escrita uma vez mas lida constantemente beneficia de desnormalização.
 
-**Quando usar desnormalização:**
-- Muitas junções tornam consultas lentas
-- Consultas frequentes sobre os mesmos dados agregados
-- BDs orientadas à leitura (data warehouses)
-- Sistemas com poucas atualizações e muitas leituras
+### 📝 Resposta Rápida (Para o Exame):
+Os objetivos da normalização de dados consistem em eliminar a redundância de dados, evitar anomalias de atualização e garantir a consistência e integridade lógica das relações. Este processo afeta o desempenho de forma mista: prejudica as operações de leitura e consulta porque a fragmentação dos dados exige a realização de mais junções (JOINs), que aumentam os acessos ao disco e o tempo de resposta; contudo, otimiza as operações de escrita e modificação porque as tabelas são mais estreitas, não há dados duplicados a sincronizar e a escrita ocorre de forma mais rápida num único local.
 
 ---
 
@@ -75,12 +66,17 @@ O **OBJETIVO DA NORMALIZAÇÃO** é analisar uma relação com base na sua chave
 ### Pergunta:
 Descreva os tipos de anomalias de atualização (dê exemplos) que podem ocorrer numa relação que contém dados redundantes.
 
-### Resposta:
-- **INSERÇÃO**: Não é possível inserir certos dados porque falta outra informação redundante. Exemplo: inserir um novo estudante que não está inscrito em nenhuma disciplina numa tabela que junta Estudantes e Disciplinas.
-- **REMOÇÃO (ELIMINAÇÃO)**: Ao apagar um registo, perdemos informação importante que estava repetida. Exemplo: ao apagar o único registo do aluno João na disciplina de Matemática, também apagamos todos os dados sobre a disciplina "Matemática".
-- **MODIFICAÇÃO (ATUALIZAÇÃO)**: A mesma informação aparece em vários locais e uma atualização não é feita em todos, gerando inconsistência. Exemplo: se o nome de um professor estiver repetido em várias linhas e for atualizado numa só, ficamos com versões diferentes.
+### Resposta Detalhada (Estudo):
+Quando um esquema relacional não está normalizado e contém redundância, podem surgir três problemas graves no dia a dia operacional:
+1.  **ANOMALIA DE INSERÇÃO**: Ocorre quando é impossível inserir determinados dados na base de dados por falta de outro dado independente.
+    *   *Exemplo:* Numa tabela que combina `Estudantes` e `Disciplinas`, não é possível registar uma nova disciplina na BD se ainda não existir nenhum estudante matriculado nela.
+2.  **ANOMALIA DE REMOÇÃO (ELIMINAÇÃO)**: Ocorre quando a eliminação de um registo provoca, involuntariamente, a perda de outras informações úteis e distintas.
+    *   *Exemplo:* Ao apagar o único registo do estudante João na disciplina de Matemática, perde-se toda a informação sobre a própria disciplina "Matemática" (como nome do docente e créditos).
+3.  **ANOMALIA DE MODIFICAÇÃO (ATUALIZAÇÃO)**: Ocorre quando a alteração de um valor exige a atualização redundante de várias linhas. Se o processo falhar nalgumas linhas, a BD entra num estado inconsistente.
+    *   *Exemplo:* Se o nome do professor estiver duplicado em 100 registos de alunos e for alterado apenas em 50, a base de dados passa a ter dados contraditórios sobre o mesmo professor.
 
-> A melhor forma de evitar estas anomalias é através da **normalização** do esquema da base de dados.
+### 📝 Resposta Rápida (Para o Exame):
+A anomalia de inserção ocorre quando é impossível registar dados na base de dados por falta de outra informação independente, como não conseguir introduzir uma disciplina sem ter alunos matriculados. A anomalia de remoção verifica-se quando a eliminação de um registo principal provoca a perda involuntária de dados secundários importantes, como apagar o único aluno inscrito e perder todos os dados da própria disciplina. Por fim, a anomalia de modificação surge quando a alteração de dados redundantes não é propagada a todos os registos idênticos, originando inconsistências de informação.
 
 ---
 
@@ -90,31 +86,24 @@ Descreva os tipos de anomalias de atualização (dê exemplos) que podem ocorrer
 ### Pergunta:
 O que são Triggers de bases de dados e para que servem? Quais as vantagens e desvantagens da utilização de triggers?
 
-### Resposta:
+### Resposta Detalhada (Estudo):
 Um **TRIGGER** (gatilho) é um objeto do SGBD que contém um conjunto de instruções SQL e que é executado automaticamente quando ocorre um determinado evento numa tabela (INSERT, UPDATE ou DELETE).
 
 **Para que servem:**
-- Executar ações automáticas em operações INSERT, UPDATE ou DELETE
-- Aplicar regras de negócio
-- Garantir a integridade dos dados
-- Gerar logs ou auditorias
-- Atualizar outras tabelas de forma automática
+*   Implementar regras de negócio complexas que não podem ser expressas por restrições normais (como PK, FK ou CHECK).
+*   Manter a integridade referencial complexa entre tabelas.
+*   Criar logs de auditoria e históricos de alteração automaticamente.
+*   Atualizar campos calculados ou tabelas derivadas.
 
 **Vantagens:**
-- Automatização de tarefas (eliminação de código redundante)
-- Reforço da integridade dos dados
-- Centralização da lógica (código dentro da BD)
-- Melhoria na segurança e controlo
-- Boa junção com a arquitetura cliente-servidor
+*   **Centralização da Lógica**: A integridade é garantida ao nível da BD, protegendo os dados independentemente da aplicação cliente.
+*   **Automatização**: Execução implícita e automática, eliminando código redundante nas aplicações.
+*   **Rapidez**: Excelente integração com a arquitetura cliente-servidor.
 
 **Desvantagens:**
-- Overhead do processador / redução de performance
-- Execução implícita — efeitos indesejados sem que o utilizador perceba
-- Possível efeito cascata
-- Falta de possibilidade de agendar os Triggers
-- Ordem de execução incerta (com múltiplas triggers para o mesmo evento)
-- Diminuição da portabilidade (cada SGBD tem forma diferente de criar Triggers)
-- Dificuldade de manutenção
+*   **Redução de Performance (Overhead)**: Adiciona tempo de processamento a cada operação de escrita.
+*   **Efeitos Ocultos**: Como a execução é implícita, pode desencadear efeitos em cascata indesejados difíceis de depurar.
+*   **Portabilidade**: A sintaxe varia significativamente entre SGBDs (ex: Oracle PL/SQL vs SQL Server T-SQL).
 
 ### Diferença entre Triggers Before, After, Instead Of:
 
@@ -124,61 +113,34 @@ Um **TRIGGER** (gatilho) é um objeto do SGBD que contém um conjunto de instru�
 | **AFTER** | Depois da operação | Ações complementares ou registos de auditoria |
 | **INSTEAD OF** | Em vez da operação | Modificação de views ou controlo total da ação |
 
+### 📝 Resposta Rápida (Para o Exame):
+Um trigger é um bloco de código procedural executado de forma automática e implícita pelo SGBD em resposta a uma operação DML (INSERT, UPDATE ou DELETE) numa tabela, servindo para impor regras de negócio complexas, atualizar dados derivados ou criar logs de auditoria. A sua principal vantagem reside na centralização lógica dentro da base de dados e no reforço da integridade independentemente da aplicação cliente. Por outro lado, as desvantagens incluem o overhead de processamento que reduz a performance de escrita, a dificuldade de depuração devido ao disparo implícito e a falta de portabilidade por a sintaxe variar entre os SGBDs.
+
 ---
 
-## ⭐⭐⭐ PERGUNTA 5 — Vistas (Views)
+## ⭐⭐⭐ PERGUNTA 5 — Vistas (Views) vs Relações Base
 **Saiu em: EN2021, 2024/2025, Recurso 23/24**
 
 ### Pergunta:
 O que é uma vista? Quais as diferenças entre uma vista e uma relação base?
 
-### Resposta:
-**VISTAS** são tabelas virtuais criadas a partir de uma ou mais consultas SELECT sobre tabelas reais. Não armazenam dados fisicamente — apenas guardam a definição da consulta nos metadados.
+### Resposta Detalhada (Estudo):
+Uma **VISTA (VIEW)** é uma tabela virtual cujo conteúdo é definido por uma consulta SQL (`SELECT`) sobre uma ou mais tabelas reais (relações base). A vista não armazena dados físicos; armazena apenas a sua definição de consulta nos metadados da base de dados.
 
-Uma **RELAÇÃO BASE**, ao contrário de uma VISTA, existe fisicamente na BD e podem ser usadas na criação da vista.
+Uma **RELAÇÃO BASE** é uma tabela física cujos registos são armazenados diretamente no disco do servidor.
 
-| Característica | Vista (View) | Relação Base (Tabela Real) |
-|---|---|---|
-| Armazena dados | Não — só a consulta nos metadados | Sim — armazena fisicamente em disco |
-| Definição | Criada com SELECT | Criada com CREATE TABLE |
-| Modificável | Nem sempre (restrições estritas) | Sim — totalmente editável |
-| Espaço de Armazenamento | Praticamente nulo (só metadados) | Ocupa espaço físico correspondente |
-| Custo de Acesso | Executa a query subjacente em tempo real | Acesso direto aos dados físicos |
-
-### Importância:
-- Oferece uma forma flexível de segurança, permitindo esconder partes da BD
-- Permite aos utilizadores aceder à informação de forma personalizada
-- Permite simplificar operações complexas nas relações base
-- Reutilização de lógica
-
-### Vantagens:
-- Segurança melhorada, Complexidade reduzida, Personalização
-
-### Desvantagens:
-- Restrições nas atualizações (uma vista poderá não ser atualizada)
-- Restrições na estrutura (precisa criar nova vista para alterações)
-- Problema de performance com junção de várias tabelas
-
-### Restrições para vista atualizável:
-O SGBD deve ser capaz de rastrear cada linha e coluna até à tabela de origem. Na VISTA:
-- Não existe GROUP BY ou HAVING
-- O FROM apenas refere uma tabela
-- Não é especificado DISTINCT
-- Não há funções de agregação nem subqueries
-- Não há expressões calculadas ou colunas derivadas
-
-### Mecanismo de Resolução de Vistas:
-1. Os nomes das colunas da vista no SELECT são traduzidos para os nomes da definição da vista
-2. Os nomes das vistas no FROM são substituídos pelos da definição da vista
-3. O WHERE da query é combinado com o WHERE da definição da vista usando AND
-4. GROUP BY e HAVING são copiados da definição da vista
-5. ORDER BY é copiado e traduzido
-6. A query final é executada
+### Principais Diferenças:
+*   **Armazenamento de Dados**: A relação base consome espaço físico de armazenamento em disco. A vista tradicional não armazena dados (apenas a sua query de definição).
+*   **Modificabilidade (DML)**: As tabelas base aceitam qualquer operação direta de escrita. As vistas têm restrições rígidas: só são atualizáveis se mapearem uma única tabela base e não contiverem junções, agrupamentos (`GROUP BY`), funções de agregação ou `DISTINCT`.
+*   **Processamento**: O acesso à relação base lê os dados diretamente. A consulta à vista exige a execução da consulta SQL subjacente em tempo real.
 
 ### Materialização de Vistas:
-Consiste no armazenamento do resultado da consulta numa tabela temporária física na BD, fazendo com que o acesso seja muito mais rápido. Os dados são pré-calculados e armazenados, reduzindo a carga sobre as tabelas base.
-- **Vantagem:** Aceleração significativa no acesso a consultas analíticas complexas.
-- **Desvantagem:** Armazena dados duplicados, consome espaço físico e pode ficar desatualizada se não for refrescada (o SGBD tem de sincronizar as atualizações nas tabelas base).
+Consiste em armazenar fisicamente os resultados da consulta da vista numa tabela temporária em disco (Indexed Views).
+*   **Prós**: Acelera exponencialmente a leitura de consultas complexas ou agregados pesados.
+*   **Contras**: Introduz overhead nas operações de escrita nas tabelas base, pois o SGBD necessita de recalcular a vista materializada para a manter sincronizada.
+
+### 📝 Resposta Rápida (Para o Exame):
+Uma vista é uma relação virtual gerada dinamicamente a partir de uma consulta SQL, ocupando apenas espaço nos metadados para a sua definição, ao passo que uma relação base é uma tabela física persistida no disco que armazena os dados reais. Ao contrário das tabelas base, as vistas não aceitam operações de escrita diretas se contiverem agrupamentos, junções ou funções agregadas, e as consultas a vistas tradicionais exigem a execução em tempo real da consulta SQL interna, ao contrário do acesso direto das relações base. O mecanismo de materialização de vistas armazena fisicamente o resultado da consulta da vista numa tabela temporária em disco para acelerar a velocidade de leitura, apresentando a desvantagem de exigir o recálculo e sincronização dos dados pelo SGBD sempre que ocorrem alterações nas tabelas base.
 
 ---
 
@@ -188,74 +150,46 @@ Consiste no armazenamento do resultado da consulta numa tabela temporária físi
 ### Pergunta:
 Descreva as principais características de um Sistema BD e faça a comparação com os Sistemas Baseados em Ficheiros. Enuncie e explique sucintamente as principais vantagens e desvantagens de um SGBD.
 
-### Resposta:
-**Características de um Sistema de BD:**
-1. Independência de dados
-2. Redução da redundância (dados centralizados)
-3. Integridade dos dados
-4. Segurança e controlo de acessos
-5. Acesso simultâneo por vários utilizadores
-6. Recuperação em caso de falha
-7. Linguagens de consulta (como SQL)
+### Resposta Detalhada (Estudo):
+Um **SISTEMA DE BASE DE DADOS** centraliza o armazenamento dos dados de uma organização. O acesso e controlo destes dados são feitos por um intermediário de software chamado **SGBD** (Sistema de Gestão de Bases de Dados).
 
-**Comparação com Sistemas de Ficheiros:**
-- Nos ficheiros, dados geridos por cada aplicação separadamente → duplicação
-- Falta controlo de acessos e segurança centralizada
-- Difícil partilhar dados entre programas e utilizadores
-- Não existe independência de dados
-- Recuperação de dados em caso de falha limitada ou inexistente
+**Comparação com Sistemas Baseados em Ficheiros:**
+*   **Independência de Dados**: Nos ficheiros, a estrutura dos dados está ligada ao código da aplicação (dependência física). Nas BDs, a estrutura lógica é independente do armazenamento (independência física e lógica).
+*   **Redundância**: Os ficheiros descentralizados geram duplicação de dados e inconsistências. As BDs centralizam os dados, eliminando a redundância.
+*   **Concorrência e Segurança**: Sistemas de ficheiros têm controlo de acessos e concorrência limitados. O SGBD implementa gestão concorrente robusta (locks/transações) e controlo de segurança refinado.
 
-### Quando preferir Ficheiros:
-Quando a quantidade de informação é baixa e tem o propósito de servir apenas um departamento, ou quando:
-- Aplicações pequenas/pessoais com volume de dados reduzido
-- Não exigem acesso simultâneo
-- Não precisam de integridade/segurança rigorosa
-- Recursos computacionais limitados
+**Quando preferir Ficheiros**:
+Em aplicações pessoais de baixo volume de dados, de utilizador único, com recursos computacionais severamente limitados e onde o custo ou a complexidade de manutenção de um SGBD seja injustificável.
 
-### Vantagens do SGBD:
-- Controlo sobre redundância, Consistência, Partilha de dados
-- Mais segurança, produtividade, concorrência
-- Melhoria na manutenção (independência de dados)
-- Integridade melhorada, Uso de standards
-- Serviços de cópias de segurança e recuperação melhoradas
-- Economia de escala
+**Vantagens do SGBD**: Controlo da redundância, partilha concorrente, integridade dos dados, segurança, standards e facilidade de cópias de segurança/recuperação.
+**Desvantagens do SGBD**: Elevada complexidade de administração, custo de aquisição e hardware, e maior impacto na organização em caso de falha geral.
 
-### Desvantagens do SGBD:
-- Complexidade, Tamanho
-- Custo do SGBD e hardware acrescido
-- Custo de conversão, Performance
-- Maior impacto em caso de falha
+### 📝 Resposta Rápida (Para o Exame):
+Os sistemas de bases de dados superam os sistemas de ficheiros porque centralizam os dados num único repositório comum, eliminando a duplicação descontrolada de dados e garantindo a independência entre a informação estrutural e as aplicações clientes. As principais vantagens da utilização de um SGBD residem no controlo da redundância, na consistência global dos dados, na segurança refinada de acessos e na gestão eficaz de concorrência com serviços de backup e recuperação. Em contrapartida, as desvantagens incluem a elevada complexidade técnica do sistema, o custo elevado de software e hardware, e o impacto operacional catastrófico em caso de falha geral do servidor de base de dados.
 
 ---
 
-## ⭐⭐⭐ PERGUNTA 7 — Arquitetura ANSI/SPARC (3 Níveis)
+## ⭐⭐⭐ PERGUNTA 7 — Nível Conceptual da Arquitetura ANSI/SPARC
 **Saiu em: Recurso 23/24, Recurso 08/09 + coberto no "Resumos & Perguntas"**
 
 ### Pergunta:
 A arquitetura ANSI/SPARC identifica três níveis nos SGBD. Descreva pormenorizadamente o nível intermédio, identificando o seu nome, e o que se pretende que este nível represente.
 
-### Resposta:
-A arquitetura ANSI/SPARC define três níveis: **interno (físico)**, **conceptual (lógico global)** e **externo (visões de utilizador)**.
+### Resposta Detalhada (Estudo):
+A arquitetura ANSI/SPARC divide a base de dados em três níveis de abstração para garantir a independência de dados: **Nível Externo** (visões dos utilizadores), **Nível Conceptual** (lógico global) e **Nível Interno** (físico/disco).
 
-#### Níveis da arquitetura:
-1. **Externo**: Vistas parciais e personalizadas de cada utilizador ou aplicação.
-2. **Conceptual**: A visão lógica global da BD.
-3. **Interno**: A estrutura física de armazenamento de dados (como blocos, páginas e índices em disco).
+O nível intermédio designa-se **Nível Conceptual**:
+*   Representa a **visão lógica global de toda a base de dados** para toda a organização. O nível conceptual abstrai os detalhes físicos de armazenamento (nível interno) e serve como base para a criação das vistas dos utilizadores (nível externo).
+*   É o nível onde o Administrador da BD (DBA) desenha a estrutura da base de dados (esquema conceptual).
 
-#### Objetivos da arquitetura:
-1. **Separar os diferentes níveis de abstração dos dados**
-2. **Garantir a independência dos dados** (física e lógica)
-3. **Facilitar a segurança e controlo de acessos**
-4. **Melhorar a flexibilidade e manutenção**
+**O que este nível representa:**
+*   A definição de todas as tabelas (entidades), colunas (atributos) e os relacionamentos existentes.
+*   As regras e restrições de integridade impostas (chaves primárias, estrangeiras e restrições CHECK).
+*   As regras de acesso, autorização e segurança lógica globais da base de dados.
+*   Garante a **independência lógica dos dados**: alterações na estrutura física do disco (nível interno) são mapeadas no conceitual, evitando afetar as aplicações dos utilizadores.
 
-#### Nível intermédio: Nível Conceptual
-O nível conceptual é o nível intermédio e representa a **visão global e lógica da base de dados** para toda a organização, independentemente de como os dados são armazenados (nível interno) ou apresentados aos utilizadores (nível externo).
-
-**O que representa:**
-- **Estrutura lógica da BD**: todas as entidades, atributos e relações
-- **Regras de integridade**: restrições e dependências (PK, FK, CHECK)
-- **Segurança e permissões globais**: regras de acesso gerais
-- **Independência lógica dos dados**: permite modificar a estrutura sem afetar aplicações
+### 📝 Resposta Rápida (Para o Exame):
+O nível intermédio da arquitetura designa-se nível conceptual e representa a visão lógica e global de toda a base de dados para a organização. Este nível conceitual define a totalidade das tabelas lógicas, colunas, relacionamentos entre entidades, regras de segurança e restrições de integridade, tais como chaves primárias e estrangeiras. O seu principal propósito consiste em abstrair os utilizadores finais e as aplicações de desenvolvimento dos detalhes físicos de armazenamento no disco, servindo de base para garantir a independência lógica e física dos dados no sistema.
 
 ---
 
@@ -265,35 +199,25 @@ O nível conceptual é o nível intermédio e representa a **visão global e ló
 ### Pergunta:
 Descreva os principais benefícios e problemas associados aos Data Warehouses.
 
-### Resposta:
-Um **DATA WAREHOUSE** é uma coleção de dados orientada a assuntos, integrada, variável no tempo e não-volátil em suporte ao processo de tomada de decisão da administração (Inmon, 1993).
+### Resposta Detalhada (Estudo):
+Um **DATA WAREHOUSE (DW)** é um repositório de dados histórico, integrado, orientado a assuntos e não-volátil, projetado especificamente para apoiar o processo de tomada de decisão da administração.
 
 **Benefícios:**
-- Grande potencial do retorno sobre o investimento
-- Vantagem competitiva
-- Incremento de produtividade dos decision-makers
-- Isolamento de performance (evita que consultas analíticas degradem os sistemas OLTP operacionais)
+*   **Integração de Dados**: Reúne dados consolidados de fontes heterogéneas num único local.
+*   **Análise Histórica**: Permite avaliar tendências a longo prazo através de dados variáveis no tempo.
+*   **Isolamento de Performance**: Evita que consultas analíticas complexas e lentas (`OLAP`) degradem o desempenho dos sistemas transacionais operacionais do dia a dia (`OLTP`).
+*   **Apoio à Decisão**: Aumenta a produtividade e a qualidade das decisões dos gestores.
 
 **Problemas:**
-- Subestimar os recursos necessários ao carregamento dos dados
-- Problemas escondidos nos sistemas fonte
-- Dados necessários não capturados
-- Crescimento dos pedidos dos utilizadores finais
-- Homogeneização dos Dados
-- Precisa de grandes recursos
-- Dados proprietários
-- Manutenção Elevada
-- Projetos de Longa Duração
-- Complexidade da Integração e dos processos de ETL
+*   **Custo e Tempo**: Projetos de longa duração e com custos de implementação e hardware muito elevados.
+*   **Complexidade de ETL**: O processo de Extração, Transformation e Carregamento é complexo e propenso a erros para garantir a qualidade de dados.
+*   **Manutenção Continua**: Dificuldade em manter o DW atualizado quando os sistemas operacionais fonte sofrem alterações estruturais.
 
 ### Data Mart vs Data Warehouse:
-Um **DATA MART** é um subconjunto de um **DATA WAREHOUSE** que suporta os requisitos de um determinado departamento ou função de negócio.
+Um **DATA MART** é um subconjunto de um **DATA WAREHOUSE** que suporta os requisitos de um determinado departamento ou função de negócio, apresentando a vantagem de ser mais simples e barato de implementar.
 
-**Razões para criar um Data Mart:**
-- Dar acesso aos dados que precisam de analisar mais frequentemente
-- Providenciar dados que coincidam com a vista coletiva de um grupo
-- Melhorar o tempo de resposta aos utilizadores finais
-- Construção mais simples e custo inferior que um data warehouse
+### 📝 Resposta Rápida (Para o Exame):
+Um Data Warehouse é um repositório histórico, integrado e não-volátil cujo benefício principal consiste em consolidar dados limpos de múltiplas fontes heterogéneas e isolar a carga de processamento, garantindo que consultas analíticas pesadas (OLAP) não afetem a performance transacional (OLTP) do dia a dia. Por outro lado, este sistema apresenta problemas relacionados com o elevado custo e duração do projeto, com a complexidade de desenvolvimento dos fluxos de ETL para tratar e validar dados, e com a necessidade de manutenção constante face a alterações nas fontes originais. Adicionalmente, um Data Mart constitui um subconjunto desse repositório focado num único departamento, sendo uma alternativa mais barata e rápida de construir.
 
 ---
 
@@ -303,73 +227,69 @@ Um **DATA MART** é um subconjunto de um **DATA WAREHOUSE** que suporta os requi
 ### Pergunta:
 Apresente as diferenças entre DML Procedimentais e DML Não Procedimentais.
 
-### Resposta:
+### Resposta Detalhada (Estudo):
+As DML (Linguagens de Manipulação de Dados) dividem-se em duas abordagens fundamentais:
 
-| Característica | DML Procedimental | DML Não Procedimental |
-|---|---|---|
-| **Foco** | **Como** os dados são obtidos (passos detalhados) | **Quais** os dados que serão apresentados |
-| **Exemplo** | Álgebra Relacional, PL/SQL ou T-SQL (cursores) | SQL (comando SELECT), Cálculo Relacional |
-| **Complexidade** | Mais complexo, exige controlo de fluxo algorítmico | Mais simples, declarativo, próximo da linguagem natural |
-| **Operação** | Registo a registo (*one-record-at-a-time*), laços e condições | Em conjuntos (*set-at-a-time*), gerido pelo otimizador |
+*   **DML PROCEDIMENTAIS**:
+    *   O utilizador especifica **como** os dados devem ser obtidos.
+    *   Exigem a definição de um algoritmo com passos sequenciais e controlo de fluxo (como laços e condicionais).
+    *   Operam registo a registo (*one-record-at-a-time*).
+    *   *Exemplos:* Álgebra Relacional, blocos de código procedimentais e uso de cursores em PL/SQL e T-SQL.
+*   **DML NÃO PROCEDIMENTAIS (DECLARATIVAS)**:
+    *   O utilizador especifica apenas **o que** quer obter, sem detalhar o caminho físico.
+    *   Não há definição de fluxo lógico no comando; o otimizador do SGBD encarrega-se de escolher o plano físico de execução mais rápido.
+    *   Operam em conjuntos de dados (*set-at-a-time*).
+    *   *Exemplos:* Instrução SELECT em SQL e Cálculo Relacional.
 
-### Contexto — Sublinguagens de Dados:
-São a forma de comunicação existente com a BD:
-- **DDL (Linguagem de Definição de Dados)**: CREATE, ALTER, DROP — implementação da BD e relações
-- **DML (Linguagem de Manipulação de Dados)**: SELECT, INSERT, UPDATE, DELETE — manipulação dos dados
-- **DCL (Data Control Language)**: GRANT, REVOKE — controlo de acessos
-- **TCL (Transaction Control Language)**: COMMIT, ROLLBACK — gestão de transações
-
-### Diferenças DDL vs DML:
-- **DDL** altera a **estrutura** da BD, normalmente não permite rollback
-- **DML** altera o **conteúdo** (dados) da BD, permite rollback e commit
+### 📝 Resposta Rápida (Para o Exame):
+As DML procedimentais exigem que o utilizador especifique detalhadamente a sequência de passos físicos e a lógica algorítmica de como obter a informação, efetuando o processamento de forma individual sobre um registo de cada vez, como se verifica na Álgebra Relacional ou na manipulação de cursores. Em contrapartida, as DML não-procedimentais são declarativas e exigem apenas que o utilizador especifique quais os dados que pretende ver apresentados, delegando ao otimizador do SGBD a definição do plano de acesso físico e o processamento de todos os registos em conjunto, como sucede na instrução SELECT de SQL.
 
 ---
 
-## ⭐⭐ PERGUNTA 10 — Tipos de Junção (Joins)
-**Saiu em: EN2021, MiniTeste 08/09**
+## ⭐⭐ PERGUNTA 10 — Subquery vs Junção
+**Saiu em: 2022/2023 (Normal 23/24) + coberto no "Resumos & Perguntas"**
 
 ### Pergunta:
-Descreva as diferenças entre as cinco operações de junção: Theta Join, Equijoin, Natural Join, Outer Join e Semijoin.
+Qual a diferença entre uma subquery e uma junção? Em que situações não é possível usar uma subquery?
 
-### Resposta:
+### Resposta Detalhada (Estudo):
+*   **SUBQUERY (SUBCONSULTA)**: É uma instrução SELECT aninhada (embutida) dentro de outra consulta externa (nas cláusulas `WHERE`, `HAVING`, `FROM` ou `SELECT`). Serve para obter dados temporários ou escalares que alimentam a query principal.
+*   **JUNÇÃO (JOIN)**: É uma operação que combina registos de duas ou mais tabelas na mesma linha de dados do resultado final, com base numa condição de igualdade ou lógica comum.
 
-| Tipo de Junção | Operador | Inclui dados sem correspondência? | Remove duplicados? |
-|---|---|---|---|
-| **Theta Join** | Qualquer operador (=, >, <, >=, <=, !=) | Não | Não |
-| **Equijoin** | Igualdade (=) | Não | Não |
-| **Natural Join** | Igualdade automática | Não | Sim |
-| **Outer Join** | Igualdade (=) | Sim (depende do tipo) | Não |
-| **Semijoin** | Igualdade (via subquery) | Não (só da 1.ª tabela) | – |
+**Em que situações NÃO é possível usar uma subquery:**
+*   **Exibição Simultânea de Atributos**: Quando a consulta final exige a projeção (exibição) de colunas pertencentes a tabelas diferentes. Como a subquery apenas atua como filtro ou fonte secundária, só a cláusula `INNER/OUTER JOIN` permite expor colunas de múltiplas tabelas lado a lado no SELECT principal.
+*   **Junções Externas Totais**: Em queries que requerem comportamento de `FULL OUTER JOIN` em que a cardinalidade mútua de linhas sem correspondência precisa de ser preservada de ambos os lados da operação.
 
-- **THETA JOIN**: tipo mais geral, usa qualquer operador de comparação
-- **EQUIJOIN**: caso especial do Theta Join com apenas igualdade, não remove colunas duplicadas
-- **NATURAL JOIN**: baseada na igualdade automática, usa atributos com o mesmo nome e remove colunas duplicadas
-- **OUTER JOIN**: inclui registos sem correspondência (LEFT, RIGHT, FULL — com NULL onde não há match)
-- **SEMIJOIN**: retorna apenas registos da primeira tabela com correspondência na segunda, sem combinar dados
-
-### Exemplo OUTER JOIN:
-Três tipos:
-- **Left Outer Join**: mantém todos os registos da tabela da esquerda
-- **Right Outer Join**: mantém os da direita
-- **Full Outer Join**: mantém todos de ambas, com NULL onde não há correspondência
+### 📝 Resposta Rápida (Para o Exame):
+Uma subquery consiste numa consulta SELECT interna aninhada dentro de uma instrução SQL externa para calcular valores ou filtros temporários, ao passo que uma junção combina dados de duas ou mais tabelas na mesma linha de resultado com base numa condição. Não é possível utilizar uma subquery em situações em que a consulta exige exibir colunas pertencentes a tabelas distintas simultaneamente na query de resultado, uma vez que as subqueries limitam a projeção apenas às colunas declaradas na tabela da query externa principal.
 
 ---
 
 ## ⭐⭐ PERGUNTA 11 — Atributos num Diagrama ER
-**Saiu em: 2022/2023 + coberto no "Resumos & Perguntas"**
+**Saiu em: 2022/2023 (Normal 23/24) + coberto no "Resumos & Perguntas"**
 
 ### Pergunta:
 Descreva o que representam os atributos num diagrama ER e dê exemplos de atributos simples, compostos, multi-valor e derivados.
 
-### Resposta:
-Num diagrama ER os atributos representam a **propriedade de uma entidade ou de um tipo de relação**.
+### Resposta Detalhada (Estudo):
+Num diagrama Entidade-Relacionamento (ER), os atributos representam as **propriedades ou características individuais** que descrevem uma entidade ou relacionamento.
 
-| Tipo | Característica | Exemplo | Representação ER (Notação Chen) |
-|---|---|---|---|
-| **SIMPLES** | Valor único e indivisível | Número de cartão de cidadão | Elipse simples |
-| **COMPOSTO** | Pode ser dividido em subpartes | Endereço → rua, cidade, código postal | Elipses ligadas |
-| **MULTI-VALOR** | Pode ter mais do que um valor | Grau académico (licenciado, mestre, doutorado) | Dois círculos concêntricos |
-| **DERIVADO** | Calculado a partir de outro atributo | Idade (a partir da data de nascimento) | Linhas tracejadas |
+### Classificação e Exemplos (Notação de Chen):
+*   **SIMPLES (ATÓMICO)**: Contém um valor único e indivisível.
+    *   *Exemplo:* Número de contribuinte (NIF) ou Código do Produto.
+    *   *Representação:* Elipse simples ligada à entidade.
+*   **COMPOSTO**: Pode ser decomposto em subatributos independentes e mais simples.
+    *   *Exemplo:* `Morada` (decomposta em Rua, Localidade e Código Postal).
+    *   *Representação:* Elipse principal ligada a elipses secundárias.
+*   **MULTI-VALOR**: Pode conter mais do que um valor para uma mesma entidade.
+    *   *Exemplo:* `Telefone` (uma pessoa pode ter vários contactos) ou Hobbies.
+    *   *Representação:* Dois círculos concêntricos (elipse dupla).
+*   **DERIVADO**: Não é armazenado fisicamente; é calculado a partir de outros atributos existentes.
+    *   *Exemplo:* `Idade` (calculada a partir da Data de Nascimento e da data atual).
+    *   *Representação:* Elipse com contorno tracejado.
+
+### 📝 Resposta Rápida (Para o Exame):
+Num diagrama ER, os atributos representam as propriedades que descrevem as entidades ou relacionamentos do sistema. Como exemplos práticos e respetivas notações, um atributo simples é atómico e indivisível (como o NIF) e desenha-se por uma elipse simples; um composto divide-se em subatributos (como a Morada, decomposta em rua e localidade) e mostra-se por elipses interligadas; um multi-valor admite mais do que um valor para o mesmo registo (como os Telefones) e representa-se por uma elipse de contorno duplo; e um derivado resulta de cálculos de outros campos (como a Idade a partir da data de nascimento) e representa-se por uma elipse com linha tracejada.
 
 ---
 
@@ -379,193 +299,203 @@ Num diagrama ER os atributos representam a **propriedade de uma entidade ou de u
 ### Pergunta:
 Quais as restrições aplicadas ao uso de funções de agregação no comando SELECT? De que forma os valores nulos (NULL) afetam as funções de agregação?
 
-### Resposta:
+### Resposta Detalhada (Estudo):
+As funções de agregação (`COUNT`, `SUM`, `AVG`, `MIN`, `MAX`) operam sobre um conjunto de valores para devolver um único valor resumo.
 
-**Restrições:**
-1. **Não podem ser usadas na cláusula WHERE** — esta atua antes da agregação. Para filtrar com base no resultado da agregação, usar **HAVING**
-2. **Devem ser usadas com GROUP BY** quando se misturam com colunas não agregadas — as colunas não agregadas devem aparecer no GROUP BY
+**Restrições no Comando SELECT:**
+1.  **Impossibilidade de uso na cláusula WHERE**: O `WHERE` filtra linhas individuais antes do agrupamento. Para filtrar o resultado de funções agregadas, deve utilizar-se a cláusula **HAVING** (que executa após o `GROUP BY`).
+2.  **Obrigação de GROUP BY**: Se misturarmos colunas individuais não agregadas com funções de agregação no SELECT, todas as colunas individuais devem, obrigatoriamente, constar na cláusula `GROUP BY`.
 
-**Efeito dos valores NULL:**
+**Efeito dos Valores Nulos (NULLs):**
+*   **`COUNT(*)`**: É a única função que **inclui** e conta valores nulos, pois avalia a linha completa.
+*   **`COUNT(coluna)`**: Conta apenas os valores não nulos nessa coluna.
+*   **`SUM`, `AVG`, `MIN`, `MAX`**: **Ignoram** completamente os valores nulos no cálculo. Exemplo: se fizermos `AVG` de 10, NULL e 20, o SGBD calcula a média como `(10+20)/2 = 15`.
 
-| Função | Resultado com NULL | Exemplo (10, 20, NULL, 30) |
-|--------|-------------------|---------------------------|
-| `COUNT(*)` | Conta todas as linhas **incluindo** NULL | 4 |
-| `COUNT(coluna)` | Conta apenas valores **não-NULL** | 3 |
-| `SUM(coluna)` | **Ignora** NULLs | 60 |
-| `AVG(coluna)` | **Ignora** NULLs | 20 |
-| `MAX(coluna)` | **Ignora** NULLs | 30 |
-| `MIN(coluna)` | **Ignora** NULLs | 10 |
+### 📝 Resposta Rápida (Para o Exame):
+As restrições ao uso de funções de agregação em SQL exigem que estas nunca sejam declaradas na cláusula WHERE, devendo a filtragem ser efetuada no HAVING, e obrigam a que qualquer atributo não agregado projetado no SELECT conste obrigatoriamente na cláusula GROUP BY. Relativamente ao comportamento face a valores nulos, a função COUNT(*) contabiliza todas as linhas da relação incluindo nulos, ao passo que todas as restantes funções de agregação, tais como SUM, AVG, MIN, MAX e COUNT de coluna, ignoram inteiramente os valores NULL nos seus cálculos matemáticos.
 
 ---
 
-## ⭐⭐ PERGUNTA 13 — Cursores SQL
-**Saiu em: Recurso 23/24**
-
-### Pergunta:
-O que são cursores SQL? Qual o propósito da sua utilização?
-
-### Resposta:
-Um **CURSOR SQL** é um mecanismo que permite processar os resultados de uma consulta **linha a linha** (tuplo a tuplo), em vez de processar o conjunto completo de resultados de uma só vez (abordagem processual).
-
-**Propósito:**
-- Navegar pelos resultados de uma consulta de forma sequencial
-- Processar cada linha individualmente com lógica complexa
-- Realizar operações que não são possíveis com instruções SQL simples baseadas em conjuntos
-
-**Ciclo de vida de um cursor:**
-1. **DECLARE** — definição do cursor e da consulta associada
-2. **OPEN** — abertura do cursor e execução da consulta
-3. **FETCH** — obtenção da linha atual e avanço para a próxima
-4. **CLOSE** — fecho do cursor
-5. **DEALLOCATE** — libertação dos recursos alocados
-
-> ⚠️ Os cursores devem ser usados com cuidado pois podem ter impacto negativo no desempenho comparativamente a operações baseadas em conjuntos.
-
----
-
-## ⭐⭐ PERGUNTA 14 — Subquery vs Junção
-**Saiu em: 2022/2023 + coberto no "Resumos & Perguntas"**
-
-### Pergunta:
-Qual a diferença entre uma subquery e uma junção? Em que situações não é possível usar uma subquery?
-
-### Resposta:
-- **SUBQUERY**: é uma instrução SELECT colocada dentro de outra instrução SQL (dentro de SELECT, FROM, WHERE ou HAVING). Devolve um valor ou conjunto de valores usado pela consulta principal.
-- **JUNÇÃO**: combina dados de duas ou mais tabelas com base numa condição comum. Mostra colunas de várias tabelas ao mesmo tempo.
-
-**Situações em que NÃO é possível usar subquery:**
-- Quando a lógica requer múltiplas colunas de tabelas diferentes na mesma linha → junção é obrigatória
-- Quando a subquery devolve mais de um valor onde só é esperado um valor escalar
-
-**3 tipos de subqueries:**
-
-| Tipo | Devolve | Usado em... |
-|------|---------|------------|
-| **Escalar** | 1 valor (1 linha, 1 coluna) | WHERE, SELECT |
-| **De Linha/Tabela** | Múltiplas linhas/colunas | FROM |
-| **De Conjunto** | 1 coluna, várias linhas | WHERE com IN, ANY, ALL, EXISTS |
-
----
-
-## ⭐⭐ PERGUNTA 15 — Transações e Propriedades ACID
-**Coberto no "Resumos & Perguntas"**
-
-### Pergunta:
-O que é uma transação? Dê exemplos.
-
-### Resposta:
-Uma **TRANSAÇÃO** é um conjunto de operações SQL que são tratadas como uma **unidade lógica de trabalho**. Ou todas as operações são executadas com sucesso, ou nenhuma é aplicada (princípio do "tudo ou nada").
-
-**Propriedades ACID:**
-1. **Atomicidade**: Tudo ou nada — a transação é executada por completo ou revertida
-2. **Consistência**: A BD passa de um estado consistente para outro, respeitando as regras de integridade
-3. **Isolamento**: Transações simultâneas não interferem entre si (parece que correm isoladas)
-4. **Durabilidade**: Após confirmada (COMMIT), a transação mantém-se persistente mesmo em caso de falha do sistema
-
-**Exemplo — Transferência bancária:**
-```sql
-BEGIN TRANSACTION;
-UPDATE Contas SET saldo = saldo - 100 WHERE conta = 'A';
-UPDATE Contas SET saldo = saldo + 100 WHERE conta = 'B';
--- Se tudo correr bem:
-COMMIT;
--- Se algo falhar:
-ROLLBACK;
-```
-
----
-
-## ⭐⭐ PERGUNTA 16 — Procedimento vs Função
-**Coberto no "Resumos & Perguntas"**
-
-### Pergunta:
-Qual a diferença entre procedimento e uma função?
-
-### Resposta:
-
-| Característica | Função | Procedimento |
-|---|---|---|
-| Devolve valor | Sim (obrigatoriamente via RETURN) | Opcional (via parâmetros OUTPUT) |
-| Uso em SELECT | Sim (dentro de expressões SQL) | Não |
-| Altera dados | Não (em regra, apenas lê dados) | Sim (pode modificar tabelas da BD) |
-| Chamado com | Dentro de expressões SQL | CALL ou EXEC nome_procedimento(...) |
-| Propósito | Cálculos, transformações, validações | Tarefas administrativas, regras de negócio complexas |
-
----
-
-## ⭐ PERGUNTA 17 — Independência de Dados
-**Saiu em: 2022/2023, Recurso Adicional 08/09 + coberto no "Resumos & Perguntas"**
+## ⭐ PERGUNTA 13 — Independência de Dados
+**Saiu em: 2022/2023 (Normal 23/24), Recurso Adicional 08/09 + coberto no "Resumos & Perguntas"**
 
 ### Pergunta:
 Descreva o conceito de independência de dados e a sua importância num ambiente de bases de dados.
 
-### Resposta:
-**INDEPENDÊNCIA DE DADOS** é a capacidade de modificar os níveis inferiores da BD (lógico ou físico) sem afetar os níveis superiores (aplicações).
+### Resposta Detalhada (Estudo):
+A **INDEPENDÊNCIA DE DADOS** é a propriedade que permite alterar os esquemas de dados de um nível inferior de abstração da arquitetura ANSI/SPARC sem a necessidade de reescrever as estruturas e aplicações situadas nos níveis superiores.
 
-- **Independência física**: capacidade de alterar a estrutura física dos ficheiros ou dos índices em disco (nível interno) sem alterar o esquema conceptual ou as aplicações.
-- **Independência lógica**: capacidade de alterar a estrutura lógica (esquema conceptual, como adicionar uma coluna ou dividir uma tabela) sem ter de reescrever o código ou as consultas das aplicações existentes.
+Divide-se em dois tipos:
+1.  **Independência Física de Dados**:
+    *   Capacidade de alterar o armazenamento físico dos dados (como mudar o disco, reorganizar ficheiros, criar índices ou mudar partições) sem afetar o esquema conceptual (tabelas lógicas) ou as aplicações do utilizador.
+2.  **Independência Lógica de Dados**:
+    *   Capacidade de alterar o esquema conceptual (como adicionar colunas, criar novas tabelas ou dividir tabelas existentes) sem que seja necessário reescrever o código das queries SQL das aplicações existentes.
+    *   *Nota:* Para garantir esta independência face a alterações lógicas, recorre-se normalmente à criação de **vistas** para simular as tabelas originais.
 
-**Importância:** Permite manter, otimizar e evoluir o sistema de forma mais flexível e económica, sem ter de reescrever as aplicações clientes sempre que há mudanças estruturais internas.
+**Importância**: Permite que a base de dados sofra manutenções e otimizações contínuas de forma muito mais barata e flexível, impedindo o impacto em cascata no código das aplicações clientes.
 
----
-
-## ⭐ PERGUNTA 18 — Especialização e Generalização (Modelo ER)
-**Coberto no "Resumos & Perguntas"**
-
-### Pergunta:
-Explique as diferenças entre o processo de especialização e de generalização no contexto da modelação ER.
-
-### Resposta:
-- **ESPECIALIZAÇÃO**: Processo descendente (top-down) que consiste em dividir uma entidade genérica (superclasse) em subconjuntos mais específicos (subclasses). Cria subentidades que possuem atributos ou relacionamentos próprios, além dos herdados. Relação do tipo "é um".
-  - *Exemplo:* Funcionário → Engenheiro, Administrativo, Motorista.
-- **GENERALIZAÇÃO**: Processo ascendente (bottom-up) que consiste em agrupar duas ou mais entidades específicas (com atributos comuns) numa entidade mais geral (superclasse). Identifica semelhanças e simplifica a modelação.
-  - *Exemplo:* Aluno e Professor → Pessoa (com atributos comuns como nome, morada e data de nascimento).
+### 📝 Resposta Rápida (Para o Exame):
+A independência de dados consiste na capacidade de modificar os esquemas estruturais de um nível inferior de abstração do SGBD sem que seja necessário alterar os esquemas ou as aplicações clientes nos níveis superiores. A independência física permite alterar as configurações de armazenamento físico e indexação em disco sem modificar o esquema lógico ou o código das consultas, ao passo que a independência lógica permite alterar o desenho lógico global das tabelas sem quebrar o funcionamento das aplicações. A sua importância reside na redução significativa dos custos de manutenção de software e na flexibilidade para a evolução da BD.
 
 ---
 
-## ⭐ PERGUNTA 19 — Arquitetura Cliente-Servidor (2 vs 3 níveis)
+## ⭐ PERGUNTA 14 — Arquitetura Cliente-Servidor (2 vs 3 níveis)
 **Saiu em: 2022/2023 (Normal 23/24) + coberto no "Resumos & Perguntas"**
 
 ### Pergunta:
 Compare a arquitetura cliente-servidor de dois níveis com a de três-níveis e identifique, justificando, qual a mais adequada para a Web.
 
-### Resposta:
-- **Arquitetura de 2 Níveis (2-tier)**: A aplicação cliente (fat client) comunica diretamente com o servidor de bases de dados, acumulando a interface com o utilizador e a lógica/regras de negócio.
-- **Arquitetura de 3 Níveis (3-tier)**: Introduz-se um servidor de aplicação intermédio (Application Server) entre o cliente (tipicamente um browser ou thin client) e o servidor de bases de dados. O servidor intermédio isola e executa a lógica de negócio, enquanto o SGBD trata apenas do armazenamento e integridade dos dados.
+### Resposta Detalhada (Estudo):
+*   **Arquitetura de 2 Níveis (2-tier)**:
+    *   A aplicação corre numa máquina cliente (fat client) e comunica diretamente com o servidor de bases de dados.
+    *   A máquina cliente é responsável por renderizar a interface gráfica e processar todas as regras de negócio. O servidor de dados apenas executa as queries SQL.
+*   **Arquitetura de 3 Níveis (3-tier)**:
+    *   Introduz-se uma camada intermédia dedicada: o **Servidor de Aplicação** (Application Server).
+    *   O cliente corre uma interface leve (thin client / browser). O Servidor de Aplicação executa toda a lógica e regras de negócio, e comunica com o Servidor de Base de Dados para leitura e gravação dos dados físicos.
 
-**Adequabilidade para a Web**: A arquitetura de **3 níveis** é a mais adequada para a Web pelas seguintes razões:
-1. **Escalabilidade e Pooling de Conexões**: O servidor de aplicação gere e reutiliza um conjunto de conexões (connection pool) com o SGBD, permitindo servir milhares de utilizadores concorrentes a partir do browser. Numa arquitetura de 2 níveis, cada browser precisaria de abrir e manter uma ligação dedicada à BD, esgotando rapidamente os recursos de ligação do SGBD.
-2. **Centralização da Lógica**: Qualquer alteração nas regras de negócio é feita exclusivamente no servidor de aplicação, sem necessidade de atualizar ou redistribuir software nos clientes.
-3. **Segurança**: Previne o acesso direto dos clientes ao servidor de dados, mantendo as credenciais de acesso à BD protegidas de forma segura no servidor aplicacional.
+**Adequabilidade para a Web**: A arquitetura de **3 níveis** é a única viável e adequada para a Web por:
+1.  **Escalabilidade e Pooling de Conexões**: O servidor de aplicação mantém um pool fechado de conexões abertas com a BD, reutilizando-as concorrentemente para servir milhares de pedidos web. Em 2 níveis, cada browser precisaria de abrir uma conexão direta ao SGBD, o que esgotaria os limites de conexão da base de dados de imediato.
+2.  **Facilidade de Manutenção**: Atualizações na lógica de negócio são feitas exclusivamente no servidor central de aplicação, sem necessidade de reconfigurar o código nos terminais dos utilizadores.
+3.  **Segurança**: O cliente web não tem acesso às credenciais de administrador nem à BD direta, prevenindo ataques maliciosos à integridade dos dados.
+
+### 📝 Resposta Rápida (Para o Exame):
+Na arquitetura de dois níveis, a máquina cliente comunica diretamente com a base de dados e aloja a interface e as regras de negócio, enquanto na de três níveis se insere um servidor de aplicação intermédio encarregue de processar a lógica de negócio, libertando o cliente para correr uma interface leve. A arquitetura de três níveis é a mais adequada para o ambiente Web porque permite implementar o pooling de conexões no servidor intermédio para suportar milhares de acessos concorrentes, centraliza as tarefas de manutenção de código no servidor e impede o acesso direto ou inseguro dos utilizadores ao servidor de dados.
 
 ---
 
-## ⭐ PERGUNTA 20 — Abordagens para Desenho de BD com Múltiplas Vistas de Utilizadores
+## ⭐ PERGUNTA 15 — Abordagens para Desenho de BD com Múltiplas Vistas de Utilizadores
 **Saiu em: 2022/2023 (Normal 23/24) + coberto no "Resumos & Perguntas"**
 
 ### Pergunta:
 Enuncie quais as principais abordagens para elaborar o desenho de uma base de dados com múltiplas vistas de utilizadores.
 
-### Resposta:
-Para elaborar o desenho de uma base de dados que sirva múltiplos utilizadores com diferentes visões e requisitos, existem três abordagens principais:
+### Resposta Detalhada (Estudo):
+Diferentes departamentos e utilizadores de uma empresa necessitam de ver e interagir com diferentes partes da base de dados (vistas). Para desenhar um esquema global coerente que satisfaça todos, utilizam-se três abordagens:
 
-1. **Abordagem Centralizada (Centralized Integration)**:
-   - Os requisitos de cada vista de utilizador são recolhidos e fundidos numa única coleção global de requisitos.
-   - Constrói-se um único modelo conceitual (esquema conceitual global) a partir desta lista consolidada.
-   - Indicada para sistemas de pequena ou média dimensão onde as visões não sejam excessivamente distintas.
-2. **Abordagem por Integração de Vistas (View Integration)**:
-   - Constrói-se um modelo conceitual local (esquema local) para cada vista ou departamento de forma independente.
-   - Estes modelos locais são posteriormente fundidos e consolidados através de um processo de integração de esquemas para produzir o modelo conceitual global final.
-   - Indicada para sistemas complexos e de grande dimensão, onde cada departamento possui regras e visões de negócio muito específicas.
-3. **Abordagem Mista (Mixed Approach)**:
-   - Combina ambas as abordagens. Requisitos óbvios e comuns a todas as vistas são fundidos centralizadamente desde o início.
-   - Requisitos ou vistas com elevada complexidade ou particularidades são tratados de forma isolada através de modelação local e integrados no modelo global mais tarde.
+1.  **Abordagem Centralizada (Centralized Integration / Schema Integration)**:
+    *   Os requisitos de todas as vistas dos utilizadores são recolhidos, analisados e fundidos numa única lista consolidada de requisitos globais.
+    *   A partir desta lista unificada, desenha-se diretamente um único modelo conceitual global (esquema conceitual).
+    *   *Ideal para*: Sistemas com poucas vistas ou onde a lógica de negócio não diverge muito entre departamentos.
+2.  **Abordagem por Integração de Vistas (View Integration)**:
+    *   Constrói-se um modelo conceitual local (esquema local) para cada vista ou departamento de forma independente.
+    *   Numa fase posterior, estes esquemas locais são fundidos e harmonizados através de um processo de integração (resolvendo sinónimos, homónimos e conflitos de tipos) para gerar o esquema conceitual global unificado.
+    *   *Ideal para*: Sistemas grandes, complexos e com requisitos altamente específicos por setor.
+3.  **Abordagem Mista (Mixed Approach)**:
+    *   Combina o melhor de ambas as abordagens. Os requisitos comuns e fáceis de consolidar de todas as vistas são fundidos centralizadamente desde o início do projeto.
+    *   As visões mais complexas e divergentes são modeladas como esquemas locais separados, integrando-se no modelo global na fase de consolidação final.
 
+### 📝 Resposta Rápida (Para o Exame):
+A modelação com múltiplas vistas de utilizadores pode ser elaborada através de três abordagens de desenho. A abordagem centralizada consiste em recolher e consolidar os requisitos de todas as vistas numa lista unificada logo no início do projeto, gerando depois um único modelo conceitual global. A abordagem por integração de vistas constrói esquemas conceituais locais independentes para cada departamento e funde-os posteriormente através de integração e resolução de conflitos num modelo conceitual global final. Por fim, a abordagem mista combina os dois conceitos, fundindo as vistas simples centralizadamente no início e tratando os requisitos complexos localmente antes da consolidação.
+
+---
 ---
 
 ## 📚 BÓNUS — Perguntas Complementares de Alta Frequência
 
-### Cláusulas do SELECT
+### ⚙️ BÓNUS 1 — Tipos de Junção (Joins)
+**Saiu em: EN2021, MiniTeste 08/09**
+
+#### Pergunta:
+Descreva as diferenças entre as cinco operações de junção: Theta Join, Equijoin, Natural Join, Outer Join e Semijoin.
+
+#### Resposta Detalhada (Estudo):
+*   **THETA JOIN**: Junção geral que combina duas relações com base numa condição que utiliza qualquer operador de comparação ($=$, $>$, $<$, $\ge$, $\le$, $\ne$).
+*   **EQUIJOIN**: Caso especial do Theta Join onde a condição de correspondência utiliza estritamente o operador de igualdade ($=$). Não remove as colunas de junção duplicadas.
+*   **NATURAL JOIN**: Junção por igualdade realizada automaticamente sobre atributos homónimos (com o mesmo nome). Remove automaticamente as colunas redundantes duplicadas no resultado final.
+*   **OUTER JOIN**: Junção que mantém todos os registos de uma das tabelas (ou de ambas), mesmo que não tenham correspondência na outra tabela, preenchendo as colunas vazias com valores `NULL`. Divide-se em `LEFT`, `RIGHT` e `FULL`.
+*   **SEMIJOIN**: Retorna apenas os registos da primeira tabela que possuem correspondência na segunda tabela, sem duplicar linhas e sem expor atributos da segunda tabela no resultado.
+
+#### 📝 Resposta Rápida (Para o Exame):
+No âmbito da álgebra relacional, a junção Theta Join combina tabelas usando qualquer operador de comparação lógico, o Equijoin restringe a condição à igualdade mantendo as colunas duplicadas, e o Natural Join junta tabelas por colunas homónimas removendo a redundância no resultado. Por sua vez, o Outer Join inclui todas as linhas de um ou de ambos os lados mesmo sem correspondência (LEFT, RIGHT ou FULL) preenchendo as lacunas com valores nulos, e a operação Semijoin devolve apenas os tuplos da primeira tabela que participam na junção com a segunda, sem combinar os seus atributos.
+
+---
+
+### 🗄️ BÓNUS 2 — Cursores SQL
+**Saiu em: Recurso 23/24**
+
+#### Pergunta:
+O que são cursores SQL? Qual o propósito da sua utilização?
+
+#### Resposta Detalhada (Estudo):
+Um **CURSOR** é uma estrutura de controlo mantida pelo SGBD que funciona como um apontador lógico e permite às linguagens procedimentais iterar e processar os registos resultantes de uma consulta SELECT **linha a linha** (abordagem procedimental), contrariando a natureza declarativa natural do SQL que atua em conjuntos de dados (*set-at-a-time*).
+
+**Ciclo de Vida do Cursor**:
+1.  `DECLARE`: Define a query SELECT associada ao cursor.
+2.  `OPEN`: Executa a query e aloca os recursos de memória.
+3.  `FETCH`: Obtém a linha corrente, copia os dados para variáveis e aponta para a linha seguinte.
+4.  `CLOSE`: Fecha o cursor e liberta os locks ativos.
+5.  `DEALLOCATE`: Remove a definição do cursor da memória (liberta recursos).
+
+#### 📝 Resposta Rápida (Para o Exame):
+Um cursor SQL é uma estrutura de controlo que funciona como um apontador lógico para permitir que as linguagens procedimentais manipulem e naveguem linha a linha pelos resultados de uma consulta declarativa SELECT. O propósito fundamental da sua utilização reside no desenvolvimento de algoritmos de manipulação complexos, validações individuais e processamento sequencial de tuplos, contornando a natureza declarativa normal do SQL baseado em conjuntos de dados.
+
+---
+
+### 💳 BÓNUS 3 — Transações e Propriedades ACID
+**Coberto no "Resumos & Perguntas"**
+
+#### Pergunta:
+O que é uma transação? Descreva as propriedades ACID.
+
+#### Resposta Detalhada (Estudo):
+Uma **TRANSAÇÃO** é uma unidade lógica de processamento que agrupa um conjunto de instruções SQL. Deve ser executada na totalidade para manter a consistência da BD.
+
+#### Propriedades ACID:
+1.  **Atomicidade**: Princípio do "tudo ou nada". A transação é efetuada na totalidade com sucesso (`COMMIT`) ou todas as alterações são desfeitas e revertidas (`ROLLBACK`).
+2.  **Consistência**: A transação deve levar a base de dados de um estado consistente a outro estado consistente, sem violar nenhuma regra de integridade.
+3.  **Isolamento**: As transações em execução concorrente devem correr de forma independente, sem interferirem nos dados umas das outras até estarem finalizadas.
+4.  **Durabilidade**: Uma vez concluída (efetuado o `COMMIT`), as alterações tornam-se permanentes na BD e não são perdidas mesmo em caso de falha do sistema.
+
+#### 📝 Resposta Rápida (Para o Exame):
+Uma transação constitui um conjunto de instruções SQL tratadas de forma unificada como uma única unidade lógica de trabalho indivisível que deve ser executada por completo. As propriedades ACID determinam que a transação deve ser atómica (execução total ou reversão total em caso de erro), consistente (respeito pelas restrições de integridade da base de dados), isolada (transações concorrentes executam sem interferências mútuas temporárias) e durável (persistência permanente dos dados confirmados após o commit).
+
+---
+
+### ⚙️ BÓNUS 4 — Stored Procedure vs Função (UDF)
+**Coberto no "Resumos & Perguntas"**
+
+#### Pergunta:
+Qual a diferença entre um procedimento (Stored Procedure) e uma função (UDF)?
+
+#### Resposta Detalhada (Estudo):
+*   **Função (UDF)**:
+    *   Deve obrigatoriamente devolver um valor (escalar ou tabela) via `RETURN`.
+    *   Pode ser invocada diretamente dentro de instruções SQL normais (como `SELECT`, `WHERE`, `HAVING`).
+    *   Não pode efetuar alterações no estado da base de dados (não permite `INSERT`, `UPDATE` ou `DELETE` em tabelas reais).
+*   **Procedimento (Stored Procedure)**:
+    *   Não é obrigado a devolver valores (embora possa retornar parâmetros `OUTPUT`).
+    *   Not pode ser executado dentro de comandos SQL; é invocado com comandos específicos como `EXEC` ou `CALL`.
+    *   Pode alterar dados livremente na base de dados (permite comandos de escrita) e pode gerir transações internas (`COMMIT` e `ROLLBACK`).
+
+#### 📝 Resposta Rápida (Para o Exame):
+Uma função (UDF) é obrigatoriamente desenhada para devolver um valor ou tabela de retorno, podendo ser embutida diretamente em consultas SQL tais como instruções SELECT, mas possui a limitação de não poder modificar os dados em disco. Por sua vez, um procedimento (Stored Procedure) não tem obrigatoriedade de retornar valores, é executado externamente através do comando EXEC ou CALL, e permite alterar os registos das tabelas assim como gerir transações internas através de commits e rollbacks.
+
+---
+
+### 🎨 BÓNUS 5 — Especialização e Generalização (Modelo ER)
+**Coberto no "Resumos & Perguntas"**
+
+#### Pergunta:
+Explique as diferenças entre o processo de especialização e de generalização no contexto da modelação ER.
+
+#### Resposta Detalhada (Estudo):
+*   **ESPECIALIZAÇÃO**:
+    *   Processo descendente (**top-down**).
+    *   Consiste em dividir uma entidade genérica (superclasse) em subclasses com atributos ou relacionamentos específicos.
+    *   *Exemplo:* A superclasse `Funcionário` especializa-se nas subclasses `Engenheiro` (com atributo ordem profissional) e `Motorista` (com atributo carta de condução).
+*   **GENERALIZAÇÃO**:
+    *   Processo ascendente (**bottom-up**).
+    *   Consiste em agrupar várias entidades distintas com propriedades semelhantes numa entidade comum mais genérica (superclasse) para simplificar o esquema.
+    *   *Exemplo:* As entidades `Aluno` e `Professor` são generalizadas na entidade `Pessoa` (partilhando atributos como NIF, Nome e Morada).
+
+#### 📝 Resposta Rápida (Para o Exame):
+A especialização constitui um processo de modelação descendente (top-down) em que uma superclasse geral é dividida em subclasses específicas de modo a atribuir propriedades e relacionamentos particulares, como segmentar Funcionário em Engenheiro ou Motorista. Por outro lado, a generalização constitui um processo ascendente (bottom-up) que consiste em extrair características e atributos idênticos de múltiplas entidades distintas para consolidar e criar uma superclasse mais abstrata, como agrupar as tabelas Aluno e Professor na tabela Pessoa.
+
+---
+
+### 📋 Outros Tópicos Rápidos (Bónus de Auxílio)
+
+#### Cláusulas do SELECT
 ```
 SELECT:    obrigatório, atributos que aparecerão
 FROM:      obrigatório, tabela de origem
@@ -579,14 +509,14 @@ ORDER BY:  ordenação, última cláusula, por defeito ascendente
 
 ---
 
-### Chave Candidata, Primária, Estrangeira
+#### Chave Candidata, Primária, Estrangeira
 - **CHAVE CANDIDATA**: conjunto mínimo de atributos que identifica univocamente cada tuplo na relação. Pode haver várias.
 - **CHAVE PRIMÁRIA**: chave candidata escolhida para a identificação dos tuplos. Valores não podem repetir-se nem ser NULL.
 - **CHAVE ESTRANGEIRA**: atributo que faz referência à chave primária de outra tabela. Permite relacionar tuplos de relações diferentes e garante integridade referencial.
 
 ---
 
-### 5 Operações Básicas de Álgebra Relacional
+#### 5 Operações Básicas de Álgebra Relacional
 - **SELEÇÃO (σ)**: seleciona tuplos que satisfaçam à condição de seleção
 - **PROJEÇÃO (π)**: projeta as colunas solicitadas
 - **PRODUTO CARTESIANO (×)**: combina tuplos de duas relações
@@ -596,11 +526,11 @@ ORDER BY:  ordenação, última cláusula, por defeito ascendente
 A partir destas:
 - **JUNÇÃO** = Produto Cartesiano + Seleção: A ⋈ B ≡ σ(A × B)
 - **INTERSECÇÃO** = A − (A − B)
-- **DIVISÃO** = mostra todos os valores de um atributo de A que fazem referência a todos os valores de B: A ÷ B = π_X(A) − π_X((π_X(A) × B) − A)
+- **DIVISÃO** = A ÷ B = π_X(A) − π_X((π_X(A) × B) − A)
 
 ---
 
-### Funções que um SGBD deve satisfazer
+#### Funções que um SGBD deve satisfazer
 - Armazenamento, Pesquisa e Atualização de Dados
 - Dicionário de Dados (System Catalog)
 - Suporte a Transações
@@ -614,7 +544,7 @@ A partir destas:
 
 ---
 
-### Ciclo de Vida de uma Aplicação de BD
+#### Ciclo de Vida de uma Aplicação de BD
 1. Planeamento da Base de Dados / Estudo e levantamento de requisitos
 2. Definição do Sistema
 3. Recolha e Análise de Requisitos
@@ -625,11 +555,11 @@ A partir destas:
 8. Implementação
 9. Conversão e Alimentação de Dados
 10. Testes e Validação
-11. Manutenção Operacional e Evolução
+11. Em Operação e Manutenção
 
 ---
 
-### 5 Componentes do Ambiente de um SGBD
+#### 5 Componentes do SGBD
 1. **Hardware**: dispositivos físicos (servidores, discos, redes)
 2. **Software**: SGBD, sistema operativo e programas
 3. **Dados**: dados armazenados e metadados
@@ -638,12 +568,12 @@ A partir destas:
 
 ---
 
-### System Catalog
-O **System Catalog** (Catálogo do Sistema) é um conjunto de tabelas e metadados mantido pelo SGBD que descreve a própria base de dados. Sem ele, o SGBD não conseguiria interpretar nem gerir os dados.
+#### System Catalog
+Conjunto de tabelas de sistema e metadados mantido pelo SGBD que descreve a própria estrutura da base de dados.
 
 ---
 
-### Propriedades das Relações no Modelo Relacional
+#### Propriedades das Relações
 1. Nome único
 2. Tuplos distintos (não há linhas repetidas)
 3. Sem ordem entre os tuplos
@@ -653,7 +583,7 @@ O **System Catalog** (Catálogo do Sistema) é um conjunto de tabelas e metadado
 
 ---
 
-### Termos do Modelo Relacional
+#### Termos do Modelo Relacional
 - **Relação**: tabela que armazena dados
 - **Atributo**: coluna da tabela
 - **Domínio**: conjunto de valores válidos para um atributo
@@ -663,21 +593,21 @@ O **System Catalog** (Catálogo do Sistema) é um conjunto de tabelas e metadado
 
 ---
 
-### Duas Regras de Integridade no Modelo Relacional
+#### Duas Regras de Integridade no Modelo Relacional
 1. **Integridade da Entidade**: cada tabela deve ter PK cujos valores não podem ser nulos nem repetidos
 2. **Integridade Referencial**: FK deve corresponder a um valor existente na PK da outra tabela (ou ser nula)
 
 ---
 
-### Importância do WHERE em UPDATE e DELETE
-A cláusula WHERE é **essencial** em UPDATE e DELETE pois define quais os registos afetados. Sem WHERE, a instrução afeta **todos os registos** da tabela, o que pode causar perda de dados ou alterações indesejadas.
+#### Importância do WHERE em UPDATE e DELETE
+Definir quais os registos que são afetados. Sem WHERE, a instrução afeta **todos os registos** da tabela de forma irreversível.
 
 ---
 
-### 3 Gerações de SGBD
-1. **1ª Geração** — Modelos Hierárquico e em Rede (anos 60-70): estruturas rígidas, pouco flexíveis
-2. **2ª Geração** — Modelo Relacional (anos 70-80 até hoje): tabelas, SQL, o mais usado atualmente
-3. **3ª Geração** — Modelos Orientado a Objetos e Objeto-Relacional (anos 90+): dados complexos (imagens, vídeos)
+#### 3 Gerações de SGBD
+1. **1ª Geração** — Modelos Hierárquico e em Rede (anos 60-70)
+2. **2ª Geração** — Modelo Relacional (anos 70-80 até hoje)
+3. **3ª Geração** — Modelos Orientado a Objetos e Objeto-Relacional (anos 90+)
 
 ---
 
@@ -689,23 +619,23 @@ A cláusula WHERE é **essencial** em UPDATE e DELETE pois define quais os regis
 
 | Pergunta | 04-06 | 07/08 | 08/09 | EN2021 | 22/23 | R23/24 | 24/25 |
 |----------|:-----:|:-----:|:-----:|:------:|:-----:|:------:|:-----:|
-| Integridade Referencial | — | ✅ | — | ✅ | ✅ | — | ✅ |
-| Normalização | — | ✅ | ✅ | — | — | ✅ | ✅ |
-| Anomalias Atualização | — | — | ✅ | ✅ | — | — | — |
-| Triggers | — | — | — | ✅ | — | — | ✅ |
-| Vistas | — | — | ✅ | ✅ | — | ✅ | ✅ |
-| Sist. BD vs Ficheiros | — | ✅ | ✅ | — | — | — | — |
-| ANSI/SPARC | — | — | ✅ | — | — | ✅ | — |
-| Data Warehouses | — | ✅ | — | — | — | ✅ | ✅ |
-| DML Proc/Não Proc | — | — | — | — | — | — | ✅ |
-| Tipos de Junção | — | — | — | ✅ | — | — | — |
-| Atributos ER | — | — | — | — | ✅ | — | — |
-| Funções Agregação/NULL | — | — | ✅ | — | — | ✅ | — |
-| Cursores SQL | — | — | — | — | — | ✅ | — |
-| Subquery vs Junção | — | — | — | — | ✅ | — | — |
-| Independência Dados | — | — | ✅ | — | ✅ | — | — |
-| Arq. Cliente-Servidor (2 vs 3 níveis) | — | — | — | — | ✅ | — | — |
-| Abordagens múltiplas vistas | — | — | — | — | ✅ | — | — |
-| Normalização (fatura) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Álgebra Relacional | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| SQL LMD | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| 1. Integridade Referencial | — | ✅ | — | ✅ | ✅ | — | ✅ |
+| 2. Normalização (Teoria) | — | ✅ | ✅ | — | — | ✅ | ✅ |
+| 3. Anomalias Atualização | — | — | ✅ | ✅ | — | — | — |
+| 4. Triggers | — | — | — | ✅ | — | — | ✅ |
+| 5. Vistas (Views) vs Base | — | — | ✅ | ✅ | — | ✅ | ✅ |
+| 6. Sist. BD vs Ficheiros | — | ✅ | ✅ | — | — | — | — |
+| 7. ANSI/SPARC (Conceptual) | — | — | ✅ | — | — | ✅ | — |
+| 8. Data Warehouses | — | ✅ | — | — | — | ✅ | ✅ |
+| 9. DML Proc vs Não Proc | — | — | — | — | — | — | ✅ |
+| 10. Subquery vs Junção | — | — | — | — | ✅ | — | — |
+| 11. Atributos ER | — | — | — | — | ✅ | — | — |
+| 12. Funções Agregação/NULL | — | — | ✅ | — | — | ✅ | — |
+| 13. Independência Dados | — | — | ✅ | — | ✅ | — | — |
+| 14. Arq. Cliente-Servidor (2 vs 3) | — | — | — | — | ✅ | — | — |
+| 15. Abordagens múltiplas vistas | — | — | — | — | ✅ | — | — |
+| BÓNUS 1. Tipos de Junção | — | — | — | ✅ | — | — | — |
+| BÓNUS 2. Cursores SQL | — | — | — | — | — | ✅ | — |
+| Prática: Normalização (fatura) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Prática: Álgebra Relacional | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Prática: SQL LMD | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
