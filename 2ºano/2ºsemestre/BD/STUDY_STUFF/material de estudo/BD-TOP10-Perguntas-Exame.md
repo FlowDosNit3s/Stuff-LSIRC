@@ -1,8 +1,8 @@
-# 🎯 BD — TOP 15 Perguntas para Exame (Prioridade Máxima)
+# 🎯 BD — TOP 20 Perguntas para Exame (Prioridade Máxima)
 
-> Estas 15 perguntas cobrem a esmagadora maioria da componente teórica de desenvolvimento nos exames de BD.
-> Ordenadas por frequência de aparecimento nos exames (2004–2025).
-> 📌 **Atualizado com TODOS os exames disponíveis incluindo 2024/2025 e o ficheiro "BD - Resumos & Perguntas".**
+> Estas 20 perguntas cobrem a esmagadora maioria da componente teórica de desenvolvimento nos exames de BD.
+> Ordenadas por frequência de aparecimento nos exames (2004–2026).
+> 📌 **Atualizado com TODOS os exames disponíveis incluindo 2025/2026 e o ficheiro "BD - Resumos & Perguntas".**
 
 ---
 
@@ -118,11 +118,11 @@ Um trigger é um bloco de código procedural executado de forma automática e im
 
 ---
 
-## ⭐⭐⭐ PERGUNTA 5 — Vistas (Views) vs Relações Base
-**Saiu em: EN2021, 2024/2025, Recurso 23/24**
+## ⭐⭐⭐ PERGUNTA 5 — Vistas (Views) vs Relações Base + Resolução de Vistas
+**Saiu em: EN2021, 2024/2025, Recurso 23/24, 2025/2026 (Normal)**
 
 ### Pergunta:
-O que é uma vista? Quais as diferenças entre uma vista e uma relação base?
+O que é uma vista? Quais as diferenças entre uma vista e uma relação base? Descreva como funciona o mecanismo de resolução de vistas.
 
 ### Resposta Detalhada (Estudo):
 Uma **VISTA (VIEW)** é uma tabela virtual cujo conteúdo é definido por uma consulta SQL (`SELECT`) sobre uma ou mais tabelas reais (relações base). A vista não armazena dados físicos; armazena apenas a sua definição de consulta nos metadados da base de dados.
@@ -134,24 +134,42 @@ Uma **RELAÇÃO BASE** é uma tabela física cujos registos são armazenados dir
 *   **Modificabilidade (DML)**: As tabelas base aceitam qualquer operação direta de escrita. As vistas têm restrições rígidas: só são atualizáveis se mapearem uma única tabela base e não contiverem junções, agrupamentos (`GROUP BY`), funções de agregação ou `DISTINCT`.
 *   **Processamento**: O acesso à relação base lê os dados diretamente. A consulta à vista exige a execução da consulta SQL subjacente em tempo real.
 
-### Materialização de Vistas:
-Consiste em armazenar fisicamente os resultados da consulta da vista numa tabela temporária em disco (Indexed Views).
+### Mecanismo de Resolução de Vistas (View Resolution):
+É o processo que o SGBD utiliza para traduzir uma consulta efetuada sobre uma vista numa consulta equivalente sobre as tabelas base subjacentes. Funciona em 3 passos:
+1.  **Recuperação**: O SGBD vai buscar a definição da vista (a query SELECT original) ao dicionário de dados (System Catalog/metadados).
+2.  **Fusão (Combinação)**: A consulta original do utilizador (sobre a vista) é combinada (fundida) com a query de definição da vista. A referência à vista é substituída pelas relações base, e as condições de filtragem (cláusulas `WHERE`, `HAVING`) de ambas as queries são unidas logicamente.
+3.  **Otimização e Execução**: A consulta consolidada resultante é otimizada pelo otimizador de consultas do SGBD e executada diretamente sobre as relações base físicas. **Não são criados nenhuns dados temporários ou tabelas físicas intermediárias.**
+
+### Materialização de Vistas (View Materialization):
+Alternativa à resolução, consiste em executar a consulta de definição da vista e armazenar fisicamente os resultados numa tabela temporária em disco (Indexed/Materialized Views).
 *   **Prós**: Acelera exponencialmente a leitura de consultas complexas ou agregados pesados.
-*   **Contras**: Introduz overhead nas operações de escrita nas tabelas base, pois o SGBD necessita de recalcular a vista materializada para a manter sincronizada.
+*   **Contras**: Introduz overhead nas operações de escrita nas tabelas base, pois o SGBD necessita de recalcular e sincronizar a vista materializada sempre que os dados originais são alterados.
 
 ### 📝 Resposta Rápida (Para o Exame):
-Uma vista é uma relação virtual gerada dinamicamente a partir de uma consulta SQL, ocupando apenas espaço nos metadados para a sua definição, ao passo que uma relação base é uma tabela física persistida no disco que armazena os dados reais. Ao contrário das tabelas base, as vistas não aceitam operações de escrita diretas se contiverem agrupamentos, junções ou funções agregadas, e as consultas a vistas tradicionais exigem a execução em tempo real da consulta SQL interna, ao contrário do acesso direto das relações base. O mecanismo de materialização de vistas armazena fisicamente o resultado da consulta da vista numa tabela temporária em disco para acelerar a velocidade de leitura, apresentando a desvantagem de exigir o recálculo e sincronização dos dados pelo SGBD sempre que ocorrem alterações nas tabelas base.
+Uma vista é uma relação virtual gerada dinamicamente a partir de uma consulta SQL, ocupando apenas espaço nos metadados para a sua definição, ao passo que uma relação base é uma tabela física persistida no disco que armazena os dados reais. Ao contrário das tabelas base, as vistas não aceitam operações de escrita diretas se contiverem agrupamentos, junções ou funções agregadas. O **mecanismo de resolução de vistas** traduz e executa consultas sobre a vista fundindo logicamente a consulta do utilizador com a query de definição da vista, executando o resultado diretamente sobre as tabelas base sem tabelas temporárias. Já a **materialização de vistas** executa e guarda fisicamente o resultado da consulta da vista numa tabela em disco para acelerar leituras complexas, exigindo o recálculo do SGBD ao alterar dados base.
 
 ---
 
-## ⭐⭐⭐ PERGUNTA 6 — Sistemas de BD vs Ficheiros + Vantagens/Desvantagens SGBD
-**Saiu em: 7+ exames incluindo Normal 08/09, Especial 08/09, Especial 07/08**
+## ⭐⭐⭐ PERGUNTA 6 — Definições Essenciais (BD, SGBD, Metadados) + Componentes + Sistemas de BD vs Ficheiros + Vantagens/Desvantagens
+**Saiu em: 8+ exames incluindo 2025/2026 (Normal), Normal 08/09, Especial 08/09, Especial 07/08**
 
 ### Pergunta:
-Descreva as principais características de um Sistema BD e faça a comparação com os Sistemas Baseados em Ficheiros. Enuncie e explique sucintamente as principais vantagens e desvantagens de um SGBD.
+1) Defina os seguintes termos:
+   a) Bases de Dados.
+   b) Sistema de Gestão de Bases de Dados identificando os seus componentes.
+   c) Metadados.
+2) Descreva as principais características de um Sistema BD e faça a comparação com os Sistemas Baseados em Ficheiros. Enuncie e explique sucintamente as principais vantagens e desvantagens de um SGBD.
 
 ### Resposta Detalhada (Estudo):
-Um **SISTEMA DE BASE DE DADOS** centraliza o armazenamento dos dados de uma organização. O acesso e controlo destes dados são feitos por um intermediário de software chamado **SGBD** (Sistema de Gestão de Bases de Dados).
+*   **BASE DE DADOS (BD)**: É uma coleção organizada de dados logicamente relacionados, partilhada e persistente, concebida para satisfazer as necessidades de informação de uma organização.
+*   **SISTEMA DE GESTÃO DE BASES DE DADOS (SGBD)**: É um sistema de software geral que facilita o processo de definição, criação, manutenção e controlo de acesso à base de dados.
+    *   **5 Componentes de um SGBD**:
+        1.  **Hardware**: Os dispositivos físicos onde o sistema corre (servidores, discos de armazenamento, memória, placas de rede).
+        2.  **Software**: O próprio motor do SGBD, o sistema operativo, o software de rede e as aplicações/utilitários associados.
+        3.  **Dados**: Os dados operacionais armazenados e os respetivos **metadados** (a estrutura da base de dados).
+        4.  **Procedimentos**: As regras, instruções e práticas que definem o desenho, utilização, manutenção e segurança da base de dados.
+        5.  **Utilizadores**: As pessoas envolvidas (Administrador de BD - DBA, designers de BD, programadores e utilizadores finais).
+*   **METADADOS**: São "dados sobre os dados". Descrevem as propriedades, a estrutura lógica, as relações, restrições e esquemas dos dados guardados no sistema. Ficam armazenados centralizadamente no **System Catalog** (ou Dicionário de Dados) do SGBD, permitindo a independência de dados.
 
 **Comparação com Sistemas Baseados em Ficheiros:**
 *   **Independência de Dados**: Nos ficheiros, a estrutura dos dados está ligada ao código da aplicação (dependência física). Nas BDs, a estrutura lógica é independente do armazenamento (independência física e lógica).
@@ -165,7 +183,8 @@ Em aplicações pessoais de baixo volume de dados, de utilizador único, com rec
 **Desvantagens do SGBD**: Elevada complexidade de administração, custo de aquisição e hardware, e maior impacto na organização em caso de falha geral.
 
 ### 📝 Resposta Rápida (Para o Exame):
-Os sistemas de bases de dados superam os sistemas de ficheiros porque centralizam os dados num único repositório comum, eliminando a duplicação descontrolada de dados e garantindo a independência entre a informação estrutural e as aplicações clientes. As principais vantagens da utilização de um SGBD residem no controlo da redundância, na consistência global dos dados, na segurança refinada de acessos e na gestão eficaz de concorrência com serviços de backup e recuperação. Em contrapartida, as desvantagens incluem a elevada complexidade técnica do sistema, o custo elevado de software e hardware, e o impacto operacional catastrófico em caso de falha geral do servidor de base de dados.
+*   **Definições**: A **Base de Dados** é uma coleção partilhada de dados logicamente relacionados e persistentes; o **SGBD** é o software que controla o acesso, criação e manutenção da BD. Os 5 componentes do SGBD são: **Hardware** (servidores, discos), **Software** (motor SGBD, SO), **Dados** (dados operacionais e metadados), **Procedimentos** (regras e instruções) e **Utilizadores** (DBA, programadores, utilizadores finais). Os **Metadados** são dados sobre dados (propriedades e estrutura) armazenados no catálogo do sistema.
+*   **Sistemas de BD vs Ficheiros**: Os sistemas de BD superam os baseados em ficheiros porque centralizam os dados num repositório comum, eliminando a redundância descontrolada e garantindo a independência entre a informação estrutural e as aplicações clientes. As principais vantagens do SGBD incluem o controlo da redundância, a consistência global, segurança de acessos e controlo de concorrência. As desvantagens são a elevada complexidade, custo de aquisição e hardware, e o impacto operacional em caso de falha do servidor.
 
 ---
 
@@ -294,7 +313,7 @@ Num diagrama ER, os atributos representam as propriedades que descrevem as entid
 ---
 
 ## ⭐⭐ PERGUNTA 12 — Funções de Agregação e NULLs
-**Saiu em: Recurso 23/24, Recurso 08/09**
+**Saiu em: Recurso 23/24, Recurso 08/09, 2025/2026 (Normal)**
 
 ### Pergunta:
 Quais as restrições aplicadas ao uso de funções de agregação no comando SELECT? De que forma os valores nulos (NULL) afetam as funções de agregação?
@@ -388,35 +407,32 @@ Diferentes departamentos e utilizadores de uma empresa necessitam de ver e inter
 A modelação com múltiplas vistas de utilizadores pode ser elaborada através de três abordagens de desenho. A abordagem centralizada consiste em recolher e consolidar os requisitos de todas as vistas numa lista unificada logo no início do projeto, gerando depois um único modelo conceitual global. A abordagem por integração de vistas constrói esquemas conceituais locais independentes para cada departamento e funde-os posteriormente através de integração e resolução de conflitos num modelo conceitual global final. Por fim, a abordagem mista combina os dois conceitos, fundindo as vistas simples centralizadamente no início e tratando os requisitos complexos localmente antes da consolidação.
 
 ---
----
 
-## 📚 BÓNUS — Perguntas Complementares de Alta Frequência
-
-### ⚙️ BÓNUS 1 — Tipos de Junção (Joins)
+## ⭐⭐ PERGUNTA 16 — Tipos de Junção (Joins)
 **Saiu em: EN2021, MiniTeste 08/09**
 
-#### Pergunta:
+### Pergunta:
 Descreva as diferenças entre as cinco operações de junção: Theta Join, Equijoin, Natural Join, Outer Join e Semijoin.
 
-#### Resposta Detalhada (Estudo):
+### Resposta Detalhada (Estudo):
 *   **THETA JOIN**: Junção geral que combina duas relações com base numa condição que utiliza qualquer operador de comparação ($=$, $>$, $<$, $\ge$, $\le$, $\ne$).
 *   **EQUIJOIN**: Caso especial do Theta Join onde a condição de correspondência utiliza estritamente o operador de igualdade ($=$). Não remove as colunas de junção duplicadas.
 *   **NATURAL JOIN**: Junção por igualdade realizada automaticamente sobre atributos homónimos (com o mesmo nome). Remove automaticamente as colunas redundantes duplicadas no resultado final.
 *   **OUTER JOIN**: Junção que mantém todos os registos de uma das tabelas (ou de ambas), mesmo que não tenham correspondência na outra tabela, preenchendo as colunas vazias com valores `NULL`. Divide-se em `LEFT`, `RIGHT` e `FULL`.
 *   **SEMIJOIN**: Retorna apenas os registos da primeira tabela que possuem correspondência na segunda tabela, sem duplicar linhas e sem expor atributos da segunda tabela no resultado.
 
-#### 📝 Resposta Rápida (Para o Exame):
-No âmbito da álgebra relacional, a junção Theta Join combina tabelas usando qualquer operador de comparação lógico, o Equijoin restringe a condição à igualdade mantendo as colunas duplicadas, e o Natural Join junta tabelas por colunas homónimas removendo a redundância no resultado. Por sua vez, o Outer Join inclui todas as linhas de um ou de ambos os lados mesmo sem correspondência (LEFT, RIGHT ou FULL) preenchendo as lacunas com valores nulos, e a operação Semijoin devolve apenas os tuplos da primeira tabela que participam na junção com a segunda, sem combinar os seus atributos.
+### 📝 Resposta Rápida (Para o Exame):
+No âmbito da álgebra relacional, a junção Theta Join combina tabelas usando qualquer operador de comparação lógico, o Equijoin restringe a condição à igualdade mantendo as colunas duplicadas, e o Natural Join junta tabelas por colunas homónimas removendo a redundância no resultado. Por sua vez, o Outer Join inclui todos os registos de um ou de ambos os lados mesmo sem correspondência (LEFT, RIGHT ou FULL) preenchendo as lacunas com valores nulos, e a operação Semijoin devolve apenas os tuplos da primeira tabela que participam na junção com a segunda, sem combinar os seus atributos.
 
 ---
 
-### 🗄️ BÓNUS 2 — Cursores SQL
+## ⭐⭐ PERGUNTA 17 — Cursores SQL
 **Saiu em: Recurso 23/24**
 
-#### Pergunta:
+### Pergunta:
 O que são cursores SQL? Qual o propósito da sua utilização?
 
-#### Resposta Detalhada (Estudo):
+### Resposta Detalhada (Estudo):
 Um **CURSOR** é uma estrutura de controlo mantida pelo SGBD que funciona como um apontador lógico e permite às linguagens procedimentais iterar e processar os registos resultantes de uma consulta SELECT **linha a linha** (abordagem procedimental), contrariando a natureza declarativa natural do SQL que atua em conjuntos de dados (*set-at-a-time*).
 
 **Ciclo de Vida do Cursor**:
@@ -426,70 +442,94 @@ Um **CURSOR** é uma estrutura de controlo mantida pelo SGBD que funciona como u
 4.  `CLOSE`: Fecha o cursor e liberta os locks ativos.
 5.  `DEALLOCATE`: Remove a definição do cursor da memória (liberta recursos).
 
-#### 📝 Resposta Rápida (Para o Exame):
+### 📝 Resposta Rápida (Para o Exame):
 Um cursor SQL é uma estrutura de controlo que funciona como um apontador lógico para permitir que as linguagens procedimentais manipulem e naveguem linha a linha pelos resultados de uma consulta declarativa SELECT. O propósito fundamental da sua utilização reside no desenvolvimento de algoritmos de manipulação complexos, validações individuais e processamento sequencial de tuplos, contornando a natureza declarativa normal do SQL baseado em conjuntos de dados.
 
 ---
 
-### 💳 BÓNUS 3 — Transações e Propriedades ACID
-**Coberto no "Resumos & Perguntas"**
+## ⭐ PERGUNTA 18 — Propriedades das Relações no Modelo Relacional
+**Saiu em: Recurso Adicional 08/09**
 
-#### Pergunta:
-O que é uma transação? Descreva as propriedades ACID.
+### Pergunta:
+Identifique quais as propriedades das Relações no Modelo Relacional.
 
-#### Resposta Detalhada (Estudo):
-Uma **TRANSAÇÃO** é uma unidade lógica de processamento que agrupa um conjunto de instruções SQL. Deve ser executada na totalidade para manter a consistência da BD.
+### Resposta Detalhada (Estudo):
+No modelo relacional, uma **relação** (tabela) deve respeitar um conjunto de propriedades matemáticas rigorosas que a distinguem de um simples ficheiro ou tabela bidimensional:
+1.  **Nome único**: Cada relação dentro da base de dados tem de ter um nome diferente de todas as outras.
+2.  **Tuplos distintos**: Não podem existir linhas (tuplos) duplicadas na mesma relação. A unicidade é garantida pela definição de uma chave primária.
+3.  **Sem ordem entre os tuplos**: A ordem física em que as linhas estão inseridas ou armazenadas no disco é irrelevante e não carrega qualquer significado lógico.
+4.  **Sem ordem entre os atributos**: A ordem lógica das colunas (atributos) na estrutura da tabela é irrelevante.
+5.  **Atributos atómicos**: Cada interseção de uma linha com uma coluna deve conter exatamente um único valor indivisível (não são permitidos atributos multivalor ou grupos repetidos, correspondendo à 1ª Forma Normal).
+6.  **Atributos com nomes únicos**: Cada coluna na relação tem de ter um nome distinto das restantes colunas da mesma relação.
+7.  **Valores do mesmo domínio**: Todos os valores numa coluna devem pertencer ao mesmo domínio (tipo de dados, ex: inteiros, texto, datas).
 
-#### Propriedades ACID:
-1.  **Atomicidade**: Princípio do "tudo ou nada". A transação é efetuada na totalidade com sucesso (`COMMIT`) ou todas as alterações são desfeitas e revertidas (`ROLLBACK`).
-2.  **Consistência**: A transação deve levar a base de dados de um estado consistente a outro estado consistente, sem violar nenhuma regra de integridade.
-3.  **Isolamento**: As transações em execução concorrente devem correr de forma independente, sem interferirem nos dados umas das outras até estarem finalizadas.
-4.  **Durabilidade**: Uma vez concluída (efetuado o `COMMIT`), as alterações tornam-se permanentes na BD e não são perdidas mesmo em caso de falha do sistema.
-
-#### 📝 Resposta Rápida (Para o Exame):
-Uma transação constitui um conjunto de instruções SQL tratadas de forma unificada como uma única unidade lógica de trabalho indivisível que deve ser executada por completo. As propriedades ACID determinam que a transação deve ser atómica (execução total ou reversão total em caso de erro), consistente (respeito pelas restrições de integridade da base de dados), isolada (transações concorrentes executam sem interferências mútuas temporárias) e durável (persistência permanente dos dados confirmados após o commit).
-
----
-
-### ⚙️ BÓNUS 4 — Stored Procedure vs Função (UDF)
-**Coberto no "Resumos & Perguntas"**
-
-#### Pergunta:
-Qual a diferença entre um procedimento (Stored Procedure) e uma função (UDF)?
-
-#### Resposta Detalhada (Estudo):
-*   **Função (UDF)**:
-    *   Deve obrigatoriamente devolver um valor (escalar ou tabela) via `RETURN`.
-    *   Pode ser invocada diretamente dentro de instruções SQL normais (como `SELECT`, `WHERE`, `HAVING`).
-    *   Não pode efetuar alterações no estado da base de dados (não permite `INSERT`, `UPDATE` ou `DELETE` em tabelas reais).
-*   **Procedimento (Stored Procedure)**:
-    *   Não é obrigado a devolver valores (embora possa retornar parâmetros `OUTPUT`).
-    *   Not pode ser executado dentro de comandos SQL; é invocado com comandos específicos como `EXEC` ou `CALL`.
-    *   Pode alterar dados livremente na base de dados (permite comandos de escrita) e pode gerir transações internas (`COMMIT` e `ROLLBACK`).
-
-#### 📝 Resposta Rápida (Para o Exame):
-Uma função (UDF) é obrigatoriamente desenhada para devolver um valor ou tabela de retorno, podendo ser embutida diretamente em consultas SQL tais como instruções SELECT, mas possui a limitação de não poder modificar os dados em disco. Por sua vez, um procedimento (Stored Procedure) não tem obrigatoriedade de retornar valores, é executado externamente através do comando EXEC ou CALL, e permite alterar os registos das tabelas assim como gerir transações internas através de commits e rollbacks.
+### 📝 Resposta Rápida (Para o Exame):
+As propriedades das relações no modelo relacional são:
+1. Cada relação tem um nome único na BD;
+2. Todos os tuplos (linhas) são distintos entre si;
+3. A ordem das linhas é irrelevante;
+4. A ordem das colunas é irrelevante;
+5. Cada atributo (coluna) tem um nome único dentro da tabela;
+6. Todos os valores numa coluna pertencem ao mesmo domínio de dados;
+7. Todos os valores são atómicos (valores únicos por célula, sem grupos repetidos).
 
 ---
 
-### 🎨 BÓNUS 5 — Especialização e Generalização (Modelo ER)
-**Coberto no "Resumos & Perguntas"**
+## ⭐ PERGUNTA 19 — LDD (DDL) vs LMD (DML)
+**Saiu em: 2025/2026 (Normal)**
 
-#### Pergunta:
-Explique as diferenças entre o processo de especialização e de generalização no contexto da modelação ER.
+### Pergunta:
+Quais as diferenças que existem entre LDD e LMD? Que operações espera encontrar em cada uma destas linguagens?
 
-#### Resposta Detalhada (Estudo):
-*   **ESPECIALIZAÇÃO**:
-    *   Processo descendente (**top-down**).
-    *   Consiste em dividir uma entidade genérica (superclasse) em subclasses com atributos ou relacionamentos específicos.
-    *   *Exemplo:* A superclasse `Funcionário` especializa-se nas subclasses `Engenheiro` (com atributo ordem profissional) e `Motorista` (com atributo carta de condução).
-*   **GENERALIZAÇÃO**:
-    *   Processo ascendente (**bottom-up**).
-    *   Consiste em agrupar várias entidades distintas com propriedades semelhantes numa entidade comum mais genérica (superclasse) para simplificar o esquema.
-    *   *Exemplo:* As entidades `Aluno` e `Professor` são generalizadas na entidade `Pessoa` (partilhando atributos como NIF, Nome e Morada).
+### Resposta Detalhada (Estudo):
+*   **LDD (Linguagem de Definição de Dados / DDL)**:
+    *   **Propósito**: Serve para descrever o esquema conceitual e as estruturas físicas da base de dados. Permite criar, modificar e remover objetos estruturais (tabelas, vistas, índices, triggers, utilizadores, etc.) e as respetivas restrições de integridade. Lida diretamente com os **metadados** (System Catalog).
+    *   **Operações típicas**:
+        *   `CREATE`: Cria um novo objeto (ex: `CREATE TABLE`, `CREATE INDEX`).
+        *   `ALTER`: Modifica a estrutura de um objeto existente (ex: `ALTER TABLE` para adicionar uma coluna).
+        *   `DROP`: Remove permanentemente um objeto da BD (ex: `DROP TABLE`).
+        *   `TRUNCATE`: Elimina todos os registos de uma tabela de forma rápida, mantendo a sua estrutura intacta.
+*   **LMD (Linguagem de Manipulação de Dados / DML)**:
+    *   **Propósito**: Serve para gerir os dados inseridos nas tabelas. Permite consultar, inserir, modificar e remover os registos de dados (a instância da BD), sem alterar a estrutura física dos objetos. Lida diretamente com a **informação** armazenada. Divide-se em procedimental e não-procedimental.
+    *   **Operações típicas**:
+        *   `SELECT`: Consulta e pesquisa registos.
+        *   `INSERT`: Insere novas linhas de dados.
+        *   `UPDATE`: Atualiza dados de linhas existentes.
+        *   `DELETE`: Remove linhas da tabela.
 
-#### 📝 Resposta Rápida (Para o Exame):
-A especialização constitui um processo de modelação descendente (top-down) em que uma superclasse geral é dividida em subclasses específicas de modo a atribuir propriedades e relacionamentos particulares, como segmentar Funcionário em Engenheiro ou Motorista. Por outro lado, a generalização constitui um processo ascendente (bottom-up) que consiste em extrair características e atributos idênticos de múltiplas entidades distintas para consolidar e criar uma superclasse mais abstrata, como agrupar as tabelas Aluno e Professor na tabela Pessoa.
+### 📝 Resposta Rápida (Para o Exame):
+A LDD (Linguagem de Definição de Dados) serve para definir e modificar a estrutura/esquema físico e lógico da base de dados, lidando com metadados do catálogo do sistema através de operações como `CREATE` (criar tabelas/índices), `ALTER` (modificar estruturas), `DROP` (apagar objetos) e `TRUNCATE` (esvaziar tabela mantendo estrutura). Em contrapartida, a LMD (Linguagem de Manipulação de Dados) serve para interagir diretamente com os registos de dados armazenados sem alterar as estruturas lógicas, englobando operações como `SELECT` (pesquisa), `INSERT` (inserção), `UPDATE` (atualização) e `DELETE` (remoção de dados).
+
+---
+
+## ⭐ PERGUNTA 20 — Técnicas de Descoberta de Factos (Fact-Finding)
+**Saiu em: 2025/2026 (Normal)**
+
+### Pergunta:
+Descreva qual o propósito das técnicas de descoberta de factos. Enuncie cada uma das técnicas e explique sucintamente o que cada uma pretende atingir.
+
+### Resposta Detalhada (Estudo):
+O **propósito das técnicas de descoberta de factos** (fact-finding) é recolher, de forma sistemática e estruturada, dados e factos sobre o funcionamento da organização, os processos de negócio e os requisitos dos utilizadores para guiar o desenho de uma nova aplicação de base de dados. Ocorre principalmente nas fases iniciais do ciclo de vida da BD (Planeamento e Análise de Requisitos).
+
+As **5 técnicas de descoberta de factos** principais são:
+1.  **Exame de Documentação (Examining documentation)**:
+    *   *O que pretende atingir*: Analisar documentos existentes (faturas, relatórios, organigramas, manuais de normas, formulários e documentação do sistema antigo) para obter uma compreensão rápida sobre a estrutura da organização, regras de negócio formais e as fontes de dados atuais.
+2.  **Entrevistas (Interviews)**:
+    *   *O que pretende atingir*: Recolher informação detalhada, opiniões e sentimentos diretamente dos utilizadores (gestores, DBA, operadores). É uma abordagem interativa face a face que serve para esclarecer ambiguidades, perceber expetativas e recolher requisitos detalhados de cada setor.
+3.  **Observação do funcionamento da empresa (Observation)**:
+    *   *O que pretende atingir*: Acompanhar e observar presencialmente os utilizadores a executar as suas tarefas diárias. Pretende validar se os procedimentos descritos nas entrevistas e manuais coincidem com a prática real, ajudando a identificar fluxos informais de informação e gargalos (bottlenecks) no processo.
+4.  **Pesquisa (Research)**:
+    *   *O que pretende atingir*: Pesquisar sobre o problema ou domínio em livros, revistas técnicas, internet e analisar soluções comerciais existentes ou casos de sucesso de outras empresas para obter ideias, padrões de desenho e evitar reinventar a roda.
+5.  **Questionários (Questionnaires)**:
+    *   *O que pretende atingir*: Recolher dados quantitativos e opiniões de um grupo alargado e/ou geograficamente disperso de utilizadores. É uma ferramenta rápida e barata que usa perguntas padronizadas para obter tendências estatísticas sobre necessidades e problemas.
+
+### 📝 Resposta Rápida (Para o Exame):
+O propósito das técnicas de descoberta de factos é recolher dados estruturados sobre o funcionamento, regras e necessidades da organização para fundamentar o desenho da base de dados. As cinco técnicas são: 
+1. **Exame de Documentação**: analisar faturas, relatórios e formulários para perceber o sistema atual;
+2. **Entrevistas**: inquirir utilizadores e gestores face a face para recolher requisitos qualitativos e expetativas;
+3. **Observação**: ver o fluxo de trabalho real em funcionamento para validar a prática e identificar falhas;
+4. **Pesquisa**: estudar a literatura, internet e soluções existentes no mercado sobre o domínio do negócio;
+5. **Questionários**: enviar perguntas escritas e padronizadas para recolher dados quantitativos de uma grande massa de utilizadores distribuída.
 
 ---
 
@@ -559,30 +599,6 @@ A partir destas:
 
 ---
 
-#### 5 Componentes do SGBD
-1. **Hardware**: dispositivos físicos (servidores, discos, redes)
-2. **Software**: SGBD, sistema operativo e programas
-3. **Dados**: dados armazenados e metadados
-4. **Utilizadores**: DBA, programadores, utilizadores finais
-5. **Procedimentos**: regras e instruções de uso e funcionamento
-
----
-
-#### System Catalog
-Conjunto de tabelas de sistema e metadados mantido pelo SGBD que descreve a própria estrutura da base de dados.
-
----
-
-#### Propriedades das Relações
-1. Nome único
-2. Tuplos distintos (não há linhas repetidas)
-3. Sem ordem entre os tuplos
-4. Sem ordem entre os atributos
-5. Atributos atómicos (indivisíveis)
-6. Cada atributo tem um nome único
-
----
-
 #### Termos do Modelo Relacional
 - **Relação**: tabela que armazena dados
 - **Atributo**: coluna da tabela
@@ -593,49 +609,34 @@ Conjunto de tabelas de sistema e metadados mantido pelo SGBD que descreve a pró
 
 ---
 
-#### Duas Regras de Integridade no Modelo Relacional
-1. **Integridade da Entidade**: cada tabela deve ter PK cujos valores não podem ser nulos nem repetidos
-2. **Integridade Referencial**: FK deve corresponder a um valor existente na PK da outra tabela (ou ser nula)
-
----
-
-#### Importância do WHERE em UPDATE e DELETE
-Definir quais os registos que são afetados. Sem WHERE, a instrução afeta **todos os registos** da tabela de forma irreversível.
-
----
-
-#### 3 Gerações de SGBD
-1. **1ª Geração** — Modelos Hierárquico e em Rede (anos 60-70)
-2. **2ª Geração** — Modelo Relacional (anos 70-80 até hoje)
-3. **3ª Geração** — Modelos Orientado a Objetos e Objeto-Relacional (anos 90+)
-
----
-
 > 💡 **Dica final:** O exercício de **normalização de uma fatura** sai em TODOS os exames teóricos (vale 3-4 val.). Pratica com os exemplos dos exames anteriores!
 
 ---
 
 ## 📊 Mapa de Frequência de Perguntas por Exame
 
-| Pergunta | 04-06 | 07/08 | 08/09 | EN2021 | 22/23 | R23/24 | 24/25 |
-|----------|:-----:|:-----:|:-----:|:------:|:-----:|:------:|:-----:|
-| 1. Integridade Referencial | — | ✅ | — | ✅ | ✅ | — | ✅ |
-| 2. Normalização (Teoria) | — | ✅ | ✅ | — | — | ✅ | ✅ |
-| 3. Anomalias Atualização | — | — | ✅ | ✅ | — | — | — |
-| 4. Triggers | — | — | — | ✅ | — | — | ✅ |
-| 5. Vistas (Views) vs Base | — | — | ✅ | ✅ | — | ✅ | ✅ |
-| 6. Sist. BD vs Ficheiros | — | ✅ | ✅ | — | — | — | — |
-| 7. ANSI/SPARC (Conceptual) | — | — | ✅ | — | — | ✅ | — |
-| 8. Data Warehouses | — | ✅ | — | — | — | ✅ | ✅ |
-| 9. DML Proc vs Não Proc | — | — | — | — | — | — | ✅ |
-| 10. Subquery vs Junção | — | — | — | — | ✅ | — | — |
-| 11. Atributos ER | — | — | — | — | ✅ | — | — |
-| 12. Funções Agregação/NULL | — | — | ✅ | — | — | ✅ | — |
-| 13. Independência Dados | — | — | ✅ | — | ✅ | — | — |
-| 14. Arq. Cliente-Servidor (2 vs 3) | — | — | — | — | ✅ | — | — |
-| 15. Abordagens múltiplas vistas | — | — | — | — | ✅ | — | — |
-| BÓNUS 1. Tipos de Junção | — | — | — | ✅ | — | — | — |
-| BÓNUS 2. Cursores SQL | — | — | — | — | — | ✅ | — |
-| Prática: Normalização (fatura) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Prática: Álgebra Relacional | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Prática: SQL LMD | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Pergunta | 04-06 | 07/08 | 08/09 | EN2021 | 22/23 | R23/24 | 24/25 | 25/26 |
+|----------|:-----:|:-----:|:-----:|:------:|:-----:|:------:|:-----:|:-----:|
+| 1. Integridade Referencial | — | ✅ | — | ✅ | ✅ | — | ✅ | — |
+| 2. Normalização (Teoria) | — | ✅ | ✅ | — | — | ✅ | ✅ | — |
+| 3. Anomalias Atualização | — | — | ✅ | ✅ | — | — | — | — |
+| 4. Triggers | — | — | — | ✅ | — | — | ✅ | — |
+| 5. Vistas (Views) vs Base | — | — | ✅ | ✅ | — | ✅ | ✅ | ✅ |
+| 6. Sist. BD vs Ficheiros | — | ✅ | ✅ | — | — | — | — | ✅ |
+| 7. ANSI/SPARC (Conceptual) | — | — | ✅ | — | — | ✅ | — | — |
+| 8. Data Warehouses | — | ✅ | — | — | — | ✅ | ✅ | — |
+| 9. DML Proc vs Não Proc | — | — | — | — | — | — | ✅ | — |
+| 10. Subquery vs Junção | — | — | — | — | ✅ | — | — | — |
+| 11. Atributos ER | — | — | — | — | ✅ | — | — | — |
+| 12. Funções Agregação/NULL | — | — | ✅ | — | — | ✅ | — | ✅ |
+| 13. Independência Dados | — | — | ✅ | — | ✅ | — | — | — |
+| 14. Arq. Cliente-Servidor (2 vs 3) | — | — | — | — | ✅ | — | — | — |
+| 15. Abordagens múltiplas vistas | — | — | — | — | ✅ | — | — | — |
+| 16. Tipos de Junção | — | — | — | ✅ | — | — | — | — |
+| 17. Cursores SQL | — | — | — | — | — | ✅ | — | — |
+| 18. Propriedades das Relações | — | — | ✅ | — | — | — | — | — |
+| 19. LDD vs LMD | — | — | — | — | — | — | — | ✅ |
+| 20. Descoberta de Factos | — | — | — | — | — | — | — | ✅ |
+| Prática: Normalização (fatura) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Prática: Álgebra Relacional | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
+| Prática: SQL LMD | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | — |
