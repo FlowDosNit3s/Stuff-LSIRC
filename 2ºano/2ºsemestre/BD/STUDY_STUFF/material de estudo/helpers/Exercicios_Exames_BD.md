@@ -393,60 +393,236 @@ Explique o funcionamento do protocolo de Commit em Duas Fases (2PC) para garanti
 
 ### 14. Exercícios Reais de Exames Anteriores
 
-#### Exercício 14.1: Tabela Associativa (Pergunta 8a do exame 2024/2025)
-**Cenário:** Cliente → OrdemFabrico → Produto (M:N com data de entrega). Cria o código em SQL para a tabela associativa resultante.
+Nesta secção, encontras os enunciados de exames reais anteriores (de 2020/2021 a 2025/2026, incluindo exames modelo), agrupados de forma organizada por temas (Teóricas, Práticas de SQL e Álgebra, e Normalização de Faturas). Tenta resolver cada exercício e depois consulta as resoluções detalhadas e comentadas na secção correspondente no final deste documento.
 
-#### Exercício 14.2: SQL (Pergunta 8b do exame 2024/2025)
-**Pergunta:** Escreve a query em SQL para apresentar os "Países com mais de 10 clientes que colocaram Ordens de Fabrico no ano de 2024".
+---
 
-#### Exercício 14.3: Álgebra Relacional (Pergunta 8c do exame 2024/2025)
-**Pergunta:** Escreve a expressão em Álgebra Relacional para apresentar as "Famílias de produtos que NÃO tiveram qualquer ordem de fabrico no 1º trimestre de 2025".
+#### 📄 Grupo I: Perguntas Teóricas de Exame (2 valores cada)
 
-#### Exercício 14.4: Normalização de Fatura (Pergunta 7 do exame 2024/2025)
-**Pergunta:** Dado um documento típico de fatura de restaurante (com cabeçalho da empresa, cliente, e lista de artigos consumidos), apresenta as tabelas na 3ª Forma Normal e identifica as suas Dependências Funcionais.
+Esta categoria reúne as perguntas de desenvolvimento teórico mais frequentes, extraídas diretamente dos exames de Época Normal e Recurso, bem como dos exames modelo.
 
-#### Exercício 14.5: Exame 2020/2021 — Álgebra Relacional
-**Base de dados comum aos Ex. 14.5 e 14.6:**
-```text
-Artigos(Código, Designação, Unidade, Preço)
-Armazéns(Código, Designação, Localização)
-Unidades(Código, Designação)
-ArtigosArmazéns(Artigos, Armazém, Localização, Stock)
-Fornecedores(Número, Nome)
-FornecedoresArtigos(Fornecedor, Artigo)
-```
-1. Apresenta a expressão em Álgebra Relacional para listar os "Armazéns e localizações onde estão armazenados os artigos 'Papel' e 'Tinta'". (1,5 val.)
-2. Apresenta a expressão em Álgebra Relacional para indicar "Quais os artigos que NÃO estão no 'Armazém de reciclagem'". (1,5 val.)
+1. **Conceito de Independência de Dados**
+   - *Origem:* Exame 2022/2023 (Normal - Q1), Exame Recurso 2023/2024 (Q1), Exame Modelo 1 (Q1), Exame Modelo 2 (Q1).
+   - *Enunciado:* Descreva o conceito de independência de dados e a sua importância num ambiente de bases de dados. Diferencie entre independência física e independência lógica de dados, fornecendo um exemplo prático para cada tipo.
 
-#### Exercício 14.6: Exame 2020/2021 — SQL
-Tendo por base a mesma Base de Dados do Ex. 14.5:
-1. Crie uma vista que apresente por artigo a quantidade armazenada em cada armazém. (1,5 val.)
-2. Para os fornecedores que fornecem mais do que 5 artigos, apresente o número de artigos fornecidos por cada fornecedor com unidade 'Caixa', ordenado descendentemente. (1,5 val.)
+2. **Arquitetura Cliente-Servidor (2 vs 3 níveis)**
+   - *Origem:* Exame 2022/2023 (Normal - Q2), Exame Modelo 1 (Q2), Exame Modelo 2 (Q2).
+   - *Enunciado:* Compare a arquitetura cliente-servidor de dois níveis com a de três níveis e identifique, justificando, qual a mais adequada para o ambiente Web.
 
-#### Exercício 14.7: Exame 2022/2023 — Perguntas Teóricas
-Lista das 6 perguntas teóricas que saíram neste exame:
-1. Conceito de independência de dados e a sua importância. (2 val.)
-2. Compare a arquitetura cliente-servidor de dois níveis com a de três-níveis. (2 val.)
-3. Diferença entre uma subquery e uma junção. Em que situações não é possível usar uma subquery? (2 val.)
-4. O que entende por Integridade Referencial. Identifique as ações das subcláusulas ON DELETE e ON UPDATE. (2 val.)
-5. Enuncie as principais abordagens para elaborar o desenho de uma base de dados com múltiplas vistas de utilizadores. (2 val.)
-6. Descreva os tipos de atributos num diagrama ER (simples, compostos, multi-valor e derivados). (2 val.)
+3. **Subquery vs Junção (JOIN)**
+   - *Origem:* Exame 2022/2023 (Normal - Q3), Exame Modelo 1 (Q4).
+   - *Enunciado:* Qual a diferença entre uma subquery e uma junção? Em que situações não é possível reescrever ou utilizar uma subquery em vez de uma junção? Ilustre com um exemplo prático.
 
-#### Exercício 14.8: Exame 2022/2023 — SQL e Álgebra Relacional
-**Cenário:** Empresa de estufas
-```text
-Estufa(codE, descricao, capacidade, cidade)
-Secção(codigoS, tipo, estufa)              -- FK: estufa → Estufa
-Produto(codP, nome, stock, tipo)
-Plantação(codP, produto, codS, data_inicio, data_fim)
-         -- FK: produto → Produto, codS → Secção
-```
-*(Diagrama E/R: Estufa ← Secção ↑ Plantação → Produto)*
-1. Apresenta a query em SQL para listar as "Estufas que tiveram mais que 10 plantações do mesmo produto". (3 val.)
-2. Apresenta a expressão em Álgebra Relacional para identificar "Quais as secções que NUNCA tiveram plantações". (2 val.)
+4. **Integridade Referencial e Ações Referenciais**
+   - *Origem:* Exame 2020/2021 (Normal - Q4), Exame 2022/2023 (Normal - Q4), Exame Modelo 1 (Q2).
+   - *Enunciado:* Explique o que entende por Integridade Referencial. Identifique e descreva quais as ações que se podem utilizar nas subcláusulas `ON DELETE` e `ON UPDATE` de uma chave estrangeira.
 
-#### Exercício 14.9: Exame 2020/2021 — Normalização de Fatura de Vinhos
-**Pergunta:** Desenvolva um esquema conceptual e identifique as dependências funcionais para uma base de dados relacional que suporte a emissão das faturas de uma loja de venda de vinhos. (2 val.)
+5. **Desenho de BD com Múltiplas Vistas de Utilizadores**
+   - *Origem:* Exame 2022/2023 (Normal - Q5).
+   - *Enunciado:* Enuncie e descreva sucintamente quais as três principais abordagens metodológicas para elaborar o desenho de uma base de dados quando existem múltiplas vistas de utilizadores.
+
+6. **Tipos de Atributos no Diagrama Entidade-Relacionamento**
+   - *Origem:* Exame 2022/2023 (Normal - Q6), Exame Modelo 2 (Q6).
+   - *Enunciado:* Descreva o que representam os atributos num diagrama ER e dê exemplos práticos de atributos simples, compostos, multi-valor e derivados, indicando também a sua representação gráfica na notação de Chen.
+
+7. **LMD Procedimentais vs Não-Procedimentais**
+   - *Origem:* Exame 2024/2025 (Normal - Q1), Exame 2025/2026 (Normal - Q2), Exame Modelo 2 (Q4).
+   - *Enunciado:* Explique as diferenças existentes entre Linguagens de Manipulação de Dados (LMD) procedimentais e não-procedimentais (declarativas). Dê exemplos de linguagens/construções que conheça para cada tipo.
+
+8. **Vistas (Views) vs Relações Base**
+   - *Origem:* Exame 2020/2021 (Normal - Q1), Exame 2024/2025 (Normal - Q2), Exame 2025/2026 (Normal - Q3).
+   - *Enunciado:* O que é uma vista (view) e quais as diferenças estruturais, lógicas e operacionais entre uma vista e uma relação base (tabela). Apresente duas razões que justifiquem o seu uso.
+
+9. **Triggers: Definição, Vantagens e Desvantagens**
+   - *Origem:* Exame 2020/2021 (Normal - Q3), Exame 2024/2025 (Normal - Q4), Exame Modelo 1 (Q3).
+   - *Enunciado:* O que são triggers de bases de dados e para que servem? Indique as principais vantagens e desvantagens da sua utilização e identifique os diferentes tipos de triggers quanto ao momento de execução.
+
+10. **Objetivos da Normalização e Desempenho**
+    - *Origem:* Exame Recurso 2023/2024 (Q5), Exame 2024/2025 (Normal - Q5), Exame Modelo 2 (Q5).
+    - *Enunciado:* No contexto do modelo relacional, quais os objetivos da normalização de dados? De que forma o processo de normalização poderá afetar, posteriormente, o desempenho das leituras (OLAP) e das escritas (OLTP)?
+
+11. **Benefícios e Problemas de Data Warehouses**
+    - *Origem:* Exame 2024/2025 (Normal - Q6), Exame Modelo 1 (Q6).
+    - *Enunciado:* Descreva os principais benefícios e problemas associados ao desenvolvimento e utilização de Data Warehouses (DW). Distinga também um Data Warehouse de um Data Mart.
+
+12. **Definições Fundamentais: BD, SGBD e Metadados**
+    - *Origem:* Exame 2025/2026 (Normal - Q1).
+    - *Enunciado:* Defina os seguintes termos fundamentais no contexto de base de dados: a) Bases de Dados; b) Sistema de Gestão de Bases de Dados (identificando os seus componentes); c) Metadados.
+
+13. **Restrições de Funções de Agregação e Valores Nulos**
+    - *Origem:* Exame Recurso 2023/2024 (Q2), Exame 2025/2026 (Normal - Q4).
+    - *Enunciado:* Quais as restrições aplicadas ao uso de funções de agregação no comando SELECT? De que forma os valores nulos (NULL) afetam as funções de agregação?
+
+14. **Mecanismo de Resolução de Vistas (Query Modification)**
+    - *Origem:* Exame 2025/2026 (Normal - Q5).
+    - *Enunciado:* Descreva como funciona o mecanismo de resolução de vistas (frequentemente designado por modificação de consultas ou query modification) no motor do SGBD.
+
+15. **Técnicas de Descoberta de Factos (Fact-Finding)**
+    - *Origem:* Exame 2025/2026 (Normal - Q6).
+    - *Enunciado:* Descreva qual o propósito das técnicas de descoberta de factos (fact-finding) na fase de levantamento de requisitos. Enuncie as técnicas mais comuns e explique sucintamente o que cada uma pretende atingir.
+
+16. **Metodologia de Desenvolvimento: 3 Grandes Etapas**
+    - *Origem:* Exame 2020/2021 (Normal - Q2).
+    - *Enunciado:* A metodologia de desenvolvimento de Bases de Dados estudada ao longo do semestre engloba três grandes etapas. Identifique cada uma delas, focando-se no objetivo que cada uma pretende atingir, e apresente um exemplo prático que a caracterize.
+
+17. **Tipos de Junção em Álgebra Relacional**
+    - *Origem:* Exame 2020/2021 (Normal - Q5).
+    - *Enunciado:* No contexto de Álgebra Relacional, explique pormenorizadamente as diferenças entre as operações de: Theta Join, Equijoin, Natural Join, Outer Join e Semijoin.
+
+18. **Anomalias de Atualização**
+    - *Origem:* Exame 2020/2021 (Normal - Q6).
+    - *Enunciado:* Descreva os três tipos de anomalias de atualização que podem ocorrer numa relação que contém dados redundantes, acompanhando a descrição de exemplos práticos de como ocorrem.
+
+19. **Materialização de Vistas**
+    - *Origem:* Exame Recurso 2023/2024 (Q3), Exame Modelo 1 (Q5).
+    - *Enunciado:* Explique o conceito de materialização de vistas. Quais as vantagens e desvantagens desta abordagem face às vistas tradicionais? Em que contextos é recomendável?
+
+20. **Cursores SQL: Propósito e Ciclo de Vida**
+    - *Origem:* Exame Recurso 2023/2024 (Q4), Exame Modelo 2 (Q3).
+    - *Enunciado:* O que são cursores SQL? Qual o propósito da sua utilização? Descreva o ciclo de vida típico de um cursor, detalhando o que ocorre em cada uma das suas 5 fases.
+
+21. **Diferenças entre Data Warehouse e Data Mart**
+    - *Origem:* Exame Recurso 2023/2024 (Q6).
+    - *Enunciado:* Quais as diferenças organizacionais e estruturais entre um Data Mart e um Data Warehouse? Identifique também quais as razões principais para a criação e desenvolvimento de um Data Mart.
+
+---
+
+#### 💻 Grupo II: Exercícios Práticos de SQL e Álgebra Relacional
+
+Esta secção contém os exercícios práticos que utilizam cenários de bases de dados reais retirados dos exames.
+
+##### Exercício II.1: Cenário Artigos, Armazéns e Fornecedores (Exame 2020/2021)
+Considere o seguinte esquema de base de dados relacional:
+- `Artigos(Código, Designação, Unidade, Preço)`
+- `Armazéns(Código, Designação, Localização)`
+- `Unidades(Código, Designação)`
+- `ArtigosArmazéns(Artigos, Armazém, Localização, Stock)` -- FK: Artigos -> Artigos, Armazém -> Armazéns
+- `Fornecedores(Número, Nome)`
+- `FornecedoresArtigos(Fornecedor, Artigo)` -- FK: Fornecedor -> Fornecedores, Artigo -> Artigos
+
+1. **Álgebra Relacional:**
+   - a) Apresente a expressão em Álgebra Relacional para listar os armazéns e respetivas localizações onde estão armazenados os artigos "Papel" e "Tinta" (em simultâneo).
+   - b) Apresente a expressão em Álgebra Relacional para indicar quais os artigos (código) que não estão armazenados no "Armazém de reciclagem".
+2. **SQL (T-SQL):**
+   - a) Crie uma vista que apresente, por artigo (código e designação), a quantidade total armazenada em cada armazém (código e designação).
+   - b) Para os fornecedores que fornecem mais do que 5 artigos no total da base de dados, apresente o nome do fornecedor e o número de artigos fornecidos por esse fornecedor que possuem a unidade com designação "Caixa" (representada na tabela Artigos pela abreviatura correspondente). Ordene o resultado pelo número de artigos fornecidos de forma decrescente.
+
+##### Exercício II.2: Cenário Estufas e Plantações (Exame Normal 2022/2023 e Recurso 2023/2024)
+Considere a base de dados simplista de uma empresa que gere estufas, secções e plantações de produtos:
+- `Estufa(codE, descricao, capacidade, cidade)`
+- `Secção(codigoS, tipo, estufa)` -- FK: estufa -> Estufa(codE)
+- `Produto(codP, nome, stock, tipo)`
+- `Plantação(codP, produto, codS, data_início, data_fim)` -- FK: produto -> Produto(codP), codS -> Secção(codigoS)
+
+1. **SQL (Normal 2022/2023):** Apresente a query em SQL para listar as estufas (código e descrição) que tiveram mais que 10 plantações do mesmo produto.
+2. **Álgebra Relacional (Normal 2022/2023):** Escreva a expressão em Álgebra Relacional para identificar quais as secções (código) que nunca tiveram qualquer plantação.
+3. **SQL (Recurso 2023/2024):** Escreva a query em SQL para apresentar quantas secções (número total de secções distintas) tiveram plantações de produtos do tipo "Fruta" cuja duração de cultivo (diferença entre `data_fim` e `data_início`) foi estritamente inferior a 28 dias.
+4. **Álgebra Relacional (Recurso 2023/2024):** Escreva a expressão em Álgebra Relacional para listar quais as estufas que tiveram mais de 3 plantações em todas as suas secções.
+
+##### Exercício II.3: Cenário Fábrica e Ordens de Fabrico (Exame Normal 2024/2025)
+Considere o seguinte cenário de uma fábrica: as Ordens de Fabrico são associadas a um cliente (um cliente pode ter várias ordens). Cada Ordem de Fabrico contém uma lista de produtos a fabricar, registando a quantidade e a data de entrega prevista para cada um deles. Um produto pode ser fabricado em várias ordens e inclusive várias vezes na mesma ordem desde que a data de entrega seja diferente.
+Estruturas básicas:
+- `Cliente(CódigoCliente, Nome, NIF, DataCriação, Morada, País)`
+- `OrdemFabrico(Número, Data, Cliente)` -- FK: Cliente -> Cliente
+- `Produto(CódigoProduto, Nome, Familia)`
+
+1. **Modelação / DDL:** Identifique o nome, atributos e chave primária da tabela associativa necessária para modelar o relacionamento M:N descrito. Apresente o comando SQL DDL correspondente, garantindo a integridade referencial e que a quantidade seja estritamente positiva.
+2. **SQL:** Escreva a query em SQL para apresentar os Países que têm mais de 10 clientes que colocaram Ordens de Fabrico no ano de 2024.
+3. **Álgebra Relacional:** Escreva a expressão em Álgebra Relacional para apresentar as famílias de produtos que não tiveram qualquer ordem de fabrico no primeiro trimestre de 2025 (1 de Janeiro a 31 de Março de 2025).
+
+##### Exercício II.4: Cenário Companhia Aérea e Reservas (Exame Modelo 1)
+Considere o seguinte esquema de dados de gestão de reservas de voos:
+- `Aeroporto(codIATA, nome, cidade)`
+- `Voo(numVoo, origem, destino, horaPartida, horaChegada)` -- FK: origem -> Aeroporto, destino -> Aeroporto
+- `Passageiro(codPass, nome, email, pais)`
+- `Reserva(codReserva, codPass, numVoo, dataViagem, classe, preco)`
+
+1. **Modelação / Integridade:** Identifique as chaves primária e estrangeiras da tabela `Reserva`. Justifique as suas escolhas com base no modelo relacional.
+2. **SQL:** Escreva a query em SQL para apresentar quais os países que têm mais de 5 passageiros distintos com reservas em voos que tenham como destino a cidade do "Porto" no ano de 2026.
+3. **Álgebra Relacional:** Escreva a expressão em Álgebra Relacional para indicar quais os aeroportos (código) que nunca foram destino de nenhum voo que tenha registado reservas.
+
+##### Exercício II.5: Cenário Ginásio e Aulas (Exame Modelo 2)
+Considere o seguinte modelo de dados de gestão de sócios e aulas de um ginásio:
+- `Socio(numSocio, nome, dataNasc, plano)` -- Planos: Básico, Premium, VIP
+- `Instrutor(codInst, nome, especialidade)`
+- `Aula(codAula, modalidade, diaSemana, horario, codInst)` -- FK: codInst -> Instrutor
+- `Inscricao(numSocio, codAula, dataInscricao, presenca)` -- Presença: Sim/Não
+
+1. **Modelação / Integridade:** Identifique a chave primária e as chaves estrangeiras da tabela `Inscricao`. Justifique pormenorizadamente a escolha da chave primária composta.
+2. **SQL:** Escreva a query em SQL para identificar quais os instrutores (código e nome) que lecionam mais do que 3 aulas diferentes que tenham registado pelo menos 20 inscrições cada uma delas.
+3. **Álgebra Relacional:** Escreva a expressão em Álgebra Relacional para identificar quais os sócios (número de sócio) com plano "VIP" que nunca se inscreveram em nenhuma aula da modalidade "Spinning".
+
+---
+
+#### 📋 Grupo III: Exercícios Práticos de Normalização de Faturas (3 valores cada)
+
+Esta secção recolhe os enunciados de normalização de documentos de faturas. Para cada caso, deves obter as tabelas na 3ª Forma Normal, identificar as Dependências Funcionais (DFs), justificar cada passo e enunciar as definições das Formas Normais.
+
+##### Caso III.1: Fatura de Venda de Vinhos (Exame 2020/2021)
+Considere o seguinte exemplo de cabeçalho e linhas de uma fatura emitida por uma garrafeira:
+- Fatura Nº: `24F347` | Data de emissão: `25 de Janeiro de 2017`
+- NIF Cliente: `19293849` | Nome Cliente: `João Oliveira` | Cliente Sócio?: `Não`
+- Emitido por: Funcionário `123 - João Castro`
+- Produtos Faturados:
+  - Código: `01FF` | Descrição: `Vinho de Porto` | Qtd: `4` | Preço Unitário: `8.5€`
+  - Código: `03GG` | Descrição: `Vinho Moscatel` | Qtd: `3` | Preço Unitário: `7.5€`
+- Resumo Financeiro:
+  - Valor Total Bruto: `56.5€` (Nota: recalculado) | Desconto: `10%` | Valor Líquido a Cobrar: `14.4€` (Nota: no documento oficial, os valores servem apenas de exemplo ilustrativo)
+  - Morada de entrega: `Rua de Lordelo, 4610, Felgueiras`
+  - Método de pagamento: `Transferência`
+
+##### Caso III.2: Fatura Tomatino (Exame Normal 2023/2024)
+Considere o recibo de refeição simplificado de um restaurante de centro comercial (Tomatino):
+- Dados do Operador: Tomatino - Massas e Eventos, NIF `503456789`, Balcão 1, Empregado `MIGUEL`.
+- Fatura Nº: `FT 2024/4915` | Data: `27-06-2024 13:15:02` | ATCUD: `MNO99999-4915`
+- Consumo / Detalhe da Mesa: Mesa 12, NIF Cliente `999999999`, Pontos Acumulados `120`.
+- Artigos Consumidos:
+  - Linha 1: 1 x Menu Pasta Italiana (com Taxa IVA 13%, Subtotal 8.50€)
+  - Linha 2: 1 x Bebida Copo 0.4L (com Taxa IVA 23%, Subtotal 1.80€)
+- Resumo de IVA:
+  - Taxa 13% | Base: 7.52€ | IVA: 0.98€ | Total: 8.50€
+  - Taxa 23% | Base: 1.46€ | IVA: 0.34€ | Total: 1.80€
+- Financeiro: Total Geral: `10.30€` | Método Pagamento: `Multibanco` | Código de Validação: `XYZ987` | Senha Acesso Wifi: `Toma2024`
+
+##### Caso III.3: Fatura TecnoShop (Exame Normal 2024/2025)
+Considere a fatura de venda de eletrónica online:
+- NIF Empresa: `509123456` | Nome: `TecnoShop, Lda.` | Morada: `Rua das Tecnologias, 42 — 4610-175 Felgueiras`
+- Fatura Nº: `FS 2026/1847` | Data: `15-06-2026 14:32` | ATCUD: `ABCD1234-1847`
+- NIF Cliente: `234567890` | Nome: `Ana Pereira` | Morada: `Av. da Liberdade, 100, 4000-322 Porto`
+- Detalhe de Envio: Método: `CTT Expresso`, Código: `ENV03`, Custo: `4.99€`, Prazo: `2-3 dias úteis`
+- Linhas de Artigos:
+  - Rato MX3 (Ref A1001, Qtd 2, Preço Unit 29.99€, IVA 23%, Subtotal 73.77€)
+  - Teclado K70 (Ref A2045, Qtd 1, Preço Unit 89.99€, IVA 23%, Subtotal 110.69€)
+  - Cabo HDMI (Ref A3012, Qtd 3, Preço Unit 9.99€, IVA 23%, Subtotal 36.86€)
+  - Webcam HD (Ref A5500, Qtd 1, Preço Unit 54.99€, IVA 23%, Subtotal 67.64€)
+- Resumo Financeiro: Subtotal (s/IVA) 234.95€, Total IVA 54.04€ (Taxa 23%), Custo Envio 4.99€, Total Geral 293.98€, Método Pagamento: `Cartão Visa`.
+
+##### Caso III.4: Fatura Momento Surpresa (Exame Normal 2025/2026)
+Considere a fatura simplificada apresentada no [Exame 25-26 1ª parte.pdf](file:///c:/Users/diogo/Documents/GitHub/Stuff-LSIRC/2ºano/2ºsemestre/BD/STUDY_STUFF/exames/Exames%20Recentes/Exame%2025-26%201ª%20parte.pdf) (pág. 2):
+- Dados Empresa: `Momento Surpresa - Eventos em Hotelaria, Unip. Lda`, Zona Industrial do Socorro 4820-000, NIF `PT509468268`.
+- Contrato/Fatura-Recibo Nº: `FR S1/0033537` | Data: `2025-06-17 13:20:23` | ATCUD: `JFZXWGVZ-0033537`.
+- Local/Evento: `Lote Z - 2 Quinchães, FAFE`.
+- Cliente NIF: `515870358`.
+- Detalhes de Consumo:
+  - Quantidade: 1 | Item Principal: `DIARIA COM AGUA`
+    - Sub-itens detalhados da diária:
+      - `PRATO` (Taxa IVA 13%, Preço €6,50)
+      - `SOPA` (Taxa IVA 13%, Preço €1,00)
+      - `SOBREMESA` (Taxa IVA 13%, Preço €1,50)
+- Resumo Financeiro: Total: `€9,00` | Método Pagamento: `Multibanco` | Pago: `€9,00`.
+- Resumo de IVA: Taxa 13% | Incidência: €7,96 | Valor IVA: €1,04 | Total: €9,00.
+- Operador: Empregado `MIGUEL`, Mesa `REDONDA`.
+
+##### Caso III.5: Contrato AutoFlex (Exame Modelo 2)
+Considere o contrato de aluguer de viatura:
+- Empresa: `AutoFlex Rent-a-Car`, NIF `501987654`, Porto.
+- Contrato Nº: `CT-2026/0342` | Data Início: `10-07-2026` | Devolução Prevista: `15-07-2026`.
+- Agências: Levantamento `AGP01` (Porto Aeroporto), Devolução `AGL03` (Lisboa Centro).
+- Condutor Principal: NIF `287654321`, Nome `Ricardo Sousa`, Carta `PT-543210`, Cat. `B`.
+- Condutores Adicionais: NIF `298111222`, Nome `Maria Sousa`, Carta `PT-654321`, Cat. `B`.
+- Viatura: Matrícula `AA-01-BB`, Marca `Toyota`, Modelo `Corolla`, Categ. `C` (Compacto), Preço Diário `35.00€`, Combustível `Gasolina`.
+- Extras Contratados: GPS (EX01, 5.00€/dia), Cadeira Bebé (EX03, 3.50€/dia), Seguro (EX05, 12.00€/dia).
+- Resumo Financeiro: Duração 5 dias, Custo Viat 175.00€, Extras 102.50€, Cond. Adicional 37.50€, Taxa Dev Diferente 25.00€, Subtotal 340.00€, IVA (23%) 78.20€, Total Geral 418.20€, Pagamento: `MBWay`.
 
 ---
 ---
@@ -1007,170 +1183,417 @@ Trata-se de uma relação N:M.
 
 ### 📌 Resoluções dos Exercícios de Exame Originais
 
-#### Resolução do Exercício 14.1
-```sql
-CREATE TABLE OrdemFabricoProduto (
-    Numero INT,           -- FK para OrdemFabrico
-    CodigoProduto INT,    -- FK para Produto
-    Quantidade INT,
-    DataEntrega DATE,
-    PRIMARY KEY (Numero, CodigoProduto, DataEntrega),
-    FOREIGN KEY (Numero) REFERENCES OrdemFabrico(Numero),
-    FOREIGN KEY (CodigoProduto) REFERENCES Produto(CodigoProduto)
-);
-```
-> **Nota:** A PK inclui `DataEntrega` porque o mesmo produto pode aparecer várias vezes na mesma ordem desde que a data de entrega seja diferente.
+Nesta secção encontram-se as resoluções detalhadas de todos os exercícios de exames anteriores, divididos por grupos temáticos.
 
-#### Resolução do Exercício 14.2
-```sql
-SELECT c.País
-FROM Cliente c
-INNER JOIN OrdemFabrico o ON c.CódigoCliente = o.Cliente
-WHERE YEAR(o.Data) = 2024
-GROUP BY c.País
-HAVING COUNT(DISTINCT c.CódigoCliente) > 10;
-```
+#### Grupo I: Resoluções das Perguntas Teóricas
 
-#### Resolução do Exercício 14.3
-```text
--- Famílias COM ordens no 1º trimestre de 2025:
-FamiliasComOrdem ← π_Familia(
-    Produto ⋈ (σ (Data >= '2025-01-01' AND Data <= '2025-03-31') (
-        OrdemFabrico ⋈ OrdemFabricoProduto
-    ))
-)
+1. **Conceito de Independência de Dados e sua Importância:**
+   - **Independência de Dados:** É a capacidade de alterar o esquema de uma base de dados num determinado nível de abstração da arquitetura ANSI/SPARC sem a necessidade de reestruturar os níveis superiores (especialmente as aplicações e queries do utilizador).
+   - **Independência Física de Dados:** Capacidade de modificar as estruturas de armazenamento físico (ex: criar um índice na tabela `Cliente` ou migrar ficheiros de dados para outro disco) sem necessidade de alterar o esquema lógico conceitual ou reescrever o código SQL das aplicações.
+   - **Independência Lógica de Dados:** Capacidade de alterar a estrutura lógica da base de dados (ex: adicionar um atributo ou dividir a tabela `Funcionario` em duas tabelas distintas) sem quebrar o funcionamento das aplicações. Isto é habitualmente garantido recorrendo a vistas (views) que simulam o comportamento da tabela original.
+   - **Importância:** Reduz significativamente os custos de manutenção de software, aumenta a flexibilidade evolutiva da base de dados e permite otimizar a performance física de forma transparente para os utilizadores e desenvolvedores.
 
--- Todas as famílias:
-TodasFamilias ← π_Familia(Produto)
+2. **Arquitetura Cliente-Servidor (2 vs 3 níveis) e Adequabilidade para a Web:**
+   - **Arquitetura de 2 Níveis (2-tier):** O cliente (fat client) comunica diretamente com o servidor de bases de dados, alojando a interface gráfica e processando as regras de negócio. O servidor apenas processa e valida os comandos SQL.
+   - **Arquitetura de 3 Níveis (3-tier):** Introduz-se um servidor de aplicação intermédio entre o cliente (thin client / browser) e o servidor de bases de dados. O servidor aplicacional processa a lógica de negócio, e o cliente apenas renderiza a interface.
+   - **Adequação para a Web:** A arquitetura de **3 níveis** é a única viável para a Web. Ela permite implementar **pooling de conexões** no servidor aplicacional, reutilizando conexões abertas com a BD para servir milhares de utilizadores concorrentes, enquanto no modelo de 2 níveis cada utilizador browser exigiria uma ligação permanente dedicada à BD, esgotando os recursos do SGBD de imediato. Além disso, centraliza as atualizações de lógica e protege os dados ao impedir o acesso direto das aplicações clientes à BD.
 
--- Resultado (Diferença):
-TodasFamilias − FamiliasComOrdem
-```
+3. **Subquery vs Junção (JOIN) e Limitações:**
+   - **Diferença:** Uma subquery é uma instrução SELECT aninhada dentro de outra consulta externa para obter dados de suporte ou filtros temporários, enquanto uma junção combina dados de múltiplas tabelas na mesma linha com base numa condição de ligação.
+   - **Limitações:** Não é possível utilizar uma subquery em situações em que o resultado final da consulta exige a **projeção simultânea de colunas pertencentes a tabelas distintas**. A subquery apenas atua filtrando registos; a projeção no SELECT exterior fica restrita à tabela principal. Também não pode ser usada em cenários de junções externas totais complexas que requeiram a preservação de dados órfãos de ambas as relações simultaneamente.
 
-#### Resolução do Exercício 14.4
-**Tabelas Normalizadas:**
-```text
-Empresa(NIF_Empresa, Nome, Morada, CodPostal)                    -- PK: NIF_Empresa
-Cliente(NIF_Cliente, Nome)                                         -- PK: NIF_Cliente
-Fatura(NumFatura, Data, Hora, NIF_Empresa, NIF_Cliente,           -- PK: NumFatura
-       Mesa, Empregado, Total, MetodoPagamento, ATCUD)            -- FK: NIF_Empresa, NIF_Cliente
-Artigo(CodArtigo, Descricao, TaxaIVA, PrecoUnitario)              -- PK: CodArtigo
-LinhaFatura(NumFatura, CodArtigo, Quantidade, Subtotal)            -- PK: (NumFatura, CodArtigo)
-                                                                   -- FK: NumFatura, CodArtigo
-TaxaIVA(Taxa, Incidencia, ValorIVA, Total)                         -- Para detalhe do IVA
-```
+4. **Integridade Referencial e Ações Referenciais:**
+   - **Integridade Referencial:** Regra que garante a consistência das ligações entre tabelas, obrigando a que os valores de uma chave estrangeira (FK) na tabela filha existam previamente na chave primária (PK) da tabela pai, ou sejam nulos (caso a coluna o permita).
+   - **Ações Referenciais (ON DELETE / ON UPDATE):**
+     - **CASCADE:** Propaga a alteração ao registo pai diretamente para os registos filhos (ex: ao apagar o pai, apaga os filhos associados; ao alterar a PK do pai, atualiza a FK nos filhos).
+     - **SET NULL:** Define a coluna FK de todos os registos filhos como nula (exige que a coluna permita nulos).
+     - **SET DEFAULT:** Define a coluna FK de todos os registos filhos com o valor padrão (default) configurado.
+     - **NO ACTION / RESTRICT:** Rejeita a eliminação ou atualização do registo pai caso existam registos filhos dependentes na base de dados.
 
-**Dependências Funcionais:**
-- `NumFatura → Data, Hora, NIF_Empresa, NIF_Cliente, Mesa, Empregado, Total, ATCUD`
-- `NIF_Empresa → Nome, Morada, CodPostal`
-- `NIF_Cliente → Nome`
-- `CodArtigo → Descricao, TaxaIVA, PrecoUnitario`
-- `NumFatura, CodArtigo → Quantidade, Subtotal`
+5. **Desenho de BD com Múltiplas Vistas de Utilizadores:**
+   - **Abordagem Centralizada:** Todos os requisitos de todas as vistas são recolhidos e fundidos numa lista única e global. A partir desta, desenha-se diretamente um esquema conceptual global unificado.
+   - **Abordagem por Integração de Vistas:** Desenha-se um esquema conceptual local independente para cada vista ou departamento. Posteriormente, estes esquemas locais são integrados, harmonizados e fundidos num esquema conceptual global.
+   - **Abordagem Mista:** Requisitos comuns e simples são consolidados centralizadamente no início, enquanto departamentos ou vistas altamente complexos e divergentes são desenhados de forma local e independente, integrando-se no modelo global na fase final.
 
-#### Resolução do Exercício 14.5
-**1. Armazéns com Papel e Tinta:**
-```text
--- Armazéns com Papel:
-ArmazPapel ← π_Armazém, Localização(
-    ArtigosArmazéns ⋈ (σ_Designação='Papel' (Artigos))
-)
+6. **Tipos de Atributos no Diagrama ER (Chen):**
+   - **Simples (Atómico):** Propriedade indivisível (ex: NIF). Representação: Elipse simples.
+   - **Composto:** Propriedade decomposta em subatributos (ex: Morada, decomposta em Rua, Localidade, CodPostal). Representação: Elipse principal ligada a elipses secundárias.
+   - **Multi-valor:** Propriedade que admite vários valores no mesmo registo (ex: Telefone, Hobbies). Representação: Elipse de contorno duplo.
+   - **Derivado:** Propriedade calculada a partir de outros atributos (ex: Idade, obtida da DataNascimento). Representação: Elipse com linha tracejada.
 
--- Armazéns com Tinta:
-ArmazTinta ← π_Armazém, Localização(
-    ArtigosArmazéns ⋈ (σ_Designação='Tinta' (Artigos))
-)
+7. **LMD Procedimentais vs Não-Procedimentais:**
+   - **LMD Procedimentais:** O utilizador especifica **como** obter os dados, detalhando o fluxo lógico de processamento passo a passo. Atua sob o modelo de processamento registo a registo (*one-record-at-a-time*). Exemplos: Álgebra Relacional, blocos de código procedimentais e cursores (T-SQL/PL-SQL).
+   - **LMD Não-Procedimentais (Declarativas):** O utilizador especifica apenas **o que** quer obter, sem indicar o caminho físico. O otimizador de consultas do SGBD determina o melhor plano físico. Atua sob o modelo de conjunto de dados (*set-at-a-time*). Exemplos: Instrução SELECT de SQL, Cálculo Relacional.
 
--- Armazéns com AMBOS (interseção):
-Resultado ← ArmazPapel ∩ ArmazTinta
-```
-> **Nota:** Se a pergunta pedir "Papel OU Tinta", usar UNIÃO (∪) em vez de interseção.
+8. **Vistas (Views) vs Relações Base:**
+   - **Vista:** Relação virtual definida por uma consulta SQL (SELECT) que é calculada dinamicamente pelo SGBD. Não consome armazenamento físico de dados, apenas metadados para guardar a definição da query.
+   - **Relação Base:** Tabela física cujos dados são armazenados permanentemente em páginas físicas no disco.
+   - **Razões de Uso:** a) **Segurança:** oculta colunas confidenciais de determinados utilizadores (ex: salários); b) **Simplificação:** abstrai queries complexas (com múltiplos JOINs) expondo-as de forma simples para os programadores.
 
-**2. Artigos que NÃO estão no Armazém de reciclagem:**
-```text
--- Artigos no armazém de reciclagem:
-ArtigosReciclagem ← π_Artigos(
-    ArtigosArmazéns ⋈ (σ_Designação='Armazém de reciclagem' (Armazéns))
-)
+9. **Triggers: Definição, Vantagens e Desvantagens:**
+   - **Definição:** Blocos de código procedural armazenados no SGBD que são executados automática e implicitamente como resposta a um evento DML (INSERT, UPDATE ou DELETE) numa tabela.
+   - **Vantagens:** Centralização e automação de regras de negócio complexas, auditoria automática de dados e garantia rigorosa de consistência independentemente da aplicação cliente.
+   - **Desvantagens:** Overhead de processamento que reduz a performance de escrita, possibilidade de efeitos em cascata difíceis de depurar e perda de portabilidade do código entre SGBDs.
+   - **Momentos de Execução:** `BEFORE` (antes da validação/gravação), `AFTER` (após a gravação física) e `INSTEAD OF` (em vez da operação, usado para tornar vistas complexas atualizáveis).
 
--- Todos os artigos:
-TodosArtigos ← π_Código(Artigos)
+10. **Objetivos da Normalização e Desempenho:**
+    - **Objetivos:** Decompor tabelas complexas para eliminar a redundância de dados, evitar anomalias de atualização (inserção, remoção, modificação) e garantir a integridade das dependências funcionais.
+    - **Impacto no Desempenho:**
+      - **Leitura (OLAP):** O desempenho pode ser **prejudicado**, uma vez que os dados espalhados por tabelas menores exigem a realização de mais operações de junção (`JOIN`), aumentando o consumo de processamento e E/S de disco.
+      - **Escrita (OLTP):** O desempenho é **otimizado**, porque as tabelas são mais estreitas, não existem duplicações a sincronizar e as atualizações ocorrem num único local.
 
--- Resultado (diferença):
-TodosArtigos − ArtigosReciclagem
-```
+11. **Benefícios e Problemas de Data Warehouses (DW):**
+    - **Benefícios:** Centralização de dados integrados de origens operacionais heterogéneas, capacidade de análise histórica a longo prazo e isolamento de performance (evita que queries analíticas OLAP degradem o sistema transacional OLTP de produção).
+    - **Problemas:** Elevado custo e tempo de implementação, extrema complexidade nos processos de ETL para garantir a qualidade de dados e a necessidade de manutenção constante face a alterações estruturais nos sistemas operacionais de origem.
+    - **Data Mart:** Subconjunto de um Data Warehouse focado exclusivamente num departamento ou área de negócio (ex: Marketing), sendo muito mais barato e simples de implementar.
 
-#### Resolução do Exercício 14.6
-**1. Vista por armazém:**
-```sql
-CREATE VIEW ArtigosPorArmazem AS
-SELECT a.Código AS CodArtigo, a.Designação AS Artigo,
-       az.Código AS CodArmazem, az.Designação AS Armazem,
-       aa.Stock AS Quantidade
-FROM Artigos a
-INNER JOIN ArtigosArmazéns aa ON a.Código = aa.Artigos
-INNER JOIN Armazéns az ON aa.Armazém = az.Código;
-```
+12. **Definições Fundamentais: BD, SGBD e Metadados:**
+    - **Bases de Dados (BD):** Coleção partilhada e logicamente organizada de dados inter-relacionados, concebida para satisfazer as necessidades de informação de uma organização.
+    - **SGBD:** Sistema de software intermédio que permite definir, criar, manter e controlar o acesso à base de dados. Os seus 5 componentes fundamentais são: Hardware, Software, Dados, Utilizadores e Procedimentos.
+    - **Metadados (System Catalog):** Dados que descrevem a estrutura e as características de outros dados (esquemas de tabelas, tipos de colunas, restrições, permissões), servindo de base para o funcionamento do SGBD.
 
-**2. Fornecedores com > 5 artigos em caixas:**
-```sql
-SELECT f.Nome, COUNT(*) AS NumArtigos
-FROM Fornecedores f
-INNER JOIN FornecedoresArtigos fa ON f.Número = fa.Fornecedor
-INNER JOIN Artigos a ON fa.Artigo = a.Código
-WHERE a.Unidade = 'Cx'
-  AND f.Número IN (
-      SELECT fa2.Fornecedor
-      FROM FornecedoresArtigos fa2
-      GROUP BY fa2.Fornecedor
-      HAVING COUNT(*) > 5
-  )
-GROUP BY f.Nome
-ORDER BY NumArtigos DESC;
-```
-> **Nota:** A subquery filtra fornecedores com >5 artigos no total; a query exterior conta apenas os de unidade "Caixa".
+13. **Restrições de Funções de Agregação e Valores Nulos:**
+    - **Restrições:** Não podem ser usadas diretamente na cláusula `WHERE` (pois esta filtra linhas individuais antes do agrupamento). Se o SELECT projetar colunas individuais juntamente com funções de agregação, essas colunas individuais devem constar obrigatoriamente na cláusula `GROUP BY`.
+    - **Comportamento com NULLs:** A função `COUNT(*)` contabiliza todas as linhas (incluindo nulos). Todas as restantes funções agregadas (`SUM`, `AVG`, `MIN`, `MAX`, `COUNT(coluna)`) ignoram completamente os valores nulos nos seus cálculos lógicos e matemáticos.
 
-#### Resolução do Exercício 14.7
-(As respostas detalhadas para estas perguntas teóricas encontram-se estruturadas no [Guia_Estudo_Exame_BD.md](Guia_Estudo_Exame_BD.md)).
+14. **Mecanismo de Resolução de Vistas (Query Modification):**
+    - O SGBD não armazena os dados da vista fisicamente. Quando o utilizador faz uma query à vista, o SGBD realiza uma **modificação de consulta (query modification)**, fundindo o SELECT do utilizador com a query de definição da vista guardada nos metadados. O plano de execução final é gerado a partir desta query fundida, que atua diretamente sobre as tabelas base.
 
-#### Resolução do Exercício 14.8
-**1. SQL: Estufas > 10 plantações mesmo produto:**
-```sql
-SELECT e.codE, e.descricao
-FROM Estufa e
-INNER JOIN Secção s ON e.codE = s.estufa
-INNER JOIN Plantação p ON s.codigoS = p.codS
-GROUP BY e.codE, e.descricao, p.produto
-HAVING COUNT(*) > 10;
-```
-> **Nota:** Agrupamos por estufa E produto, pois queremos contar plantações do **mesmo produto** por estufa. Se a pergunta pedisse "mais que 10 plantações no total", não incluiríamos `p.produto` no GROUP BY.
+15. **Técnicas de Descoberta de Factos (Fact-Finding):**
+    - **Propósito:** Recolher de forma sistemática factos e requisitos de dados e processos junto dos utilizadores da organização.
+    - **As 5 Técnicas:**
+      1. *Exame de Documentação:* Analisar formulários, relatórios e manuais de procedimentos existentes.
+      2. *Entrevistas:* Falar diretamente com utilizadores para compreender as suas necessidades e fluxos de trabalho.
+      3. *Observação:* Acompanhar a operação diária dos utilizadores para verificar o fluxo real dos dados.
+      4. *Questionários:* Distribuir perguntas estruturadas a um grande volume de utilizadores para recolha estatística.
+      5. *Pesquisa / Benchmarking:* Estudar sistemas semelhantes ou standards de mercado.
 
-**2. Álgebra Relacional: Secções SEM plantações:**
-```text
--- Secções COM plantações:
-SeccoesComPlantacao ← π_codS(Plantação)
+16. **Metodologia de Desenvolvimento: 3 Grandes Etapas:**
+    - **Desenho Conceptual:** Modelação abstrata e independente do SGBD (ex: Diagrama Entidade-Relacionamento com entidades como `Cliente` e `Encomenda`).
+    - **Desenho Lógico:** Mapeamento do modelo conceptual para o modelo do SGBD (ex: Esquema Relacional de Tabelas com chaves primárias e estrangeiras).
+    - **Desenho Físico:** Implementação prática das estruturas lógicas em disco (ex: definição de tipos de dados, criação de índices B-Tree e partições de ficheiros).
 
--- Todas as secções:
-TodasSeccoes ← π_codigoS(Secção)
+17. **Tipos de Junção em Álgebra Relacional:**
+    - **Theta Join:** Combina linhas de duas tabelas com base numa condição geral ($=, >, <, \ge, \le, \ne$).
+    - **Equijoin:** Caso particular do Theta Join onde a condição de correspondência usa exclusivamente a igualdade ($=$), mantendo ambas as colunas comparadas no resultado.
+    - **Natural Join:** Junção por igualdade realizada automaticamente nas colunas homónimas das duas tabelas, removendo a coluna duplicada no resultado.
+    - **Outer Join:** Junção que preserva os registos que não encontram correspondência na tabela relacionada, preenchendo as colunas vazias com `NULL` (`LEFT`, `RIGHT` ou `FULL`).
+    - **Semijoin:** Devolve apenas os registos da primeira tabela que possuem correspondência na segunda tabela, sem expor as colunas da segunda no resultado.
 
--- Resultado (diferença):
-TodasSeccoes − SeccoesComPlantacao
-```
+18. **Anomalias de Atualização:**
+    - **Inserção:** Impossibilidade de inserir dados úteis por falta de outra informação independente (ex: não conseguir registar uma nova disciplina na BD sem ter um aluno matriculado).
+    - **Remoção:** Perda involuntária de informações valiosas ao eliminar um registo (ex: apagar o único aluno inscrito em Física e perder permanentemente a informação da própria disciplina, como os créditos).
+    - **Modificação:** Inconsistência de dados se uma alteração não for propagada a todos os registos redundantes (ex: alterar a sala de um departamento para alguns funcionários mas falhar noutros).
 
-#### Resolução do Exercício 14.9
-**Esquema conceptual da Fatura de Vinhos:**
-```text
-Loja(NIF_Loja, Nome, Morada, CodPostal, Telefone)              -- PK: NIF_Loja
-Cliente(NIF_Cliente, Nome)                                       -- PK: NIF_Cliente
-Fatura(NumFatura, Data, Hora, NIF_Loja, NIF_Cliente, Total)      -- PK: NumFatura
-                                                                  -- FK: NIF_Loja, NIF_Cliente
-Produto(CodProduto, Nome, Categoria, PrecoUnitario, TaxaIVA)     -- PK: CodProduto
-LinhaFatura(NumFatura, CodProduto, Quantidade, Subtotal)          -- PK: (NumFatura, CodProduto)
-                                                                  -- FK: NumFatura, CodProduto
-```
+19. **Materialização de Vistas:**
+    - Consiste em pré-calcular e armazenar fisicamente os resultados de uma query de vista em disco (Indexed/Materialized Views).
+    - *Vantagens:* Leituras analíticas OLAP extremamente rápidas e redução drástica da carga de processamento.
+    - *Desvantagens:* Overhead na escrita (o SGBD tem de atualizar e sincronizar a vista materializada a cada alteração nas tabelas base) e consumo extra de espaço de armazenamento físico.
+    - *Recomendação:* Sistemas OLAP de BI/Data Warehousing com tabelas gigantescas que são muito consultadas e pouco modificadas.
 
-**Dependências Funcionais:**
-- `NumFatura → Data, Hora, NIF_Loja, NIF_Cliente, Total`
-- `NIF_Loja → Nome, Morada, CodPostal, Telefone`
-- `NIF_Cliente → Nome`
-- `CodProduto → Nome, Categoria, PrecoUnitario, TaxaIVA`
-- `NumFatura, CodProduto → Quantidade, Subtotal`
+20. **Cursores SQL: Propósito e Ciclo de Vida:**
+    - **Propósito:** Permitir o processamento de registos de forma individual, linha a linha (registo a registo), no âmbito de blocos procedimentais.
+    - **Ciclo de Vida (Fases):**
+      1. *DECLARE:* Define o nome do cursor e a query SELECT associada.
+      2. *OPEN:* Executa o SELECT e aloca memória para os registos obtidos.
+      3. *FETCH:* Recupera a linha atual e avança o apontador para a seguinte.
+      4. *CLOSE:* Fecha o cursor e liberta os bloqueios de escrita ativos.
+      5. *DEALLOCATE:* Remove a definição do cursor da memória de forma definitiva.
+
+21. **Diferenças entre Data Warehouse e Data Mart:**
+    - O Data Warehouse abrange os dados de toda a organização de forma centralizada e corporativa. O Data Mart é departamental, focando-se num assunto ou departamento específico (ex: Vendas).
+    - **Razões para Data Mart:** Implementação muito mais económica, tempos de desenvolvimento curtos, maior simplicidade no desenho de esquemas e facilidade de personalização para os utilizadores de um determinado setor.
+
+---
+
+#### Grupo II: Resoluções de SQL e Álgebra Relacional
+
+##### Resolução do Exercício II.1 (Artigos, Armazéns e Fornecedores)
+1. **Álgebra Relacional:**
+   - a) Armazéns e localizações onde estão armazenados os artigos "Papel" e "Tinta":
+     $$ArmazPapel \leftarrow \pi_{Armazém, Localização}(ArtigosArmazéns \bowtie ( \sigma_{Designação = 'Papel'}(Artigos) ))$$
+     $$ArmazTinta \leftarrow \pi_{Armazém, Localização}(ArtigosArmazéns \bowtie ( \sigma_{Designação = 'Tinta'}(Artigos) ))$$
+     $$Resultado \leftarrow ArmazPapel \cap ArmazTinta$$
+   - b) Artigos que não estão no "Armazém de reciclagem":
+     $$ArtigosReciclagem \leftarrow \pi_{Artigos}(ArtigosArmazéns \bowtie ( \sigma_{Designação = 'Armazém de reciclagem'}(Armazéns) ))$$
+     $$TodosArtigos \leftarrow \pi_{Código}(Artigos)$$
+     $$Resultado \leftarrow TodosArtigos - ArtigosReciclagem$$
+
+2. **SQL (T-SQL):**
+   - a) Vista de stock por artigo e armazém:
+     ```sql
+     CREATE VIEW v_StockArtigoArmazem AS
+     SELECT a.Código AS CodArtigo, a.Designação AS Artigo, 
+            am.Código AS CodArmazem, am.Designação AS Armazem,
+            aa.Stock AS Quantidade
+     FROM Artigos a
+     INNER JOIN ArtigosArmazéns aa ON a.Código = aa.Artigos
+     INNER JOIN Armazéns am ON aa.Armazém = am.Código;
+     ```
+   - b) Fornecedores com > 5 artigos no total com unidade 'Caixa':
+     ```sql
+     SELECT f.Nome AS Fornecedor, COUNT(fa.Artigo) AS NumArtigosCaixa
+     FROM Fornecedores f
+     INNER JOIN FornecedoresArtigos fa ON f.Número = fa.Fornecedor
+     INNER JOIN Artigos a ON fa.Artigo = a.Código
+     WHERE a.Unidade = (SELECT Código FROM Unidades WHERE Designação = 'Caixa')
+       AND f.Número IN (
+           SELECT fa2.Fornecedor
+           FROM FornecedoresArtigos fa2
+           GROUP BY fa2.Fornecedor
+           HAVING COUNT(*) > 5
+       )
+     GROUP BY f.Número, f.Nome
+     ORDER BY NumArtigosCaixa DESC;
+     ```
+
+##### Resolução do Exercício II.2 (Estufas e Plantações)
+1. **SQL (Normal 2022/2023):** Estufas com mais que 10 plantações do mesmo produto:
+   ```sql
+   SELECT e.codE, e.descricao
+   FROM Estufa e
+   INNER JOIN Secção s ON e.codE = s.estufa
+   INNER JOIN Plantação p ON s.codigoS = p.codS
+   GROUP BY e.codE, e.descricao, p.produto
+   HAVING COUNT(*) > 10;
+   ```
+2. **Álgebra Relacional (Normal 2022/2023):** Secções que nunca tiveram plantações:
+   $$SeccoesComPlantacao \leftarrow \pi_{codS}(Plantação)$$
+   $$TodasSeccoes \leftarrow \pi_{codigoS}(Secção)$$
+   $$Resultado \leftarrow TodasSeccoes - SeccoesComPlantacao$$
+3. **SQL (Recurso 2023/2024):** Secções com plantações de "Fruta" e duração < 28 dias:
+   ```sql
+   SELECT COUNT(DISTINCT p.codS) AS TotalSeccoes
+   FROM Plantação p
+   INNER JOIN Produto pr ON p.produto = pr.codP
+   WHERE pr.tipo = 'Fruta'
+     AND DATEDIFF(day, p.data_início, p.data_fim) < 28;
+   ```
+4. **Álgebra Relacional (Recurso 2023/2024):** Estufas com mais de 3 plantações em todas as suas secções (Método da dupla negação):
+   $$SeccoesMaisDe3 \leftarrow \sigma_{Count > 3}( _{codS}\mathcal{G}_{Count(produto)}(Plantação) )$$
+   $$Seccoes3OuMenos \leftarrow \pi_{codigoS}(Secção) - \pi_{codS}(SeccoesMaisDe3)$$
+   $$EstufasComSeccaoInsuficiente \leftarrow \pi_{estufa}(Secção \bowtie_{codigoS = codigoS} Seccoes3OuMenos)$$
+   $$TodasEstufas \leftarrow \pi_{codE}(Estufa)$$
+   $$Resultado \leftarrow TodasEstufas - EstufasComSeccaoInsuficiente$$
+
+##### Resolução do Exercício II.3 (Fábrica e Ordens de Fabrico)
+1. **Modelação / DDL:** A tabela associativa chama-se `OrdemFabricoProduto` e a sua chave primária é composta por `(Número, CódigoProduto, DataEntrega)`, uma vez que o mesmo produto pode ser fabricado na mesma ordem de fabrico desde que a data de entrega seja diferente.
+   ```sql
+   CREATE TABLE OrdemFabricoProduto (
+       Número INT,
+       CódigoProduto VARCHAR(50),
+       Quantidade INT NOT NULL,
+       DataEntrega DATE,
+       PRIMARY KEY (Número, CódigoProduto, DataEntrega),
+       FOREIGN KEY (Número) REFERENCES OrdemFabrico(Número),
+       FOREIGN KEY (CódigoProduto) REFERENCES Produto(CódigoProduto),
+       CONSTRAINT chk_quantidade_fabrico CHECK (Quantidade > 0)
+   );
+   ```
+2. **SQL:** Países com mais de 10 clientes com Ordens de Fabrico em 2024:
+   ```sql
+   SELECT c.País, COUNT(DISTINCT c.CódigoCliente) AS TotalClientes
+   FROM Cliente c
+   INNER JOIN OrdemFabrico o ON c.CódigoCliente = o.Cliente
+   WHERE o.Data >= '2024-01-01' AND o.Data <= '2024-12-31'
+   GROUP BY c.País
+   HAVING COUNT(DISTINCT c.CódigoCliente) > 10;
+   ```
+3. **Álgebra Relacional:** Famílias de produtos sem ordens no 1º trimestre de 2025:
+   $$OrdensT1 \leftarrow \sigma_{Data \ge '2025-01-01' \wedge Data \le '2025-03-31'}(OrdemFabrico)$$
+   $$ProdutosT1 \leftarrow \pi_{CódigoProduto}(OrdemFabricoProduto \bowtie OrdensT1)$$
+   $$FamiliasComOrdem \leftarrow \pi_{Familia}(Produto \bowtie ProdutosT1)$$
+   $$TodasFamilias \leftarrow \pi_{Familia}(Produto)$$
+   $$Resultado \leftarrow TodasFamilias - FamiliasComOrdem$$
+
+##### Resolução do Exercício II.4 (Companhia Aérea e Reservas)
+1. **Modelação / Integridade:**
+   - **Chave Primária (PK):** `codReserva` na tabela `Reserva`. Identifica unicamente cada reserva de viagem.
+   - **Chaves Estrangeiras (FK):** `codPass` que referencia `Passageiro(codPass)` para identificar qual o passageiro que viaja, e `numVoo` que referencia `Voo(numVoo)` para saber qual o voo reservado. Garantem a integridade referencial.
+2. **SQL:** Países com mais de 5 passageiros para o Porto em 2026:
+   ```sql
+   SELECT p.pais, COUNT(DISTINCT p.codPass) AS TotalPassageiros
+   FROM Passageiro p
+   INNER JOIN Reserva r ON p.codPass = r.codPass
+   INNER JOIN Voo v ON r.numVoo = v.numVoo
+   INNER JOIN Aeroporto a ON v.destino = a.codIATA
+   WHERE a.cidade = 'Porto'
+     AND r.dataViagem >= '2026-01-01' AND r.dataViagem <= '2026-12-31'
+   GROUP BY p.pais
+   HAVING COUNT(DISTINCT p.codPass) > 5;
+   ```
+3. **Álgebra Relacional:** Aeroportos que nunca foram destino de voos com reservas:
+   $$TodosAeroportos \leftarrow \pi_{codIATA}(Aeroporto)$$
+   $$VoosComReserva \leftarrow Voo \bowtie_{Voo.numVoo = Reserva.numVoo} Reserva$$
+   $$DestinosComReserva \leftarrow \pi_{destino}(VoosComReserva)$$
+   $$Resultado \leftarrow TodosAeroportos - DestinosComReserva$$
+
+##### Resolução do Exercício II.5 (Ginásio e Aulas)
+1. **Modelação / Integridade:**
+   - **Chave Primária (PK):** `(numSocio, codAula)` na tabela `Inscricao`. Justificação: Um sócio pode inscrever-se em várias aulas diferentes e uma aula pode acolher vários sócios (relacionamento M:N), mas cada sócio inscreve-se apenas uma vez em cada aula específica, tornando este par a chave mínima única.
+   - **Chaves Estrangeiras (FK):** `numSocio` que referencia `Socio(numSocio)` e `codAula` que referencia `Aula(codAula)`.
+2. **SQL:** Instrutores com mais de 3 aulas com pelo menos 20 inscrições cada:
+   ```sql
+   SELECT codInst, nome
+   FROM (
+       SELECT i.codInst, i.nome, a.codAula
+       FROM Instrutor i
+       INNER JOIN Aula a ON i.codInst = a.codInst
+       INNER JOIN Inscricao ins ON a.codAula = ins.codAula
+       GROUP BY i.codInst, i.nome, a.codAula
+       HAVING COUNT(*) >= 20
+   ) AS AulasPopulares
+   GROUP BY codInst, nome
+   HAVING COUNT(*) > 3;
+   ```
+3. **Álgebra Relacional:** Sócios VIP que nunca se inscreveram em Spinning:
+   $$SociosVIP \leftarrow \pi_{numSocio}( \sigma_{plano = 'VIP'}(Socio) )$$
+   $$AulasSpinning \leftarrow \sigma_{modalidade = 'Spinning'}(Aula)$$
+   $$SociosComSpinning \leftarrow \pi_{numSocio}( Inscricao \bowtie AulasSpinning )$$
+   $$Resultado \leftarrow SociosVIP - SociosComSpinning$$
+
+---
+
+#### Grupo III: Resoluções de Normalização de Faturas
+
+##### Caso III.1 (Fatura de Venda de Vinhos)
+1. **Identificação dos Atributos:**
+   - `NumFatura` (A)
+   - `Data` (B)
+   - `NIF_Cliente` (C)
+   - `Nome_Cliente` (D)
+   - `Socio` (E)
+   - `CodFuncionario` (F)
+   - `NomeFuncionario` (G)
+   - `CodProduto` (H)
+   - `Descricao` (I)
+   - `Quantidade` (J)
+   - `PrecoUnitario` (K)
+   - `Desconto` (L)
+   - `ValorCobrar` (M)
+   - `MoradaEntrega` (N)
+   - `MetodoPagamento` (O)
+2. **Forma Não Normalizada (UNF):**
+   `Fatura_UNF(A, B, C, D, E, F, G, L, M, N, O, [H, I, J, K])`
+3. **1ª Forma Normal (1FN):** Remoção de grupos repetidos. A PK passa a ser composta por `(NumFatura, CodProduto)`.
+   `Fatura_1FN(NumFatura, CodProduto, B, C, D, E, F, G, J, K, I, L, M, N, O)`
+   *Dependências Funcionais (DFs):*
+   - $NumFatura \rightarrow B, C, D, E, F, G, L, M, N, O$
+   - $CodProduto \rightarrow I, K$ (Assumindo que o preço unitário do vinho é fixo por artigo)
+   - $NumFatura, CodProduto \rightarrow J$
+   - $C \rightarrow D, E$ (Dados do cliente)
+   - $F \rightarrow G$ (Dados do funcionário)
+4. **2ª Forma Normal (2FN):** Remoção de dependências parciais sobre a PK `(NumFatura, CodProduto)`:
+   - `Cabecalho_2FN(NumFatura, Data, NIF_Cliente, Nome_Cliente, Socio, CodFuncionario, NomeFuncionario, Desconto, ValorCobrar, MoradaEntrega, MetodoPagamento)` | PK: `NumFatura`
+   - `Artigo_2FN(CodProduto, Descricao, PrecoUnitario)` | PK: `CodProduto`
+   - `LinhaFatura_2FN(NumFatura, CodProduto, Quantidade)` | PK: `(NumFatura, CodProduto)`
+5. **3ª Forma Normal (3FN):** Remoção de dependências transitivas no cabeçalho:
+   - $NIF\_Cliente \rightarrow Nome\_Cliente, Socio$
+   - $CodFuncionario \rightarrow NomeFuncionario$
+   *Tabelas Finais na 3FN:*
+   - **Cliente**(`NIF_Cliente`, `Nome_Cliente`, `Socio`) | PK: `NIF_Cliente`
+   - **Funcionario**(`CodFuncionario`, `NomeFuncionario`) | PK: `CodFuncionario`
+   - **Artigo**(`CodProduto`, `Descricao`, `PrecoUnitario`) | PK: `CodProduto`
+   - **Fatura**(`NumFatura`, `Data`, `NIF_Cliente`, `CodFuncionario`, `Desconto`, `ValorCobrar`, `MoradaEntrega`, `MetodoPagamento`) | PK: `NumFatura` | FK: `NIF_Cliente` → Cliente, `CodFuncionario` → Funcionario
+   - **LinhaFatura**(`NumFatura`, `CodProduto`, `Quantidade`) | PK: `(NumFatura, CodProduto)` | FK: `NumFatura` → Fatura, `CodProduto` → Artigo
+
+##### Caso III.2 (Fatura Tomatino)
+1. **Identificação dos Atributos:**
+   - `NumFatura` (A) | `Data` (B) | `NIF_Empresa` (C) | `NIF_Cliente` (D) | `Mesa` (E) | `Empregado` (F) | `Total` (G) | `MetodoPagamento` (H) | `ATCUD` (I) | `SenhaWifi` (J) | `Pontos` (K) | `num_linha` (L) | `Artigo` (M) | `TaxaIVA` (N) | `Subtotal` (O) | `BaseIVA` (P) | `ValorIVA` (Q)
+2. **Tabelas Finais na 3ª Forma Normal (3FN):**
+   - **Empresa**(`NIF_Empresa`) | PK: `NIF_Empresa`
+   - **Cliente**(`NIF_Cliente`, `Pontos`) | PK: `NIF_Cliente`
+   - **Fatura**(`NumFatura`, `Data`, `NIF_Empresa`, `NIF_Cliente`, `Mesa`, `Empregado`, `Total`, `MetodoPagamento`, `ATCUD`, `SenhaWifi`) | PK: `NumFatura` | FK: `NIF_Empresa` → Empresa, `NIF_Cliente` → Cliente
+   - **Artigo**(`Artigo`, `TaxaIVA`) | PK: `Artigo`
+   - **LinhaFatura**(`NumFatura`, `num_linha`, `Artigo`, `Subtotal`) | PK: (`NumFatura`, `num_linha`) | FK: `NumFatura` → Fatura, `Artigo` → Artigo
+   - **ResumoIVA**(`NumFatura`, `TaxaIVA`, `BaseIVA`, `ValorIVA`) | PK: (`NumFatura`, `TaxaIVA`) | FK: `NumFatura` → Fatura
+   *Dependências Funcionais (DFs):*
+   - $NumFatura \rightarrow Data, NIF\_Empresa, NIF\_Cliente, Mesa, Empregado, Total, MetodoPagamento, ATCUD, SenhaWifi$
+   - $NIF\_Cliente \rightarrow Pontos$
+   - $Artigo \rightarrow TaxaIVA$
+   - $NumFatura, num\_linha \rightarrow Artigo, Subtotal$
+   - $NumFatura, TaxaIVA \rightarrow BaseIVA, ValorIVA$
+
+##### Caso III.3 (Fatura TecnoShop)
+1. **Tabelas Finais na 3ª Forma Normal (3FN):**
+   - **Empresa**(`NIF_Empresa`, `Nome_Empresa`, `Morada_Empresa`, `CodPostal_Empresa`) | PK: `NIF_Empresa`
+   - **Cliente**(`NIF_Cliente`, `Nome_Cliente`, `Morada_Cliente`, `CodPostal_Cliente`) | PK: `NIF_Cliente`
+   - **MetodoEnvio**(`CodEnvio`, `MetodoEnvio`, `CustoEnvio`, `PrazoEstimado`) | PK: `CodEnvio`
+   - **Artigo**(`RefArtigo`, `Descricao_Artigo`, `Categoria`, `PrecoUnitario`, `TaxaIVA`) | PK: `RefArtigo`
+   - **Fatura**(`NumFatura`, `Data`, `Hora`, `ATCUD`, `NIF_Empresa`, `NIF_Cliente`, `CodEnvio`, `Total_Fatura`, `MetodoPagamento`) | PK: `NumFatura` | FK: `NIF_Empresa` → Empresa, `NIF_Cliente` → Cliente, `CodEnvio` → MetodoEnvio
+   - **LinhaFatura**(`NumFatura`, `RefArtigo`, `Quantidade`, `Subtotal_Linha`) | PK: (`NumFatura`, `RefArtigo`) | FK: `NumFatura` → Fatura, `RefArtigo` → Artigo
+   - **ResumoIVA**(`NumFatura`, `TaxaIVA`, `Incidencia_IVA`, `Valor_IVA`) | PK: (`NumFatura`, `TaxaIVA`) | FK: `NumFatura` → Fatura
+   *Dependências Funcionais (DFs):*
+   - $NumFatura \rightarrow Data, Hora, ATCUD, NIF\_Empresa, NIF\_Cliente, CodEnvio, Total\_Fatura, MetodoPagamento$
+   - $NIF\_Empresa \rightarrow Nome\_Empresa, Morada\_Empresa, CodPostal\_Empresa$
+   - $NIF\_Cliente \rightarrow Nome\_Cliente, Morada\_Cliente, CodPostal\_Cliente$
+   - $CodEnvio \rightarrow MetodoEnvio, CustoEnvio, PrazoEstimado$
+   - $RefArtigo \rightarrow Descricao\_Artigo, Categoria, PrecoUnitario, TaxaIVA$
+   - $NumFatura, RefArtigo \rightarrow Quantidade, Subtotal\_Linha$
+   - $NumFatura, TaxaIVA \rightarrow Incidencia\_IVA, Valor\_IVA$
+
+##### Caso III.4 (Fatura Momento Surpresa)
+1. **Identificação dos Atributos:**
+   - `NumFatura` (A) (FR S1/0033537)
+   - `NIF_Empresa` (B) (PT509468268)
+   - `Nome_Empresa` (C) (Momento Surpresa - Eventos em Hotelaria, Unip. Lda)
+   - `Morada_Empresa` (D) (Zona Industrial do Socorro 4820-000)
+   - `Data` (E) (2025-06-17)
+   - `Hora` (F) (13:20:23)
+   - `LoteEvento` (G) (Lote Z - 2 Quinchães, FAFE)
+   - `NIF_Cliente` (H) (515870358)
+   - `NomeMenu` (I) (DIARIA COM AGUA)
+   - `QtdMenu` (J) (1)
+   - `DescricaoItem` (K) (PRATO, SOPA, SOBREMESA)
+   - `TaxaIVA` (L) (13%)
+   - `PrecoItem` (M) (€6.50, €1.00, €1.50)
+   - `Empregado` (N) (MIGUEL)
+   - `Mesa` (O) (REDONDA)
+   - `Total` (P) (€9.00)
+   - `MetodoPagamento` (Q) (Multibanco)
+   - `ATCUD` (R) (JFZXWGVZ-0033537)
+   - `IncidenciaIVA` (S) (€7.96)
+   - `ValorIVA` (T) (€1.04)
+2. **Forma Não Normalizada (UNF):**
+   `Fatura_UNF(A, B, C, D, E, F, G, H, I, J, N, O, P, Q, R, S, T, [K, L, M])`
+3. **1ª Forma Normal (1FN):** A PK da tabela principal passa a ser composta por `(NumFatura, DescricaoItem)`.
+   `Fatura_1FN(NumFatura, DescricaoItem, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T)`
+4. **2ª Forma Normal (2FN):** Remoção de dependências parciais:
+   - `Cabecalho_2FN(NumFatura, NIF_Empresa, Nome_Empresa, Morada_Empresa, Data, Hora, LoteEvento, NIF_Cliente, NomeMenu, QtdMenu, Empregado, Mesa, Total, MetodoPagamento, ATCUD, IncidenciaIVA, ValorIVA)` | PK: `NumFatura`
+   - `Item_2FN(DescricaoItem, TaxaIVA, PrecoItem)` | PK: `DescricaoItem` (Se assumirmos que os itens têm preço fixo)
+   - `LinhaFatura_2FN(NumFatura, DescricaoItem)` | PK: `(NumFatura, DescricaoItem)`
+5. **3ª Forma Normal (3FN):** Remoção de dependências transitivas:
+   - $NIF\_Empresa \rightarrow Nome\_Empresa, Morada\_Empresa$
+   - $NumFatura \rightarrow TaxaIVA\_Resumo \rightarrow IncidenciaIVA, ValorIVA$ (Extraímos o resumo de IVA)
+   *Tabelas Finais na 3FN:*
+   - **Empresa**(`NIF_Empresa`, `Nome_Empresa`, `Morada_Empresa`) | PK: `NIF_Empresa`
+   - **Cliente**(`NIF_Cliente`) | PK: `NIF_Cliente` (Apenas NIF consta na fatura)
+   - **Menu**(`NomeMenu`) | PK: `NomeMenu`
+   - **Item**(`DescricaoItem`, `PrecoItem`, `TaxaIVA`) | PK: `DescricaoItem`
+   - **Fatura**(`NumFatura`, `Data`, `Hora`, `LoteEvento`, `NIF_Empresa`, `NIF_Cliente`, `NomeMenu`, `QtdMenu`, `Empregado`, `Mesa`, `Total`, `MetodoPagamento`, `ATCUD`) | PK: `NumFatura` | FK: `NIF_Empresa` → Empresa, `NIF_Cliente` → Cliente, `NomeMenu` → Menu
+   - **LinhaFatura**(`NumFatura`, `DescricaoItem`) | PK: (`NumFatura`, `DescricaoItem`) | FK: `NumFatura` → Fatura, `DescricaoItem` → Item
+   - **ResumoIVA**(`NumFatura`, `TaxaIVA`, `IncidenciaIVA`, `ValorIVA`) | PK: (`NumFatura`, `TaxaIVA`) | FK: `NumFatura` → Fatura
+   *Dependências Funcionais (DFs):*
+   - $NumFatura \rightarrow Data, Hora, LoteEvento, NIF\_Empresa, NIF\_Cliente, NomeMenu, QtdMenu, Empregado, Mesa, Total, MetodoPagamento, ATCUD$
+   - $NIF\_Empresa \rightarrow Nome\_Empresa, Morada\_Empresa$
+   - $DescricaoItem \rightarrow PrecoItem, TaxaIVA$
+   - $NumFatura, TaxaIVA \rightarrow IncidenciaIVA, ValorIVA$
+
+##### Caso III.5 (Contrato AutoFlex)
+1. **Tabelas Finais na 3ª Forma Normal (3FN):**
+   - **Empresa**(`NIF_Empresa`, `Nome_Empresa`, `Morada_Empresa`) | PK: `NIF_Empresa`
+   - **Agencia**(`CodAgencia`, `NomeAgencia`) | PK: `CodAgencia`
+   - **Viatura**(`Matricula`, `Marca`, `Modelo`, `CategoriaViat`, `PrecoDiario`, `Combustivel`) | PK: `Matricula`
+   - **Condutor**(`NIF_Condutor`, `Nome_Condutor`, `CartaConducao`, `CategoriaCC`) | PK: `NIF_Condutor`
+   - **Extra**(`CodExtra`, `DescricaoExtra`, `PrecoExtraDia`) | PK: `CodExtra`
+   - **Contrato**(`NumContrato`, `DataInicio`, `NIF_Empresa`, `CodAgenciaLev`, `CodAgenciaDev`, `Matricula`, `Duracao`, `TotalFatura`, `MetodoPagamento`, `DataDevolucao`) | PK: `NumContrato` | FK: `NIF_Empresa` → Empresa, `CodAgenciaLev` → Agencia, `CodAgenciaDev` → Agencia, `Matricula` → Viatura
+   - **ContratoCondutor**(`NumContrato`, `NIF_Condutor`) | PK: (`NumContrato`, `NIF_Condutor`) | FK: `NumContrato` → Contrato, `NIF_Condutor` → Condutor
+   - **ContratoExtra**(`NumContrato`, `CodExtra`) | PK: (`NumContrato`, `CodExtra`) | FK: `NumContrato` → Contrato, `CodExtra` → Extra
+   *Dependências Funcionais (DFs):*
+   - $NumContrato \rightarrow DataInicio, NIF\_Empresa, CodAgenciaLev, CodAgenciaDev, Matricula, Duracao, TotalFatura, MetodoPagamento, DataDevolucao$
+   - $NIF\_Empresa \rightarrow Nome\_Empresa, Morada\_Empresa$
+   - $CodAgencia \rightarrow NomeAgencia$
+   - $Matricula \rightarrow Marca, Modelo, CategoriaViat, PrecoDiario, Combustivel$
+   - $NIF\_Condutor \rightarrow Nome\_Condutor, CartaConducao, CategoriaCC$
+   - $CodExtra \rightarrow DescricaoExtra, PrecoExtraDia$
+

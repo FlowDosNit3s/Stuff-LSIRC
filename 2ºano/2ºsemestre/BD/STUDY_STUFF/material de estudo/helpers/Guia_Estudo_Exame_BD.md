@@ -1233,78 +1233,76 @@ O processo é gerido por um nó **Coordenador** que comunica com vários nós **
 
 ---
 
-## 📊 Análise de Frequência — Perguntas que Saíram nos 3 Exames
+## 📊 Análise de Frequência — Perguntas de Todos os Exames Recentes
 
-| Tema | 2020/2021 | 2022/2023 | 2024/2025 | Frequência |
-|---|:---:|:---:|:---:|:---:|
-| **Integridade Referencial (ON DELETE/UPDATE)** | ✅ | ✅ | ✅ | **3/3** 🔴 |
-| **Normalização de Fatura** | ✅ | ✅ | ✅ | **3/3** 🔴 |
-| **SQL prático (SELECT + JOIN + GROUP BY)** | ✅ | ✅ | ✅ | **3/3** 🔴 |
-| **Álgebra Relacional prática** | ✅ | ✅ | ✅ | **3/3** 🔴 |
-| **Vistas (Views)** | ✅ | — | ✅ | **2/3** 🔴 |
-| **Triggers** | ✅ | — | ✅ | **2/3** 🔴 |
-| **Independência de Dados / Arq. ANSI/SPARC** | — | ✅ | — | **1/3** 🟡 |
-| **Cliente-Servidor 2 vs 3 níveis** | — | ✅ | — | **1/3** 🟡 |
-| **Subquery vs Junção** | — | ✅ | — | **1/3** 🟡 |
-| **Anomalias de atualização** | ✅ | — | — | **1/3** 🟡 |
-| **Tipos de Join (Natural, Theta, Outer)** | ✅ | — | — | **1/3** 🟡 |
-| **Atributos em diag. E/R** | — | ✅ | — | **1/3** 🟡 |
-| **Abordagens múltiplas vistas** | — | ✅ | — | **1/3** 🟡 |
-| **LMD Procedimental vs Não-Procedimental** | — | — | ✅ | **1/3** 🟡 |
-| **Normalização (teoria + objetivos)** | — | — | ✅ | **1/3** 🟡 |
-| **Data Warehouses** | — | — | ✅ | **1/3** 🟡 |
-| **Metodologia de desenvolvimento BD** | ✅ | — | — | **1/3** 🟡 |
-| **Diag. E/R + tabela associativa** | — | ✅ | ✅ | **2/3** 🔴 |
+Esta análise contabiliza a frequência com que cada tema foi cobrado nas partes teórica e prática em **todos os exames recentes** disponíveis na pasta @[Exames Recentes](file:///c:/Users/diogo/Documents/GitHub/Stuff-LSIRC/2%C2%BAano/2%C2%BAsemestre/BD/STUDY_STUFF/exames/Exames%20Recentes) (EN 20/21, EN 23/24, ER 23/24, EN 24/25, EN 25/26, Modelo 1 e Modelo 2).
+
+| Tema / Pergunta | EN 20/21 | EN 23/24 | ER 23/24 | EN 24/25 | EN 25/26 | Mod 1 | Mod 2 | Frequência |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Normalização de Fatura (Prática)** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **7/7 (100%)** 🔴 |
+| **SQL Prático (SELECT/JOIN/GROUP)** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **7/7 (100%)** 🔴 |
+| **Álgebra Relacional Prática** | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **7/7 (100%)** 🔴 |
+| **Vistas (Views) / Resolução / Mat.** | ✅ | — | ✅ | ✅ | ✅ | ✅ | — | **5/7 (71%)** 🔴 |
+| **Integridade Referencial (IR)** | ✅ | ✅ | — | ✅ | — | ✅ | — | **4/7 (57%)** 🔴 |
+| **Independência de Dados / ANSI/SPARC** | — | ✅ | ✅ | — | — | ✅ | ✅ | **4/7 (57%)** 🔴 |
+| **Triggers (Teoria)** | ✅ | — | — | ✅ | — | ✅ | — | **3/7 (43%)** 🟠 |
+| **Normalização (Teoria / Objetivos)** | — | — | ✅ | ✅ | — | — | ✅ | **3/7 (43%)** 🟠 |
+| **Data Warehouses / Data Marts** | — | — | ✅ | ✅ | — | ✅ | — | **3/7 (43%)** 🟠 |
+| **LMD Procedimental vs Declarativa** | — | — | — | ✅ | ✅ | — | ✅ | **3/7 (43%)** 🟠 |
+| **Diag. E/R + Tabela Associativa / PK/FK** | — | — | — | ✅ | — | ✅ | ✅ | **3/7 (43%)** 🟠 |
+| **Cliente-Servidor 2 vs 3 níveis** | — | ✅ | — | — | — | — | ✅ | **2/7 (29%)** 🟡 |
+| **Subquery vs Junção (Teoria)** | — | ✅ | — | — | — | ✅ | — | **2/7 (29%)** 🟡 |
+| **Atributos em diag. E/R (Teoria)** | — | ✅ | — | — | — | — | ✅ | **2/7 (29%)** 🟡 |
+| **Cursores SQL (Teoria)** | — | — | ✅ | — | — | — | ✅ | **2/7 (29%)** 🟡 |
+| **Funções de Agregação e NULLs** | — | — | ✅ | — | ✅ | — | — | **2/7 (29%)** 🟡 |
+| **Anomalias de atualização** | ✅ | — | — | — | — | — | — | **1/7 (14%)** 🟡 |
+| **Tipos de Join (Natural, Theta, Outer)** | ✅ | — | — | — | — | — | — | **1/7 (14%)** 🟡 |
+| **Abordagens múltiplas vistas** | — | ✅ | — | — | — | — | — | **1/7 (14%)** 🟡 |
+| **Metodologia de desenvolvimento BD** | ✅ | — | — | — | — | — | — | **1/7 (14%)** 🟡 |
+| **Definições: BD, SGBD, Metadados** | — | — | — | — | ✅ | — | — | **1/7 (14%)** 🟡 |
+| **Técnicas de descoberta de factos** | — | — | — | — | ✅ | — | — | **1/7 (14%)** 🟡 |
 
 ---
 
 ## 📌 Resumo Rápido — O que Estudar por Prioridade
 
-### 🔴 Prioridade MÁXIMA (saiu em TODOS os exames):
-1. **Integridade Referencial** — ON DELETE / ON UPDATE (CASCADE, SET NULL, SET DEFAULT, NO ACTION)
-2. **Normalização de Fatura** — UNF → 1FN → 2FN → 3FN com dependências funcionais (3 val.!)
-3. **SQL prático** — SELECT com JOIN, GROUP BY, HAVING, subqueries
-4. **Álgebra Relacional prática** — seleção, projeção, junção, diferença
-5. **Diagrama E/R + Tabela Associativa** — identificar PK, FK, atributos
+### 🔴 Prioridade MÁXIMA (saiu na maioria ou totalidade dos exames):
+1. **Normalização de Fatura (Prática)** — UNF → 1FN → 2FN → 3FN com dependências funcionais e definições (**7/7**) (Vale 3 val.!)
+2. **SQL Prático** — Queries complexas usando SELECT com JOINs, GROUP BY, HAVING, DATEDIFF e subqueries (**7/7**) (Vale 3 val.!)
+3. **Álgebra Relacional Prática** — Seleção, projeção, junção, e padrão de diferença com negação duplo (**7/7**) (Vale 2 val.!)
+4. **Vistas (Views)** — Definição, view vs relação base, resolução e materialização (**5/7**) (Vale 2 val.)
+5. **Integridade Referencial** — ON DELETE/UPDATE (CASCADE, SET NULL, SET DEFAULT, NO ACTION / RESTRICT) (**4/7**) (Vale 2 val.)
+6. **Independência de Dados / ANSI/SPARC** — Níveis de schema, importância do Nível Conceptual e independências física/lógica (**4/7**) (Vale 2 val.)
 
-### 🟠 Prioridade Alta (saiu em 2 de 3 exames):
-6. **Vistas (Views)** — definição, diferenças de relação base, materialização
-7. **Triggers** — definição, tipos (BEFORE/AFTER/INSTEAD OF), vantagens/desvantagens
+### 🟠 Prioridade ALTA (saiu em cerca de metade dos exames):
+7. **Triggers** — Definição, vantagens/desvantagens e momentos (BEFORE/AFTER/INSTEAD OF) (**3/7**)
+8. **Normalização (Teoria)** — Objetivos do processo e o seu impacto no desempenho OLAP/OLTP (**3/7**)
+9. **Data Warehouses & Data Marts** — Benefícios e problemas gerais, distinção e razões para criar um Data Mart (**3/7**)
+10. **LMD Procedimental vs Declarativa (Não-Procedimental)** — Diferenças conceituais e exemplos (**3/7**)
+11. **Modelação ER prático** — Chaves PK/FK e tabelas associativas M:N com data (ex: voos, ginásio, ordens fabrico) (**3/7**)
 
-### 🟡 Prioridade Média (saiu em 1 de 3 exames — pode calhar!):
-- LMD Procedimental vs Não-Procedimental
-- Independência de dados / Arquitetura ANSI/SPARC
-- Cliente-Servidor 2 vs 3 níveis
-- Subquery vs Junção
-- Anomalias de atualização
-- Tipos de Join
-- Atributos em diagramas E/R
-- Data Warehouses
-- Metodologia de desenvolvimento de BD
-- Abordagens para múltiplas vistas de utilizadores
-
-### 🟢 Complementar (nunca saiu nos 3 exames analisados, mas está na matéria):
-- Conceitos fundamentais (BD, SGBD, Metadados, System Catalog)
-- BD Distribuídas e Paralelas
-- Cursores SQL
-- SGBD Orientados a Objetos
-- Stored Procedures vs Funções
-- Controlo de concorrência
-- Transações (COMMIT/ROLLBACK)
+### 🟡 Prioridade MÉDIA (saiu em 1 ou 2 exames — pode calhar!):
+12. **Cliente-Servidor 2 vs 3 níveis** — Localização da lógica e adequabilidade para a Web (**2/7**)
+13. **Subquery vs Junção (Teoria)** — Diferenças conceituais e limitações das subqueries (**2/7**)
+14. **Atributos em diag. E/R** — Simples, compostos, multi-valor e derivados (Chen) (**2/7**)
+15. **Cursores SQL** — Propósito e ciclo de vida (DECLARE, OPEN, FETCH, CLOSE, DEALLOCATE) (**2/7**)
+16. **Funções de Agregação e NULLs** — Filtros HAVING vs WHERE e impacto dos nulos nas funções (**2/7**)
+17. **Anomalias de atualização** — Inserção, Remoção e Modificação em esquemas redundantes (**1/7**)
+18. **Tipos de Join** — Diferença entre Theta Join, Equijoin, Natural Join, Outer Join e Semijoin (**1/7**)
+19. **Técnicas de descoberta de factos** — Propósito e as 5 técnicas principais (**1/7**)
+20. **Definições teóricas** — BD, SGBD (5 componentes) e Metadados (**1/7**)
+21. **Metodologia de desenvolvimento** — As 3 grandes etapas (Conceptual, Lógico, Físico) (**1/7**)
+22. **Abordagens múltiplas vistas** — Centralizada, integração de vistas e mista (**1/7**)
 
 ---
 
 ## 🧠 Dicas para o Exame
 
-1. **Normalização vale SEMPRE 3 valores** — saiu nos 3 exames analisados! Pratica com faturas reais
-2. **SQL + Álgebra Relacional valem 4-5 valores** — treina queries com JOIN, GROUP BY, HAVING
-3. **Integridade Referencial sai SEMPRE** — memoriza as 4 ações (CASCADE, SET NULL, SET DEFAULT, NO ACTION)
-4. **Nas perguntas teóricas:** dá definições claras + exemplos sempre que possível
-5. **Tempo:** 2h para 8 perguntas ≈ 15 min/pergunta; a normalização e SQL/ÁR precisam de mais tempo
-6. **Sem consulta** — memoriza as definições das Formas Normais e sabe fazer o processo passo a passo
-7. **Padrão do exame:** 6 perguntas teóricas (2 val. cada = 12 val.) + normalização (3 val.) + SQL/ÁR (5 val.)
-8. **Álgebra Relacional com DIFERENÇA (−)** apareceu em todos os exames — domina o padrão "quais os X que NÃO..."
+1. **Prática vale 50% da nota** — A normalização (3 val.) e SQL/ÁR (5 val.) perfazem 8 valores imediatos. Pratica muito com os casos reais estruturados no caderno.
+2. **Gramática e Estrutura** — Os exames de recurso salientam explicitamente que as respostas teóricas devem seguir boas práticas gramaticais (com sujeito e predicado).
+3. **Padrão dos 12 valores teóricos** — São tipicamente 6 perguntas teóricas de 2 valores cada. Muitas delas repetem-se diretamente entre Épocas Normais e Recursos.
+4. **Álgebra Relacional com Diferença (−)** — Aparece sistematicamente para responder a restrições de negação ("quais os X que nunca..."). Domina o padrão da subtração de conjuntos.
 
 ---
 
-> 💡 **Nota:** Este guia foi gerado a partir dos slides PPS (Aula 1–11), do documento "BD-Todas-As-Perguntas", dos helpers (normalização, T-SQL, fatura), e dos exames de **2020/2021**, **2022/2023** e **2024/2025** como referência.
+> 💡 **Nota:** Este guia foi gerado a partir dos slides PPS (Aula 1–11), do documento "BD-Todas-As-Perguntas", dos helpers (normalização, T-SQL, fatura) e consolidado com a totalidade dos exames e modelos de **2020/2021** a **2025/2026** como referência.
