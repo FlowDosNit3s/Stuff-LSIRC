@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAW Interactive Study Dashboard</title>
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Premium CSS Variables & Reset */
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: #151c2c;
+      --bg-card-hover: #1e263b;
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.15);
+      --secondary: #ec4899;
+      --secondary-glow: rgba(236, 72, 153, 0.15);
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.15);
+      --error: #ef4444;
+      --error-glow: rgba(239, 68, 68, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-main);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-card);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: rgba(21, 28, 44, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px var(--primary-glow);
+      font-size: 0.9rem;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .nav-btn:hover {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn.active {
+      color: #fff;
+      background-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* Layout Main */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    }
+
+    .card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    /* Dashboard Intro Card */
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(21, 28, 44, 0.95), rgba(99, 102, 241, 0.1));
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .hero-h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #ffffff, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    .stat-card {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-speed) ease;
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .stat-val {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Accordion Style Study Guide */
+    .accordion-item {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: all var(--transition-speed);
+    }
+
+    .accordion-header {
+      padding: 16px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.01);
+      user-select: none;
+      transition: background-color var(--transition-speed);
+    }
+
+    .accordion-header:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .accordion-header::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--primary);
+      transition: transform var(--transition-speed);
+    }
+
+    .accordion-item.open .accordion-header::after {
+      content: '−';
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+      padding: 0 24px;
+      background-color: rgba(0, 0, 0, 0.15);
+      border-top: 0 solid var(--border-color);
+    }
+
+    .accordion-item.open .accordion-content {
+      max-height: 1500px;
+      padding: 20px 24px;
+      border-top-width: 1px;
+    }
+
+    /* Table styles inside guide */
+    .study-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    .study-table th, .study-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .study-table th {
+      background-color: rgba(99, 102, 241, 0.1);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .study-table tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-success { background-color: var(--accent-glow); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-error { background-color: var(--error-glow); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-info { background-color: var(--primary-glow); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+
+    /* Interactive Quiz Styles */
+    .question-box {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all var(--transition-speed);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .question-val {
+      color: var(--secondary);
+    }
+
+    .question-prompt {
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-color);
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-item:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .option-item input[type="checkbox"], .option-item input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .option-item.checked {
+      background-color: rgba(99, 102, 241, 0.08);
+      border-color: var(--primary);
+    }
+
+    /* Grading states */
+    .option-item.correct {
+      background-color: rgba(16, 185, 129, 0.12) !important;
+      border-color: var(--accent) !important;
+      color: #34d399;
+    }
+
+    .option-item.incorrect {
+      background-color: rgba(239, 68, 68, 0.12) !important;
+      border-color: var(--error) !important;
+      color: #f87171;
+    }
+
+    .explanation-box {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: rgba(99, 102, 241, 0.05);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all var(--transition-speed) ease;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px var(--primary-glow);
+      filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      box-shadow: none;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: none;
+    }
+
+    .btn-check-exam {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+    }
+
+    /* Open Questions Toggles */
+    .open-response-area {
+      width: 100%;
+      height: 120px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      margin-bottom: 12px;
+      transition: border-color var(--transition-speed);
+    }
+
+    .open-response-area:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .reveal-box {
+      margin-top: 15px;
+      background-color: rgba(21, 28, 44, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      display: none;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Code Blocks */
+    pre {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+    }
+
+    .code-keyword { color: #f472b6; font-weight: 500; }
+    .code-string { color: #34d399; }
+    .code-comment { color: #6b7280; font-style: italic; }
+    .code-number { color: #fbbf24; }
+
+    /* Custom styles for footer */
+    footer {
+      background-color: rgba(21, 28, 44, 0.9);
+      border-top: 1px solid var(--border-color);
+      padding: 20px 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 40px;
+    }
+
+    /* Quiz Summary Modal / Header */
+    .quiz-summary-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0, 0, 0, 0.2));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <span class="logo-badge">MEAN</span>
+      <span class="logo-text">PAW Study Dashboard</span>
+    </div>
+    <nav>
+      <button class="nav-btn active" onclick="switchTab('dashboard')">Painel</button>
+      <button class="nav-btn" onclick="switchTab('guia')">Guia de Estudo</button>
+      <button class="nav-btn" onclick="switchTab('real-exam')">Exame Real Resolvido</button>
+      <button class="nav-btn" onclick="switchTab('mock-c')">Exame Modelo C</button>
+      <button class="nav-btn" onclick="switchTab('mock-d')">Exame Modelo D</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- TAB: DASHBOARD -->
+    <section id="tab-dashboard" class="tab-content active">
+      <div class="card hero-gradient">
+        <h1 class="hero-h1">Preparado para passar a PAW com 20?</h1>
+        <p style="color: var(--text-muted); max-width: 750px;">
+          Esta plataforma interativa compila o exame real digitalizado (AC 25-26), os resumos estruturados dos PDFs da disciplina e gera exames modelo interativos com correção instantânea e explicações detalhadas.
+        </p>
+        
+        <div class="stats-grid">
+          <div class="stat-card" onclick="switchTab('guia')">
+            <span class="stat-val">5 Fases</span>
+            <span class="stat-label">Guia de Estudo Estruturado</span>
+          </div>
+          <div class="stat-card" onclick="switchTab('real-exam')">
+            <span class="stat-val">AC 25-26</span>
+            <span class="stat-label">Exame Real com Resolução</span>
+          </div>
+          <div class="stat-card" onclick="switchTab('mock-c')">
+            <span class="stat-val">Modelo C</span>
+            <span class="stat-label">Foco: NPM, Express, EJS, Angular</span>
+          </div>
+          <div class="stat-card" onclick="switchTab('mock-d')">
+            <span class="stat-val">Modelo D</span>
+            <span class="stat-label">Foco: CORS, Mongoose, Intercomunicação</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">💡 Dicas Estratégicas para o Exame</h2>
+        <p style="margin-bottom: 12px;">Com base nos últimos 4 exames da disciplina, as armadilhas repetem-se sempre:</p>
+        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>HTML e CSS NÃO são linguagens de programação:</strong> Sai sempre numa pergunta de V/F ou Escolha Múltipla.</li>
+          <li><strong>Node.js é um runtime, não uma framework:</strong> E o Express é uma framework que corre no Node.js.</li>
+          <li><strong>Angular executa exclusivamente no cliente:</strong> Nunca se liga diretamente a bases de dados (como MongoDB).</li>
+          <li><strong>Parâmetros Express:</strong> Lembrar que <code>req.params</code> acede a <code>/:id</code>, <code>req.query</code> a query strings <code>?q=</code>, e <code>req.body</code> ao corpo JSON.</li>
+          <li><strong>Erros de DOM em JS:</strong> Procurar sempre a falta de declaração de variáveis, passagem de ID como variável em vez de string (<code>getElementById(id)</code> errada), e a falta de eventos no botão (<code>onclick</code> em falta).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TAB: GUIA DE ESTUDO -->
+    <section id="tab-guia" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">📚 Guia de Estudo — Resumos Rápidos</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          Resumos concisos extraídos diretamente dos PDFs e slides de aulas teóricas. Clique nas secções para expandir.
+        </p>
+
+        <!-- Phase 1 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 1: Fundamentos (HTML, CSS, HTTP & Cliente-Servidor)</div>
+          <div class="accordion-content">
+            <h3>Arquitetura Cliente-Servidor</h3>
+            <p>O <strong>Cliente</strong> (browser) inicia a comunicação enviando pedidos HTTP e renderiza HTML/CSS/JS. O <strong>Servidor</strong> (Express/Node.js) escuta os pedidos, faz lógica de negócio, acede à BD e devolve respostas. Garante a ocultação de credenciais.</p>
+            
+            <h3 style="margin-top: 15px;">Métodos HTTP vs CRUD</h3>
+            <p>Sai sempre em exames: <strong>CREATE e UPDATE não são verbos HTTP!</strong> São operações CRUD. O mapeamento correto é:</p>
+            <table class="study-table">
+              <thead>
+                <tr>
+                  <th>Operação CRUD</th>
+                  <th>Método HTTP</th>
+                  <th>Idempotente?</th>
+                  <th>Exemplo de Rota</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Create</strong></td>
+                  <td>POST</td>
+                  <td>Não (cada chamada cria um novo recurso)</td>
+                  <td><code>POST /api/products</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Read</strong></td>
+                  <td>GET</td>
+                  <td>Sim (apenas lê dados, não altera estado)</td>
+                  <td><code>GET /api/products</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Update</strong></td>
+                  <td>PUT / PATCH</td>
+                  <td>Sim (PUT substitui o recurso por completo)</td>
+                  <td><code>PUT /api/products/:id</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Delete</strong></td>
+                  <td>DELETE</td>
+                  <td>Sim (remover o mesmo ID duas vezes dá o mesmo estado final)</td>
+                  <td><code>DELETE /api/products/:id</code></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 style="margin-top: 15px;">3 Formas de incluir CSS</h3>
+            <ul>
+              <li><strong>Inline:</strong> <code>&lt;p style="color: red;"&gt;</code> (Não recomendado, mistura estrutura e apresentação).</li>
+              <li><strong>Internal:</strong> Tag <code>&lt;style&gt;</code> dentro do <code>&lt;head&gt;</code> (Aplicado apenas a uma página).</li>
+              <li><strong>External:</strong> Tag <code>&lt;link rel="stylesheet" href="..."&gt;</code> (Recomendado: cache do browser, reutilização, organização).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 2: JavaScript DOM, AJAX & Web Storage</div>
+          <div class="accordion-content">
+            <h3>Seleção de Elementos DOM</h3>
+            <ul>
+              <li><code>document.getElementById(id)</code>: Retorna o <strong>primeiro</strong> elemento com o ID indicado. IDs devem ser únicos.</li>
+              <li><code>document.getElementsByClassName(classe)</code>: Retorna uma HTMLCollection (coleção de elementos).</li>
+              <li><code>document.querySelector(seletorCSS)</code>: Retorna o primeiro elemento correspondente ao seletor CSS.</li>
+              <li><code>document.querySelectorAll(seletorCSS)</code>: Retorna uma NodeList com todos os elementos correspondentes.</li>
+            </ul>
+
+            <h3 style="margin-top: 15px;">Persistência no Browser: Local vs Session Storage</h3>
+            <ul>
+              <li><strong>localStorage:</strong> Permanente. Os dados continuam gravados mesmo depois de fechar e reabrir o browser/computador. Limite de ~5-10MB. Guarda apenas strings.</li>
+              <li><strong>sessionStorage:</strong> Temporário. Os dados são apagados assim que a aba ou sessão do browser é fechada.</li>
+            </ul>
+            <pre><code><span class="code-comment">// Guardar objeto</span>
+localStorage.setItem(<span class="code-string">"user"</span>, JSON.stringify(userObj));
+<span class="code-comment">// Ler objeto</span>
+<span class="code-keyword">const</span> user = JSON.parse(localStorage.getItem(<span class="code-string">"user"</span>)) || {};</code></pre>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 3: ExpressJS, MVC & Mongoose (Backend)</div>
+          <div class="accordion-content">
+            <h3>Express Middleware</h3>
+            <p>Funções executadas no ciclo de pedido-resposta. Devem chamar <code>next()</code> para passar o controlo para o seguinte middleware. O middleware de erros tem obrigatoriamente 4 parâmetros:</p>
+            <pre><code>app.use(<span class="code-keyword">function</span>(err, req, res, next) {
+  console.error(err.stack);
+  res.status(<span class="code-number">500</span>).send(<span class="code-string">'Ocorreu um erro no servidor!'</span>);
+});</code></pre>
+
+            <h3 style="margin-top: 15px;">Mapeamento MVC no Express</h3>
+            <ul>
+              <li><strong>Model:</strong> Schemas e modelos Mongoose (ex: <code>models/product.js</code>).</li>
+              <li><strong>View:</strong> Templates EJS com dados dinâmicos compilados no servidor (Server-Side Rendering) (ex: <code>views/index.ejs</code>).</li>
+              <li><strong>Controller:</strong> Funções que recebem o pedido HTTP, chamam o Mongoose e renderizam o template (ex: <code>controllers/productController.js</code>).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 4: Angular, Componentes, Serviços & Comunicação</div>
+          <div class="accordion-content">
+            <h3>4 Tipos de Data Binding</h3>
+            <ul>
+              <li><strong>Interpolação:</strong> <code>{{ propriedade }}</code> (Direção: Componente para HTML / String).</li>
+              <li><strong>Property Binding:</strong> <code>[propriedade]="expressao"</code> (Direção: Componente para HTML / Atributo).</li>
+              <li><strong>Event Binding:</strong> <code>(evento)="metodo()"</code> (Direção: HTML para Componente).</li>
+              <li><strong>Two-Way Data Binding:</strong> <code>[(ngModel)]="propriedade"</code> (Direção: Bidirecional. Requer import do <code>FormsModule</code>).</li>
+            </ul>
+
+            <h3 style="margin-top: 15px;">Serviços Angular</h3>
+            <p>Classes decoradas com <code>@Injectable({ providedIn: 'root' })</code>. São singletons, <strong>não têm qualquer template HTML associado</strong> e servem para encapsular lógica e chamadas à API REST.</p>
+
+            <h3 style="margin-top: 15px;">Guards vs Interceptors</h3>
+            <table class="study-table">
+              <thead>
+                <tr>
+                  <th>Propriedade</th>
+                  <th>Guard (Guarda de Rota)</th>
+                  <th>Interceptor (Interceptador HTTP)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Interface</strong></td>
+                  <td><code>CanActivate</code> / <code>CanActivateChild</code></td>
+                  <td><code>HttpInterceptor</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Onde atua</strong></td>
+                  <td>Antes de carregar uma página (routing)</td>
+                  <td>Antes de enviar um pedido HTTP ao servidor</td>
+                </tr>
+                <tr>
+                  <td><strong>Objetivo Principal</strong></td>
+                  <td>Bloquear acesso de utilizadores sem sessão</td>
+                  <td>Anexar o token JWT ao header de cada pedido</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: REAL EXAM AC 25-26 -->
+    <section id="tab-real-exam" class="tab-content">
+      <div class="quiz-summary-card" id="summary-mock-real" style="display: none;">
+        <div>
+          <h3 style="color: var(--accent);">Resultados do Exame Real</h3>
+          <p id="grade-text-real">Obteve 0 de 8.0 valores na Parte Múltipla.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="resetQuiz('mock-real')">Reiniciar Teste</button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">🏛️ Exame Real Época Normal — PAW 2025/2026</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          Esta secção contém o exame real completo. A Parte 1 (Escolha Múltipla) é totalmente interativa e as partes de Verdadeiro/Falso e Resposta Aberta permitem treinar e revelar as soluções ideais.
+        </p>
+
+        <form id="quiz-form-real" onsubmit="gradeQuiz(event, 'real')">
+          <!-- Q1 -->
+          <div class="question-box" data-q="r1" data-correct="A,C">
+            <div class="question-header">
+              <span>Pergunta 1 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o script de JavaScript na figura 1. Selecione todas as opções verdadeiras para o resultado da invocação da função com os diferentes argumentos de input:
+              <pre><code>function simpleTestFuncion(word1){
+    let result = word1.length
+    console.log(`the word has ${result} characters`)
+}</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. <code>simpleTestFuncion("", true)</code> corre sem erros;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. <code>simpleTestFuncion()</code> corre sem erros;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. <code>simpleTestFuncion(9)</code> corre sem erros;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. <code>simpleTestFunction("teste")</code> escreve no terminal "the word has 6 characaters".</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> Argumentos adicionais (como <code>true</code>) são ignorados. O comprimento de <code>""</code> é 0, logo não há erro.<br>
+              - <strong>B é incorreta:</strong> Sem argumentos, <code>word1</code> é <code>undefined</code>. Aceder a <code>undefined.length</code> lança um TypeError.<br>
+              - <strong>C é correta:</strong> O número <code>9</code> é primitivo. Em JS, aceder a propriedades inexistentes em primitivos numéricos apenas retorna <code>undefined</code> sem lançar erro.<br>
+              - <strong>D é incorreta:</strong> O nome da função chamada tem uma gralha (<code>simpleTestFunction</code> com t extra), o que dá um ReferenceError, além do comprimento ser 5 e não 6.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="question-box" data-q="r2" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 2 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe o excerto de código abaixo e selecione todas as afirmações verdadeiras:
+              <pre><code>&lt;div class="cartao-perfil"&gt;
+  &lt;img src="&lt;%= utilizador.foto %&gt;" alt="Foto de &lt;%= utilizador.nome %&gt;"&gt;
+  &lt;h1&gt;&lt;%= utilizador.nome %&gt;&lt;/h1&gt;
+  &lt;p class="email"&gt;&lt;%= utilizador.email %&gt;&lt;/p&gt;
+  &lt;div class="bio"&gt;
+    &lt;h3&gt;Sobre mim&lt;/h3&gt;
+    &lt;p&gt;&lt;%= utilizador.biografia %&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Está exemplificado o uso de componente Angular;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Está exemplificado o uso do template engine EJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A página é construída no servidor antes de ser enviada para o cliente;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A página é carregada no cliente e completada com informação pedida ao servidor a partir de REST.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong> As tags <code>&lt;%= ... %&gt;</code> pertencem ao EJS (Embedded JavaScript), um template engine que processa as páginas no servidor (Server-Side Rendering) e devolve HTML estático compilado ao browser.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="question-box" data-q="r3" data-correct="C,D">
+            <div class="question-header">
+              <span>Pergunta 3 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Selecione todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Os tokens JWT podem ser validados no frontend de uma aplicação web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Devemos utilizar uma conexão à base de dados MongoDB diretamente no frontend de uma aplicação web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Podemos construir uma aplicação de backoffice utilizando a MEAN stack;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Podemos construir uma aplicação de frontoffice utilizando a MEAN stack.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é incorreta/não recomendada:</strong> Embora o frontend possa descodificar o payload do JWT para obter informações do utilizador e verificar a data de expiração, a validação de assinatura segura só deve ser realizada no backend para evitar a exposição de segredos.<br>
+              - <strong>B é incorreta:</strong> A base de dados não deve ser acedida diretamente pelo frontend por razões de segurança e arquitetura. O acesso deve ser intermediado pela API backend.<br>
+              - <strong>C e D são corretas:</strong> A stack MEAN (MongoDB, Express, Angular, Node.js) é adequada tanto para aplicações públicas/cliente (frontoffice) como painéis administrativos (backoffice).
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="question-box" data-q="r4" data-correct="A,B">
+            <div class="question-header">
+              <span>Pergunta 4 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe a figura 3 e selecione todas as regras de CSS que tornam o texto dentro do elemento h1 de cor azul:
+              <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;body&gt;
+    &lt;h1 id="lista1" class="lista"&gt;lista&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. <code>body { color: blue; }</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. <code>.lista { color: blue; }</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. <code>$lista { color: blue; }</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. <code>#lista { color: blue; }</code></span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> Como a propriedade <code>color</code> é herdada em CSS, defini-la no <code>body</code> faz com que o <code>h1</code> herde a cor azul (já que não há outra regra a sobrepô-la).<br>
+              - <strong>B é correta:</strong> O seletor <code>.lista</code> aplica-se a elementos com a classe <code>lista</code>, selecionando o <code>h1</code>.<br>
+              - <strong>C é incorreta:</strong> O caráter <code>$</code> não é um seletor CSS válido.<br>
+              - <strong>D é incorreta:</strong> O seletor <code>#lista</code> procura um elemento com ID <code>lista</code>, mas o ID do <code>h1</code> é <code>lista1</code>, logo não corresponde.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="question-box" data-q="r5" data-correct="A,D">
+            <div class="question-header">
+              <span>Pergunta 5 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique quais os comandos podem ser utilizados no desenvolvimento de aplicações com a framework ExpressJS:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. <code>npm install</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. <code>ng start</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. <code>ng generate component index</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. <code>express -v ejs project1</code></span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> O comando <code>npm install</code> instala dependências no Node.js/Express.<br>
+              - <strong>B e C são incorretas:</strong> O CLI <code>ng</code> é exclusivo da framework Angular (frontend).<br>
+              - <strong>D é correta:</strong> O utilitário <code>express-generator</code> permite gerar o esqueleto de uma aplicação Express, e a opção <code>-v ejs</code> (ou <code>--view=ejs</code>) define o motor de templates a utilizar.
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="question-box" data-q="r6" data-correct="D">
+            <div class="question-header">
+              <span>Pergunta 6 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Só é possível guardar dados no browser de cliente web utilizando a api do local storage;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Todos os dados guardados no local storage são públicos a todos os utilizadores da aplicação web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Só é permitido guardar dados no formato JSON no local storage;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A opção A, B e C estão erradas.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é incorreta:</strong> Podemos guardar dados em cookies, sessionStorage, IndexedDB, etc.<br>
+              - <strong>B é incorreta:</strong> Os dados do localStorage são privados à origem e ao dispositivo/browser do utilizador.<br>
+              - <strong>C é incorreta:</strong> O localStorage armazena qualquer tipo de string de texto plano, não necessariamente JSON.<br>
+              - <strong>D é correta:</strong> Como as opções A, B e C são falsas, a opção D é a verdadeira.
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="question-box" data-q="r7" data-correct="C,D">
+            <div class="question-header">
+              <span>Pergunta 7 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Tendo em consideração o uso da framework ExpressJS, indique todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. É obrigatório o uso de um template engine com a framework ExpressJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Para garantir a validação dos dados a validação deve ser feita no html e javascript do frontend;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. As aplicações podem correr no runtime NodeJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A framework ExpressJS pode implementar o padrão MVC nas suas aplicações web.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é incorreta:</strong> Express pode servir apenas APIs JSON (sem template engine) ou ficheiros estáticos.<br>
+              - <strong>B é incorreta:</strong> A validação no backend é estritamente necessária para garantir segurança, uma vez que a validação no frontend pode ser contornada facilmente.<br>
+              - <strong>C é correta:</strong> O ExpressJS corre sobre o runtime Node.js.<br>
+              - <strong>D é correta:</strong> O ExpressJS suporta perfeitamente a estruturação do padrão MVC (Mongoose Models, EJS/Angular Views, Express route controllers).
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="question-box" data-q="r8" data-correct="B">
+            <div class="question-header">
+              <span>Pergunta 8 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe a figura 4 e indique todas as afirmações verdadeiras:
+              <pre><code>const express = require('express');
+const app = express();
+
+app.get('/store/:id', (req, res) => { /* ... */ });
+app.get('/store/productName', (req, res) => { /* ... */ });
+app.get('/store', (req, res) => { /* ... */ });
+app.get('/*', (req, res) => { /* ... */ });
+
+app.use((req, res) => {
+    res.status(404).send('Erro 404: Página não encontrada.');
+});</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. A rota `/store` nunca será ativada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. A rota `/store/productName` nunca será ativada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A rota com o erro 404 nunca será ativada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O servidor não corre porque está mal programado.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong> Rotas no Express são processadas por ordem. O pedido GET para <code>/store/productName</code> faz correspondência com o padrão paramétrico <code>/store/:id</code> declarado antes. Por isso, a rota específica do <code>productName</code> nunca será chamada.
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-bottom: 30px;">
+            <button type="submit" class="btn btn-check-exam">Validar Respostas da Parte 1</button>
+          </div>
+        </form>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 2 — Verdadeiro ou Falso (2 valores)</h3>
+        
+        <!-- VF 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.1</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Server-Side Rendering (SSR) é o nome da técnica utilizada durante o semestre para desenvolvimento de componentes em angular.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf1')">Revelar Resolução</button>
+          <div id="reveal-real-vf1" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> O Angular é tipicamente utilizado para **Client-Side Rendering (CSR)** no modelo de **Single Page Application (SPA)**, onde os componentes são construídos e renderizados dinamicamente pelo browser (cliente). O SSR é usado por exemplo no backend com Express e EJS.
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.2</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Uma aplicação desenvolvida exclusivamente em Angular é uma aplicação fullstack.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf2')">Revelar Resolução</button>
+          <div id="reveal-real-vf2" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> O Angular é uma framework exclusivamente frontend (corre no browser). Para ser uma aplicação fullstack precisa da camada de backend (ex: Express/Node.js) e de base de dados (ex: MongoDB).
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.3</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Numa aplicação web é possível fazer o deploy do frontend e backend em servidores separados.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf3')">Revelar Resolução</button>
+          <div id="reveal-real-vf3" class="reveal-box">
+            <span class="badge badge-success">VERDADEIRO</span>
+            <p style="margin-top: 10px;">
+              <strong>Justificação:</strong> É uma prática comum. O frontend (ficheiros estáticos gerados na build do Angular) é hospedado em serviços de conteúdo estático (como CDN, Netlify ou Vercel), e o backend (a API REST em Express) é executado num servidor aplicacional (como VPS ou Render). Comunicam via pedidos HTTP/HTTPS assíncronos (requer configuração de CORS).
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.4</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “O CSS é uma linguagem de programação utilizada para formatar páginas html.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf4')">Revelar Resolução</button>
+          <div id="reveal-real-vf4" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> O CSS é uma **linguagem de estilos** (declarativa), e não uma linguagem de programação. Não possui controlo de fluxo algorítmico, lógica complexa ou manipulação direta de estruturas de dados.
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 3 — Resposta Aberta (10 valores)</h3>
+
+        <!-- P3.1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.1</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Explique o conceito de cliente-servidor aplicado a aplicações web.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu texto explicativo..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o1')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o1" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>O modelo cliente-servidor é uma arquitetura de computação distribuída em que o processamento é dividido entre:</p>
+            <ul style="padding-left: 20px; margin-top: 5px;">
+              <li><strong>Cliente (Frontend):</strong> O browser do utilizador que executa HTML/CSS/JS e a aplicação Angular. Inicia o contacto fazendo pedidos HTTP e trata da interação visual.</li>
+              <li><strong>Servidor (Backend):</strong> A máquina remota que executa o Express/Node.js. Recebe pedidos, processa a lógica de negócio, interage com a base de dados (MongoDB) e devolve respostas.</li>
+            </ul>
+            <p style="margin-top:5px;">A comunicação é feita via HTTP/HTTPS (Pedido-Resposta), mantendo dados e credenciais protegidos de forma segura no servidor.</p>
+          </div>
+        </div>
+
+        <!-- P3.2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.2</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Desenhe uma página HTML capaz de realizar login para o utilizador <code>aluno81818@estg.ipp.pt</code> para a rota <code>/api/v1/user/login</code> usando apenas HTML, impedindo envios se a password tiver menos de 8 caracteres e o email for inválido.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código HTML..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o2')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o2" class="reveal-box">
+            <p><strong>Código HTML ideal:</strong></p>
+            <pre><code>&lt;form action="/api/v1/user/login" method="POST"&gt;
+  &lt;div&gt;
+    &lt;label&gt;E-mail:&lt;/label&gt;
+    &lt;input type="email" name="email" required&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;Palavra-passe:&lt;/label&gt;
+    &lt;input type="password" name="password" minlength="8" required&gt;
+  &lt;/div&gt;
+  &lt;button type="submit"&gt;Entrar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            <p style="margin-top:10px;">
+              <strong>Explicação:</strong> Atributos do HTML5 (<code>type="email"</code>, <code>minlength="8"</code> e <code>required</code>) acionam a validação nativa do browser no momento da submissão do formulário, impedindo o envio do pedido POST para a rota do servidor caso as condições não sejam cumpridas.
+            </p>
+          </div>
+        </div>
+
+        <!-- P3.3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.3</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Explique o conceito de funções de middleware em ExpressJS.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua resposta..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o3')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o3" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>No ExpressJS, <strong>middlewares</strong> são funções que se situam no meio do ciclo de pedido-resposta (Request-Response cycle) do servidor. Têm acesso ao objeto do pedido (<code>req</code>), da resposta (<code>res</code>) e à próxima função da pilha (<code>next</code>).</p>
+            <p style="margin-top: 5px;">Os middlewares servem para executar código de auditoria (logs), modificar o request (ex: decifrar o utilizador a partir de um JWT), bloquear pedidos não autorizados ou passar o fluxo com <code>next()</code> para a rota seguinte.</p>
+          </div>
+        </div>
+
+        <!-- P3.4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.4</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Corrija a função <code>verificarToken</code> para que funcione corretamente como função de middleware.
+            <pre><code>function verificarToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ mensagem: 'Acesso negado. Token não fornecido.' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, utilizador_descodificado) => {
+        if (err) {
+            return res.status(403).json({ mensagem: 'Token inválido ou expirado.' });
+        }
+        req.utilizador = utilizador_descodificado;
+        res.status(200);
+    });
+}</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua correção do middleware..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o4')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o4" class="reveal-box">
+            <p><strong>Código Corrigido:</strong></p>
+            <pre><code>function verificarToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ mensagem: 'Acesso negado. Token não fornecido.' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, utilizador_descodificado) => {
+        if (err) {
+            return res.status(403).json({ mensagem: 'Token inválido ou expirado.' });
+        }
+        req.utilizador = utilizador_descodificado;
+        <span class="code-keyword">next();</span> // CORREÇÃO: Chamar next() em vez de definir status(200) e travar
+    });
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.5 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.5</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Partindo do controlador de um componente em Angular, implemente a lógica e template HTML para recolher 2 inputs numéricos e mostrar o resultado da sua divisão (com prevenção de divisão por zero).
+            <pre><code>@Component({
+  selector: 'app-meu-componente',
+  templateUrl: './meu-componente.component.html',
+  styleUrls: ['./meu-componente.component.css']
+})
+export class MeuComponente implements OnInit {
+  // ToDo
+}</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código TypeScript e HTML..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o5')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o5" class="reveal-box">
+            <p><strong>TypeScript (meu-componente.component.ts):</strong></p>
+            <pre><code>num1: number | null = null;
+num2: number | null = null;
+resultado: string | number = '';
+
+dividir(): void {
+  if (this.num1 === null || this.num2 === null) {
+    this.resultado = 'Por favor, introduza ambos os números.';
+    return;
+  }
+  if (this.num2 === 0) {
+    this.resultado = 'Erro: Divisão por zero impossível.';
+    return;
+  }
+  this.resultado = this.num1 / this.num2;
+}</code></pre>
+            <p style="margin-top:10px;"><strong>Template HTML (meu-componente.component.html):</strong></p>
+            <pre><code>&lt;input type="number" [(ngModel)]="num1" placeholder="Numerador"&gt;
+&lt;input type="number" [(ngModel)]="num2" placeholder="Denominador"&gt;
+&lt;button (click)="dividir()"&gt;Calcular Divisão&lt;/button&gt;
+&lt;p *ngIf="resultado !== ''"&gt;{{ resultado }}&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.6 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.6</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Qual a vantagem para o uso de componentes do tipo serviço em Angular?
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui as vantagens dos serviços..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o6')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o6" class="reveal-box">
+            <p><strong>Vantagens Principais:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>Reutilização de código:</strong> Evita reescrever as mesmas lógicas de chamadas HTTP ou processamentos em múltiplos componentes.</li>
+              <li><strong>Separação de responsabilidades:</strong> Mantém os componentes limpos, focados apenas em gerir a interface visual (View), deixando a lógica de dados para os serviços.</li>
+              <li><strong>Singleton / Partilha de Estado:</strong> Permite manter variáveis de estado partilhadas globais entre componentes que não pertencem à mesma hierarquia.</li>
+              <li><strong>Injeção de Dependências:</strong> Reduz o acoplamento do código ao gerir as instâncias dos serviços automaticamente.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- P3.7 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.7</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Recorde os conceitos Single Page Application (SPA) e Multiple Page Application (MPA). Defina e explique o que representam.
+          </div>
+          <textarea class="open-response-area" placeholder="Compara SPA vs MPA..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o7')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o7" class="reveal-box">
+            <p><strong>Diferenças SPA vs MPA:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>SPA (Single Page Application):</strong> A aplicação carrega um único ficheiro index.html. O roteamento e troca de ecrãs são efetuados no client-side com JavaScript. Dados extra são pedidos em JSON à API. Não existem recarregamentos de página (reloads), tornando a experiência de utilização muito rápida e fluida. Ex: Angular.</li>
+              <li><strong>MPA (Multiple Page Application):</strong> O modelo web tradicional. Qualquer navegação ou clique faz com que o browser envie um pedido HTTP e o servidor envie uma página HTML totalmente nova, forçando o recarregamento total. O processamento é no servidor (SSR). Ex: Express com EJS.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- P3.8 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.8</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Indique como gerir a autenticação e autorização de páginas em Angular. Teça considerações sobre a segurança da abordagem.
+          </div>
+          <textarea class="open-response-area" placeholder="Explique os Guards, Interceptors e a segurança no Angular..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o8')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o8" class="reveal-box">
+            <p><strong>Abordagem de Autenticação/Autorização no Angular:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li>Guardar o token JWT no <code>localStorage</code> após o login.</li>
+              <li>Usar um <strong>HttpInterceptor</strong> para anexar automaticamente o token no header <code>Authorization: Bearer &lt;token&gt;</code> de todos os pedidos HTTP.</li>
+              <li>Usar <strong>Guards</strong> com <code>CanActivate</code> para verificar se o token existe antes de permitir o carregamento das páginas protegidas.</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Consideração Crítica de Segurança:</strong><br>
+            A segurança no frontend Angular é meramente visual. O código corre todo no browser e pode ser facilmente contornado ou alterado por um utilizador. Toda a autenticação e autorização <strong>deve ser obrigatoriamente enforcada e verificada pelo servidor no backend (Express)</strong>, validando a assinatura do token em cada pedido API.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: MOCK EXAM C -->
+    <section id="tab-mock-c" class="tab-content">
+      <div class="quiz-summary-card" id="summary-mock-c" style="display: none;">
+        <div>
+          <h3 style="color: var(--accent);">Resultados do Exame C</h3>
+          <p id="grade-text-c">Obteve 0 de 8.0 valores na Parte Múltipla.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="resetQuiz('mock-c')">Reiniciar Teste</button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">📝 Exame Modelo C (Interativo)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">
+          Responda às questões da Parte 1 e clique em "Validar Respostas" no fim para obter a nota imediata.
+        </p>
+
+        <form id="quiz-form-c" onsubmit="gradeQuiz(event, 'c')">
+          <!-- Q1 -->
+          <div class="question-box" data-q="c1" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 1</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Sobre o gestor de pacotes NPM, selecione as opções verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Permite compilar ficheiros TypeScript para JavaScript através do comando <code>npm build</code>.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Cria automaticamente uma pasta chamada <code>node_modules</code> onde guarda as dependências instaladas.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Permite instalar a framework Express utilizando o comando <code>npm install express --save</code>.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. É utilizado para criar novos projetos Angular através do comando <code>npm new my-angular-app</code>.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              O NPM não compila TS (isso é feito pelo compilador <code>tsc</code>). O comando para criar um projeto Angular é <code>ng new</code>, pertencente ao Angular CLI, e não do npm.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="question-box" data-q="c2" data-correct="B,D">
+            <div class="question-header">
+              <span>Pergunta 2</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere uma aplicação MEAN Stack. Selecione todas as afirmações corretas sobre o ciclo de vida e tráfego de dados:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. O MongoDB corre diretamente no browser do utilizador para otimizar a velocidade de carregamento.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Toda a comunicação entre o Angular (frontend) e o Express (backend) deve ser feita preferencialmente através de HTTP/HTTPS.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A base de dados MongoDB e a framework Angular comunicam diretamente através de pacotes de dados binários TCP.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. As credenciais de acesso ao MongoDB devem ser armazenadas no backend (Express) e nunca expostas no Angular.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              O MongoDB é uma base de dados que corre no servidor. Ligar o frontend Angular diretamente à base de dados é um risco de segurança crítico, pois as credenciais ficariam totalmente expostas no browser do cliente.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="question-box" data-q="c3" data-correct="B,D">
+            <div class="question-header">
+              <span>Pergunta 3</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              No ExpressJS, considere as rotas de <code>/admin</code>. Quais as opções verdadeiras?
+            </div>
+            <pre><code>app.use('/admin', (req, res, next) => {
+    console.log('Acesso restrito');
+    next();
+});
+app.get('/admin/dashboard', (req, res) => {
+    res.send('Dashboard do Administrador');
+});</code></pre>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. A primeira função é um middleware de erros porque não envia dados ao browser.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O middleware de logs será executado sempre que for feito um pedido para <code>/admin/dashboard</code>.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Se retirarmos a chamada a <code>next()</code>, o utilizador que tentar aceder a <code>/admin/dashboard</code> receberá imediatamente um erro 500.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O middleware de logs será executado para qualquer pedido que comece pelo prefixo <code>/admin</code> (como <code>/admin/users</code>).</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              A primeira função é um middleware de aplicação comum (não de erros, que precisa de 4 argumentos). Sem <code>next()</code>, a rota dashboard ficaria infinitamente pendente (a carregar) e o browser acabaria por dar timeout, e não erro 500 imediato.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="question-box" data-q="c4" data-correct="A,C,D">
+            <div class="question-header">
+              <span>Pergunta 4</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Sobre o template engine EJS (Embedded JavaScript), indique as opções verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Permite injetar variáveis JavaScript diretamente no HTML usando a sintaxe <code>&lt;%= variavel %&gt;</code>.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. É processado no browser do cliente após este receber o ficheiro HTML do servidor.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. É um mecanismo de Server-Side Rendering (SSR).</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Permite executar ciclos <code>forEach</code> no servidor Express para gerar listas de elementos HTML dinamicamente.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              EJS é processado na totalidade no servidor (SSR). O browser do cliente recebe apenas o HTML estático final compilado pelo servidor, nunca processa as tags <code>&lt;% %&gt;</code>.
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-bottom: 30px;">
+            <button type="submit" class="btn btn-check-exam">Validar Respostas da Parte 1</button>
+          </div>
+        </form>
+
+        <!-- Parte 3 Open Questions -->
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 3 — Questões Teóricas & Práticas</h3>
+
+        <!-- C - Open 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.1</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Identifique e corrija os erros presentes no seguinte ficheiro HTML/JS para que o contador de cliques funcione.
+          </div>
+          <pre><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;Contador&lt;/h1&gt;
+  &lt;button id="addBtn"&gt;Incrementar&lt;/button&gt;
+  &lt;p&gt;Cliques: &lt;span id="num"&gt;0&lt;/span&gt;&lt;/p&gt;
+  &lt;script&gt;
+    function clicar() {
+      clicks++;
+      document.getElementById(num).textContent = clicks;
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código corrigido..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-c-o1')">Ver Resposta Correta</button>
+          <div id="reveal-c-o1" class="reveal-box">
+            <span class="badge badge-success">Solução Corrigida</span>
+            <pre><code>&lt;button id="addBtn" <span class="code-keyword">onclick="clicar()"</span>&gt;Incrementar&lt;/button&gt;
+&lt;script&gt;
+  <span class="code-keyword">var clicks = 0;</span> // Declarar a variável
+  function clicar() {
+    clicks++;
+    document.getElementById(<span class="code-string">"num"</span>).textContent = clicks; // Usar string no ID
+  }
+&lt;/script&gt;</code></pre>
+            <p style="margin-top:10px;">
+              <strong>Erros corrigidos:</strong><br>
+              1. A variável <code>clicks</code> não estava declarada (erro de execução ao incrementar).<br>
+              2. O botão não continha o evento de escuta (<code>onclick="clicar()"</code>).<br>
+              3. O <code>getElementById(num)</code> passava o ID como uma variável inexistente (deve ser a string <code>"num"</code>).
+            </p>
+          </div>
+        </div>
+
+        <!-- C - Open 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.2</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Analise a função de atualização de perfil abaixo. Identifique erros e proponha uma versão corrigida.
+          </div>
+          <pre><code>router.put('/profile/:id', function(req, res) {
+    const id = req.query.id;
+    User.findById(id, function(err, user) {
+        if (err) return res.send(err);
+        user.name = req.body.name;
+        user.save();
+        res.status(200);
+    });
+});</code></pre>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código Express corrigido..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-c-o2')">Ver Resposta Correta</button>
+          <div id="reveal-c-o2" class="reveal-box">
+            <span class="badge badge-success">Solução Corrigida (Async/Await & req.params)</span>
+            <pre><code>router.put('/profile/:id', <span class="code-keyword">async</span> function(req, res) {
+    <span class="code-keyword">try</span> {
+        <span class="code-keyword">const</span> id = <span class="code-keyword">req.params.id</span>; // Correção: req.params e não req.query
+        <span class="code-keyword">const</span> user = <span class="code-keyword">await</span> User.findById(id); // Uso de async/await
+        if (!user) {
+            return res.status(404).json({ message: 'Utilizador não encontrado' });
+        }
+        user.name = req.body.name;
+        <span class="code-keyword">await</span> user.save(); // Await no save assíncrono
+        res.status(200)<span class="code-keyword">.json(user)</span>; // Terminar a resposta com .json() ou .send()
+    } <span class="code-keyword">catch</span> (err) {
+        res.status(500).json({ error: err.message });
+    }
+});</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: MOCK EXAM D -->
+    <section id="tab-mock-d" class="tab-content">
+      <div class="quiz-summary-card" id="summary-mock-d" style="display: none;">
+        <div>
+          <h3 style="color: var(--accent);">Resultados do Exame D</h3>
+          <p id="grade-text-d">Obteve 0 de 8.0 valores na Parte Múltipla.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="resetQuiz('mock-d')">Reiniciar Teste</button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">📝 Exame Modelo D (Interativo)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">
+          Foco em CORS, Mongoose schemas, comunicação Angular e ciclo de vida.
+        </p>
+
+        <form id="quiz-form-d" onsubmit="gradeQuiz(event, 'd')">
+          <!-- Q1 -->
+          <div class="question-box" data-q="d1" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 1</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Sobre o mecanismo de CORS (Cross-Origin Resource Sharing), indique as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. É um protocolo de segurança encriptado que substitui o HTTPS em servidores locais.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. É implementado pelo browser para impedir que scripts de uma origem leiam dados de outra sem autorização.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Pode ser resolvido no backend Express instalando e registando o middleware <code>cors</code> (<code>app.use(cors())</code>).</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Garante que a base de dados MongoDB rejeita ligações de endereços IP desconhecidos.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              CORS é uma regra de segurança imposta pelo browser do cliente (e não pelo MongoDB ou base de dados). O middleware <code>cors</code> anexa headers HTTP que indicam ao browser que o acesso daquela origem é legítimo.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="question-box" data-q="d2" data-correct="A,C">
+            <div class="question-header">
+              <span>Pergunta 2</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere a definição de um esquema Mongoose no Express:
+              <pre><code>const productSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    price: { type: Number, min: 0 }
+});</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Se tentarmos criar um produto sem o campo <code>name</code>, o Mongoose lançará um erro de validação.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O campo <code>price</code> aceitará valores negativos, pois <code>min: 0</code> serve apenas para documentação.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O esquema define a estrutura lógica que os documentos terão na base de dados MongoDB.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O Mongoose compilará este esquema diretamente numa página visual em HTML (View).</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              O Mongoose valida no backend de facto: <code>min: 0</code> lança um erro se tentarmos guardar valores negativos na base de dados. O Mongoose gere puramente dados, sem qualquer relação com a visualização HTML.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="question-box" data-q="d3" data-correct="B,D">
+            <div class="question-header">
+              <span>Pergunta 3</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              No Angular, para passar dados de um componente Pai para um componente Filho, utilizamos:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. O decorador <code>@Output()</code> juntamente com um <code>EventEmitter</code>.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O decorador <code>@Input()</code>.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A diretiva <code>[(ngModel)]</code> declarada no componente Pai.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Property binding no template HTML do componente Pai (ex: <code>&lt;app-filho [dado]="valor"&gt;&lt;/app-filho&gt;</code>).</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              Dados descem na hierarquia de componentes via <code>@Input()</code> com property binding (<code>[dado]</code>). Dados sobem do filho para o pai usando <code>@Output()</code> e <code>EventEmitter</code>.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="question-box" data-q="d4" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 4</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Sobre o tratamento de erros no ExpressJS, selecione as opções verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. O middleware de tratamento de erros deve ser obrigatoriamente declarado antes de qualquer outra rota.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O middleware de erros distingue-se por receber exatamente quatro parâmetros: <code>err, req, res, next</code>.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A função <code>next(err)</code> é usada nas rotas para passar o controlo e encaminhar o erro para o middleware de tratamento.</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O ExpressJS não possui qualquer mecanismo interno de tratamento de erros por defeito.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              O middleware de erros deve ser o <strong>último</strong> a ser registado no Express (ao fundo de tudo). O Express possui um gestor de erros genérico que atua por padrão se não criarmos o nosso próprio middleware de erros.
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-bottom: 30px;">
+            <button type="submit" class="btn btn-check-exam">Validar Respostas da Parte 1</button>
+          </div>
+        </form>
+
+        <!-- Parte 3 Open Questions -->
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 3 — Questões Teóricas & Práticas</h3>
+
+        <!-- D - Open 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.1</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Explique o ciclo de vida de um componente Angular, focando nas funções e usos práticos de: <code>ngOnInit</code>, <code>ngOnChanges</code> e <code>ngOnDestroy</code>.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve a tua resposta..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-d-o1')">Ver Resposta Correta</button>
+          <div id="reveal-d-o1" class="reveal-box">
+            <span class="badge badge-success">Solução Teórica Recomendada</span>
+            <p style="margin-top: 10px;">
+              <strong>1. `ngOnChanges()`:</strong> É o primeiro hook a ser executado. Corre sempre que propriedades de entrada vinculadas com <code>@Input()</code> mudam. Serve para atualizar dados dependentes no componente filho.<br><br>
+              <strong>2. `ngOnInit()`:</strong> Executado uma única vez a seguir à inicialização das propriedades do componente. Usado de forma padrão para carregar dados de APIs/serviços e realizar lógicas de arranque.<br><br>
+              <strong>3. `ngOnDestroy()`:</strong> Executado mesmo antes do Angular destruir o componente. Usado para efetuar operações de limpeza (cleanup) como fazer unsubscribe de Observables, parar timers ou libertar listeners de eventos para prevenir fugas de memória.
+            </p>
+          </div>
+        </div>
+
+        <!-- D - Open 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.2</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Crie um Schema Mongoose para um modelo <code>Product</code> contendo: Nome do produto (obrigatório, min 3 chars), Preço (obrigatório, min 0) e Categoria (limitada a "Eletrónica", "Moda" ou "Alimentação").
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código Mongoose..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-d-o2')">Ver Resposta Correta</button>
+          <div id="reveal-d-o2" class="reveal-box">
+            <span class="badge badge-success">Código Schema Mongoose</span>
+            <pre><code>const productSchema = new mongoose.Schema({
+    name: { 
+        type: String, 
+        required: [true, 'O nome é obrigatório.'], 
+        minlength: [3, 'Mínimo de 3 caracteres.'] 
+    },
+    price: { 
+        type: Number, 
+        required: true, 
+        min: [0, 'O preço deve ser superior ou igual a 0.'] 
+    },
+    category: { 
+        type: String, 
+        required: true,
+        enum: ['Eletrónica', 'Moda', 'Alimentação']
+    }
+});</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 ESTG — PAW Study Tool. Desenvolvido para preparação exaustiva de exames.</p>
+  </footer>
+
+  <script>
+    // Tab switching logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const targetTab = document.getElementById('tab-' + tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+      
+      // Active navigation button highlighting
+      const navButtons = document.querySelectorAll('.nav-btn');
+      navButtons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(tabId)) {
+          btn.classList.add('active');
+        }
+      });
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    // Accordion toggle logic
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      const isOpen = item.classList.contains('open');
+      
+      // Close all other items
+      document.querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('open');
+        const content = i.querySelector('.accordion-content');
+        if (content) content.style.maxHeight = null;
+      });
+      
+      if (!isOpen) {
+        item.classList.add('open');
+        const content = item.querySelector('.accordion-content');
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    }
+
+    // Toggle reveal logic for open questions
+    function toggleReveal(id) {
+      const box = document.getElementById(id);
+      if (box) {
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+        }
+      }
+    }
+
+    // Checkbox toggling helper
+    function toggleCheckbox(label) {
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      if (checkbox) {
+        // Toggle background class after browser processes check event
+        setTimeout(() => {
+          if (checkbox.checked) {
+            label.classList.add('checked');
+          } else {
+            label.classList.remove('checked');
+          }
+        }, 10);
+      }
+    }
+
+    // Quiz Grading Logic
+    function gradeQuiz(event, examId) {
+      event.preventDefault();
+      
+      const form = document.getElementById('quiz-form-' + examId);
+      const questionBoxes = form.querySelectorAll('.question-box');
+      let score = 0;
+      let totalQuestions = questionBoxes.length;
+      
+      questionBoxes.forEach(box => {
+        const correctAnswers = box.getAttribute('data-correct').split(',');
+        const options = box.querySelectorAll('.option-item');
+        let questionCorrect = true;
+        let selectedAny = false;
+        
+        options.forEach(opt => {
+          const input = opt.querySelector('input[type="checkbox"]');
+          const val = input.value;
+          const isCorrectOption = correctAnswers.includes(val);
+          
+          if (input.checked) {
+            selectedAny = true;
+            if (isCorrectOption) {
+              opt.classList.add('correct');
+            } else {
+              opt.classList.add('incorrect');
+              questionCorrect = false;
+            }
+          } else {
+            if (isCorrectOption) {
+              opt.classList.add('correct');
+              questionCorrect = false; // missed a correct option
+            }
+          }
+        });
+        
+        // Penalization rules (-0.5 points per wrong answer, minimum score per question = 0)
+        // If all matching inputs are correct and no incorrect are checked:
+        if (questionCorrect && selectedAny) {
+          score += 1.0;
+        } else {
+          // Penalize -0.5 for incorrect choices if any checked
+          let correctSelected = 0;
+          let incorrectSelected = 0;
+          options.forEach(opt => {
+            const input = opt.querySelector('input[type="checkbox"]');
+            const val = input.value;
+            const isCorrectOption = correctAnswers.includes(val);
+            if (input.checked) {
+              if (isCorrectOption) correctSelected++;
+              else incorrectSelected++;
+            }
+          });
+          
+          let questionScore = (correctSelected / correctAnswers.length) - (incorrectSelected * 0.5);
+          if (questionScore < 0) questionScore = 0;
+          score += questionScore;
+        }
+        
+        // Show explanation
+        const explanation = box.querySelector('.explanation-box');
+        if (explanation) explanation.style.display = 'block';
+      });
+      
+      // Update Summary Badge
+      const summaryCard = document.getElementById('summary-mock-' + examId);
+      const gradeText = document.getElementById('grade-text-' + examId);
+      
+      gradeText.innerHTML = `Obteve <strong>${score.toFixed(2)}</strong> de <strong>${totalQuestions.toFixed(2)} valores</strong> na Parte 1.`;
+      summaryCard.style.display = 'flex';
+      
+      // Disable options from further editing
+      form.querySelectorAll('input[type="checkbox"]').forEach(input => {
+        input.disabled = true;
+      });
+      
+      window.scrollTo(0, 0);
+    }
+
+    // Reset Quiz Logic
+    function resetQuiz(examId) {
+      const summaryCard = document.getElementById('summary-mock-' + examId.split('-')[1]);
+      summaryCard.style.display = 'none';
+      
+      const form = document.getElementById('quiz-form-' + examId.split('-')[1]);
+      form.reset();
+      
+      form.querySelectorAll('.option-item').forEach(opt => {
+        opt.classList.remove('checked', 'correct', 'incorrect');
+        const input = opt.querySelector('input[type="checkbox"]');
+        input.disabled = false;
+      });
+      
+      form.querySelectorAll('.explanation-box').forEach(exp => {
+        exp.style.display = 'none';
+      });
+    }
+  </script>
+</body>
+</html>
