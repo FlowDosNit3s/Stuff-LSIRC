@@ -1,0 +1,3626 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAW Interactive Study Dashboard</title>
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Premium CSS Variables & Reset */
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: #151c2c;
+      --bg-card-hover: #1e263b;
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.15);
+      --secondary: #ec4899;
+      --secondary-glow: rgba(236, 72, 153, 0.15);
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.15);
+      --error: #ef4444;
+      --error-glow: rgba(239, 68, 68, 0.15);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --transition-speed: 0.3s;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-main);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-card);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: rgba(21, 28, 44, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px var(--primary-glow);
+      font-size: 0.9rem;
+    }
+
+    .logo-text {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #fff, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: all var(--transition-speed) ease;
+    }
+
+    .nav-btn:hover {
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-btn.active {
+      color: #fff;
+      background-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    /* Layout Main */
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      transition: transform var(--transition-speed) ease, border-color var(--transition-speed) ease;
+    }
+
+    .card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    /* Dashboard Intro Card */
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(21, 28, 44, 0.95), rgba(99, 102, 241, 0.1));
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .hero-h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #ffffff, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    .stat-card {
+      background-color: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition-speed) ease;
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
+    }
+
+    .stat-val {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Accordion Style Study Guide */
+    .accordion-item {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: all var(--transition-speed);
+    }
+
+    .accordion-header {
+      padding: 16px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.01);
+      user-select: none;
+      transition: background-color var(--transition-speed);
+    }
+
+    .accordion-header:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .accordion-header::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--primary);
+      transition: transform var(--transition-speed);
+    }
+
+    .accordion-item.open .accordion-header::after {
+      content: '−';
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out;
+      padding: 0 24px;
+      background-color: rgba(0, 0, 0, 0.15);
+      border-top: 0 solid var(--border-color);
+    }
+
+    .accordion-item.open .accordion-content {
+      max-height: 1500px;
+      padding: 20px 24px;
+      border-top-width: 1px;
+    }
+
+    /* Table styles inside guide */
+    .study-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.9rem;
+    }
+
+    .study-table th, .study-table td {
+      border: 1px solid var(--border-color);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    .study-table th {
+      background-color: rgba(99, 102, 241, 0.1);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .study-table tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-success { background-color: var(--accent-glow); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-error { background-color: var(--error-glow); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+    .badge-info { background-color: var(--primary-glow); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+
+    /* Interactive Quiz Styles */
+    .question-box {
+      background-color: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all var(--transition-speed);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .question-val {
+      color: var(--secondary);
+    }
+
+    .question-prompt {
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: rgba(255, 255, 255, 0.01);
+      border: 1px solid var(--border-color);
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-item:hover {
+      background-color: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .option-item input[type="checkbox"], .option-item input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .option-item.checked {
+      background-color: rgba(99, 102, 241, 0.08);
+      border-color: var(--primary);
+    }
+
+    /* Grading states */
+    .option-item.correct {
+      background-color: rgba(16, 185, 129, 0.12) !important;
+      border-color: var(--accent) !important;
+      color: #34d399;
+    }
+
+    .option-item.incorrect {
+      background-color: rgba(239, 68, 68, 0.12) !important;
+      border-color: var(--error) !important;
+      color: #f87171;
+    }
+
+    .explanation-box {
+      margin-top: 15px;
+      padding: 15px;
+      background-color: rgba(99, 102, 241, 0.05);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all var(--transition-speed) ease;
+      box-shadow: 0 0 10px var(--primary-glow);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px var(--primary-glow);
+      filter: brightness(1.1);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      box-shadow: none;
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: none;
+    }
+
+    .btn-check-exam {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+    }
+
+    /* Open Questions Toggles */
+    .open-response-area {
+      width: 100%;
+      height: 120px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      margin-bottom: 12px;
+      transition: border-color var(--transition-speed);
+    }
+
+    .open-response-area:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .reveal-box {
+      margin-top: 15px;
+      background-color: rgba(21, 28, 44, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 20px;
+      display: none;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Code Blocks */
+    pre {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+    }
+
+    .code-keyword { color: #f472b6; font-weight: 500; }
+    .code-string { color: #34d399; }
+    .code-comment { color: #6b7280; font-style: italic; }
+    .code-number { color: #fbbf24; }
+
+    /* Custom styles for footer */
+    footer {
+      background-color: rgba(21, 28, 44, 0.9);
+      border-top: 1px solid var(--border-color);
+      padding: 20px 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 40px;
+    }
+
+    /* Quiz Summary Modal / Header */
+    .quiz-summary-card {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(0, 0, 0, 0.2));
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <span class="logo-badge">MEAN</span>
+      <span class="logo-text">PAW Study Dashboard</span>
+    </div>
+    <nav>
+      <button class="nav-btn active" onclick="switchTab('dashboard')">Painel</button>
+      <button class="nav-btn" onclick="switchTab('guia')">Guia de Estudo</button>
+      <button class="nav-btn" onclick="switchTab('real-exam')">Exame Real Resolvido</button>
+      <button class="nav-btn" onclick="switchTab('exam-24-25')">Exame 24/25</button>
+      <button class="nav-btn" onclick="switchTab('mock-a')">Exame Modelo A</button>
+      <button class="nav-btn" onclick="switchTab('mock-1')">EXAME MODELO 1</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- TAB: DASHBOARD -->
+    <section id="tab-dashboard" class="tab-content active">
+      <div class="card hero-gradient">
+        <h1 class="hero-h1">Preparado para passar a PAW com 20?</h1>
+        <p style="color: var(--text-muted); max-width: 750px;">
+          Esta plataforma interativa compila os exames reais digitalizados (AC 25-26 e Época Normal 24-25), os resumos estruturados dos PDFs da disciplina e gera exames modelo interativos com correção instantânea e explicações detalhadas.
+        </p>
+        
+        <div class="stats-grid">
+          <div class="stat-card" onclick="switchTab('guia')">
+            <span class="stat-val">5 Fases</span>
+            <span class="stat-label">Guia de Estudo Estruturado</span>
+          </div>
+          <div class="stat-card" onclick="switchTab('real-exam')">
+            <span class="stat-val">AC 25-26</span>
+            <span class="stat-label">Exame Real com Resolução</span>
+          </div>
+          <div class="stat-card" onclick="switchTab('exam-24-25')">
+            <span class="stat-val">EN 24-25</span>
+            <span class="stat-label">Exame Real Resolvido 24/25</span>
+          </div>
+          <div class="stat-card" onclick="switchTab('mock-a')">
+            <span class="stat-val">Modelo A</span>
+            <span class="stat-label">Foco: NPM, Express, EJS, Angular</span>
+          </div>
+          <div class="stat-card" onclick="switchTab('mock-1')">
+            <span class="stat-val">Modelo 1</span>
+            <span class="stat-label">Foco: Exame Modelo Completo 1 (Interativo)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">💡 Dicas Estratégicas para o Exame</h2>
+        <p style="margin-bottom: 12px;">Com base nos últimos 4 exames da disciplina, as armadilhas repetem-se sempre:</p>
+        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+          <li><strong>HTML e CSS NÃO são linguagens de programação:</strong> Sai sempre numa pergunta de V/F ou Escolha Múltipla.</li>
+          <li><strong>Node.js é um runtime, não uma framework:</strong> E o Express é uma framework que corre no Node.js.</li>
+          <li><strong>Angular executa exclusivamente no cliente:</strong> Nunca se liga diretamente a bases de dados (como MongoDB).</li>
+          <li><strong>Parâmetros Express:</strong> Lembrar que <code>req.params</code> acede a <code>/:id</code>, <code>req.query</code> a query strings <code>?q=</code>, e <code>req.body</code> ao corpo JSON.</li>
+          <li><strong>Erros de DOM em JS:</strong> Procurar sempre a falta de declaração de variáveis, passagem de ID como variável em vez de string (<code>getElementById(id)</code> errada), e a falta de eventos no botão (<code>onclick</code> em falta).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- TAB: GUIA DE ESTUDO -->
+    <section id="tab-guia" class="tab-content">
+      <div class="card">
+        <h2 class="card-title">📚 Guia de Estudo — Resumos Rápidos</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          Resumos concisos extraídos diretamente dos PDFs e slides de aulas teóricas. Clique nas secções para expandir.
+        </p>
+
+        <!-- Phase 1 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 1: Fundamentos (HTML, CSS, HTTP & Cliente-Servidor)</div>
+          <div class="accordion-content">
+            <h3>Arquitetura Cliente-Servidor</h3>
+            <p>O <strong>Cliente</strong> (browser) inicia a comunicação enviando pedidos HTTP e renderiza HTML/CSS/JS. O <strong>Servidor</strong> (Express/Node.js) escuta os pedidos, faz lógica de negócio, acede à BD e devolve respostas. Garante a ocultação de credenciais.</p>
+            
+            <h3 style="margin-top: 15px;">Métodos HTTP vs CRUD</h3>
+            <p>Sai sempre em exames: <strong>CREATE e UPDATE não são verbos HTTP!</strong> São operações CRUD. O mapeamento correto é:</p>
+            <table class="study-table">
+              <thead>
+                <tr>
+                  <th>Operação CRUD</th>
+                  <th>Método HTTP</th>
+                  <th>Idempotente?</th>
+                  <th>Exemplo de Rota</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Create</strong></td>
+                  <td>POST</td>
+                  <td>Não (cada chamada cria um novo recurso)</td>
+                  <td><code>POST /api/products</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Read</strong></td>
+                  <td>GET</td>
+                  <td>Sim (apenas lê dados, não altera estado)</td>
+                  <td><code>GET /api/products</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Update</strong></td>
+                  <td>PUT / PATCH</td>
+                  <td>Sim (PUT substitui o recurso por completo)</td>
+                  <td><code>PUT /api/products/:id</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Delete</strong></td>
+                  <td>DELETE</td>
+                  <td>Sim (remover o mesmo ID duas vezes dá o mesmo estado final)</td>
+                  <td><code>DELETE /api/products/:id</code></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3 style="margin-top: 15px;">3 Formas de incluir CSS</h3>
+            <ul>
+              <li><strong>Inline:</strong> <code>&lt;p style="color: red;"&gt;</code> (Não recomendado, mistura estrutura e apresentação).</li>
+              <li><strong>Internal:</strong> Tag <code>&lt;style&gt;</code> dentro do <code>&lt;head&gt;</code> (Aplicado apenas a uma página).</li>
+              <li><strong>External:</strong> Tag <code>&lt;link rel="stylesheet" href="..."&gt;</code> (Recomendado: cache do browser, reutilização, organização).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 2: JavaScript DOM, AJAX & Web Storage</div>
+          <div class="accordion-content">
+            <h3>Seleção de Elementos DOM</h3>
+            <ul>
+              <li><code>document.getElementById(id)</code>: Retorna o <strong>primeiro</strong> elemento com o ID indicado. IDs devem ser únicos.</li>
+              <li><code>document.getElementsByClassName(classe)</code>: Retorna uma HTMLCollection (coleção de elementos).</li>
+              <li><code>document.querySelector(seletorCSS)</code>: Retorna o primeiro elemento correspondente ao seletor CSS.</li>
+              <li><code>document.querySelectorAll(seletorCSS)</code>: Retorna uma NodeList com todos os elementos correspondentes.</li>
+            </ul>
+
+            <h3 style="margin-top: 15px;">Persistência no Browser: Local vs Session Storage</h3>
+            <ul>
+              <li><strong>localStorage:</strong> Permanente. Os dados continuam gravados mesmo depois de fechar e reabrir o browser/computador. Limite de ~5-10MB. Guarda apenas strings.</li>
+              <li><strong>sessionStorage:</strong> Temporário. Os dados são apagados assim que a aba ou sessão do browser é fechada.</li>
+            </ul>
+            <pre><code><span class="code-comment">// Guardar objeto</span>
+localStorage.setItem(<span class="code-string">"user"</span>, JSON.stringify(userObj));
+<span class="code-comment">// Ler objeto</span>
+<span class="code-keyword">const</span> user = JSON.parse(localStorage.getItem(<span class="code-string">"user"</span>)) || {};</code></pre>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 3: ExpressJS, MVC & Mongoose (Backend)</div>
+          <div class="accordion-content">
+            <h3>Express Middleware</h3>
+            <p>Funções executadas no ciclo de pedido-resposta. Devem chamar <code>next()</code> para passar o controlo para o seguinte middleware. O middleware de erros tem obrigatoriamente 4 parâmetros:</p>
+            <pre><code>app.use(<span class="code-keyword">function</span>(err, req, res, next) {
+  console.error(err.stack);
+  res.status(<span class="code-number">500</span>).send(<span class="code-string">'Ocorreu um erro no servidor!'</span>);
+});</code></pre>
+
+            <h3 style="margin-top: 15px;">Mapeamento MVC no Express</h3>
+            <ul>
+              <li><strong>Model:</strong> Schemas e modelos Mongoose (ex: <code>models/product.js</code>).</li>
+              <li><strong>View:</strong> Templates EJS com dados dinâmicos compilados no servidor (Server-Side Rendering) (ex: <code>views/index.ejs</code>).</li>
+              <li><strong>Controller:</strong> Funções que recebem o pedido HTTP, chamam o Mongoose e renderizam o template (ex: <code>controllers/productController.js</code>).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">Fase 4: Angular, Componentes, Serviços & Comunicação</div>
+          <div class="accordion-content">
+            <h3>4 Tipos de Data Binding</h3>
+            <ul>
+              <li><strong>Interpolação:</strong> <code>{{ propriedade }}</code> (Direção: Componente para HTML / String).</li>
+              <li><strong>Property Binding:</strong> <code>[propriedade]="expressao"</code> (Direção: Componente para HTML / Atributo).</li>
+              <li><strong>Event Binding:</strong> <code>(evento)="metodo()"</code> (Direção: HTML para Componente).</li>
+              <li><strong>Two-Way Data Binding:</strong> <code>[(ngModel)]="propriedade"</code> (Direção: Bidirecional. Requer import do <code>FormsModule</code>).</li>
+            </ul>
+
+            <h3 style="margin-top: 15px;">Serviços Angular</h3>
+            <p>Classes decoradas com <code>@Injectable({ providedIn: 'root' })</code>. São singletons, <strong>não têm qualquer template HTML associado</strong> e servem para encapsular lógica e chamadas à API REST.</p>
+
+            <h3 style="margin-top: 15px;">Guards vs Interceptors</h3>
+            <table class="study-table">
+              <thead>
+                <tr>
+                  <th>Propriedade</th>
+                  <th>Guard (Guarda de Rota)</th>
+                  <th>Interceptor (Interceptador HTTP)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Interface</strong></td>
+                  <td><code>CanActivate</code> / <code>CanActivateChild</code></td>
+                  <td><code>HttpInterceptor</code></td>
+                </tr>
+                <tr>
+                  <td><strong>Onde atua</strong></td>
+                  <td>Antes de carregar uma página (routing)</td>
+                  <td>Antes de enviar um pedido HTTP ao servidor</td>
+                </tr>
+                <tr>
+                  <td><strong>Objetivo Principal</strong></td>
+                  <td>Bloquear acesso de utilizadores sem sessão</td>
+                  <td>Anexar o token JWT ao header de cada pedido</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: REAL EXAM AC 25-26 -->
+    <section id="tab-real-exam" class="tab-content">
+      <div class="quiz-summary-card" id="summary-mock-real" style="display: none;">
+        <div>
+          <h3 style="color: var(--accent);">Resultados do Exame Real</h3>
+          <p id="grade-text-real">Obteve 0 de 8.0 valores na Parte Múltipla.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="resetQuiz('mock-real')">Reiniciar Teste</button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">🏛️ Exame Real Época Normal — PAW 2025/2026</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          Esta secção contém o exame real completo. A Parte 1 (Escolha Múltipla) é totalmente interativa e as partes de Verdadeiro/Falso e Resposta Aberta permitem treinar e revelar as soluções ideais.
+        </p>
+
+        <form id="quiz-form-real" onsubmit="gradeQuiz(event, 'real')">
+          <!-- Q1 -->
+          <div class="question-box" data-q="r1" data-correct="A,C">
+            <div class="question-header">
+              <span>Pergunta 1 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o script de JavaScript na figura 1. Selecione todas as opções verdadeiras para o resultado da invocação da função com os diferentes argumentos de input:
+              <pre><code>function simpleTestFuncion(word1){
+    let result = word1.length
+    console.log(`the word has ${result} characters`)
+}</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. <code>simpleTestFuncion("", true)</code> corre sem erros;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. <code>simpleTestFuncion()</code> corre sem erros;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. <code>simpleTestFuncion(9)</code> corre sem erros;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. <code>simpleTestFunction("teste")</code> escreve no terminal "the word has 6 characaters".</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> Argumentos adicionais (como <code>true</code>) são ignorados. O comprimento de <code>""</code> é 0, logo não há erro.<br>
+              - <strong>B é incorreta:</strong> Sem argumentos, <code>word1</code> é <code>undefined</code>. Aceder a <code>undefined.length</code> lança um TypeError.<br>
+              - <strong>C é correta:</strong> O número <code>9</code> é primitivo. Em JS, aceder a propriedades inexistentes em primitivos numéricos apenas retorna <code>undefined</code> sem lançar erro.<br>
+              - <strong>D é incorreta:</strong> O nome da função chamada tem uma gralha (<code>simpleTestFunction</code> com t extra), o que dá um ReferenceError, além do comprimento ser 5 e não 6.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="question-box" data-q="r2" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 2 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe o excerto de código abaixo e selecione todas as afirmações verdadeiras:
+              <pre><code>&lt;div class="cartao-perfil"&gt;
+  &lt;img src="&lt;%= utilizador.foto %&gt;" alt="Foto de &lt;%= utilizador.nome %&gt;"&gt;
+  &lt;h1&gt;&lt;%= utilizador.nome %&gt;&lt;/h1&gt;
+  &lt;p class="email"&gt;&lt;%= utilizador.email %&gt;&lt;/p&gt;
+  &lt;div class="bio"&gt;
+    &lt;h3&gt;Sobre mim&lt;/h3&gt;
+    &lt;p&gt;&lt;%= utilizador.biografia %&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Está exemplificado o uso de componente Angular;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Está exemplificado o uso do template engine EJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A página é construída no servidor antes de ser enviada para o cliente;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A página é carregada no cliente e completada com informação pedida ao servidor a partir de REST.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong> As tags <code>&lt;%= ... %&gt;</code> pertencem ao EJS (Embedded JavaScript), um template engine que processa as páginas no servidor (Server-Side Rendering) e devolve HTML estático compilado ao browser.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="question-box" data-q="r3" data-correct="C,D">
+            <div class="question-header">
+              <span>Pergunta 3 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Selecione todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Os tokens JWT podem ser validados no frontend de uma aplicação web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Devemos utilizar uma conexão à base de dados MongoDB diretamente no frontend de uma aplicação web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Podemos construir uma aplicação de backoffice utilizando a MEAN stack;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Podemos construir uma aplicação de frontoffice utilizando a MEAN stack.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é incorreta/não recomendada:</strong> Embora o frontend possa descodificar o payload do JWT para obter informações do utilizador e verificar a data de expiração, a validação de assinatura segura só deve ser realizada no backend para evitar a exposição de segredos.<br>
+              - <strong>B é incorreta:</strong> A base de dados não deve ser acedida diretamente pelo frontend por razões de segurança e arquitetura. O acesso deve ser intermediado pela API backend.<br>
+              - <strong>C e D são corretas:</strong> A stack MEAN (MongoDB, Express, Angular, Node.js) é adequada tanto para aplicações públicas/cliente (frontoffice) como painéis administrativos (backoffice).
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="question-box" data-q="r4" data-correct="A,B">
+            <div class="question-header">
+              <span>Pergunta 4 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe a figura 3 e selecione todas as regras de CSS que tornam o texto dentro do elemento h1 de cor azul:
+              <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;body&gt;
+    &lt;h1 id="lista1" class="lista"&gt;lista&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. <code>body { color: blue; }</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. <code>.lista { color: blue; }</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. <code>$lista { color: blue; }</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. <code>#lista { color: blue; }</code></span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> Como a propriedade <code>color</code> é herdada em CSS, defini-la no <code>body</code> faz com que o <code>h1</code> herde a cor azul (já que não há outra regra a sobrepô-la).<br>
+              - <strong>B é correta:</strong> O seletor <code>.lista</code> aplica-se a elementos com a classe <code>lista</code>, selecionando o <code>h1</code>.<br>
+              - <strong>C é incorreta:</strong> O caráter <code>$</code> não é um seletor CSS válido.<br>
+              - <strong>D é incorreta:</strong> O seletor <code>#lista</code> procura um elemento com ID <code>lista</code>, mas o ID do <code>h1</code> é <code>lista1</code>, logo não corresponde.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="question-box" data-q="r5" data-correct="A,D">
+            <div class="question-header">
+              <span>Pergunta 5 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique quais os comandos podem ser utilizados no desenvolvimento de aplicações com a framework ExpressJS:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. <code>npm install</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. <code>ng start</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. <code>ng generate component index</code></span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. <code>express -v ejs project1</code></span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> O comando <code>npm install</code> instala dependências no Node.js/Express.<br>
+              - <strong>B e C são incorretas:</strong> O CLI <code>ng</code> é exclusivo da framework Angular (frontend).<br>
+              - <strong>D é correta:</strong> O utilitário <code>express-generator</code> permite gerar o esqueleto de uma aplicação Express, e a opção <code>-v ejs</code> (ou <code>--view=ejs</code>) define o motor de templates a utilizar.
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="question-box" data-q="r6" data-correct="D">
+            <div class="question-header">
+              <span>Pergunta 6 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Só é possível guardar dados no browser de cliente web utilizando a api do local storage;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Todos os dados guardados no local storage são públicos a todos os utilizadores da aplicação web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Só é permitido guardar dados no formato JSON no local storage;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A opção A, B e C estão erradas.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é incorreta:</strong> Podemos guardar dados em cookies, sessionStorage, IndexedDB, etc.<br>
+              - <strong>B é incorreta:</strong> Os dados do localStorage são privados à origem e ao dispositivo/browser do utilizador.<br>
+              - <strong>C é incorreta:</strong> O localStorage armazena qualquer tipo de string de texto plano, não necessariamente JSON.<br>
+              - <strong>D é correta:</strong> Como as opções A, B e C são falsas, a opção D é a verdadeira.
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="question-box" data-q="r7" data-correct="C,D">
+            <div class="question-header">
+              <span>Pergunta 7 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Tendo em consideração o uso da framework ExpressJS, indique todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. É obrigatório o uso de um template engine com a framework ExpressJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Para garantir a validação dos dados a validação deve ser feita no html e javascript do frontend;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. As aplicações podem correr no runtime NodeJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A framework ExpressJS pode implementar o padrão MVC nas suas aplicações web.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é incorreta:</strong> Express pode servir apenas APIs JSON (sem template engine) ou ficheiros estáticos.<br>
+              - <strong>B é incorreta:</strong> A validação no backend é estritamente necessária para garantir segurança, uma vez que a validação no frontend pode ser contornada facilmente.<br>
+              - <strong>C é correta:</strong> O ExpressJS corre sobre o runtime Node.js.<br>
+              - <strong>D é correta:</strong> O ExpressJS suporta perfeitamente a estruturação do padrão MVC (Mongoose Models, EJS/Angular Views, Express route controllers).
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="question-box" data-q="r8" data-correct="B">
+            <div class="question-header">
+              <span>Pergunta 8 (Exame 25/26)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe a figura 4 e indique todas as afirmações verdadeiras:
+              <pre><code>const express = require('express');
+const app = express();
+
+app.get('/store/:id', (req, res) => { /* ... */ });
+app.get('/store/productName', (req, res) => { /* ... */ });
+app.get('/store', (req, res) => { /* ... */ });
+app.get('/*', (req, res) => { /* ... */ });
+
+app.use((req, res) => {
+    res.status(404).send('Erro 404: Página não encontrada.');
+});</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. A rota `/store` nunca será ativada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. A rota `/store/productName` nunca será ativada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A rota com o erro 404 nunca será ativada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O servidor não corre porque está mal programado.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong> Rotas no Express são processadas por ordem. O pedido GET para <code>/store/productName</code> faz correspondência com o padrão paramétrico <code>/store/:id</code> declarado antes. Por isso, a rota específica do <code>productName</code> nunca será chamada.
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-bottom: 30px;">
+            <button type="submit" class="btn btn-check-exam">Validar Respostas da Parte 1</button>
+          </div>
+        </form>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 2 — Verdadeiro ou Falso (2 valores)</h3>
+        
+        <!-- VF 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.1</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Server-Side Rendering (SSR) é o nome da técnica utilizada durante o semestre para desenvolvimento de componentes em angular.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf1')">Revelar Resolução</button>
+          <div id="reveal-real-vf1" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> O Angular é tipicamente utilizado para **Client-Side Rendering (CSR)** no modelo de **Single Page Application (SPA)**, onde os componentes são construídos e renderizados dinamicamente pelo browser (cliente). O SSR é usado por exemplo no backend com Express e EJS.
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.2</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Uma aplicação desenvolvida exclusivamente em Angular é uma aplicação fullstack.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf2')">Revelar Resolução</button>
+          <div id="reveal-real-vf2" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> O Angular é uma framework exclusivamente frontend (corre no browser). Para ser uma aplicação fullstack precisa da camada de backend (ex: Express/Node.js) e de base de dados (ex: MongoDB).
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.3</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Numa aplicação web é possível fazer o deploy do frontend e backend em servidores separados.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf3')">Revelar Resolução</button>
+          <div id="reveal-real-vf3" class="reveal-box">
+            <span class="badge badge-success">VERDADEIRO</span>
+            <p style="margin-top: 10px;">
+              <strong>Justificação:</strong> É uma prática comum. O frontend (ficheiros estáticos gerados na build do Angular) é hospedado em serviços de conteúdo estático (como CDN, Netlify ou Vercel), e o backend (a API REST em Express) é executado num servidor aplicacional (como VPS ou Render). Comunicam via pedidos HTTP/HTTPS assíncronos (requer configuração de CORS).
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.4</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “O CSS é uma linguagem de programação utilizada para formatar páginas html.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-vf4')">Revelar Resolução</button>
+          <div id="reveal-real-vf4" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> O CSS é uma **linguagem de estilos** (declarativa), e não uma linguagem de programação. Não possui controlo de fluxo algorítmico, lógica complexa ou manipulação direta de estruturas de dados.
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 3 — Resposta Aberta (10 valores)</h3>
+
+        <!-- P3.1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.1</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Explique o conceito de cliente-servidor aplicado a aplicações web.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu texto explicativo..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o1')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o1" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>O modelo cliente-servidor é uma arquitetura de computação distribuída em que o processamento é dividido entre:</p>
+            <ul style="padding-left: 20px; margin-top: 5px;">
+              <li><strong>Cliente (Frontend):</strong> O browser do utilizador que executa HTML/CSS/JS e a aplicação Angular. Inicia o contacto fazendo pedidos HTTP e trata da interação visual.</li>
+              <li><strong>Servidor (Backend):</strong> A máquina remota que executa o Express/Node.js. Recebe pedidos, processa a lógica de negócio, interage com a base de dados (MongoDB) e devolve respostas.</li>
+            </ul>
+            <p style="margin-top:5px;">A comunicação é feita via HTTP/HTTPS (Pedido-Resposta), mantendo dados e credenciais protegidos de forma segura no servidor.</p>
+          </div>
+        </div>
+
+        <!-- P3.2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.2</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Desenhe uma página HTML capaz de realizar login para o utilizador <code>aluno81818@estg.ipp.pt</code> para a rota <code>/api/v1/user/login</code> usando apenas HTML, impedindo envios se a password tiver menos de 8 caracteres e o email for inválido.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código HTML..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o2')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o2" class="reveal-box">
+            <p><strong>Código HTML ideal:</strong></p>
+            <pre><code>&lt;form action="/api/v1/user/login" method="POST"&gt;
+  &lt;div&gt;
+    &lt;label&gt;E-mail:&lt;/label&gt;
+    &lt;input type="email" name="email" required&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;Palavra-passe:&lt;/label&gt;
+    &lt;input type="password" name="password" minlength="8" required&gt;
+  &lt;/div&gt;
+  &lt;button type="submit"&gt;Entrar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+            <p style="margin-top:10px;">
+              <strong>Explicação:</strong> Atributos do HTML5 (<code>type="email"</code>, <code>minlength="8"</code> e <code>required</code>) acionam a validação nativa do browser no momento da submissão do formulário, impedindo o envio do pedido POST para a rota do servidor caso as condições não sejam cumpridas.
+            </p>
+          </div>
+        </div>
+
+        <!-- P3.3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.3</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Explique o conceito de funções de middleware em ExpressJS.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua resposta..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o3')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o3" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>No ExpressJS, <strong>middlewares</strong> são funções que se situam no meio do ciclo de pedido-resposta (Request-Response cycle) do servidor. Têm acesso ao objeto do pedido (<code>req</code>), da resposta (<code>res</code>) e à próxima função da pilha (<code>next</code>).</p>
+            <p style="margin-top: 5px;">Os middlewares servem para executar código de auditoria (logs), modificar o request (ex: decifrar o utilizador a partir de um JWT), bloquear pedidos não autorizados ou passar o fluxo com <code>next()</code> para a rota seguinte.</p>
+          </div>
+        </div>
+
+        <!-- P3.4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.4</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Corrija a função <code>verificarToken</code> para que funcione corretamente como função de middleware.
+            <pre><code>function verificarToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ mensagem: 'Acesso negado. Token não fornecido.' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, utilizador_descodificado) => {
+        if (err) {
+            return res.status(403).json({ mensagem: 'Token inválido ou expirado.' });
+        }
+        req.utilizador = utilizador_descodificado;
+        res.status(200);
+    });
+}</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua correção do middleware..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o4')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o4" class="reveal-box">
+            <p><strong>Código Corrigido:</strong></p>
+            <pre><code>function verificarToken(req, res, next) {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ mensagem: 'Acesso negado. Token não fornecido.' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, utilizador_descodificado) => {
+        if (err) {
+            return res.status(403).json({ mensagem: 'Token inválido ou expirado.' });
+        }
+        req.utilizador = utilizador_descodificado;
+        <span class="code-keyword">next();</span> // CORREÇÃO: Chamar next() em vez de definir status(200) e travar
+    });
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.5 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.5</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Partindo do controlador de um componente em Angular, implemente a lógica e template HTML para recolher 2 inputs numéricos e mostrar o resultado da sua divisão (com prevenção de divisão por zero).
+            <pre><code>@Component({
+  selector: 'app-meu-componente',
+  templateUrl: './meu-componente.component.html',
+  styleUrls: ['./meu-componente.component.css']
+})
+export class MeuComponente implements OnInit {
+  // ToDo
+}</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código TypeScript e HTML..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o5')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o5" class="reveal-box">
+            <p><strong>TypeScript (meu-componente.component.ts):</strong></p>
+            <pre><code>num1: number | null = null;
+num2: number | null = null;
+resultado: string | number = '';
+
+dividir(): void {
+  if (this.num1 === null || this.num2 === null) {
+    this.resultado = 'Por favor, introduza ambos os números.';
+    return;
+  }
+  if (this.num2 === 0) {
+    this.resultado = 'Erro: Divisão por zero impossível.';
+    return;
+  }
+  this.resultado = this.num1 / this.num2;
+}</code></pre>
+            <p style="margin-top:10px;"><strong>Template HTML (meu-componente.component.html):</strong></p>
+            <pre><code>&lt;input type="number" [(ngModel)]="num1" placeholder="Numerador"&gt;
+&lt;input type="number" [(ngModel)]="num2" placeholder="Denominador"&gt;
+&lt;button (click)="dividir()"&gt;Calcular Divisão&lt;/button&gt;
+&lt;p *ngIf="resultado !== ''"&gt;{{ resultado }}&lt;/p&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.6 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.6</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Qual a vantagem para o uso de componentes do tipo serviço em Angular?
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui as vantagens dos serviços..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o6')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o6" class="reveal-box">
+            <p><strong>Vantagens Principais:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>Reutilização de código:</strong> Evita reescrever as mesmas lógicas de chamadas HTTP ou processamentos em múltiplos componentes.</li>
+              <li><strong>Separação de responsabilidades:</strong> Mantém os componentes limpos, focados apenas em gerir a interface visual (View), deixando a lógica de dados para os serviços.</li>
+              <li><strong>Singleton / Partilha de Estado:</strong> Permite manter variáveis de estado partilhadas globais entre componentes que não pertencem à mesma hierarquia.</li>
+              <li><strong>Injeção de Dependências:</strong> Reduz o acoplamento do código ao gerir as instâncias dos serviços automaticamente.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- P3.7 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.7</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Recorde os conceitos Single Page Application (SPA) e Multiple Page Application (MPA). Defina e explique o que representam.
+          </div>
+          <textarea class="open-response-area" placeholder="Compara SPA vs MPA..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o7')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o7" class="reveal-box">
+            <p><strong>Diferenças SPA vs MPA:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>SPA (Single Page Application):</strong> A aplicação carrega um único ficheiro index.html. O roteamento e troca de ecrãs são efetuados no client-side com JavaScript. Dados extra são pedidos em JSON à API. Não existem recarregamentos de página (reloads), tornando a experiência de utilização muito rápida e fluida. Ex: Angular.</li>
+              <li><strong>MPA (Multiple Page Application):</strong> O modelo web tradicional. Qualquer navegação ou clique faz com que o browser envie um pedido HTTP e o servidor envie uma página HTML totalmente nova, forçando o recarregamento total. O processamento é no servidor (SSR). Ex: Express com EJS.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- P3.8 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.8</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Indique como gerir a autenticação e autorização de páginas em Angular. Teça considerações sobre a segurança da abordagem.
+          </div>
+          <textarea class="open-response-area" placeholder="Explique os Guards, Interceptors e a segurança no Angular..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-real-o8')">Revelar Resposta Ideal</button>
+          <div id="reveal-real-o8" class="reveal-box">
+            <p><strong>Abordagem de Autenticação/Autorização no Angular:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li>Guardar o token JWT no <code>localStorage</code> após o login.</li>
+              <li>Usar um <strong>HttpInterceptor</strong> para anexar automaticamente o token no header <code>Authorization: Bearer &lt;token&gt;</code> de todos os pedidos HTTP.</li>
+              <li>Usar <strong>Guards</strong> com <code>CanActivate</code> para verificar se o token existe antes de permitir o carregamento das páginas protegidas.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: REAL EXAM EN 24-25 -->
+    <section id="tab-exam-24-25" class="tab-content">
+      <div class="quiz-summary-card" id="summary-mock-2425" style="display: none;">
+        <div>
+          <h3 style="color: var(--accent);">Resultados do Exame Época Normal 2024/2025</h3>
+          <p id="grade-text-2425">Obteve 0 de 8.0 valores na Parte Múltipla.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="resetQuiz('mock-2425')">Reiniciar Teste</button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">🏛️ Exame Época Normal — PAW 2024/2025</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          Esta secção contém o exame real da Época Normal de 2024/2025. A Parte 1 (Escolha Múltipla) é totalmente interativa e as partes de Verdadeiro/Falso e Resposta Aberta permitem treinar e revelar as soluções ideais.
+        </p>
+
+        <form id="quiz-form-2425" onsubmit="gradeQuiz(event, '2425')">
+          <!-- Q1 -->
+          <div class="question-box" data-q="en1" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 1 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o uso da ferramenta NPM nos projetos web desenvolvidos durante o semestre. Indique todas as afirmações que indicam funcionalidades desta ferramenta:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Instalar e configurar uma base de dados MongoDB;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Iniciar projetos web com o comando npm start;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Permite gerir dependências de projetos web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Permite criar componentes em aplicações escritas com a framework Angular.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> O NPM instala módulos/packages JavaScript (como o mongoose), mas não instala nem configura a base de dados MongoDB em si. MongoDB é instalado separadamente.<br>
+              - <strong>b) VERDADEIRO</strong> npm start executa o script “start” definido no package.json, iniciando o projeto.<br>
+              - <strong>c) VERDADEIRO</strong> O NPM é um gestor de packages para JavaScript. Permite instalar, atualizar e gerir dependências via npm install.<br>
+              - <strong>d) FALSO</strong> Criar componentes Angular faz-se com o CLI do Angular: ng generate component nome. O NPM apenas gere packages.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="question-box" data-q="en2" data-correct="A,B,C">
+            <div class="question-header">
+              <span>Pergunta 2 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique quais dos seguintes comandos podem ser executados numa aplicação da framework Angular:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. ng generate component my-page;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. npm start;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. npm install mongoose --save;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. npm new my-app</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) VERDADEIRO</strong> ng generate component my-page (ou ng g component my-page) é o comando Angular CLI para criar um novo componente.<br>
+              - <strong>b) VERDADEIRO</strong> npm start pode ser executado em qualquer projeto Node.js/Angular para iniciar a aplicação.<br>
+              - <strong>c) VERDADEIRO</strong> npm install mongoose --save instala o módulo mongoose num projeto Angular (embora mongoose seja tipicamente usado no backend, o comando em si pode ser executado).<br>
+              - <strong>d) FALSO</strong> O comando correto é ng new my-app (usa o CLI do Angular ng, não npm).
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="question-box" data-q="en3" data-correct="A,B,D">
+            <div class="question-header">
+              <span>Pergunta 3 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique as afirmações verdadeiras sobre os componentes do tipo serviço em Angular:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Permitem ser injetados em múltiplos componentes Angular;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Podemos manter o estado global da aplicação em variáveis internas de um serviço e partilhá-las com outros vários componentes;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Este componente tem de ter sempre uma interface escrita em HTML;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Podem ser utilizados em conjunto com o padrão de software observable para manter todos os componentes visuais de uma página atualizados com o último valor das variáveis guardadas no serviço.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) VERDADEIRO</strong> Serviços usam o decorador @Injectable() e são injetados via Dependency Injection (DI) em múltiplos componentes.<br>
+              - <strong>b) VERDADEIRO</strong> Serviços são singletons (uma instância partilhada) e podem guardar estado global. Exemplo: usar BehaviorSubject para partilhar dados.<br>
+              - <strong>c) FALSO</strong> Serviços não têm template HTML. Apenas componentes têm ficheiros .html. Serviços são classes TypeScript puras.<br>
+              - <strong>d) VERDADEIRO</strong> Usando Observables (RxJS) e BehaviorSubject, os serviços propagam mudanças automaticamente via padrão publish/subscribe.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="question-box" data-q="en4" data-correct="A,B,C">
+            <div class="question-header">
+              <span>Pergunta 4 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considering a framework ExpressJS utilizada em Node.js, indique as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Podemos criar componentes com a linguagem de programação JavaScript e padrão de software MVC;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Podemos utilizar template engines para gerar páginas HTML dinamicamente no servidor;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Podemos aceder diretamente a uma base de dados para enviar e guardar informação com o módulo mongoose;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Podemos executar funções JavaScript da framework ExpressJS diretamente a partir de um browser de internet.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) VERDADEIRO</strong> Express permite organizar aplicações com o padrão MVC (Models, Views, Controllers) usando JavaScript/Node.js.<br>
+              - <strong>b) VERDADEIRO</strong> Express suporta template engines como EJS, Pug, Mustache para gerar HTML dinâmico no servidor com res.render().<br>
+              - <strong>c) VERDADEIRO</strong> Com o módulo mongoose, podemos ligar Express ao MongoDB para operações CRUD diretamente.<br>
+              - <strong>d) FALSO</strong> Express é uma framework server-side. O código Express executa no servidor Node.js, não diretamente no browser. O browser apenas faz pedidos HTTP ao servidor.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="question-box" data-q="en5" data-correct="D">
+            <div class="question-header">
+              <span>Pergunta 5 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Angular é uma framework de desenvolvimento fullstack;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. HTML é uma linguagem criada para formatar conteúdos em páginas web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Node.js é a linguagem de programação mais utilizada no desenvolvimento de aplicações Web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Angular permite a reutilização de componentes no desenvolvimento de aplicações web.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> Angular é uma framework client-side (frontend). Para fullstack é preciso combinar com backend (Express + MongoDB = MEAN Stack).<br>
+              - <strong>b) FALSO</strong> HTML é uma linguagem de marcação (markup), não de formatação. A formatação é feita com CSS. HTML descreve a estrutura do conteúdo.<br>
+              - <strong>c) FALSO</strong> Node.js não é uma linguagem de programação — é um runtime (ambiente de execução) para JavaScript. A linguagem é JavaScript.<br>
+              - <strong>d) VERDADEIRO</strong> Um dos pontos fortes de Angular é a reutilização de componentes. Podemos passar dados entre componentes com @Input() e reutilizá-los em várias páginas.
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="question-box" data-q="en6" data-correct="B">
+            <div class="question-header">
+              <span>Pergunta 6 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o excerto do ficheiro de uma página HTML presente abaixo. Considere que este ficheiro foi aberto num browser e indique as afirmações verdadeiras:
+              <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+  &lt;p id="mvp"&gt;Change Me!&lt;/p&gt;
+  &lt;p id="mvp"&gt;Change Me Again!&lt;/p&gt;
+  &lt;button id="mvp"&gt;Executa&lt;/button&gt;
+  &lt;script&gt;
+    function executa() {
+      var elem = document.getElementById('mvp');
+      elem.style.color = 'red';
+    }
+    document.getElementsByTagName('button')[0].addEventListener('click', executa);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Ao clicar no botão Executa a página não é alterada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Ao clicar no botão Executa o texto “Change Me!” altera a sua cor para vermelho;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A função document.getElementById("mvp") retorna todos os elementos da página com o id é igual ao valor “mvp”;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Ao clicar no botão Executa todo o texto da página fica com a cor vermelho.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> A página é alterada: ao clicar, a função executa() é chamada e muda a cor de um elemento.<br>
+              - <strong>b) VERDADEIRO</strong> document.getElementById('mvp') retorna o primeiro elemento com id="mvp", que é o &lt;p&gt;Change Me!&lt;/p&gt;. A sua cor é alterada para vermelho.<br>
+              - <strong>c) FALSO</strong> getElementById retorna apenas um elemento (o primeiro encontrado). Para obter múltiplos seria preciso getElementsByClassName ou querySelectorAll. Nota: ter múltiplos elementos com o mesmo id é inválido em HTML (IDs devem ser únicos).<br>
+              - <strong>d) FALSO</strong> Apenas o primeiro &lt;p&gt; (“Change Me!”) fica vermelho, não todo o texto.
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="question-box" data-q="en7" data-correct="B">
+            <div class="question-header">
+              <span>Pergunta 7 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o excerto de código abaixo (middleware de verificação de token). Quais das seguintes afirmações são verdadeiras à luz dos exemplos estudados nas atividades letivas?
+              <pre><code>const verify = function (req, res, next) {
+  try {
+    var token = req.headers['x-access-token'];
+    if (!token)
+      return res.status(403).send({ auth: false, message: 'No token provided.' });
+    const decoded = jwt.verify(token, config.secret)
+    if (err || decoded.role !== 'ADMIN')
+      return 
+    req.userId = decoded.id;
+    next();
+  } catch (exception) {
+    console.log('Erro ao verificar token de autenticação');
+    res.status(500).send({ auth: false, message: 'Failed to authenticate token'});
+  }
+}</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Está a ser usada a framework angular;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. A função usa o módulo JWT para verificação de um token para efeitos de autenticação e autorização;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A função verify é a última a ser executada numa rota da aplicação expressJS e retorna para o browser o id do utilizador ou um erro 500;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Por estarmos a utilizar autenticação com tokens, estamos obrigatoriamente a utilizar uma API REST.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> Este código usa req, res, next que são parâmetros de middleware Express (backend Node.js), não Angular.<br>
+              - <strong>b) VERDADEIRO</strong> A função usa jwt.verify(token, config.secret) para verificar o token JWT. Faz autenticação (verificar token válido) E autorização (verificar decoded.role !== 'ADMIN').<br>
+              - <strong>c) FALSO</strong> A função não é a última — é um middleware (tem parâmetro next()). Quando autenticação/autorização passam, chama next() para passar ao próximo handler. Não retorna o id ao browser, guarda-o em req.userId.<br>
+              - <strong>d) FALSO</strong> JWT pode ser usado com qualquer tipo de aplicação web, não apenas REST APIs. Pode ser usado com aplicações MPA tradicionais, WebSockets, etc.
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="question-box" data-q="en8" data-correct="B">
+            <div class="question-header">
+              <span>Pergunta 8 (Exame 24/25)</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe o serviço Angular abaixo e indique todas as afirmações verdadeiras:
+              <pre><code>@Injectable({
+  providedIn: 'root'
+})
+export class ItemRestServiceService {
+  constructor(private http: HttpClient) { }
+
+  getItem(id:string): Observable&lt;Item&gt; {
+    return this.http.get&lt;Item&gt;(endpoint+'show/'+id);
+  }
+
+  addItem (item:Item): Observable&lt;Item&gt; {
+    console.log(item);
+    return this.http.post&lt;Item&gt;(endpoint + 'create', JSON.stringify(item), 
+    httpOptions);
+  }
+}</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Está demonstrado o consumo de uma API REST por uma aplicação escrita em ExpressJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Está demonstrado o consumo de uma API REST por uma aplicação escrita em Angular;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A função getItem retorna imediatamente com o valor do Item guardado no servidor bloqueando até estar completa;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O código permite aferir com certeza absoluta que está a ser utilizada uma base de dados no backend.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> O código usa @Injectable, HttpClient, Observable e TypeScript — tudo específico de Angular, não de Express.<br>
+              - <strong>b) VERDADEIRO</strong> É um serviço Angular que consome uma API REST via HttpClient com métodos get e post. Usa Observable (RxJS) para programação reativa.<br>
+              - <strong>c) FALSO</strong> A função retorna um Observable&lt;Item&gt;, que é assíncrono (não bloqueante). O valor só é obtido quando alguém faz .subscribe() no Observable.<br>
+              - <strong>d) FALSO</strong> O código mostra pedidos HTTP a endpoints (show/, create). Não se pode afirmar que existe uma base de dados — o backend pode guardar dados em ficheiros, memória, ou qualquer outro mecanismo.
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-bottom: 30px;">
+            <button type="submit" class="btn btn-check-exam">Validar Respostas da Parte 1</button>
+          </div>
+        </form>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 2 — Verdadeiro ou Falso (2 valores)</h3>
+        
+        <!-- VF 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.1 (Exame 24/25)</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “A validação de dados de input deve ser apenas realizada no frontend de uma aplicação web para garantir que só dados corretos chegam ao backend.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-vf1')">Revelar Resolução</button>
+          <div id="reveal-2425-vf1" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Resolução:</strong> A validação de dados deve ser feita em ambos os lados — frontend e backend.<br>
+              • <strong>Frontend:</strong> validação para melhor UX (feedback imediato ao utilizador, ex: campos obrigatórios, formato de email).<br>
+              • <strong>Backend:</strong> validação obrigatória por razões de segurança, pois o utilizador pode contornar a validação do frontend (desativando JavaScript, usando ferramentas como Postman, manipulando pedidos HTTP diretamente). Confiar apenas na validação do frontend é uma falha de segurança grave.
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.2 (Exame 24/25)</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “CSS é uma considerada uma linguagem de programação pois permite formatar e realizar animações em páginas HTML.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-vf2')">Revelar Resolução</button>
+          <div id="reveal-2425-vf2" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Resolução:</strong> CSS (Cascading Style Sheets) é uma linguagem de styles, não de programação. CSS não possui lógica de controlo geral (if/else, loops), funções definidas pelo utilizador ou manipulação arbitrária de dados. CSS apenas descreve como os elementos HTML devem ser apresentados (cores, tamanhos, posicionamento, animações). Embora suporte animações com @keyframes e transições, isso não a torna uma linguagem de programação. É uma linguagem declarativa de estilo.
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.3 (Exame 24/25)</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “O módulo JWT não é adequado para garantir autenticação e autorização em páginas web codificadas com a framework ExpressJS e o template engine EJS.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-vf3')">Revelar Resolução</button>
+          <div id="reveal-2425-vf3" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Resolução:</strong> O módulo JWT (jsonwebtoken) é perfeitamente adequado e pode ser usado com ExpressJS e EJS. O JWT funciona como middleware no Express para autenticação (verificar identidade do utilizador através de tokens) e autorização (verificar permissões/roles). O JWT não depende do template engine utilizado (EJS, Pug, etc.), pois o token é normalmente enviado nos headers HTTP e verificado no servidor, independentemente de como as páginas são renderizadas.
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.4 (Exame 24/25)</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “É possível utilizar a base de dados MongoDB no frontoffice de uma aplicação web para guardar dados da aplicação de forma persistente.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-vf4')">Revelar Resolução</button>
+          <div id="reveal-2425-vf4" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Resolução:</strong> MongoDB é uma base de dados de backend (servidor) e não pode ser executada diretamente no frontend (client-side/frontoffice) por razões de segurança e arquitetura. Fazer isso exporia credenciais de acesso à BD e toda a estrutura de dados aos utilizadores. Para guardar dados de forma persistente no frontend, utilizam-se tecnologias do browser como localStorage, sessionStorage ou IndexedDB, que são locais e limitadas. Para persistência centralizada real, o frontend comunica com o backend (via API REST) que por sua vez acede ao MongoDB.
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 3 — Resposta Aberta (10 valores)</h3>
+
+        <!-- P3.1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.1</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Indique o que entende pelo conceito cliente-servidor em aplicações web.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua resposta..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-o1')">Revelar Resposta Ideal</button>
+          <div id="reveal-2425-o1" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>O modelo cliente-servidor é uma arquitetura de software distribuída onde existem dois intervenientes principais:</p>
+            <ul style="padding-left: 20px; margin-top: 5px;">
+              <li><strong>Cliente (Frontend):</strong> A aplicação que inicia a comunicação enviando pedidos HTTP (normalmente o browser que corre código HTML, CSS e JavaScript). É responsável pela interface gráfica e interação com o utilizador.</li>
+              <li><strong>Servidor (Backend):</strong> A aplicação que escuta e processa os pedidos do cliente, executa lógica de negócio, interage com a base de dados e devolve as respostas adequadas (HTML, JSON, imagens, etc.). No semestre, usámos Node.js com Express para o servidor.</li>
+            </ul>
+            <p style="margin-top: 10px;">O fluxo típico de comunicação é do tipo Pedido-Resposta (Request-Response). Esta arquitetura garante a separação de responsabilidades (apresentação vs lógica de dados/segurança).</p>
+          </div>
+        </div>
+
+        <!-- P3.2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.2</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Explique o que são serviços REST no âmbito do desenvolvimento de aplicações para a web.
+          </div>
+          <textarea class="open-response-area" placeholder="Explique REST, verbos e propriedades..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-o2')">Revelar Resposta Ideal</button>
+          <div id="reveal-2425-o2" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>REST (Representational State Transfer) é um padrão arquitetural para desenvolvimento de serviços web que tiram partido do protocolo HTTP. Os recursos são identificados por URLs únicas e as operações de CRUD são mapeadas diretamente para os métodos HTTP:</p>
+            <table class="study-table" style="max-width: 500px;">
+              <thead>
+                <tr>
+                  <th>Método HTTP</th>
+                  <th>Operação CRUD</th>
+                  <th>Exemplo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>GET</td>
+                  <td>Read (ler)</td>
+                  <td>GET /products (listar)</td>
+                </tr>
+                <tr>
+                  <td>POST</td>
+                  <td>Create (criar)</td>
+                  <td>POST /products (criar)</td>
+                </tr>
+                <tr>
+                  <td>PUT</td>
+                  <td>Update (atualizar)</td>
+                  <td>PUT /products/:id (substituir)</td>
+                </tr>
+                <tr>
+                  <td>DELETE</td>
+                  <td>Delete (eliminar)</td>
+                  <td>DELETE /products/:id (remover)</td>
+                </tr>
+              </tbody>
+            </table>
+            <p style="margin-top: 10px;"><strong>Propriedades fundamentais do REST:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>Cliente-Servidor:</strong> Separação limpa entre interface e dados.</li>
+              <li><strong>Stateless (Sem estado):</strong> Cada pedido HTTP deve conter toda a informação necessária para ser processado (o servidor não guarda sessões de estado).</li>
+              <li><strong>Cacheable:</strong> Respostas podem ser guardadas em cache.</li>
+              <li><strong>Interface uniforme:</strong> Uso consistente de URIs e métodos HTTP.</li>
+              <li><strong>Sistema em camadas:</strong> O cliente não precisa de saber se comunica diretamente com o servidor final ou com intermediários (proxies, CDNs, etc.).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- P3.3.1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.3.1</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Identifique e corrija os erros presentes no seguinte excerto de código para que o contador de cliques funcione corretamente:
+            <pre><code>&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Click Counter&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Click Counter&lt;/h1&gt;
+  &lt;p&gt;Click Number: &lt;span id="contador"&gt;0&lt;/span&gt;&lt;/p&gt;
+  &lt;button&gt;Click Me&lt;/button&gt;
+  &lt;script&gt;
+    function contarClique() {
+      numeroCliques++;
+      document.getElementById(counter).textContent = numeroCliques;
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Identifica os erros e apresenta a correção..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-o3')">Revelar Resposta Ideal</button>
+          <div id="reveal-2425-o3" class="reveal-box">
+            <p><strong>Erros Identificados:</strong></p>
+            <ol style="padding-left: 20px;">
+              <li><strong>Falta declarar a variável global:</strong> <code>numeroCliques</code> não foi inicializada (dará um ReferenceError no primeiro clique).</li>
+              <li><strong>Gralha no getElementById:</strong> <code>document.getElementById(counter)</code> usa <code>counter</code> como variável inexistente. O correto é passar a string correspondente ao id do elemento HTML: <code>"contador"</code>.</li>
+              <li><strong>Falta de evento no Botão:</strong> O botão não possui nenhum listener associado para chamar a função <code>contarClique()</code> ao ser clicado.</li>
+            </ol>
+            <p style="margin-top: 10px;"><strong>Código Corrigido:</strong></p>
+            <pre><code>&lt;html&gt;
+&lt;body&gt;
+  &lt;h1&gt;Click Counter&lt;/h1&gt;
+  &lt;p&gt;Click Number: &lt;span id="contador"&gt;0&lt;/span&gt;&lt;/p&gt;
+  &lt;button onclick="contarClique()"&gt;Click Me&lt;/button&gt;
+  &lt;script&gt;
+    var numeroCliques = 0;
+    function contarClique() {
+      numeroCliques++;
+      document.getElementById("contador").textContent = numeroCliques;
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.3.2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.3.2</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Como podemos melhorar a página anterior para que sempre que abrirmos novamente a página no mesmo browser a contagem de cliques continue e não seja reiniciada? Indique uma solução baseada apenas na página HTML apresentada.
+          </div>
+          <textarea class="open-response-area" placeholder="Explica a solução com localStorage e escreve o código..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-o4')">Revelar Resposta Ideal</button>
+          <div id="reveal-2425-o4" class="reveal-box">
+            <p><strong>Resposta e Código:</strong></p>
+            <p>Podemos utilizar a API <strong>localStorage</strong> do browser, que permite armazenar dados sob o formato de chave-valor de forma persistente, mesmo que o utilizador feche a aba ou reinicie o computador.</p>
+            <pre><code>&lt;script&gt;
+  // Inicializa o contador com o valor guardado no localStorage (ou 0 se for a primeira vez)
+  var numeroCliques = parseInt(localStorage.getItem("contadorCliques")) || 0;
+  
+  // Atualiza a vista no carregamento inicial da página
+  document.getElementById("contador").textContent = numeroCliques;
+
+  function contarClique() {
+    numeroCliques++;
+    document.getElementById("contador").textContent = numeroCliques;
+    // Persiste o novo valor no localStorage
+    localStorage.setItem("contadorCliques", numeroCliques);
+  }
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.4</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Comente a seguinte frase: “Os componentes criados na framework Angular cumprem o padrão MVC”. Na sua resposta inclua também o que sabe sobre o padrão MVC.
+          </div>
+          <textarea class="open-response-area" placeholder="Explique o padrão MVC e justifique a relação com componentes Angular..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-o5')">Revelar Resposta Ideal</button>
+          <div id="reveal-2425-o5" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>A afirmação é <strong>verdadeira</strong>. O padrão arquitetural MVC (Model-View-Controller) divide a aplicação em três componentes:</p>
+            <ul style="padding-left: 20px; margin-top: 5px;">
+              <li><strong>Model:</strong> Modela os dados e lida com a lógica de negócio (em Angular, são representados por interfaces, classes TypeScript e serviços <code>@Injectable()</code> que gerem as chamadas à API).</li>
+              <li><strong>View:</strong> A apresentação dos dados ao utilizador (em Angular, corresponde ao template HTML e estilos CSS do componente, que interagem dinamicamente usando binding).</li>
+              <li><strong>Controller:</strong> Intermedeia as ações do utilizador enviadas pela View e manipula os dados do Model (em Angular, é a classe TypeScript do componente decorada com <code>@Component</code>).</li>
+            </ul>
+            <p style="margin-top: 10px;">O Angular promove nativamente esta arquitetura. Ao gerar um componente com o CLI (<code>ng g c nome</code>), ele cria automaticamente ficheiros separados para cada responsabilidade (<code>.html</code> para View, <code>.ts</code> para Controller e <code>.service.ts</code> para Model), mantendo o código altamente modular e limpo.</p>
+          </div>
+        </div>
+
+        <!-- P3.5 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.5</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Quais as funções dos componentes Guard e Intercept numa aplicação escrita com a framework Angular?
+          </div>
+          <textarea class="open-response-area" placeholder="Defina a função e o caso de uso de Guards e Interceptors..."></textarea>
+          <button class="btn btn-secondary" type="button" onclick="toggleReveal('reveal-2425-o6')">Revelar Resposta Ideal</button>
+          <div id="reveal-2425-o6" class="reveal-box">
+            <p><strong>Guards (Guarda de Rota):</strong></p>
+            <p>São serviços Angular que implementam interfaces como <code>CanActivate</code> para controlar a navegação e o acesso às rotas da aplicação.</p>
+            <ul style="padding-left: 20px; margin-top: 5px;">
+              <li><strong>Função:</strong> Impedir que utilizadores não autenticados ou sem cargos apropriados (roles) naveguem para páginas confidenciais (ex: painel de administração).</li>
+              <li><strong>Caso de uso:</strong> O Guard analisa se existe um token válido no localStorage; se sim, retorna <code>true</code> e a página carrega; caso contrário, redireciona o utilizador para a página de Login.</li>
+            </ul>
+            
+            <p style="margin-top: 15px;"><strong>Interceptors (Interceptador HTTP):</strong></p>
+            <p>São serviços que implementam a interface <code>HttpInterceptor</code> para capturar e modificar pedidos e respostas HTTP globais.</p>
+            <ul style="padding-left: 20px; margin-top: 5px;">
+              <li><strong>Função:</strong> Manipular ou monitorizar requisições feitas via <code>HttpClient</code> de forma centralizada antes de chegarem à rede.</li>
+              <li><strong>Caso de uso:</strong> Anexar automaticamente o header <code>Authorization: Bearer &lt;token&gt;</code> a todas as chamadas à API REST, evitando ter de adicionar manualmente em cada serviço. Também servem para capturar códigos de erro HTTP (ex: 401/403) globalmente.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+     <!-- TAB: MOCK EXAM A -->
+    <section id="tab-mock-a" class="tab-content">
+      <div class="quiz-summary-card" id="summary-mock-a" style="display: none;">
+        <div>
+          <h3 style="color: var(--accent);">Resultados do Exame A</h3>
+          <p id="grade-text-a">Obteve 0 de 8.0 valores na Parte Múltipla.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="resetQuiz('mock-a')">Reiniciar Teste</button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">📝 Exame Modelo A (Interativo)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">
+          Responda às questões da Parte 1 e clique em "Validar Respostas" no fim para obter a nota imediata.
+        </p>
+
+        <form id="quiz-form-a" onsubmit="gradeQuiz(event, 'a')">
+          <!-- Q1 -->
+          <div class="question-box" data-q="a1" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 1</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere a ferramenta NPM utilizada no desenvolvimento de projetos web. Indique todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Permite compilar ficheiros TypeScript em JavaScript;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Permite executar scripts definidos no ficheiro <code>package.json</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Pode ser utilizado para instalar a framework Express num projeto Node.js;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Permite criar novos projetos Angular com o comando <code>npm new my-app</code>.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — O NPM é um gestor de packages, não compila TypeScript. A compilação é feita pelo compilador <code>tsc</code>.<br>
+              - <strong>b) VERDADEIRO</strong> — <code>npm start</code>, <code>npm test</code>, etc. executam os scripts definidos na secção <code>"scripts"</code> do ficheiro <code>package.json</code>.<br>
+              - <strong>c) VERDADEIRO</strong> — <code>npm install express --save</code> instala a framework Express como dependência.<br>
+              - <strong>d) FALSO</strong> — O comando <code>npm new my-app</code> não existe. Para criar um projeto Angular, usa-se o Angular CLI: <code>ng new my-app</code>.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="question-box" data-q="a2" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 2</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique todas as afirmações verdadeiras sobre o desenvolvimento de aplicações web:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Node.js é uma framework de backend que permite criar servidores web;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Uma página HTML pode submeter dados para um servidor sem utilizar JavaScript;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O protocolo HTTPS garante que a comunicação entre cliente e servidor é encriptada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O método HTTP GET deve ser utilizado para enviar credenciais de login ao servidor.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — Node.js não é uma framework, é um <strong>runtime</strong> (ambiente de execução) para JavaScript. A framework é o ExpressJS.<br>
+              - <strong>b) VERDADEIRO</strong> — Um formulário HTML padrão (<code>&lt;form action="/rota" method="POST"&gt;</code>) submete dados nativamente ao servidor sem usar JavaScript.<br>
+              - <strong>c) VERDADEIRO</strong> — HTTPS encripta a comunicação entre cliente e servidor, protegendo dados sensíveis.<br>
+              - <strong>d) FALSO</strong> — O método GET expõe os dados no URL (query string). Para credenciais de login, deve-se usar sempre <strong>POST</strong> com HTTPS.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="question-box" data-q="a3" data-correct="B,C,D">
+            <div class="question-header">
+              <span>Pergunta 3</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere a framework Angular. Indique as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Angular é uma framework fullstack que permite desenvolver frontend e backend;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. A linguagem de programação utilizada no Angular é o TypeScript;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Cada componente Angular gera automaticamente 4 ficheiros: <code>.ts</code>, <code>.html</code>, <code>.css</code> e <code>.spec.ts</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Os serviços Angular utilizam Observables para comunicação assíncrona com APIs REST.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — Angular é uma framework <strong>client-side</strong> (frontend). Para fullstack, é necessário combinar com backend (Express + MongoDB = MEAN Stack).<br>
+              - <strong>b) VERDADEIRO</strong> — O Angular é escrito nativamente em TypeScript.<br>
+              - <strong>c) VERDADEIRO</strong> — O comando <code>ng generate component nome</code> gera os ficheiros de lógica, template, estilos e testes.<br>
+              - <strong>d) VERDADEIRO</strong> — Os serviços usam <code>HttpClient</code> que retorna Observables (RxJS), permitindo comunicação assíncrona.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="question-box" data-q="a4" data-correct="B,D">
+            <div class="question-header">
+              <span>Pergunta 4</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o seguinte excerto de código. Indique as afirmações verdadeiras:
+              <pre><code>app.use(function(req, res, next) {
+  console.log('Pedido recebido:', req.method, req.path);
+  next();
+});
+
+app.get('/products', productController.getAll);
+app.post('/products', productController.create);
+app.put('/product/:id', productController.update);
+app.delete('/product/:id', productController.delete);</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. O código apresentado pertence a uma aplicação Angular;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. A primeira função é um middleware que regista informação sobre cada pedido HTTP recebido;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O parâmetro <code>:id</code> nas rotas PUT e DELETE é acedido no controller através de <code>req.query.id</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A função <code>next()</code> é necessária para que o pedido seja processado pelas rotas seguintes.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — O código usa <code>app.use()</code>, <code>app.get()</code>, <code>req, res, next</code> — que são da framework <strong>ExpressJS</strong> (backend Node.js).<br>
+              - <strong>b) VERDADEIRO</strong> — A primeira função é um middleware de logs que regista método e caminho de cada pedido HTTP.<br>
+              - <strong>c) FALSO</strong> — Parâmetros de rota (<code>:id</code>) são acedidos via <code>req.params.id</code>, não via <code>req.query.id</code>.<br>
+              - <strong>d) VERDADEIRO</strong> — <code>next()</code> é necessário para passar o controlo à rota seguinte, senão o pedido fica pendente indefinidamente.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="question-box" data-q="a5" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 5</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o excerto de código abaixo. Indique as afirmações verdadeiras:
+              <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    .destaque { color: blue; font-weight: bold; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;p class="destaque"&gt;Primeiro parágrafo&lt;/p&gt;
+  &lt;p id="info"&gt;Segundo parágrafo&lt;/p&gt;
+  &lt;p class="destaque"&gt;Terceiro parágrafo&lt;/p&gt;
+  &lt;script&gt;
+    var elems = document.getElementsByClassName('destaque');
+    elems[0].style.color = 'red';
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Ao abrir a página, todos os parágrafos ficam com a cor vermelha;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Ao abrir a página, apenas o texto "Primeiro parágrafo" fica com a cor vermelha;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A função <code>getElementsByClassName</code> retorna uma coleção de elementos com a classe indicada;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O CSS está a ser aplicado de forma inline nesta página.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — Apenas o primeiro elemento da coleção é alterado para vermelho.<br>
+              - <strong>b) VERDADEIRO</strong> — <code>elems[0]</code> acede ao primeiro elemento da classe "destaque" (texto "Primeiro parágrafo") e muda o seu estilo.<br>
+              - <strong>c) VERDADEIRO</strong> — Retorna uma <code>HTMLCollection</code> viva dos elementos correspondentes.<br>
+              - <strong>d) FALSO</strong> — O CSS é aplicado de forma <strong>internal</strong> (tag <code>&lt;style&gt;</code> no <code>&lt;head&gt;</code>), não inline (que seria o atributo <code>style</code> na própria tag).
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="question-box" data-q="a6" data-correct="B,D">
+            <div class="question-header">
+              <span>Pergunta 6</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o seguinte excerto de código. Indique as afirmações verdadeiras:
+              <pre><code>@Component({
+  selector: 'app-product-list',
+  templateUrl: './product-list.component.html',
+  styleUrls: ['./product-list.component.css']
+})
+export class ProductListComponent implements OnInit {
+  products: Product[] = [];
+
+  constructor(private restService: RestService) {}
+
+  ngOnInit(): void {
+    this.restService.getProducts().subscribe(data => {
+      this.products = data;
+    });
+  }
+}</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Este código pertence a uma aplicação de backend escrita em ExpressJS;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O componente utiliza Injeção de Dependências para aceder ao serviço <code>RestService</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A função <code>getProducts()</code> retorna os dados de forma síncrona, bloqueando até a resposta estar pronta;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O método <code>ngOnInit()</code> é executado uma vez, após a inicialização do componente.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — Este código contém decoradores (<code>@Component</code>), ciclo de vida (<code>OnInit</code>) e Observables, que são de <strong>Angular</strong> (frontend).<br>
+              - <strong>b) VERDADEIRO</strong> — O <code>RestService</code> é injetado no construtor do componente via Dependency Injection.<br>
+              - <strong>c) FALSO</strong> — Retorna um <code>Observable</code>, que realiza chamadas assíncronas (não bloqueantes). Os dados são recebidos na subscrição.<br>
+              - <strong>d) VERDADEIRO</strong> — <code>ngOnInit()</code> é executado exatamente uma vez após inicializar as diretivas/propriedades do componente.
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="question-box" data-q="a7" data-correct="B,D">
+            <div class="question-header">
+              <span>Pergunta 7</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Indique as afirmações verdadeiras sobre bases de dados e armazenamento de dados em aplicações web:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. MongoDB é uma base de dados relacional que utiliza tabelas e linhas;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O módulo Mongoose permite definir schemas e modelos para interagir com MongoDB a partir de Node.js;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. É seguro ligar uma aplicação Angular diretamente ao MongoDB para guardar dados de forma persistente;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O <code>localStorage</code> do browser permite guardar dados que persistem mesmo após fechar e reabrir o browser.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — MongoDB é NoSQL, orientado a documentos (JSON/BSON), e usa coleções e documentos.<br>
+              - <strong>b) VERDADEIRO</strong> — Mongoose é um ODM (Object Document Mapper) para Node.js que modela esquemas de dados da BD.<br>
+              - <strong>c) FALSO</strong> — Angular (frontend) é público e visível no browser. Ligar diretamente ao MongoDB expõe credenciais de acesso, sendo uma falha grave. Deve-se fazer pedidos ao Express, que acede ao MongoDB.<br>
+              - <strong>d) VERDADEIRO</strong> — O <code>localStorage</code> persiste os dados sem expiração temporal definida (sobrevive a fechar o browser).
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="question-box" data-q="a8" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 8</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o seguinte excerto de código. Indique as afirmações verdadeiras:
+              <pre><code>&lt;% if (products &amp;&amp; products.length &gt; 0) { %&gt;
+  &lt;ul&gt;
+    &lt;% products.forEach(function(product) { %&gt;
+      &lt;li&gt;&lt;%= product.name %&gt; - &lt;%= product.price %&gt;€&lt;/li&gt;
+    &lt;% }); %&gt;
+  &lt;/ul&gt;
+&lt;% } else { %&gt;
+  &lt;p&gt;Nenhum produto encontrado.&lt;/p&gt;
+&lt;% } %&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Este código é executado no browser do cliente utilizando JavaScript;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Este código utiliza o template engine EJS para gerar HTML dinamicamente no servidor;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. Se a variável <code>products</code> estiver vazia, a mensagem "Nenhum produto encontrado." será exibida;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O template engine Mongoose é responsável por processar este tipo de código.</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>a) FALSO</strong> — O EJS corre no servidor (Server-Side Rendering), gerando HTML estático que depois é enviado ao browser.<br>
+              - <strong>b) VERDADEIRO</strong> — Utiliza a sintaxe do template engine EJS (Embedded JavaScript) no ExpressJS.<br>
+              - <strong>c) VERDADEIRO</strong> — Se a lista estiver vazia ou não declarada, o fluxo cai no bloco <code>else</code> e renderiza o parágrafo.<br>
+              - <strong>d) FALSO</strong> — Mongoose é um ODM para acesso a bases de dados, não um motor de templates HTML.
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-bottom: 30px;">
+            <button type="submit" class="btn btn-check-exam">Validar Respostas da Parte 1</button>
+          </div>
+        </form>
+
+        <!-- Parte 2 True / False -->
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 2 — Verdadeiro ou Falso (2 valores)</h3>
+
+        <!-- A - VF 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.1</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            "O Node.js é uma framework de backend que compete diretamente com o ExpressJS no desenvolvimento de aplicações web."
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-vf1')">Revelar Resolução</button>
+          <div id="reveal-a-vf1" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> Node.js não é uma framework — é um <strong>runtime</strong> (ambiente de execução) que permite correr JavaScript fora do browser (no servidor). Node.js e ExpressJS não competem; são complementares. O Express é uma framework web que corre <strong>sobre</strong> o Node.js.
+            </p>
+          </div>
+        </div>
+
+        <!-- A - VF 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.2</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            "O objeto XMLHttpRequest em JavaScript permite enviar pedidos HTTP assíncronos ao servidor sem necessidade de recarregar a página."
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-vf2')">Revelar Resolução</button>
+          <div id="reveal-a-vf2" class="reveal-box">
+            <span class="badge badge-success">VERDADEIRO</span>
+            <p style="margin-top: 10px;">
+              <strong>Justificação:</strong> Esta é a definição do conceito de <strong>AJAX</strong>. Permite carregar ou submeter dados em background de forma assíncrona, atualizando partes da interface sem interromper a navegação da página.
+            </p>
+          </div>
+        </div>
+
+        <!-- A - VF 3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.3</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            "Em Angular, os serviços (@Injectable) devem ter obrigatoriamente um ficheiro de template HTML associado para apresentar dados ao utilizador."
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-vf3')">Revelar Resolução</button>
+          <div id="reveal-a-vf3" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> Os serviços Angular não possuem template HTML. São classes TypeScript puras decoradas com <code>@Injectable()</code> para gerir dados, chamadas HTTP e estado global. Apenas os componentes (<code>@Component</code>) possuem templates HTML (vista).
+            </p>
+          </div>
+        </div>
+
+        <!-- A - VF 4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.4</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            "O método HTTP PUT é idempotente, o que significa que executar o mesmo pedido múltiplas vezes produz o mesmo resultado."
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-vf4')">Revelar Resolução</button>
+          <div id="reveal-a-vf4" class="reveal-box">
+            <span class="badge badge-success">VERDADEIRO</span>
+            <p style="margin-top: 10px;">
+              <strong>Justificação:</strong> O método PUT é idempotente porque atualizar um recurso com o mesmo payload várias vezes mantém o recurso exatamente no mesmo estado após o primeiro pedido. Os métodos GET e DELETE também são idempotentes; o POST não é.
+            </p>
+          </div>
+        </div>
+
+        <!-- Parte 3 Open Questions -->
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 3 — Questões Teóricas & Práticas</h3>
+
+        <!-- A - Open 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.1</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Explique a diferença entre autenticação e autorização no contexto do desenvolvimento de aplicações web. Na sua resposta, inclua exemplos de como estes conceitos são implementados na MEAN Stack.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua resposta explicativa..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-o1')">Ver Resposta Correta</button>
+          <div id="reveal-a-o1" class="reveal-box">
+            <span class="badge badge-success">Solução Recomendada</span>
+            <p style="margin-top:10px;">
+              <strong>Autenticação:</strong> Responde a "Quem és tu?". Trata-se de validar a identidade do utilizador (ex: preencher e-mail e password num formulário de login).<br>
+              <strong>Autorização:</strong> Responde a "O que podes fazer?". Verifica as permissões de acesso do utilizador autenticado (ex: verificar se é administrador antes de aceder a rotas restritas).
+            </p>
+            <p style="margin-top:10px;"><strong>Implementação na MEAN Stack:</strong></p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><strong>Backend (Express):</strong> Autentica emitindo um token JWT (<code>jwt.sign</code>) no login. Autoriza com middlewares que lêem o token (<code>jwt.verify</code>) e verificam o campo de perfil (ex: <code>req.userRole === 'ADMIN'</code>) antes de executar a rota, respondendo com 401 (Não Autenticado) ou 403 (Proibido).</li>
+              <li><strong>Frontend (Angular):</strong> Guarda o token em <code>localStorage</code>. Usa <strong>Guards</strong> (<code>CanActivate</code>) para impedir navegação visual a páginas protegidas e <strong>HttpInterceptors</strong> para anexar automaticamente o JWT no cabeçalho (header) de todas as requisições HTTP REST.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- A - Open 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.2</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Descreva o padrão de software MVC (Model-View-Controller). Explique como este padrão pode ser aplicado numa aplicação escrita com a framework ExpressJS e também numa aplicação Angular.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua resposta explicativa..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-o2')">Ver Resposta Correta</button>
+          <div id="reveal-a-o2" class="reveal-box">
+            <span class="badge badge-success">Solução Recomendada</span>
+            <p style="margin-top:10px;">
+              O <strong>MVC</strong> é um padrão de arquitetura que separa a aplicação em três componentes principais:
+            </p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><strong>Model (Modelo):</strong> Gere a estrutura dos dados, regras de negócio e persistência de dados.</li>
+              <li><strong>View (Vista):</strong> Apresenta a interface gráfica e exibe dados ao utilizador final.</li>
+              <li><strong>Controller (Controlador):</strong> Intermédio. Recebe interações do utilizador (input), processa regras e manipula o Model ou atualiza a View.</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Aplicação no ExpressJS:</strong></p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><strong>Model:</strong> Schemas e Modelos Mongoose (ex: <code>models/product.js</code>).</li>
+              <li><strong>View:</strong> Templates EJS gerados no servidor (ex: <code>views/index.ejs</code> com HTML e tags <code>&lt;%= %&gt;</code>).</li>
+              <li><strong>Controller:</strong> Callbacks de rota (ex: <code>controllers/productController.js</code>) que lêem da base de dados e chamam <code>res.render()</code> ou <code>res.json()</code>.</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Aplicação no Angular:</strong></p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><strong>Model:</strong> Classes, interfaces TypeScript e Serviços (que comunicam com APIs).</li>
+              <li><strong>View:</strong> Templates HTML e CSS dos componentes (ex: <code>*.component.html</code>).</li>
+              <li><strong>Controller:</strong> Classe TypeScript do componente (ex: <code>*.component.ts</code> com decorador <code>@Component</code>), que liga dados via data binding bidirecional.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- A - Open 3.1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.3.1</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Identifique e corrija os erros presentes no seguinte excerto de código HTML/JavaScript, de forma a que a página funcione corretamente:
+            <pre><code>&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Lista de Tarefas&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Lista de Tarefas&lt;/h1&gt;
+  &lt;input type="text" id="novaTarefa"&gt;
+  &lt;button&gt;Adicionar&lt;/button&gt;
+  &lt;ul id="lista"&gt;&lt;/ul&gt;
+  &lt;script&gt;
+    function adicionarTarefa() {
+      var texto = document.getElementById(novaTarefa).value;
+      var li = document.createElement("li");
+      li.textContent = texto;
+      document.getElementById("lista").appendChild(li);
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código HTML/JS corrigido..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-o31')">Ver Resposta Correta</button>
+          <div id="reveal-a-o31" class="reveal-box">
+            <span class="badge badge-success">Solução Corrigida</span>
+            <pre><code>&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Lista de Tarefas&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Lista de Tarefas&lt;/h1&gt;
+  &lt;input type="text" id="novaTarefa"&gt;
+  &lt;button <span class="code-keyword">onclick="adicionarTarefa()"</span>&gt;Adicionar&lt;/button&gt;
+  &lt;ul id="lista"&gt;&lt;/ul&gt;
+  &lt;script&gt;
+    function adicionarTarefa() {
+      var texto = document.getElementById(<span class="code-string">"novaTarefa"</span>).value;
+      var li = document.createElement("li");
+      li.textContent = texto;
+      document.getElementById("lista").appendChild(li);
+    }
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            <p style="margin-top:10px;">
+              <strong>Erros Identificados:</strong><br>
+              1. <strong>Falta de Evento:</strong> O botão não possuía nenhum manipulador de evento para invocar a função (adicionado <code>onclick="adicionarTarefa()"</code>).<br>
+              2. <strong>Elemento por ID Inválido:</strong> `document.getElementById(novaTarefa)` usava `novaTarefa` como variável não declarada (deve ser a string <code>"novaTarefa"</code>).
+            </p>
+          </div>
+        </div>
+
+        <!-- A - Open 3.2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.3.2</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Como podemos melhorar a página anterior para que as tarefas adicionadas sejam mantidas mesmo após fechar e reabrir o browser? Indique uma solução baseada apenas na página HTML apresentada.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código e explicação..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-o32')">Ver Resposta Correta</button>
+          <div id="reveal-a-o32" class="reveal-box">
+            <span class="badge badge-success">Solução Recomendada</span>
+            <p style="margin-top:10px;">
+              Utiliza-se o **<code>localStorage</code>** (Web Storage API) do browser, que guarda strings de forma persistente no cliente. Como armazena apenas texto, deve-se usar <code>JSON.stringify</code> para salvar o array de tarefas e <code>JSON.parse</code> para restaurá-lo.
+            </p>
+            <p><strong>Script HTML Melhorado:</strong></p>
+            <pre><code>&lt;script&gt;
+  // Carregar tarefas guardadas no localStorage ao iniciar
+  var tarefas = JSON.parse(localStorage.getItem("tarefas")) || [];
+  
+  tarefas.forEach(function(texto) {
+    var li = document.createElement("li");
+    li.textContent = texto;
+    document.getElementById("lista").appendChild(li);
+  });
+
+  function adicionarTarefa() {
+    var input = document.getElementById("novaTarefa");
+    var texto = input.value;
+    if(texto.trim() === "") return; // Evita tarefas em branco
+
+    var li = document.createElement("li");
+    li.textContent = texto;
+    document.getElementById("lista").appendChild(li);
+    
+    // Atualizar array e gravar no localStorage
+    tarefas.push(texto);
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+    
+    input.value = ""; // Limpar campo
+  }
+&lt;/script&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- A - Open 4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.4</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Considere o seguinte excerto de código de uma aplicação Angular. Explique a funcionalidade de cada bloco de código, indique que padrões de software estão a ser utilizados e como o serviço pode ser consumido por um componente Angular.
+            <pre><code>@Injectable({
+  providedIn: 'root'
+})
+export class TaskService {
+  private tasksSource = new BehaviorSubject&lt;Task[]&gt;([]);
+  tasks$ = this.tasksSource.asObservable();
+
+  constructor(private http: HttpClient) {}
+
+  loadTasks(): void {
+    this.http.get&lt;Task[]&gt;('http://localhost:3000/api/tasks')
+      .subscribe(data => {
+        this.tasksSource.next(data);
+      });
+  }
+
+  addTask(task: Task): Observable&lt;Task&gt; {
+    return this.http.post&lt;Task&gt;('http://localhost:3000/api/tasks', 
+      JSON.stringify(task), httpOptions);
+  }
+}</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua explicação do serviço Angular..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-o4')">Ver Resposta Correta</button>
+          <div id="reveal-a-o4" class="reveal-box">
+            <span class="badge badge-success">Solução Recomendada</span>
+            <p style="margin-top:10px;"><strong>Funcionalidade de cada bloco:</strong></p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><code>@Injectable({ providedIn: 'root' })</code>: Regista a classe no injetor raiz do Angular, tornando-a um serviço partilhado como **Singleton** (instância única).</li>
+              <li><code>BehaviorSubject&lt;Task[]&gt;</code>: Canal reativo de dados que guarda o último estado emitido e permite novos valores via <code>.next()</code>. É mantido privado por segurança.</li>
+              <li><code>tasks$</code>: Expõe o canal como um <code>Observable</code> de leitura simples para que componentes possam subscrever sem alterar o estado diretamente.</li>
+              <li><code>constructor(private http: HttpClient)</code>: Injeta a dependência do cliente HTTP do Angular.</li>
+              <li><code>loadTasks()</code>: Descarrega assincronamente as tarefas da API e emite-as no <code>BehaviorSubject</code>.</li>
+              <li><code>addTask()</code>: Submete um POST para criar uma tarefa no servidor, devolvendo um <code>Observable&lt;Task&gt;</code>.</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Padrões de Software:</strong></p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><strong>Singleton:</strong> Instância única instanciada na raiz.</li>
+              <li><strong>Observer / Programação Reativa:</strong> Uso de Observables e BehaviorSubjects do RxJS.</li>
+              <li><strong>Dependency Injection (Injeção de Dependências):</strong> Injeção do HttpClient.</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Consumo por Componente:</strong></p>
+            <pre><code>export class TaskListComponent implements OnInit {
+  tasks: Task[] = [];
+  constructor(private taskService: TaskService) {} // DI
+
+  ngOnInit() {
+    // Subscrever ao Observable para receber atualizações automáticas
+    this.taskService.tasks$.subscribe(data => this.tasks = data);
+    this.taskService.loadTasks(); // Despoletar pedido HTTP
+  }
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- A - Open 5 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.5</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Explique o que são serviços REST no âmbito do desenvolvimento de aplicações para a web. Na sua resposta inclua as propriedades fundamentais de uma API REST e o mapeamento entre métodos HTTP e operações CRUD.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui a tua resposta..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-o5')">Ver Resposta Correta</button>
+          <div id="reveal-a-o5" class="reveal-box">
+            <span class="badge badge-success">Solução Recomendada</span>
+            <p style="margin-top:10px;">
+              Serviços <strong>REST</strong> (Representational State Transfer) definem uma arquitetura para criar web services assentes sobre o protocolo HTTP. Os recursos são expostos através de URIs uniformes e manipulados através de métodos de pedido HTTP padronizados.
+            </p>
+            <p style="margin-top:10px;"><strong>Propriedades Fundamentais:</strong></p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><strong>Cliente-Servidor:</strong> Separação entre interface de utilizador e armazenamento de dados.</li>
+              <li><strong>Stateless (Sem estado):</strong> Cada pedido HTTP deve conter toda a informação necessária para o processar. O servidor não mantém contexto de sessão do utilizador.</li>
+              <li><strong>Cacheable:</strong> Respostas do servidor podem ser guardadas localmente pelo cliente.</li>
+              <li><strong>Interface Uniforme:</strong> Identificação de recursos através de caminhos e uso de representações (JSON).</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Mapeamento Métodos HTTP ↔ CRUD:</strong></p>
+            <ul style="padding-left:20px; margin-top:5px;">
+              <li><strong>GET</strong> ↔ Read (Obter recurso ou listagem). Ex: <code>GET /api/tasks</code></li>
+              <li><strong>POST</strong> ↔ Create (Criar novo recurso no servidor). Ex: <code>POST /api/tasks</code></li>
+              <li><strong>PUT / PATCH</strong> ↔ Update (Substituir/atualizar recurso existente). Ex: <code>PUT /api/tasks/123</code></li>
+              <li><strong>DELETE</strong> ↔ Delete (Remover recurso do servidor). Ex: <code>DELETE /api/tasks/123</code></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- A - Open 6 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta Aberta 3.6</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Considere a seguinte afirmação: "Numa aplicação MEAN Stack, o Angular pode comunicar diretamente com o MongoDB para guardar e ler dados, tornando desnecessário o uso de um backend com ExpressJS." Comente esta afirmação, indicando se é verdadeira ou falsa e justificando a sua resposta.
+          </div>
+          <textarea class="open-response-area" placeholder="Comenta a afirmação..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-a-o6')">Ver Resposta Correta</button>
+          <div id="reveal-a-o6" class="reveal-box">
+            <span class="badge badge-error">FALSA</span>
+            <p style="margin-top: 10px;">
+              <strong>Justificação:</strong> O Angular corre inteiramente do lado do cliente (no browser do utilizador). Ligar o Angular diretamente ao MongoDB é impossível nativamente por razões de arquitetura de rede e constituiria uma **falha crítica de segurança**. As credenciais de conexão à BD ficariam totalmente expostas e visíveis no browser de qualquer utilizador, permitindo a leitura e eliminação maliciosa de dados.
+            </p>
+            <p style="margin-top:5px;">
+              O backend (ExpressJS / Node.js) serve como **intermediário seguro** (broker) para gerir regras de negócio, validar pedidos, enforçar autorização e autenticação (JWT) e estabelecer conexões seguras e controladas à base de dados.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: MOCK EXAM 1 (Interativo) -->
+    <section id="tab-mock-1" class="tab-content">
+      <div class="quiz-summary-card" id="summary-mock-1" style="display: none;">
+        <div>
+          <h3 style="color: var(--accent);">Resultados do Exame Modelo 1</h3>
+          <p id="grade-text-1">Obteve 0 de 8.0 valores na Parte Múltipla.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="resetQuiz('mock-1')">Reiniciar Teste</button>
+      </div>
+
+      <div class="card">
+        <h2 class="card-title">📝 Exame Modelo 1 (Interativo)</h2>
+        <p style="color: var(--text-muted); margin-bottom: 25px;">
+          Responda às questões da Parte 1 e clique em "Validar Respostas" no fim para obter a nota imediata.
+        </p>
+
+        <form id="quiz-form-1" onsubmit="gradeQuiz(event, '1')">
+          <!-- Q1 -->
+          <div class="question-box" data-q="m1_1" data-correct="A,C">
+            <div class="question-header">
+              <span>Pergunta 1</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o seguinte script JavaScript. Selecione todas as afirmações verdadeiras:
+              <pre><code>function processar(items) {
+    let total = items.length;
+    console.log(`Total de items: ${total}`);
+}
+
+processar([1, 2, 3]);   // Chamada A
+processar("PAW");           // Chamada B
+processar();               // Chamada C</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. A Chamada A imprime <code>Total de items: 3</code> porque arrays em JavaScript têm a propriedade <code>length</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. A Chamada B lança imediatamente um <code>TypeError</code> porque o argumento não é um array;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A Chamada B imprime <code>Total de items: 3</code> porque strings em JavaScript também possuem a propriedade <code>length</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. A Chamada C corre sem erros e imprime <code>Total de items: 0</code>;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> Arrays são objetos em JS. <code>[1,2,3].length</code> retorna 3. Imprime "Total de items: 3".<br>
+              - <strong>B é incorreta:</strong> JavaScript não lança erros por tipo de argumento. A string "PAW" tem <code>length === 3</code>. Nenhum erro é lançado.<br>
+              - <strong>C é correta:</strong> Strings em JS têm <code>length</code> (nº de caracteres). <code>"PAW".length === 3</code>. Imprime "Total de items: 3".<br>
+              - <strong>D é incorreta:</strong> Sem argumento, <code>items</code> é <code>undefined</code>. Aceder a <code>undefined.length</code> lança um <code>TypeError</code>.
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="question-box" data-q="m1_2" data-correct="B,C">
+            <div class="question-header">
+              <span>Pergunta 2</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe o seguinte excerto de código com template engine EJS. Selecione todas as afirmações verdadeiras:
+              <pre><code>&lt;% if (produtos &amp;&amp; produtos.length &gt; 0) { %&gt;
+  &lt;table&gt;
+    &lt;% produtos.forEach(p =&gt; { %&gt;
+      &lt;tr&gt;&lt;td&gt;&lt;%= p.nome %&gt;&lt;/td&gt;&lt;td&gt;&lt;%= p.preco %&gt;€&lt;/td&gt;&lt;/tr&gt;
+    &lt;% }); %&gt;
+  &lt;/table&gt;
+&lt;% } %&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Este código é processado pelo browser do cliente após o download do ficheiro HTML;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Este código exemplifica Server-Side Rendering (SSR): o HTML final é gerado no servidor antes de ser enviado ao browser;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. A tag <code>&lt;%= p.nome %&gt;</code> imprime o valor da variável com escape HTML automático, protegendo contra XSS básico;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Este código tem comportamento idêntico a um componente Angular com interpolação <code>{{ p.nome }}</code>;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é incorreta:</strong> O EJS é processado inteiramente no servidor (Node.js/Express). O browser recebe apenas HTML puro estático.<br>
+              - <strong>B é correta:</strong> EJS é SSR. O servidor Express processa o template, preenche com dados reais e envia HTML compilado ao browser.<br>
+              - <strong>C é correta:</strong> <code>&lt;%= ... %&gt;</code> faz output com escape HTML automático (ex: &lt; vira &amp;lt;), prevenindo XSS.<br>
+              - <strong>D é incorreta:</strong> Angular usa Client-Side Rendering (CSR/SPA). O comportamento é oposto: Angular compila componentes no browser, EJS compila HTML no servidor.
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="question-box" data-q="m1_3" data-correct="A,C,D">
+            <div class="question-header">
+              <span>Pergunta 3</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Selecione todas as afirmações verdadeiras relativamente à stack MEAN:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. É possível construir uma aplicação web completa (frontend, backend e base de dados) utilizando exclusivamente a MEAN Stack;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O MongoDB armazena os dados em tabelas relacionais com linhas e colunas, tal como o MySQL;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O Angular é responsável exclusivamente pela camada de frontend (cliente), correndo no browser do utilizador;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Numa aplicação MEAN, a string de ligação ao MongoDB deve estar guardada no backend Express, nunca no código Angular;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> A MEAN Stack (MongoDB + Express + Angular + Node.js) cobre todas as camadas.<br>
+              - <strong>B é incorreta:</strong> MongoDB é uma base de dados NoSQL orientada a documentos. Usa coleções de documentos BSON (semelhante a JSON).<br>
+              - <strong>C é correta:</strong> Angular é uma framework frontend que corre no browser.<br>
+              - <strong>D é correta:</strong> A connection string contém credenciais. Num SPA Angular essas credenciais ficariam expostas nas DevTools do browser — falha de segurança crítica.
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="question-box" data-q="m1_4" data-correct="A,B,D">
+            <div class="question-header">
+              <span>Pergunta 4</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe o seguinte excerto de código Express. Selecione todas as afirmações verdadeiras:
+              <pre><code>const router = require('express').Router();
+
+router.use((req, res, next) => {
+    const token = req.headers['authorization'];
+    if (!token) return res.status(401).json({ erro: 'Não autenticado' });
+    next();
+});
+
+router.get('/orders',       orderController.getAll);
+router.post('/orders',      orderController.create);
+router.delete('/orders/:id', orderController.remove);</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. A função <code>router.use()</code> é um middleware que protege todas as rotas definidas abaixo dela neste router;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O parâmetro <code>:id</code> na rota DELETE é acedido no controller através de <code>req.params.id</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O parâmetro <code>:id</code> na rota DELETE é acedido no controller através de <code>req.query.id</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Se um pedido GET para <code>/orders</code> não tiver o header <code>authorization</code>, o servidor responde com o código HTTP 401;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> O Express executa middlewares por ordem. Como <code>router.use()</code> está antes das rotas, todos os pedidos passam primeiro pelo middleware de autenticação.<br>
+              - <strong>B é correta:</strong> Segmentos precedidos de <code>:</code> são parâmetros de rota, acessíveis via <code>req.params</code>.<br>
+              - <strong>C é incorreta:</strong> <code>req.query</code> é para query strings (ex: <code>?id=42</code>). Parâmetros de rota (<code>:id</code>) estão em <code>req.params.id</code>.<br>
+              - <strong>D é correta:</strong> Sem o header <code>authorization</code>, o middleware executa <code>res.status(401).json({...})</code> sem chamar <code>next()</code>, terminando o ciclo.
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="question-box" data-q="m1_5" data-correct="A,B,D">
+            <div class="question-header">
+              <span>Pergunta 5</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe o seguinte excerto de código CSS e HTML. Selecione todas as afirmações verdadeiras:
+              <pre><code>&lt;style&gt;
+  #main-title { color: navy; font-size: 2rem; }
+  .destaque   { color: crimson; }
+  h2           { color: green; }
+&lt;/style&gt;
+
+&lt;h2 id="main-title" class="destaque"&gt;Título da Página&lt;/h2&gt;
+&lt;h2 class="destaque"&gt;Subtítulo&lt;/h2&gt;
+&lt;h2&gt;Outro Título&lt;/h2&gt;</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. O texto "Título da Página" fica com a cor <code>navy</code> porque o seletor de ID tem maior especificidade que os seletores de classe e de tag;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O texto "Subtítulo" fica com a cor <code>crimson</code> porque o seletor de classe tem maior especificidade que o seletor de tag;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O texto "Outro Título" fica com a cor <code>navy</code> por herança do ID definido no elemento irmão acima;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O CSS presente no excerto é do tipo <em>internal stylesheet</em> (incorporado), e não inline nem externo;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> Especificidade CSS: ID(100) &gt; Classe(10) &gt; Tag(1). <code>#main-title</code> (100pts) vence <code>.destaque</code>(10) e <code>h2</code>(1). Primeiro h2 fica <code>navy</code>.<br>
+              - <strong>B é correta:</strong> Segundo h2 só tem classe. <code>.destaque</code>(10pts) &gt; <code>h2</code>(1pt). Fica <code>crimson</code>.<br>
+              - <strong>C é incorreta:</strong> Não existe herança de seletor entre elementos irmãos. O terceiro h2 sem ID ou classe aplica apenas <code>h2 { color: green; }</code>. Fica <code>green</code>.<br>
+              - <strong>D é correta:</strong> CSS dentro da tag <code>&lt;style&gt;</code> no HTML = CSS interno.
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="question-box" data-q="m1_6" data-correct="A,C">
+            <div class="question-header">
+              <span>Pergunta 6</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Considere o seguinte componente Angular e selecione todas as afirmações verdadeiras:
+              <pre><code>@Component({
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
+})
+export class UserProfileComponent implements OnInit {
+  user: User | null = null;
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe(data => {
+      this.user = data;
+    });
+  }
+}</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. O <code>UserService</code> é injetado no componente através do mecanismo de Dependency Injection do Angular;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O método <code>ngOnInit()</code> é invocado automaticamente pelo Angular antes do construtor da classe ser executado;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O método <code>getCurrentUser()</code> retorna um <code>Observable</code>, e os dados são recebidos de forma assíncrona no callback do <code>.subscribe()</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. Este componente pode funcionar como serviço Angular partilhado entre múltiplos componentes por implementar <code>OnInit</code>;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> <code>private userService: UserService</code> no construtor é a forma padrão de DI no Angular.<br>
+              - <strong>B é incorreta:</strong> O <code>ngOnInit()</code> executa <strong>depois</strong> do construtor.<br>
+              - <strong>C é correta:</strong> <code>HttpClient</code> retorna Observables (RxJS). O <code>.subscribe()</code> regista o callback assíncrono.<br>
+              - <strong>D é incorreta:</strong> Implementar <code>OnInit</code> não torna um componente num serviço. Componentes têm template visual; serviços não.
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="question-box" data-q="m1_7" data-correct="A,C">
+            <div class="question-header">
+              <span>Pergunta 7</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Tendo em consideração o desenvolvimento com Node.js, Express e MongoDB (Mongoose), indique todas as afirmações verdadeiras:
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. O Mongoose é um ODM (Object Document Mapper) que permite definir schemas e realizar operações CRUD no MongoDB a partir de Node.js;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. O <code>sessionStorage</code> do browser persiste os dados mesmo após fechar e reabrir o browser, ao contrário do <code>localStorage</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O middleware <code>app.use(express.json())</code> é necessário para que o Express consiga ler o corpo (body) de pedidos com Content-Type <code>application/json</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O Node.js é uma framework de backend que concorre diretamente com a framework ExpressJS no mercado;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> O Mongoose é o ODM padrão para Node.js + MongoDB. Permite definir schemas com validações.<br>
+              - <strong>B é incorreta:</strong> É o oposto! <code>localStorage</code> é persistente. <code>sessionStorage</code> é apagado quando a janela é fechada.<br>
+              - <strong>C é correta:</strong> Por omissão, o Express não parseia JSON no body. O middleware <code>express.json()</code> é necessário para expor o <code>req.body</code>.<br>
+              - <strong>D é incorreta:</strong> Node.js é um runtime, ExpressJS é uma framework que corre sobre o Node.js.
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="question-box" data-q="m1_8" data-correct="A,C">
+            <div class="question-header">
+              <span>Pergunta 8</span>
+              <span class="question-val">1.0 valor</span>
+            </div>
+            <div class="question-prompt">
+              Observe o seguinte excerto de código Express e selecione todas as afirmações verdadeiras:
+              <pre><code>const app = require('express')();
+
+app.get('/api/items',     ctrl.getAll);
+app.get('/api/items/:id',  ctrl.getOne);
+app.get('/api/items/new', ctrl.getNew);
+app.post('/api/items',    ctrl.create);
+
+app.use((req, res) => {
+    res.status(404).json({ mensagem: 'Rota não encontrada' });
+});</code></pre>
+            </div>
+            <div class="options-list">
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="A">
+                <span>A. Um pedido GET para <code>/api/items/new</code> irá ativar o handler <code>ctrl.getOne</code> com <code>req.params.id === "new"</code>, nunca o <code>ctrl.getNew</code>;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="B">
+                <span>B. Um pedido POST para <code>/api/items</code> responde com código 404 porque o middleware de erro está declarado no final;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="C">
+                <span>C. O middleware de erro 404 no final pode ser ativado por pedidos que usem métodos HTTP não listados, como DELETE ou PATCH para qualquer rota;</span>
+              </label>
+              <label class="option-item" onclick="toggleCheckbox(this)">
+                <input type="checkbox" value="D">
+                <span>D. O código apresentado pertence a uma aplicação Angular;</span>
+              </label>
+            </div>
+            <div class="explanation-box">
+              <strong>Explicação:</strong><br>
+              - <strong>A é correta:</strong> Express faz match por ordem de declaração. Como <code>/api/items/:id</code> está antes, ele captura <code>new</code> como o ID.<br>
+              - <strong>B é incorreta:</strong> O pedido POST tem correspondência com a rota POST declarada.<br>
+              - <strong>C é correta:</strong> Pedidos com outros verbos (DELETE, PATCH) não fazem match e chegam ao middleware 404 final.<br>
+              - <strong>D é incorreta:</strong> O código pertence ao backend ExpressJS (Node.js).
+            </div>
+          </div>
+
+          <div style="text-align: right; margin-bottom: 30px;">
+            <button type="submit" class="btn btn-check-exam">Validar Respostas da Parte 1</button>
+          </div>
+        </form>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 2 — Verdadeiro ou Falso (2 valores)</h3>
+        
+        <!-- VF 1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.1</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “O CSS é uma linguagem de programação usada para adicionar interatividade e lógica de negócio às páginas web, sendo equivalente ao JavaScript para esse propósito.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso e corrige se for Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-vf1')">Revelar Resolução</button>
+          <div id="reveal-mock1-vf1" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> O CSS é uma <strong>linguagem de estilos declarativa</strong>, não uma linguagem de programação. Serve para a apresentação visual. A interatividade e lógica são tratadas pelo JavaScript.
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.2</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Numa arquitetura de Single Page Application (SPA) com Angular, quando o utilizador navega entre páginas, o browser não realiza um reload completo — o Angular Router atualiza dinamicamente os componentes no DOM.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-vf2')">Revelar Resolução</button>
+          <div id="reveal-mock1-vf2" class="reveal-box">
+            <span class="badge badge-success">VERDADEIRO</span>
+            <p style="margin-top: 10px;">
+              <strong>Justificação:</strong> O Angular Router interceta a navegação e substitui dinamicamente os componentes na árvore do DOM (na tag <code>&lt;router-outlet&gt;</code>) sem recarregar a página HTML inicial (<code>index.html</code>).
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.3</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “Em Angular, é obrigatório ter um ficheiro de template HTML associado a cada serviço (<code>@Injectable</code>), da mesma forma que um componente (<code>@Component</code>) tem um ficheiro <code>.component.html</code>.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-vf3')">Revelar Resolução</button>
+          <div id="reveal-mock1-vf3" class="reveal-box">
+            <span class="badge badge-error">FALSO</span>
+            <p style="margin-top: 10px;">
+              <strong>Correção:</strong> Serviços em Angular são classes TypeScript puras sem template HTML. O seu papel é encapsular lógica de negócio e chamadas HTTP, não apresentações visuais.
+            </p>
+          </div>
+        </div>
+
+        <!-- VF 4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Afirmação 2.4</span>
+            <span class="question-val">0.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            “O método HTTP DELETE é idempotente: executar o mesmo pedido DELETE <code>/api/users/5</code> múltiplas vezes produz o mesmo resultado no estado final do servidor.”
+          </div>
+          <textarea class="open-response-area" placeholder="Justifica se é Verdadeiro ou Falso..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-vf4')">Revelar Resolução</button>
+          <div id="reveal-mock1-vf4" class="reveal-box">
+            <span class="badge badge-success">VERDADEIRO</span>
+            <p style="margin-top: 10px;">
+              <strong>Justificação:</strong> O DELETE é idempotente porque o estado final da base de dados/servidor é o mesmo (o recurso ID 5 deixa de existir). Chamadas subsequentes retornarão o mesmo estado de ausência, mesmo que o status HTTP mude (de 200/204 para 404).
+            </p>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 40px; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 25px;">Parte 3 — Resposta Aberta (10 valores)</h3>
+
+        <!-- P3.1 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.1</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Explique o conceito de <strong>cliente-servidor</strong> aplicado ao desenvolvimento de aplicações web. Na sua resposta, identifique o papel de cada componente da arquitetura MEAN Stack neste modelo.
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu texto explicativo..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-o1')">Revelar Resposta Ideal</button>
+          <div id="reveal-mock1-o1" class="reveal-box">
+            <p><strong>Resposta Ideal:</strong></p>
+            <p>O modelo cliente-servidor divide tarefas entre o Cliente (browser, que executa Angular, inicia pedidos HTTP e renderiza HTML/CSS) e o Servidor (máquina remota que corre Node.js/Express, valida pedidos, executa lógica de negócio e comunica com a BD).</p>
+            <p style="margin-top:10px;"><strong>Papéis na MEAN Stack:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>M (MongoDB):</strong> Base de dados NoSQL orientada a documentos. Guarda os dados de forma persistente.</li>
+              <li><strong>E (Express):</strong> Framework backend que corre em Node.js. Define rotas, validações (JWT) e serve a API.</li>
+              <li><strong>A (Angular):</strong> Framework frontend client-side. Gere a experiência SPA e faz pedidos assíncronos HTTP ao Express.</li>
+              <li><strong>N (Node.js):</strong> Runtime JS do lado do servidor onde o Express executa.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- P3.2 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.2</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Identifique e corrija todos os erros presentes no seguinte excerto de código HTML/JavaScript de forma a que o formulário de login funcione corretamente, submetendo os dados para <code>/api/auth/login</code> com o método HTTP adequado.
+            <pre><code>&lt;html&gt;&lt;body&gt;
+  &lt;h1&gt;Login&lt;/h1&gt;
+  &lt;form action="/api/auth/login" method="GET"&gt;
+    &lt;input type="text" id="userEmail"&gt;
+    &lt;input type="text" id="userPass"&gt;
+    &lt;button&gt;Entrar&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/body&gt;&lt;/html&gt;</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve aqui o teu código HTML corrigido e erros..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-o2')">Revelar Resposta Ideal</button>
+          <div id="reveal-mock1-o2" class="reveal-box">
+            <p><strong>Erros Identificados:</strong></p>
+            <ul style="padding-left:20px;">
+              <li><strong>Método HTTP inadequado:</strong> <code>method="GET"</code> expõe credenciais no URL. Deve usar <code>POST</code>.</li>
+              <li><strong>Falta de atributo name:</strong> Sem <code>name</code>, os inputs não são submetidos no payload.</li>
+              <li><strong>Tipos de input inadequados:</strong> O email deve ser <code>type="email"</code> (validação HTML5) e a password <code>type="password"</code> (ocultação de caracteres).</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Código Corrigido:</strong></p>
+            <pre><code>&lt;html&gt;&lt;body&gt;
+  &lt;h1&gt;Login&lt;/h1&gt;
+  &lt;form action="/api/auth/login" method="POST"&gt;
+    &lt;input type="email" id="userEmail" name="email" placeholder="Email" required&gt;
+    &lt;input type="password" id="userPass" name="password" placeholder="Password" required&gt;
+    &lt;button type="submit"&gt;Entrar&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/body&gt;&lt;/html&gt;</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.3 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.3</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            <strong>3.1</strong> — Analise o seguinte middleware Express e indique a sua funcionalidade, erro e correção necessária:
+            <pre><code>function autenticar(req, res, next) {
+    const token = req.headers['authorization']?.replace('Bearer ', '');
+    if (!token) {
+        return res.status(401).json({ erro: 'Token ausente' });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ erro: 'Token inválido' });
+        }
+        req.user = decoded;
+        res.status(200); // <-- ERRO AQUI
+    });
+}</code></pre>
+            <strong>3.2</strong> — Como melhorar o script JS para que as tarefas adicionadas persistam no browser após fechar?
+            <pre><code>&lt;input type="text" id="tarefa"&gt;
+&lt;button onclick="adicionar()"&gt;Adicionar&lt;/button&gt;
+&lt;ul id="lista"&gt;&lt;/ul&gt;
+&lt;script&gt;
+  function adicionar() {
+    let texto = document.getElementById('tarefa').value;
+    let li = document.createElement('li');
+    li.textContent = texto;
+    document.getElementById('lista').appendChild(li);
+  }
+&lt;/script&gt;</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Escreve a tua resposta de 3.1 e 3.2 aqui..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-o3')">Revelar Resposta Ideal</button>
+          <div id="reveal-mock1-o3" class="reveal-box">
+            <p><strong>3.1 — Resposta:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>Funcionalidade:</strong> Autenticação JWT. Lê token, valida assinatura e anexa payload descodificado a <code>req.user</code>.</li>
+              <li><strong>Erro:</strong> Usar <code>res.status(200);</code> no fluxo de sucesso. Um middleware deve invocar <code>next()</code> para delegar o processamento às rotas seguintes. Como está, a requisição congela e dá timeout.</li>
+              <li><strong>Correção:</strong> Substituir <code>res.status(200);</code> por <code>next();</code>.</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>3.2 — Resposta (Persistência com localStorage):</strong></p>
+            <pre><code>let tarefas = JSON.parse(localStorage.getItem('tarefas')) || [];
+tarefas.forEach(renderizar);
+
+function renderizar(texto) {
+  let li = document.createElement('li');
+  li.textContent = texto;
+  document.getElementById('lista').appendChild(li);
+}
+
+function adicionar() {
+  let texto = document.getElementById('tarefa').value.trim();
+  if (!texto) return;
+  renderizar(texto);
+  tarefas.push(texto);
+  localStorage.setItem('tarefas', JSON.stringify(tarefas));
+  document.getElementById('tarefa').value = '';
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.4 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.4</span>
+            <span class="question-val">2.0 valores</span>
+          </div>
+          <div class="question-prompt">
+            Considere o seguinte serviço Angular. Explique a funcionalidade de cada bloco assinalado ([A], [B], [C], [D], [E]), os padrões de software envolvidos e como um componente Angular poderia consumir este serviço.
+            <pre><code>@Injectable({ providedIn: 'root' })       // [A]
+export class CartService {
+  private cartItems = new BehaviorSubject&lt;Product[]&gt;([]);
+  items$ = this.cartItems.asObservable();    // [B]
+
+  constructor(private http: HttpClient) {}  // [C]
+
+  addToCart(product: Product): void {
+    const current = this.cartItems.getValue();
+    this.cartItems.next([...current, product]);
+  }                                             // [D]
+
+  checkout(items: Product[]): Observable&lt;any&gt; {
+    return this.http.post('http://localhost:3000/api/orders', items);
+  }                                             // [E]
+}</code></pre>
+          </div>
+          <textarea class="open-response-area" placeholder="Explique os blocos [A] a [E] e os padrões..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-o4')">Revelar Resposta Ideal</button>
+          <div id="reveal-mock1-o4" class="reveal-box">
+            <p><strong>Explicação dos blocos:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>[A]:</strong> Configura o serviço como global (**Singleton**). Injeção automática pelo Angular.</li>
+              <li><strong>[B]:</strong> Padrão **Observer (RxJS)**. Expõe o canal como observable de leitura simples.</li>
+              <li><strong>[C]:</strong> Injeta o `HttpClient` para pedidos assíncronos.</li>
+              <li><strong>[D]:</strong> Atualiza o estado interno de forma imutável e notifica subscritores com <code>.next()</code>.</li>
+              <li><strong>[E]:</strong> Envia POST à API REST do Express, retornando um Observable.</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Consumo no Componente:</strong></p>
+            <pre><code>constructor(private cartService: CartService) {}
+ngOnInit() {
+  this.cartService.items$.subscribe(data => this.items = data);
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- P3.5 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.5</span>
+            <span class="question-val">1.5 valores</span>
+          </div>
+          <div class="question-prompt">
+            Explique o que é uma <strong>API REST</strong> e quais as suas propriedades fundamentais. Inclua o mapeamento entre os métodos HTTP e as operações CRUD, indicando para cada um a sua idempotência e segurança (no sentido HTTP).
+          </div>
+          <textarea class="open-response-area" placeholder="Explique API REST, propriedades, verbos e idempotência..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-o5')">Revelar Resposta Ideal</button>
+          <div id="reveal-mock1-o5" class="reveal-box">
+            <p><strong>Propriedades Fundamentais REST:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li>Cliente-Servidor, Stateless, Cacheable, Interface Uniforme, Sistema em Camadas.</li>
+            </ul>
+            <p style="margin-top:10px;"><strong>Mapeamento CRUD e HTTP:</strong></p>
+            <ul style="padding-left: 20px;">
+              <li><strong>GET</strong> ↔ Read: Seguro=Sim, Idempotente=Sim</li>
+              <li><strong>POST</strong> ↔ Create: Seguro=Não, Idempotente=Não</li>
+              <li><strong>PUT</strong> ↔ Update (Substituição): Seguro=Não, Idempotente=Sim</li>
+              <li><strong>DELETE</strong> ↔ Delete: Seguro=Não, Idempotente=Sim</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- P3.6 -->
+        <div class="question-box">
+          <div class="question-header">
+            <span>Pergunta 3.6</span>
+            <span class="question-val">1.0 valor</span>
+          </div>
+          <div class="question-prompt">
+            Comente a seguinte afirmação, indicando se é verdadeira ou falsa e justificando detalhadamente:<br>
+            <em>“Numa aplicação MEAN Stack, é suficiente implementar os Guards de rota no Angular para garantir a segurança dos dados e impedir utilizadores não autorizados de acederem a informação sensível no backend.”</em>
+          </div>
+          <textarea class="open-response-area" placeholder="Comente a afirmação..."></textarea>
+          <button class="btn btn-secondary" onclick="toggleReveal('reveal-mock1-o6')">Revelar Resposta Ideal</button>
+          <div id="reveal-mock1-o6" class="reveal-box">
+            <span class="badge badge-error">FALSA</span>
+            <p style="margin-top:10px;"><strong>Justificação:</strong></p>
+            <p>Guards no Angular são executados inteiramente no client-side (browser) e servem apenas para a experiência visual (bloquear acessos gráficos). Qualquer utilizador pode contornar os Guards (alterando o JS localmente, usando plugins ou fazendo pedidos HTTP manuais diretamente à API com ferramentas como Postman).</p>
+            <p style="margin-top:5px;">A segurança **real** deve ser implementada no backend (Express), validando a assinatura do token JWT com middlewares em todas as rotas protegidas antes de consultar ou manipular dados no MongoDB.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 ESTG — PAW Study Tool. Desenvolvido para preparação exaustiva de exames.</p>
+  </footer>
+
+  <script>
+    // Tab switching logic
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      const targetTab = document.getElementById('tab-' + tabId);
+      if (targetTab) {
+        targetTab.classList.add('active');
+      }
+      
+      // Active navigation button highlighting
+      const navButtons = document.querySelectorAll('.nav-btn');
+      navButtons.forEach(btn => {
+        if (btn.getAttribute('onclick').includes(tabId)) {
+          btn.classList.add('active');
+        }
+      });
+
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    // Accordion toggle logic
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      const isOpen = item.classList.contains('open');
+      
+      // Close all other items
+      document.querySelectorAll('.accordion-item').forEach(i => {
+        i.classList.remove('open');
+        const content = i.querySelector('.accordion-content');
+        if (content) content.style.maxHeight = null;
+      });
+      
+      if (!isOpen) {
+        item.classList.add('open');
+        const content = item.querySelector('.accordion-content');
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    }
+
+    // Toggle reveal logic for open questions
+    function toggleReveal(id) {
+      const box = document.getElementById(id);
+      if (box) {
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+        }
+      }
+    }
+
+    // Checkbox toggling helper
+    function toggleCheckbox(label) {
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      if (checkbox) {
+        // Toggle background class after browser processes check event
+        setTimeout(() => {
+          if (checkbox.checked) {
+            label.classList.add('checked');
+          } else {
+            label.classList.remove('checked');
+          }
+        }, 10);
+      }
+    }
+
+    // Quiz Grading Logic
+    function gradeQuiz(event, examId) {
+      event.preventDefault();
+      
+      const form = document.getElementById('quiz-form-' + examId);
+      const questionBoxes = form.querySelectorAll('.question-box');
+      let score = 0;
+      let totalQuestions = questionBoxes.length;
+      
+      questionBoxes.forEach(box => {
+        const correctAnswers = box.getAttribute('data-correct').split(',');
+        const options = box.querySelectorAll('.option-item');
+        let questionCorrect = true;
+        let selectedAny = false;
+        
+        options.forEach(opt => {
+          const input = opt.querySelector('input[type="checkbox"]');
+          const val = input.value;
+          const isCorrectOption = correctAnswers.includes(val);
+          
+          if (input.checked) {
+            selectedAny = true;
+            if (isCorrectOption) {
+              opt.classList.add('correct');
+            } else {
+              opt.classList.add('incorrect');
+              questionCorrect = false;
+            }
+          } else {
+            if (isCorrectOption) {
+              opt.classList.add('correct');
+              questionCorrect = false; // missed a correct option
+            }
+          }
+        });
+        
+        // Penalization rules (-0.5 points per wrong answer, minimum score per question = 0)
+        // If all matching inputs are correct and no incorrect are checked:
+        if (questionCorrect && selectedAny) {
+          score += 1.0;
+        } else {
+          // Penalize -0.5 for incorrect choices if any checked
+          let correctSelected = 0;
+          let incorrectSelected = 0;
+          options.forEach(opt => {
+            const input = opt.querySelector('input[type="checkbox"]');
+            const val = input.value;
+            const isCorrectOption = correctAnswers.includes(val);
+            if (input.checked) {
+              if (isCorrectOption) correctSelected++;
+              else incorrectSelected++;
+            }
+          });
+          
+          let questionScore = (correctSelected / correctAnswers.length) - (incorrectSelected * 0.5);
+          if (questionScore < 0) questionScore = 0;
+          score += questionScore;
+        }
+        
+        // Show explanation
+        const explanation = box.querySelector('.explanation-box');
+        if (explanation) explanation.style.display = 'block';
+      });
+      
+      // Update Summary Badge
+      const summaryCard = document.getElementById('summary-mock-' + examId);
+      const gradeText = document.getElementById('grade-text-' + examId);
+      
+      gradeText.innerHTML = `Obteve <strong>${score.toFixed(2)}</strong> de <strong>${totalQuestions.toFixed(2)} valores</strong> na Parte 1.`;
+      summaryCard.style.display = 'flex';
+      
+      // Disable options from further editing
+      form.querySelectorAll('input[type="checkbox"]').forEach(input => {
+        input.disabled = true;
+      });
+      
+      window.scrollTo(0, 0);
+    }
+
+    // Reset Quiz Logic
+    function resetQuiz(examId) {
+      const summaryCard = document.getElementById('summary-mock-' + examId.split('-')[1]);
+      summaryCard.style.display = 'none';
+      
+      const form = document.getElementById('quiz-form-' + examId.split('-')[1]);
+      form.reset();
+      
+      form.querySelectorAll('.option-item').forEach(opt => {
+        opt.classList.remove('checked', 'correct', 'incorrect');
+        const input = opt.querySelector('input[type="checkbox"]');
+        input.disabled = false;
+      });
+      
+      form.querySelectorAll('.explanation-box').forEach(exp => {
+        exp.style.display = 'none';
+      });
+    }
+  </script>
+</body>
+</html>
