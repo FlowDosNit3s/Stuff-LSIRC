@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="pt" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo Teórico — Paradigmas de Programação (PP)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Prism.js for Code Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" id="prism-theme" />
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            /* Dark Theme Default */
+            --bg-base: #090d16;
+            --bg-surface: rgba(17, 24, 39, 0.7);
+            --bg-sidebar: rgba(10, 15, 30, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #cbd5e1;
+            --text-heading: #ffffff;
+            --text-muted: #64748b;
+            --primary-accent: linear-gradient(135deg, #8b5cf6, #6366f1);
+            --primary-color: #8b5cf6;
+            --hover-accent: rgba(139, 92, 246, 0.15);
+            --code-bg: #111827;
+            --callout-bg: rgba(16, 185, 129, 0.1);
+            --callout-border: #10b981;
+            --scrollbar-thumb: #374151;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            
+            font-size: 16px;
+        }
+
+        [data-theme="light"] {
+            --bg-base: #f8fafc;
+            --bg-surface: rgba(255, 255, 255, 0.8);
+            --bg-sidebar: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --text-main: #334155;
+            --text-heading: #0f172a;
+            --text-muted: #64748b;
+            --primary-accent: linear-gradient(135deg, #6366f1, #3b82f6);
+            --primary-color: #6366f1;
+            --hover-accent: rgba(99, 102, 241, 0.1);
+            --code-bg: #f1f5f9;
+            --callout-bg: rgba(16, 185, 129, 0.05);
+            --callout-border: #059669;
+            --scrollbar-thumb: #cbd5e1;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) transparent;
+        }
+
+        *::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        *::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            background-color: var(--scrollbar-thumb);
+            border-radius: 20px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 320px;
+            height: 100vh;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .sidebar-header {
+            margin-bottom: 25px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+        }
+
+        .logo-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 2px;
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            background-color: rgba(0, 0, 0, 0.15);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        [data-theme="light"] .search-input {
+            background-color: rgba(0, 0, 0, 0.03);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            width: 16px;
+            height: 16px;
+        }
+
+        .nav-list {
+            list-style: none;
+            overflow-y: auto;
+            flex-grow: 1;
+            padding-right: 5px;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 14px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-link:hover {
+            background-color: var(--hover-accent);
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background: var(--primary-accent);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.25);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--hover-accent);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* Main Content Styling */
+        .main-wrapper {
+            margin-left: 320px;
+            width: calc(100% - 320px);
+            padding: 50px 60px;
+            display: flex;
+            justify-content: center;
+            transition: margin-left 0.3s ease, width 0.3s ease;
+        }
+
+        .content-container {
+            max-width: 860px;
+            width: 100%;
+        }
+
+        header {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-meta {
+            display: inline-block;
+            background: var(--primary-accent);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 10px rgba(139, 92, 246, 0.2);
+        }
+
+        header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .header-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .section-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: border-color 0.3s, background-color 0.3s, box-shadow 0.3s;
+            scroll-margin-top: 40px;
+        }
+
+        .section-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+
+        .section-header-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .section-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--primary-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-heading);
+        }
+
+        .subsection-block {
+            margin-bottom: 30px;
+        }
+
+        .subsection-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-heading);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subsection-title::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 16px;
+            background: var(--primary-accent);
+            border-radius: 4px;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-bottom: 16px;
+            padding-left: 20px;
+        }
+
+        li {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        /* Callout Box / Info box */
+        .callout-box {
+            background-color: var(--callout-bg);
+            border-left: 4px solid var(--callout-border);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 20px;
+        }
+
+        .callout-box p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--callout-border);
+        }
+
+        /* Inline Code Styling */
+        code:not([class*="language-"]) {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            padding: 2px 6px;
+            border-radius: 6px;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        [data-theme="light"] code:not([class*="language-"]) {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        /* Prism Code Block Enhancements */
+        .code-block-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        pre[class*="language-"] {
+            margin: 0 !important;
+            padding: 18px !important;
+            font-size: 0.85rem !important;
+            background: var(--code-bg) !important;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.2s, background-color 0.2s;
+            z-index: 10;
+        }
+
+        .code-block-wrapper:hover .copy-btn {
+            opacity: 1;
+        }
+
+        .copy-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+
+        .copy-btn.copied {
+            background-color: var(--callout-border);
+            color: white;
+            border-color: var(--callout-border);
+        }
+
+        /* Floating Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 46px;
+            height: 46px;
+            background: var(--primary-accent);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 90;
+        }
+
+        .scroll-top-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .scroll-top-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Responsive Mobile Layout */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99;
+            padding: 0 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .menu-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-heading);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+                width: 100%;
+                padding: 90px 24px 40px 24px;
+            }
+
+            .mobile-header {
+                display: flex;
+            }
+
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 98;
+                backdrop-filter: blur(4px);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div class="logo-area">
+            <div class="logo-icon">PP</div>
+            <div class="logo-title">Resumo Teórico</div>
+        </div>
+        <button class="menu-toggle-btn" id="menuToggle">☰</button>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-area">
+                <div class="logo-icon">PP</div>
+                <div>
+                    <div class="logo-title">Paradigmas</div>
+                    <div class="logo-subtitle">ESTG — P.PORTO</div>
+                </div>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; margin-bottom: 12px; margin-left: 2px;">
+                Guia de Estudo • LEI / LSIRC
+            </div>
+            
+            <div class="search-container">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input type="text" class="search-input" placeholder="Pesquisar matéria..." id="searchInput">
+            </div>
+        </div>
+
+        <ul class="nav-list" id="navList">
+            <li class="nav-item"><a href="#sec1" class="nav-link">1. Primitivos e Arrays</a></li>
+            <li class="nav-item"><a href="#sec2" class="nav-link">2. Classes e Objetos</a></li>
+            <li class="nav-item"><a href="#sec3" class="nav-link">3. Construtores</a></li>
+            <li class="nav-item"><a href="#sec4" class="nav-link">4. Encapsulamento</a></li>
+            <li class="nav-item"><a href="#sec5" class="nav-link">5. Enumerações (Enum)</a></li>
+            <li class="nav-item"><a href="#sec6" class="nav-link">6. Métodos e Sobrecarga</a></li>
+            <li class="nav-item"><a href="#sec7" class="nav-link">7. Passagem de Argumentos</a></li>
+            <li class="nav-item"><a href="#sec8" class="nav-link">8. Herança</a></li>
+            <li class="nav-item"><a href="#sec9" class="nav-link">9. Casting</a></li>
+            <li class="nav-item"><a href="#sec10" class="nav-link">10. Classes Abstratas</a></li>
+            <li class="nav-item"><a href="#sec11" class="nav-link">11. Interfaces</a></li>
+            <li class="nav-item"><a href="#sec12" class="nav-link">12. Abstrata vs Interface</a></li>
+            <li class="nav-item"><a href="#sec13" class="nav-link">13. Polimorfismo</a></li>
+            <li class="nav-item"><a href="#sec14" class="nav-link">14. Identidade vs Igualdade</a></li>
+            <li class="nav-item"><a href="#sec15" class="nav-link">15. Exceções</a></li>
+            <li class="nav-item"><a href="#sec16" class="nav-link">16. Composição vs Herança</a></li>
+            <li class="nav-item"><a href="#sec17" class="nav-link">17. Membros Estáticos</a></li>
+            <li class="nav-item"><a href="#sec18" class="nav-link">18. A Palavra final</a></li>
+            <li class="nav-item"><a href="#sec19" class="nav-link">19. Palavras Reservadas</a></li>
+            <li class="nav-item"><a href="#sec20" class="nav-link">20. Padrões de Exame</a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <button class="theme-toggle-btn" id="themeToggle">
+                <span id="themeToggleText">Modo Claro</span>
+            </button>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">2025/2026</span>
+        </div>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <div class="content-container">
+            
+            <header>
+                <span class="header-meta">Guia de Estudo Teórico</span>
+                <h1>Paradigmas de Programação</h1>
+                <div class="header-desc">
+                    Compilação completa e estruturada da matéria teórica lecionada na unidade curricular para a preparação para os exames teóricos. ESTG — P.PORTO.
+                </div>
+            </header>
+
+            <!-- Card 1 -->
+            <section class="section-card" id="sec1">
+                <div class="section-header-row">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Tipos Primitivos, Variáveis e Arrays</h2>
+                </div>
+                
+                <div class="subsection-block">
+                    <h3 class="subsection-title">1.1 Tipos Primitivos</h3>
+                    <p>Java possui 8 tipos primitivos. Os tipos primitivos armazenam o valor diretamente na Stack de execução da JVM e não são considerados objetos:</p>
+                    <p><code>byte</code> (8 bits), <code>short</code> (16 bits), <code>int</code> (32 bits), <code>long</code> (64 bits), <code>float</code> (32 bits), <code>double</code> (64 bits), <code>char</code> (16 bits Unicode) e <code>boolean</code> (true/false).</p>
+                    <p>Os valores por defeito dos tipos primitivos, quando declarados como atributos de instância de uma classe, são: 0 para numéricos inteiros, 0.0 para reais, <code>'\u0000'</code> para char e <code>false</code> para boolean. As variáveis locais declaradas no corpo dos métodos não possuem valores por defeito, obrigando o compilador a validar a sua inicialização obrigatória antes de qualquer utilização.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">1.2 Constantes</h3>
+                    <p>As constantes em Java são declaradas recorrendo à palavra reservada <code>final</code>. Uma vez atribuído um valor à constante, este torna-se imutável e qualquer tentativa de reatribuição origina um erro em tempo de compilação. Por convenção de escrita, os identificadores de constantes são escritos integralmente em maiúsculas com underscores.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">final double PI = 3.14159;
+final int MAX_ELEMENTOS = 100;</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">1.3 Arrays</h3>
+                    <p>Os arrays em Java são estruturas de dados estáticas de dimensão fixa na memória que armazenam elementos do mesmo tipo de forma sequencial. O tamanho é definido obrigatoriamente na criação e não pode ser alterado posteriormente.</p>
+                    <p>Os arrays de tipos primitivos são inicializados automaticamente com os valores padrão de cada tipo. Os arrays de referências de objetos são inicializados preenchendo todas as posições com a referência nula <code>null</code>.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">int[] numeros = new int[5];         // Array de primitivos (tudo inicializado a 0)
+String[] nomes = new String[3];     // Array de objetos (tudo inicializado a null)
+int[] preDef = {1, 2, 3, 4, 5};    // Inicialização literal direta</code></pre>
+                    </div>
+                    <div class="callout-box">
+                        <p>Atenção: Para simular o redimensionamento de um array é necessário instanciar um novo array com a nova dimensão desejada e transferir manualmente os dados do array antigo para o novo bloco contíguo de memória Heap.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 2 -->
+            <section class="section-card" id="sec2">
+                <div class="section-header-row">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Classes e Objetos</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">2.1 Conceito de Classe</h3>
+                    <p>Uma classe atua como um molde ou especificação que define a estrutura de dados (atributos) e o comportamento operacional (métodos) que os objetos instanciados a partir dela vão partilhar.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Contentor {
+    private String codigo;       // Atributo de instância (estado)
+    private double capacidade;   // Atributo de instância (estado)
+
+    public String getCodigo() {  // Método de instância (comportamento)
+        return codigo;
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">2.2 Criação de Objetos</h3>
+                    <p>Os objetos reais são criados através do operador <code>new</code>, que solicita à JVM a alocação de memória na Heap correspondente ao tamanho da classe e invoca o respetivo método construtor. A variável local que declara o tipo da classe armazena apenas um valor de referência contendo o endereço físico de memória da instância na Heap.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">Contentor c = new Contentor();
+// 'c' reside na Stack e armazena o endereço que aponta para o objeto na Heap</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">2.3 Variáveis de Instância vs Variáveis de Classe (static)</h3>
+                    <p>As variáveis de instância pertencem a cada objeto individualmente, existindo cópias separadas na memória Heap de cada objeto instanciado. As variáveis de classe, declaradas com o modificador <code>static</code>, pertencem à própria classe de forma global, existindo apenas uma única cópia alocada em memória partilhada por todas as instâncias.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Veiculo {
+    private String matricula;            // Variável de instância
+    private static int totalVeiculos = 0; // Variável de classe (partilhada)
+
+    public Veiculo(String matricula) {
+        this.matricula = matricula;
+        totalVeiculos++;   // Modifica o estado partilhado global
+    }
+
+    public static int getTotalVeiculos() {  // Método estático
+        return totalVeiculos;
+    }
+}</code></pre>
+                    </div>
+                    <div class="callout-box">
+                        <p>Regra: Métodos estáticos pertencem ao contexto da classe e não possuem contexto de instância. Logo, não podem aceder a atributos de instância não-estáticos nem utilizar as referências de controlo 'this' ou 'super'.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 3 -->
+            <section class="section-card" id="sec3">
+                <div class="section-header-row">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Construtores</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">3.1 Definição</h3>
+                    <p>Os construtores são blocos de código especiais encarregues de inicializar o estado de um objeto durante a instanciação com <code>new</code>. Apresentam as seguintes regras rígidas de sintaxe: devem possuir obrigatoriamente o mesmo nome exato da classe e não admitem qualquer tipo de retorno, nem mesmo a palavra-chave <code>void</code>.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">3.2 Construtor por Defeito</h3>
+                    <p>Se nenhuma declaração de construtor for especificada pelo programador na escrita da classe, o compilador gera em tempo de compilação um construtor por defeito sem parâmetros. Este construtor invoca a inicialização da superclasse com `super()` e define o valor padrão para todos os campos. Se o programador escrever qualquer construtor parametrizado, o construtor automático por defeito deixa de ser gerado.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">3.3 Encadeamento de Construtores</h3>
+                    <p>Podemos interligar múltiplos construtores dentro da mesma classe recorrendo ao método de chamada <code>this(...)</code> com argumentos, o que previne a repetição de lógica de inicialização de atributos. O aceso aos construtores da superclasse realiza-se através de <code>super(...)</code>. Ambas as chamadas devem obrigatoriamente figurar como a primeira instrução no corpo do construtor e são mutuamente exclusivas.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class AidBox {
+    private String code;
+    private String zone;
+
+    public AidBox(String code) {
+        this(code, "Desconhecida");    // Encaminha a inicialização
+    }
+
+    public AidBox(String code, String zone) {
+        this.code = code;
+        this.zone = zone;
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 4 -->
+            <section class="section-card" id="sec4">
+                <div class="section-header-row">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Encapsulamento e Modificadores de Acesso</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">4.1 Conceito de Encapsulamento</h3>
+                    <p>O encapsulamento visa a proteção da integridade dos dados internos de um objeto. O estado interno (atributos) deve ser blindado a acessos externos não validados declarando os campos como privados. O acesso ou mutação do estado realiza-se unicamente através de métodos públicos getters e setters que validam a consistência das operações.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">4.2 Modificadores de Acesso</h3>
+                    <p>Java dispõe de quatro níveis de visibilidade controlada:</p>
+                    <ul>
+                        <li><strong>private:</strong> Acesso restrito estritamente a código definido dentro da própria classe.</li>
+                        <li><strong>protected:</strong> Acesso permitido no mesmo pacote de classes e a subclasses derivadas (mesmo localizadas em pacotes externos).</li>
+                        <li><strong>Sem modificador (package-private):</strong> Visibilidade restrita às classes contidas no mesmo pacote lógico.</li>
+                        <li><strong>public:</strong> Acesso livre a partir de qualquer classe em qualquer pacote da aplicação.</li>
+                    </ul>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">4.3 Getters e Setters com Validação</h3>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Container {
+    private double capacidade;
+    private double pesoAtual;
+
+    public double getCapacidade() {
+        return capacidade;
+    }
+
+    public void setPesoAtual(double peso) {
+        // Validação defensiva do estado
+        if (peso < 0 || peso > capacidade) {
+            throw new IllegalArgumentException("Peso invalido.");
+        }
+        this.pesoAtual = peso;
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 5 -->
+            <section class="section-card" id="sec5">
+                <div class="section-header-row">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">Enumerações (Enum)</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>As enumerações representam um tipo especial de classe Java concebida para gerir um conjunto fixo e fechado de constantes semânticas. Cada valor do enum constitui uma instância do tipo singleton. A comparação lógica de enums realiza-se de forma direta e segura através do operador relacional <code>==</code>.</p>
+                    <p>Os enums em Java suportam a declaração de atributos, construtores (obrigatoriamente privados) e métodos de instância ou estáticos.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public enum ItemType {
+    PERISHABLE_FOOD("Alimentos Pereciveis"),
+    NON_PERISHABLE_FOOD("Alimentos Nao Pereciveis"),
+    CLOTHING("Vestuario"),
+    MEDICINE("Medicamentos");
+
+    private String descricao;
+
+    ItemType(String descricao) { // Construtor implicitamente privado
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+}</code></pre>
+                    </div>
+                    <div class="callout-box">
+                        <p>Vantagens: Garante segurança de tipo (Type Safety) impedindo valores arbitrários inválidos em tempo de compilação, promove legibilidade e integração direta em blocos 'switch'.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 6 -->
+            <section class="section-card" id="sec6">
+                <div class="section-header-row">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Métodos e Sobrecarga</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">6.1 Definição de Métodos</h3>
+                    <p>Um método define o comportamento operacional da classe. É estruturado através da sua assinatura de método, que consiste na combinação do nome do método e da lista ordenada de parâmetros (tipos e quantidade). O tipo de retorno não faz parte da assinatura do método.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">6.2 Sobrecarga de Métodos (Overloading)</h3>
+                    <p>A sobrecarga consiste na declaração de múltiplos métodos com o mesmo nome na mesma classe, desde que apresentem assinaturas distintas (diferente quantidade ou tipo de parâmetros). A seleção do método a executar realiza-se estritamente em tempo de compilação.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public int somar(int a, int b) { return a + b; }
+public double somar(double a, double b) { return a + b; }
+public int somar(int a, int b, int c) { return a + b + c; }</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 7 -->
+            <section class="section-card" id="sec7">
+                <div class="section-header-row">
+                    <span class="section-number">07</span>
+                    <h2 class="section-title">Passagem de Argumentos</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>Em Java, <strong>toda a passagem de argumentos para métodos é efetuada estritamente por valor</strong>. Não existe passagem por referência nativa no Java.</p>
+                    <p>Para tipos primitivos, copia-se o valor direto na pilha local do método. Modificações na variável local do método não têm impacto na variável original do método chamador.</p>
+                    <p>Para tipos de referência (objetos), é copiado o endereço físico de memória da referência. Como a variável local e a variável original possuem cópias do mesmo endereço de memória, ambas apontam para o mesmo objeto na Heap. Modificações no estado interno do objeto (atributos) são visíveis globalmente. Contudo, efetuar a reatribuição da referência local (ex: <code>param = new Objeto()</code>) altera apenas o endereço na Stack local, deixando a referência original intocada.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public static void alterarEstado(int[] arr) {
+    arr[0] = 999;   // Afeta o array partilhado na Heap
+}
+
+public static void reatribuir(int[] arr) {
+    arr = new int[]{1, 2, 3};   // Altera apenas o ponteiro da cópia na Stack local
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 8 -->
+            <section class="section-card" id="sec8">
+                <div class="section-header-row">
+                    <span class="section-number">08</span>
+                    <h2 class="section-title">Herança</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">8.1 Conceito</h3>
+                    <p>A herança apoia a reutilização de comportamento através da definição de hierarquias onde uma subclasse (especialização) estende membros públicos e protegidos de uma superclasse (generalização). Java suporta apenas a herança simples de classes recorrendo à palavra <code>extends</code>.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">8.2 A Palavra Reservada super</h3>
+                    <p>No construtor, <code>super(...)</code> invoca a lógica de inicialização do pai e tem de ser invocado obrigatoriamente na primeira linha do bloco. No corpo dos métodos, a instrução <code>super.metodo()</code> executa a versão original do método da superclasse que foi sobreposto.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Veiculo {
+    private String matricula;
+
+    public Veiculo(String matricula) {
+        this.matricula = matricula;
+    }
+}
+
+public class Camiao extends Veiculo {
+    private double cargaMax;
+
+    public Camiao(String matricula, double cargaMax) {
+        super(matricula); // Invocação do construtor pai
+        this.cargaMax = cargaMax;
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">8.3 Sobreposição de Métodos (Overriding)</h3>
+                    <p>A sobreposição ocorre quando um método da superclasse é redefinido na subclasse contendo a mesma assinatura e tipo de retorno incompatível. O compilador valida a redefinição sob a anotação <code>@Override</code>. A seleção do método a executar é dinâmica e decidida em tempo de execução pela JVM com base na classe da instância real na Heap.</p>
+                </div>
+            </section>
+
+            <!-- Card 9 -->
+            <section class="section-card" id="sec9">
+                <div class="section-header-row">
+                    <span class="section-number">09</span>
+                    <h2 class="section-title">Casting (Conversão de Tipos)</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">9.1 Upcasting</h3>
+                    <p>Conversão ascendente de uma referência de subclasse para superclasse. É uma operação automática (implícita) e perfeitamente segura. Implica a perda de visibilidade imediata de métodos exclusivos da subclasse, mantendo as invocações polimórficas.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">Vehicle v = new RefrigeratedVehicleImpl("V-001", ...); // Upcasting implícito
+v.getCode(); // Métodos comuns do contrato principal são válidos</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">9.2 Downcasting</h3>
+                    <p>Conversão descendente de uma referência genérica da superclasse para o tipo mais específico da subclasse. Requer um operador de coerção explícito e comporta perigos. Caso o objeto real na Heap não pertença à subclasse de destino, a JVM lança a exceção <code>ClassCastException</code>. É boa prática salvaguardar com <code>instanceof</code>.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">if (v instanceof RefrigeratedVehicle) {
+    RefrigeratedVehicle rv = (RefrigeratedVehicle) v; // Downcasting explícito seguro
+    double km = rv.getMaxKilometers();
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 10 -->
+            <section class="section-card" id="sec10">
+                <div class="section-header-row">
+                    <span class="section-number">10</span>
+                    <h2 class="section-title">Classes Abstratas</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>Uma classe abstrata (delcarada com a palavra-chave <code>abstract</code>) destina-se a servir de base conceitual para subclasses, não podendo ser instanciada diretamente com <code>new</code>. Pode alojar métodos concretos com comportamento partilhado e métodos abstratos sem corpo que as subclasses concretas são obrigadas a sobrepor.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public abstract class Transporte {
+    private String id;
+
+    public Transporte(String id) {
+        this.id = id;
+    }
+
+    public String getId() { return id; }
+    public abstract double calcularCusto(double km); // Método abstrato (contrato)
+}</code></pre>
+                    </div>
+                    <div class="callout-box">
+                        <p>O modificador final impede a extensão de classes, redefinição de métodos ou reatribuição de variáveis.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 11 -->
+            <section class="section-card" id="sec11">
+                <div class="section-header-row">
+                    <span class="section-number">11</span>
+                    <h2 class="section-title">Interfaces</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>Uma interface serve para estabelecer um contrato puro de comportamento que qualquer classe pode assumir através de <code>implements</code>. Suporta a herança múltipla de tipo (uma classe implementa variadas interfaces). Todos os atributos declarados em interfaces são implicitamente constantes <code>public static final</code>.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public interface Vehicle {
+    String getCode();
+    ItemType getSupplyType();
+}</code></pre>
+                    </div>
+                    <p>A partir do Java 8, as interfaces toleram métodos concretos declarados como <code>default</code> (implementação padrão opcional) ou métodos <code>static</code>. O Java 9 adicionou suporte a métodos <code>private</code> para fins de reutilização de lógica interna.</p>
+                </div>
+            </section>
+
+            <!-- Card 12 -->
+            <section class="section-card" id="sec12">
+                <div class="section-header-row">
+                    <span class="section-number">12</span>
+                    <h2 class="section-title">Classes Abstratas vs Interfaces — Comparação Direta</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p><strong>Classes Abstratas:</strong> Estão integradas em hierarquias rígidas de herança simples. Têm a faculdade de reter e gerir variáveis de estado de instância mutáveis. Permitem a declaração de construtores de inicialização. Indicadas para relações "É UM".</p>
+                    <p><strong>Interfaces:</strong> Propiciam maior flexibilidade sob herança múltipla de tipo. São vedadas de armazenar variáveis de estado de instância, aceitando apenas constantes globais. Desprovidas de construtores. Indicadas para relações de comportamento do tipo "CONSEGUE FAZER".</p>
+                </div>
+            </section>
+
+            <!-- Card 13 -->
+            <section class="section-card" id="sec13">
+                <div class="section-header-row">
+                    <span class="section-number">13</span>
+                    <h2 class="section-title">Polimorfismo</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">13.1 Polimorfismo de Sobreposição (Dynamic Binding)</h3>
+                    <p>Ocorre em tempo de execução. O tipo formal da referência do objeto decide que métodos são permitidos ao compilar, mas no runtime a JVM executa a implementação da classe concreta baseada na instância real da Heap. Permite o tratamento uniforme de objetos de diferentes tipos sob uma mesma referência ancestral comum.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">13.2 Polimorfismo de Sobrecarga (Static Binding)</h3>
+                    <p>Ocorre em tempo de compilação. A JVM seleciona o método específico a invocar com base estrita no tipo dos argumentos declarados na chamada.</p>
+                </div>
+            </section>
+
+            <!-- Card 14 -->
+            <section class="section-card" id="sec14">
+                <div class="section-header-row">
+                    <span class="section-number">14</span>
+                    <h2 class="section-title">Identidade vs Igualdade de Objetos</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">14.1 O Operador ==</h3>
+                    <p>Compara a igualdade binária nos primitivos e a igualdade referencial nos objetos (verifica se ambas as variáveis apontam para a mesma morada física de memória Heap).</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">14.2 O Método equals()</h3>
+                    <p>Destina-se a definir a igualdade semântica ou lógica com base em campos de dados. A implementação original na classe <code>Object</code> limita-se a usar <code>==</code>, obrigando à sua sobreposição nas classes de negócio.</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">14.3 A Estrutura de equals Padrão</h3>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">@Override
+public boolean equals(Object obj) {
+    if (this == obj) return true;                      // 1. Identidade
+    if (obj == null) return false;                     // 2. Nulo
+    if (!(obj instanceof Vehicle)) return false;       // 3. Compatibilidade de Tipo
+    Vehicle other = (Vehicle) obj;                     // 4. Cast seguro
+    return this.code.equals(other.getCode());          // 5. Lógica de campos
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">14.4 instanceof vs getClass()</h3>
+                    <p>O operador <code>instanceof</code> aceita correspondências em subclasses descendentes da hierarquia e implementações de interfaces (visão polimórfica flexível). A instrução <code>getClass() == obj.getClass()</code> valida estritamente a mesma classe exata, excluindo classes derivadas (garantia rígida de simetria do contrato equals).</p>
+                </div>
+            </section>
+
+            <!-- Card 15 -->
+            <section class="section-card" id="sec15">
+                <div class="section-header-row">
+                    <span class="section-number">15</span>
+                    <h2 class="section-title">Exceções</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">15.1 Hierarquia</h3>
+                    <p>Toda a estrutura deriva de <code>Throwable</code>, ramificando em <code>Error</code> (situações catastróficas da máquina virtual irrecuperáveis) e <code>Exception</code> (anomalias de fluxo lógico controláveis).</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">15.2 Checked vs Unchecked</h3>
+                    <p>As exceções verificadas (checked) são subclasses de <code>Exception</code> (com exceção das descendentes de <code>RuntimeException</code>). O compilador obriga a tratá-las explicitamente com <code>try-catch</code> ou a delegar o aviso na assinatura do método com a cláusula <code>throws</code>.</p>
+                    <p>As exceções não verificadas (unchecked) herdam de <code>RuntimeException</code>. O compilador dispensa a verificação obrigatória, indicando habitualmente falhas ou inconsistências de desenvolvimento de código (ex: <code>NullPointerException</code>).</p>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">15.3 Mecanismo try-catch-finally</h3>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">try {
+    route.addAidBox(aidBox);
+} catch (RouteException e) {
+    System.out.println(e.getMessage()); // Captura de erro
+} finally {
+    System.out.println("Executa sempre."); // Execução final garantida para fecho de recursos
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 16 -->
+            <section class="section-card" id="sec16">
+                <div class="section-header-row">
+                    <span class="section-number">16</span>
+                    <h2 class="section-title">Composição vs Herança</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>A herança constitui uma ligação forte e estática baseada em relações "É UM", herdando a totalidade de membros da superclasse de forma direta. A composição propõe uma dependência fraca e dinâmica onde uma classe integra instâncias de outros objetos na sua declaração de atributos, estabelecendo relações do tipo "TEM UM".</p>
+                    <p>A composição é comummente preferida à herança para reduzir o acoplamento sistémico entre classes, flexibilizar a substituição dinâmica de comportamentos em tempo de execução e contornar problemas de fragilidade inerentes à herança (onde mudanças na classe base afetam inesperadamente o funcionamento das subclasses).</p>
+                </div>
+            </section>
+
+            <!-- Card 17 -->
+            <section class="section-card" id="sec17">
+                <div class="section-header-row">
+                    <span class="section-number">17</span>
+                    <h2 class="section-title">Membros Estáticos (static)</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>Atributos e métodos estáticos pertencem conceptualmente ao escopo da classe, desvinculados de qualquer instância individual. Existe uma única alocação física do campo na memória JVM, que é partilhada por todas as instâncias da classe. Métodos estáticos podem ser chamados diretamente a partir do identificador da classe, estando impedidos de referenciar <code>this</code> ou interagir com campos de instância não-estáticos.</p>
+                </div>
+            </section>
+
+            <!-- Card 18 -->
+            <section class="section-card" id="sec18">
+                <div class="section-header-row">
+                    <span class="section-number">18</span>
+                    <h2 class="section-title">A Palavra-Chave final</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>O modificador <code>final</code> confere propriedades de imutabilidade consoante o seu contexto de aplicação:</p>
+                    <ul>
+                        <li><strong>Em variáveis:</strong> Estabelece constantes, impedindo a reatribuição de valores a campos primitivos ou reatribuição de moradas de memória a referências.</li>
+                        <li><strong>Em métodos:</strong> Proíbe expressamente a sua sobreposição pelas subclasses na hierarquia.</li>
+                        <li><strong>Em classes:</strong> Trunca a herança, impedindo a criação de quaisquer subclasses a partir da classe final.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Card 19 -->
+            <section class="section-card" id="sec19">
+                <div class="section-header-row">
+                    <span class="section-number">19</span>
+                    <h2 class="section-title">Palavras Reservadas Essenciais</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <p>Glossário de termos fundamentais da linguagem:</p>
+                    <p><code>class</code> (define classe), <code>new</code> (instancia na Heap), <code>this</code> (auto-referência), <code>super</code> (referência à superclasse), <code>extends</code> (herança simples), <code>implements</code> (implementa interface), <code>abstract</code> (declaração abstrata), <code>interface</code> (contrato), <code>static</code> (membro de classe), <code>final</code> (imutável), <code>private/protected/public</code> (acessos), <code>void</code> (sem retorno), <code>throw</code> (lança exceção), <code>throws</code> (indica exceção), <code>try/catch/finally</code> (gestão de erros), <code>instanceof</code> (verifica tipo) e <code>enum</code> (conjunto de constantes).</p>
+                </div>
+            </section>
+
+            <!-- Card 20 -->
+            <section class="section-card" id="sec20">
+                <div class="section-header-row">
+                    <span class="section-number">20</span>
+                    <h2 class="section-title">Padrões de Código Frequentes em Exame</h2>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">20.1 Implementação de Interface com Estado e equals</h3>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class XImpl implements X {
+    private String code;
+    private TipoEstado state;
+
+    public XImpl(String code) {
+        this.code = code;
+        this.state = TipoEstado.VALOR_DEFEITO;
+    }
+
+    @Override
+    public String getCode() { return this.code; }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof X)) return false;
+        X other = (X) obj;
+        if (this.code == null) {
+            return other.getCode() == null;
+        }
+        return this.code.equals(other.getCode());
+    }
+
+    @Override
+    public String toString() {
+        return "X [" + code + " | " + state + "]";
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">20.2 Gestão de Arrays Estáticos (Adicionar e Remover)</h3>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">private Elemento[] elementos;
+private int count;
+
+public void add(Elemento e) throws MinhaExcecao {
+    if (e == null) throw new MinhaExcecao("Nulo.");
+    if (count >= elementos.length) throw new MinhaExcecao("Cheio.");
+    for (int i = 0; i < count; i++) {
+        if (elementos[i].equals(e)) throw new MinhaExcecao("Duplicado.");
+    }
+    elementos[count] = e;
+    count++;
+}
+
+public Elemento remove(Elemento e) throws MinhaExcecao {
+    for (int i = 0; i < count; i++) {
+        if (elementos[i].equals(e)) {
+            Elemento removed = elementos[i];
+            for (int j = i; j < count - 1; j++) {
+                elementos[j] = elementos[j + 1];
+            }
+            elementos[count - 1] = null;
+            count--;
+            return removed;
+        }
+    }
+    throw new MinhaExcecao("Nao encontrado.");
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">20.3 Redimensionamento sem Nulos (Shrinking)</h3>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public Elemento[] getElementos() {
+    Elemento[] result = new Elemento[count];
+    for (int i = 0; i < count; i++) {
+        result[i] = elementos[i];
+    }
+    return result;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="subsection-block">
+                    <h3 class="subsection-title">20.4 Iteração, Filtragem e Cópia de Dados</h3>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">Elemento[] temp = new Elemento[total.length];
+int filteredCount = 0;
+for (int i = 0; i < total.length; i++) {
+    if (total[i] != null && condicao(total[i])) {
+        temp[filteredCount] = total[i];
+        filteredCount++;
+    }
+}
+Elemento[] result = new Elemento[filteredCount];
+for (int i = 0; i < filteredCount; i++) {
+    result[i] = temp[i];
+}
+return result;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top-btn" id="scrollTopBtn">▲</button>
+
+    <!-- Prism JS and Java component -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+
+    <!-- Custom JavaScript for Interactions -->
+    <script>
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const themeToggleText = document.getElementById('themeToggleText');
+        const searchInput = document.getElementById('searchInput');
+        const navList = document.getElementById('navList');
+        const cards = document.querySelectorAll('.section-card');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        // Dark/Light Theme Handler
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeToggleText.textContent = newTheme === 'dark' ? 'Modo Claro' : 'Modo Escuro';
+            
+            // Switch Prism stylesheet dynamically
+            const prismLink = document.getElementById('prism-theme');
+            if (newTheme === 'dark') {
+                prismLink.href = "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css";
+            } else {
+                prismLink.href = "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css";
+            }
+        });
+
+        // Search Filtration System
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            cards.forEach(card => {
+                const title = card.querySelector('.section-title').textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                const text = card.textContent.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                const id = card.getAttribute('id');
+                const matchingLink = document.querySelector(`.nav-link[href="#${id}"]`);
+
+                if (title.includes(query) || text.includes(query)) {
+                    card.style.display = 'block';
+                    if (matchingLink) matchingLink.parentElement.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                    if (matchingLink) matchingLink.parentElement.style.display = 'none';
+                }
+            });
+        });
+
+        // Active Link Highlighting on Scroll (IntersectionObserver)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px -10% -80% 0px',
+            threshold: 0
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        cards.forEach(card => observer.observe(card));
+
+        // Scroll to Top Handler
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Copy Code to Clipboard Handler
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const pre = btn.nextElementSibling;
+                const code = pre.querySelector('code');
+                navigator.clipboard.writeText(code.textContent).then(() => {
+                    btn.textContent = 'Copiado!';
+                    btn.classList.add('copied');
+                    setTimeout(() => {
+                        btn.textContent = 'Copiar';
+                        btn.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+
+        // Mobile responsive drawer toggle
+        const toggleMobileMenu = () => {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+        };
+
+        menuToggle.addEventListener('click', toggleMobileMenu);
+        sidebarOverlay.addEventListener('click', toggleMobileMenu);
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
