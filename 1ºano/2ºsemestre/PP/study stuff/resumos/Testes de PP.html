@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PP Interactive Study Dashboard — Edição Completa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: #151c2c;
+      --bg-card-hover: #1e263b;
+      --primary: #4f46e5;
+      --primary-glow: rgba(79, 70, 229, 0.15);
+      --secondary: #3b82f6;
+      --accent: #10b981;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --transition-speed: 0.3s;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: rgba(21, 28, 44, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container { display: flex; align-items: center; gap: 12px; }
+    .logo-badge {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+    .logo-text { font-size: 1.3rem; font-weight: 700; color: #fff; }
+
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all var(--transition-speed);
+    }
+    .nav-btn:hover { color: #fff; background-color: rgba(255, 255, 255, 0.05); }
+    .nav-btn.active { color: #fff; background-color: var(--primary); }
+
+    main { flex: 1; max-width: 1100px; width: 100%; margin: 0 auto; padding: 40px 20px; }
+    .tab-content { display: none; animation: fadeIn 0.4s ease forwards; }
+    .tab-content.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+    }
+    
+    .question-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--secondary);
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .question-text {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 15px;
+      background-color: rgba(255, 255, 255, 0.02);
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .open-response-area {
+      width: 100%;
+      height: 120px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      resize: vertical;
+      margin-bottom: 12px;
+      transition: border-color var(--transition-speed);
+    }
+    .open-response-area:focus { outline: none; border-color: var(--primary); }
+
+    .reveal-box {
+      margin-top: 15px;
+      display: none;
+      animation: slideDown 0.3s ease forwards;
+    }
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+    .sentence-box {
+      background-color: rgba(16, 185, 129, 0.06);
+      border-left: 4px solid var(--accent);
+      padding: 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 1.05rem;
+      color: #e2e8f0;
+    }
+
+    pre {
+      background-color: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+    code { font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; color: #e2e8f0; }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(21, 28, 44, 0.95), rgba(79, 70, 229, 0.1));
+      border: 1px solid rgba(79, 70, 229, 0.25);
+    }
+    .hero-h1 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+
+    .btn {
+      background-color: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .btn:hover { filter: brightness(1.1); }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid var(--border-color);
+    }
+    .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.15); }
+
+    footer {
+      background-color: rgba(21, 28, 44, 0.9);
+      border-top: 1px solid var(--border-color);
+      padding: 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <span class="logo-badge">PRO</span>
+      <span class="logo-text">PP Simulator Platform</span>
+    </div>
+    <nav>
+      <button class="nav-btn active" onclick="switchTab('home')">Painel</button>
+      <button class="nav-btn" onclick="switchTab('real')">Exame Real EN</button>
+      <button class="nav-btn" onclick="switchTab('modeloA')">Exame Modelo A</button>
+      <button class="nav-btn" onclick="switchTab('modeloB')">Exame Modelo B</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tab-home" class="tab-content active">
+      <div class="card hero-gradient">
+        <h1 class="hero-h1">Simulador Integrado de Avaliação</h1>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">
+          Plataforma avançada de treino interativo para a unidade curricular de Paradigmas de Programação. Pratica a redação manual de algoritmos nativos em Java e valida os teus conhecimentos teóricos fundamentais.
+        </p>
+        <button class="btn" onclick="switchTab('real')">Iniciar com Exame Real</button>
+      </div>
+    </section>
+
+    <section id="tab-real" class="tab-content">
+      <div class="card" style="background: linear-gradient(to right, rgba(59, 130, 246, 0.1), transparent); border-left: 4px solid var(--secondary);">
+        <h2 style="color: #fff;">Exame de Época Normal 2025/2026</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Unidade Curricular: Paradigmas de Programação</p>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 1 (1,5 valores)</div>
+        <div class="question-text">
+          Explique detalhadamente as diferenças entre classes abstratas e interfaces em lava. Em que situações é mais adequado optar por uma classe abstrata e em que situações é preferivel uma interface? Justifique a sua resposta e ilustre cada caso com um exemplo prático que evidencie as caracteristicas distintivas de cada mecanismo
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta teórica em formato de texto corrido..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-q1')">Revelar Resposta Teórica</button>
+        <div id="reveal-r-q1" class="reveal-box">
+          <div class="sentence-box">
+            Uma classe abstrata é utilizada para modelar uma relação de herança estrita em que se pretende partilhar código comum e manter variáveis de estado de instância entre subclasses fortemente ligadas, enquanto uma interface atua puramente como um contrato de comportamento isolado que pode ser implementado por qualquer classe sem qualquer relação hierárquica e permite contornar a limitação da herança simples através do suporte à implementação múltipla.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 2 (1,5 valores)</div>
+        <div class="question-text">
+          2 Descreva detalhadamente o modo como Java realiza a passagem de argumentos para os métodos, distinguindo o comportamento aplicado a tipos primitivos do comportamento aplicado a referências de objetos Esclareça os equivocos frequentes associados a este mecanismo e fundamente a sua explicação com exemplos concretos que demonstrem os efeitos sobre os valores e os estados dos objetos.
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-q2')">Revelar Resposta Teórica</button>
+        <div id="reveal-r-q2" class="reveal-box">
+          <div class="sentence-box">
+            O Java realiza exclusivamente a passagem de argumentos por valor através do envio de uma cópia exata do dado, o que significa que as alterações feitas a variáveis de tipos primitivos ficam limitadas ao escopo local do método sem afetar a variável original, ao passo que nas referências de objetos o valor copiado corresponde ao endereço de memória, permitindo modificar o estado interno do objeto original mas impossibilitando que uma nova atribuição de instância mude o ponteiro externo do invocador.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 3 (1,5 valores)</div>
+        <div class="question-text">
+          3. Explique o coriceito de conversão de tipos (casting no contexto da herança e do polimorfismo. Discuta os nscos associados a conversões incorretas e as situações em que cada tipo de conversão é apropiado, Ilustre com um exemplo prático que demonstre as conversões
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-q3')">Revelar Resposta Teórica</button>
+        <div id="reveal-r-q3" class="reveal-box">
+          <div class="sentence-box">
+            O upcasting consiste na conversão implícita e totalmente segura de uma referência da subclasse para uma superclasse para aproveitar os mecanismos de polimorfismo, enquanto o downcasting representa a conversão explícita de uma superclasse para uma subclasse e acarreta o risco crítico de lançar uma exceção de execução caso o objeto real não seja do tipo pretendido, sendo obrigatório efetuar uma verificação defensiva prévia com o operador instanceof para validar a compatibilidade física do tipo.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 4 (1,5 valores)</div>
+        <div class="question-text">
+          4 Distinga os conceitos de identidade e de igualdade de objetos em lava, esclarecendo a diferença entre o Operador e e metodo equals() Explique igualmente o papel do método toString(). Forneça um exemplo pratico que demonstre a redefinição correta dos métodos equals() e toString() numa classe
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-q4')">Revelar Resposta Teórica</button>
+        <div id="reveal-r-q4" class="reveal-box">
+          <div class="sentence-box">
+            A identidade de objetos avalia se duas variáveis apontam exatamente para a mesma localização de memória física através do operador de dupla igualdade, ao passo que a igualdade semântica valida se os objetos possuem o mesmo estado ou atributos internos equivalentes através da redefinição customizada do método equals, sendo o método toString complementarmente encarregue de converter o estado interno da classe numa cadeia de texto legível para depuração.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 1a (3 valores)</div>
+        <div class="question-text">
+          1a. Considere a interface RefrigeratedVehicle que representa um veículo refrigerado com um limite maximo de quilómetros Implemente a interface numa classe denominada RefrigeratedVehicleimpl veiculo deve possuir um estado (ENABLED DISABLED) e deve ser micializado como ENABLED por defeita. Para a implementação do método equals, considere que duas Instâncias de RefrigeratedVehicle são iguais se possuirem o mesmo código (devolvido através do método get. Code())
+        </div>
+        <textarea class="open-response-area" style="height: 180px;" placeholder="Desenvolve a classe completa aqui..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-p2-1a')">Revelar Código Java</button>
+        <div id="reveal-r-p2-1a" class="reveal-box">
+<pre><code>public enum VehicleState {
+    ENABLED, DISABLED
+}
+
+public class RefrigeratedVehicleImpl implements RefrigeratedVehicle {
+    private String code;
+    private ItemType supplyType;
+    private double maxCapacity;
+    private double maxKilometers;
+    private VehicleState state;
+
+    public RefrigeratedVehicleImpl(String code, ItemType supplyType, double maxCapacity, double maxKilometers) {
+        this.code = code;
+        this.supplyType = supplyType;
+        this.maxCapacity = maxCapacity;
+        this.maxKilometers = maxKilometers;
+        this.state = VehicleState.ENABLED;
+    }
+
+    public String getCode() { return this.code; }
+    public ItemType getSupplyType() { return this.supplyType; }
+    public double getMaxCapacity() { return this.maxCapacity; }
+    public double getMaxKilometers() { return this.maxKilometers; }
+    public VehicleState getState() { return this.state; }
+    public void setState(VehicleState state) { this.state = state; }
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof RefrigeratedVehicle)) return false;
+        RefrigeratedVehicle other = (RefrigeratedVehicle) obj;
+        if (this.code == null || other.getCode() == null) return false;
+        return this.code.equals(other.getCode());
+    }
+
+    public String toString() {
+        return "Veiculo: " + this.code + " Estado: " + this.state;
+    }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 1b (2 valores)</div>
+        <div class="question-text">
+          1b. Desenvolva o código necessáno para testar a classe implementada (por exemplo, no contexto de um método ma in) Apresente um exemplo de teste para cada método implementado
+        </div>
+        <textarea class="open-response-area" placeholder="Desenvolve o método main..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-p2-1b')">Revelar Código Java</button>
+        <div id="reveal-r-p2-1b" class="reveal-box">
+<pre><code>public class Main {
+    public static void main(String[] args) {
+        RefrigeratedVehicleImpl v1 = new RefrigeratedVehicleImpl("VH001", null, 500.0, 200.0);
+        RefrigeratedVehicleImpl v2 = new RefrigeratedVehicleImpl("VH001", null, 600.0, 300.0);
+        
+        System.out.println("Código: " + v1.getCode());
+        System.out.println("Tipo: " + v1.getSupplyType());
+        System.out.println("Capacidade: " + v1.getMaxCapacity());
+        System.out.println("Km: " + v1.getMaxKilometers());
+        System.out.println("Estado Inicial: " + v1.getState());
+        
+        v1.setState(VehicleState.DISABLED);
+        System.out.println("Novo Estado: " + v1.getState());
+        System.out.println("Teste Equals: " + v1.equals(v2));
+        System.out.println("Teste ToString: " + v1.toString());
+    }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 2a (4 valores)</div>
+        <div class="question-text">
+          2a Implemente os seguintes métodos que podem ser utilizados para a geração da rota <br>
+          Collect ( vehicle waldboxl <br>
+          . Este metodo deve devolver true caso exista a ocorrência de, pelo menos um container cujo tipo seja igual ao do veículo e se a sua ultima medição registada tiver um valor supenor a 80% da sua capacidade <br><br>
+          enoteroute Aranoxaldbox, Validator validaroz) <br>
+          metoon deve devolver true caso a AidBox seja adicionada a rota Para adicionar a AidBox à rota deve previamente validar efetuar uma validação com recurso do metodo validator.validate (Route route, AidBox aidBox): <br>
+          a AldBox deve ser ancionada a rota volizando o método vola addAidBox (AidBox aldBox) da classe Route <br>
+          o Caso a invocação do método addAidBox ongine uma RouteException, o metood addAidBoxToRoute deve retomar falso
+        </div>
+        <textarea class="open-response-area" style="height: 180px;" placeholder="Escreve aqui os métodos auxiliares..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-p2-2a')">Revelar Código Java</button>
+        <div id="reveal-r-p2-2a" class="reveal-box">
+<pre><code>public class StrategyImpl implements Strategy {
+
+    private boolean hasCollectableContainer(Vehicle vehicle, AidBox aidbox) {
+        Container[] containers = aidbox.getContainers();
+        if (containers == null) return false;
+
+        for (int i = 0; i < containers.length; i++) {
+            if (containers[i] != null && containers[i].getType() == vehicle.getSupplyType()) {
+                Measurement measurement = containers[i].getLastMeasurement();
+                if (measurement != null) {
+                    double valor = measurement.getValue();
+                    double limiteMaximo = containers[i].getCapacity() * 0.8;
+                    if (valor > limiteMaximo) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean addAidBoxToRoute(Route route, AidBox aidbox, RouteValidator validator) {
+        if (validator == null || route == null || aidbox == null) return false;
+        
+        if (validator.validate(route, aidbox)) {
+            try {
+                route.addAidBox(aidbox);
+                return true;
+            } catch (RouteException e) {
+                return false;
+            }
+        }
+        return false;
+    }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 2b (5 valores)</div>
+        <div class="question-text">
+          2b. Naclasse Strategy Impi implemente o método generate gerando as rotas necessallas <br>
+          Regras a considerar <br>
+          • Para cada veiculo devolvido pelo método get Venicles (da interface Institution deve ser criada uma nova rota Assuma que so existe um veiculo para cada tipo <br>
+          As AidBoxes existentes são as devolvidas pelo metodo get.AldBoxes() nterface Institution. <br>
+          Deve utilizar os metodos desenvolvidos na alinea anterior. Se não os implementou antenormente assuma que os métodos jà existem <br>
+          Darray devolvido pelo método generate deve conter rotas com as AidBoxes isem posições riulas ou rotas vaziasi
+        </div>
+        <textarea class="open-response-area" style="height: 180px;" placeholder="Escreve aqui o método generate..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-r-p2-2b')">Revelar Código Java</button>
+        <div id="reveal-r-p2-2b" class="reveal-box">
+<pre><code>    public Route[] generate(IInstitution inst, RouteValidator validator) {
+        Vehicle[] vehicles = inst.getVehicles();
+        AidBox[] aidBoxes = inst.getAidBoxes();
+        if (vehicles == null || aidBoxes == null) return new Route[0];
+
+        Route[] temp = new Route[vehicles.length];
+        int count = 0;
+
+        for (int i = 0; i < vehicles.length; i++) {
+            if (vehicles[i] == null) continue;
+
+            Route novaRota = new RouteImpl(vehicles[i]);
+            boolean temCaixasAdicionadas = false;
+
+            for (int j = 0; j < aidBoxes.length; j++) {
+                if (aidBoxes[j] == null) continue;
+
+                if (this.hasCollectableContainer(vehicles[i], aidBoxes[j])) {
+                    if (this.addAidBoxToRoute(novaRota, aidBoxes[j], validator)) {
+                        temCaixasAdicionadas = true;
+                    }
+                }
+            }
+
+            if (temCaixasAdicionadas) {
+                temp[count] = novaRota;
+                count++;
+            }
+        }
+
+        Route[] resultadoFinal = new Route[count];
+        for (int i = 0; i < count; i++) {
+            resultadoFinal[i] = temp[i];
+        }
+
+        return resultadoFinal;
+    }</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-modeloA" class="tab-content">
+      <div class="card" style="background: linear-gradient(to right, rgba(16, 185, 129, 0.1), transparent); border-left: 4px solid var(--accent);">
+        <h2 style="color: #fff;">Exame Modelo A — Foco: Encapsulamento e Ocultação de Informação</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Dificuldade: Equivalente ao Exame Real</p>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 1 (1,5 valores)</div>
+        <div class="question-text">
+          Explique o conceito de ocultação de informação (information hiding) no âmbito do encapsulamento de classes em Java. Distinga o comportamento e visibilidade obtidos ao declarar atributos com os modificadores private, protected e public.
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-ma-q1')">Revelar Resposta Teórica</button>
+        <div id="reveal-ma-q1" class="reveal-box">
+          <div class="sentence-box">
+            O encapsulamento garante a ocultação do estado interno de um objeto através do uso de modificadores de acesso restritivos como o private para proteger os dados contra modificações arbitrárias externas, permitindo o acesso direto apenas à própria classe, enquanto o modificador protected estende essa visibilidade para subclasses e classes do mesmo pacote, contrastando com o public que expõe o elemento de forma irrestrita a qualquer componente da aplicação.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 2 (1,5 valores)</div>
+        <div class="question-text">
+          Distinga de forma clara e inequívoca os conceitos de sobrecarga de métodos (overloading) e redefinição de métodos (overriding) na linguagem Java, clarificando os momentos em que o compilador/runtime faz a respetiva ligação (binding).
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-ma-q2')">Revelar Resposta Teórica</button>
+        <div id="reveal-ma-q2" class="reveal-box">
+          <div class="sentence-box">
+            O overloading permite definir múltiplos métodos com o mesmo nome mas assinaturas e parâmetros distintos dentro da mesma classe resolvidos em tempo de compilação por static binding, enquanto o overriding consiste na redefinição de um método herdado de uma superclasse com a assinatura exatamente idêntica executado em tempo de execução através de dynamic binding com base no tipo real da instância.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 1 (4,0 valores)</div>
+        <div class="question-text">
+          Tendo por base o enunciado do trabalho prático, implemente uma classe chamada <code>WeightSimulatedContainer</code> que implementa a interface <code>Container</code>. A classe deve possuir atributos para a capacidade máxima e o tipo de item (ItemType). Implemente um método chamado <code>simulateWeight()</code> que altera o valor da última medição recebida gerando de forma determinística ou pseudo-aleatória (usando exclusivamente <code>Math.random()</code>) um valor double contido estritamente entre zero e a capacidade máxima do contentor.
+        </div>
+        <textarea class="open-response-area" style="height: 180px;" placeholder="Escreve o código da classe sem usar java.util..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-ma-p2-1')">Revelar Código Java</button>
+        <div id="reveal-ma-p2-1" class="reveal-box">
+<pre><code>public class WeightSimulatedContainer implements Container {
+    private ItemType type;
+    private double capacity;
+    private Measurement lastMeasurement;
+
+    public WeightSimulatedContainer(ItemType type, double capacity) {
+        this.type = type;
+        this.capacity = capacity;
+        this.lastMeasurement = null;
+    }
+
+    public ItemType getType() { return this.type; }
+    public double getCapacity() { return this.capacity; }
+    public Measurement getLastMeasurement() { return this.lastMeasurement; }
+
+    public void simulateWeight() {
+        double simulatedValue = Math.random() * this.capacity;
+        this.lastMeasurement = new MeasurementImpl(simulatedValue);
+    }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 2 (5,0 valores)</div>
+        <div class="question-text">
+          Desenvolva na classe administrativa da instituição um método público chamado <code>calculateTotalCapacityUsed</code>. Este método recebe como argumento um array convencional de caixas de suprimentos (<code>AidBox[]</code>) e um determinado <code>ItemType</code>. O método deve percorrer todas as estruturas e retornar a soma total acumulada (double) dos valores de capacidade de todos os contentores cujo tipo coincida com o solicitado. Garanta o tratamento de posições nulas.
+        </div>
+        <textarea class="open-response-area" style="height: 160px;" placeholder="Escreve o algoritmo de cálculo iterativo aqui..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-ma-p2-2')">Revelar Código Java</button>
+        <div id="reveal-ma-p2-2" class="reveal-box">
+<pre><code>public double calculateTotalCapacityUsed(AidBox[] boxes, ItemType filterType) {
+    if (boxes == null || filterType == null) return 0.0;
+    double totalCapacity = 0.0;
+
+    for (int i = 0; i < boxes.length; i++) {
+        if (boxes[i] == null) continue;
+        Container[] containers = boxes[i].getContainers();
+        if (containers == null) continue;
+
+        for (int j = 0; j < containers.length; j++) {
+            if (containers[j] != null && containers[j].getType() == filterType) {
+                totalCapacity += containers[j].getCapacity();
+            }
+        }
+    }
+    return totalCapacity;
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-modeloB" class="tab-content">
+      <div class="card" style="background: linear-gradient(to right, rgba(165, 180, 252, 0.1), transparent); border-left: 4px solid var(--primary);">
+        <h2 style="color: #fff;">Exame Modelo B — Foco: Exceções, Polimorfismo e Filtros de Vetores</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Dificuldade: Equivalente ao Exame Real</p>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 1 (1,5 valores)</div>
+        <div class="question-text">
+          Explique detalhadamente a diferença entre exceções do tipo checked e do tipo unchecked (Runtime) na linguagem Java. Como é que o compilador impõe o controlo sobre cada uma delas?
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-mb-q1')">Revelar Resposta Teórica</button>
+        <div id="reveal-mb-q1" class="reveal-box">
+          <div class="sentence-box">
+            As exceções checked representam condições anómalas previsíveis que estendem diretamente a classe Exception e que o compilador obriga explicitamente a tratar com blocos try-catch ou a declarar na assinatura do método, ao passo que as exceções unchecked estendem RuntimeException e decorrem de erros de lógica ou programação que podem ocorrer em qualquer ponto da execução sem imposição de tratamento estrito.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 1 — Pergunta 2 (1,5 valores)</div>
+        <div class="question-text">
+          Defina o conceito de polimorfismo dinâmico e descreva o papel desempenhado pelo mecanismo de dynamic binding (ligação dinâmica) na execução de métodos baseados em referências de superclasses.
+        </div>
+        <textarea class="open-response-area" placeholder="Simula aqui a tua resposta..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-mb-q2')">Revelar Resposta Teórica</button>
+        <div id="reveal-mb-q2" class="reveal-box">
+          <div class="sentence-box">
+            O polimorfismo dinâmico permite que uma variável do tipo de uma superclasse armazene referências de qualquer uma das suas subclasses e invoque métodos cujas implementações específicas são selecionadas apenas em tempo de execução através do mecanismo de dynamic binding com base no tipo real da instância alocada na memória.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 1 (4,0 valores)</div>
+        <div class="question-text">
+          Crie uma exceção personalizada do tipo checked denominada <code>InvalidDistanceException</code>. De seguida, implemente um método estático de validação chamado <code>verifyRouteLimits</code> que recebe um objeto do tipo <code>RefrigeratedVehicle</code> e um valor double representando a distância total calculada para uma recolha. O método deve disparar a exceção customizada caso a distância fornecida ultrapasse o limite máximo de quilómetros (<code>getMaxKilometers()</code>) definido no veículo.
+        </div>
+        <textarea class="open-response-area" style="height: 160px;" placeholder="Escreve a exceção e o método de validação..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-mb-p2-1')">Revelar Código Java</button>
+        <div id="reveal-mb-p2-1" class="reveal-box">
+<pre><code>public class InvalidDistanceException extends Exception {
+    public InvalidDistanceException(String message) {
+        super(message);
+    }
+}
+
+public class RouteValidator {
+    public static void verifyRouteLimits(RefrigeratedVehicle vehicle, double distance) throws InvalidDistanceException {
+        if (vehicle == null) return;
+        if (distance > vehicle.getMaxKilometers()) {
+            throw new InvalidDistanceException("Distancia excede o limite maximo permitido pelo veiculo refrigerado.");
+        }
+    }
+}</code></pre>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="question-title">Parte 2 — Pergunta 2 (5,0 valores)</div>
+        <div class="question-text">
+          Implemente um método utilitário de filtragem de dados chamado <code>extractActiveRefrigeratedVehicles</code>. Este método aceita um array polimórfico genérico contendo instâncias mistas de veículos (<code>Vehicle[]</code>). O método deve analisar a estrutura e retornar um novo array contendo **exclusivamente** os objetos que sejam instâncias de <code>RefrigeratedVehicle</code> e cujo estado (getState()) seja igual a <code>VehicleState.ENABLED</code>. Garanta que o array retornado não contém posições nulas ou sobressalentes no fim (dimensão exata). Proibido o uso de `java.util`.
+        </div>
+        <textarea class="open-response-area" style="height: 180px;" placeholder="Aplica o algoritmo de dupla passagem aqui para dimensionamento exato do vetor..."></textarea>
+        <button class="btn btn-secondary" onclick="toggleReveal('reveal-mb-p2-2')">Revelar Código Java</button>
+        <div id="reveal-mb-p2-2" class="reveal-box">
+<pre><code>public RefrigeratedVehicle[] extractActiveRefrigeratedVehicles(Vehicle[] vehicles) {
+    if (vehicles == null) return new RefrigeratedVehicle[0];
+    
+    // Primeira passagem: Contagem exata para dimensionar o array nativo
+    int count = 0;
+    for (int i = 0; i < vehicles.length; i++) {
+        if (vehicles[i] instanceof RefrigeratedVehicle) {
+            RefrigeratedVehicleImpl refVeh = (RefrigeratedVehicleImpl) vehicles[i];
+            if (refVeh.getState() == VehicleState.ENABLED) {
+                count++;
+            }
+        }
+    }
+
+    // Alocação com o tamanho preciso
+    RefrigeratedVehicle[] result = new RefrigeratedVehicle[count];
+    int index = 0;
+
+    // Segunda passagem: Preenchimento do vetor
+    for (int i = 0; i < vehicles.length; i++) {
+        if (vehicles[i] instanceof RefrigeratedVehicle) {
+            RefrigeratedVehicleImpl refVeh = (RefrigeratedVehicleImpl) vehicles[i];
+            if (refVeh.getState() == VehicleState.ENABLED) {
+                result[index] = refVeh;
+                index++;
+            }
+        }
+    }
+    return result;
+}</code></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 ESTG — Paradigmas de Programação. Dashboard Otimizado de Revisão Interativa.</p>
+  </footer>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById('tab-' + tabId).classList.add('active');
+      
+      const btn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (btn) btn.classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function toggleReveal(id) {
+      const box = document.getElementById(id);
+      if (box) {
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+        }
+      }
+    }
+  </script>
+</body>
+</html>
