@@ -323,8 +323,6 @@ O método `toString()` é herdado de `Object` e serve para obter uma **represent
 Abaixo é apresentada a classe `Estudante`. A igualdade lógica é baseada exclusivamente no atributo `numeroEstudante`.
 
 ```java
-import java.util.Objects;
-
 public class Estudante {
     private String numeroEstudante;
     private String nome;
@@ -361,15 +359,11 @@ public class Estudante {
         Estudante outro = (Estudante) obj;
 
         // Passo 5: Comparação lógica dos atributos chave
-        // Usamos Objects.equals() para evitar NullPointerException se algum campo for null.
-        return Objects.equals(this.numeroEstudante, outro.numeroEstudante);
-    }
-
-    // REDEFINIÇÃO DO HASHCODE (Obrigatório ao redefinir o equals)
-    @Override
-    public int hashCode() {
-        // Se dois objetos são iguais pelo equals(), devem retornar o mesmo hashcode.
-        return Objects.hash(numeroEstudante);
+        // Comparamos usando equals da classe String e fazemos verificação de nulos manual.
+        if (this.numeroEstudante == null) {
+            return outro.numeroEstudante == null;
+        }
+        return this.numeroEstudante.equals(outro.numeroEstudante);
     }
 
     // REDEFINIÇÃO DO TOSTRING
@@ -401,8 +395,6 @@ public enum VehicleState {
 ### Implementação da Classe `RefrigeratedVehicleImpl`
 
 ```java
-import java.util.Objects;
-
 /**
  * Classe que implementa o contrato de um veículo refrigerado.
  * Como RefrigeratedVehicle estende Vehicle, esta classe deve implementar
@@ -487,14 +479,6 @@ public class RefrigeratedVehicleImpl implements RefrigeratedVehicle {
         return this.code.equals(other.getCode());
     }
 
-    // --- SOBREPOSIÇÃO DO HASHCODE ---
-    @Override
-    public int hashCode() {
-        // Garantimos que a geração do hash do objeto se baseia apenas no código,
-        // em perfeita simetria com a lógica do método equals.
-        return Objects.hash(this.code);
-    }
-
     // --- SOBREPOSIÇÃO DO TOSTRING ---
     @Override
     public String toString() {
@@ -512,9 +496,7 @@ public class RefrigeratedVehicleImpl implements RefrigeratedVehicle {
 #### Fundamentação Pormenorizada da Implementação:
 1. **Por que usar `instanceof RefrigeratedVehicle` em vez de `getClass()` no `equals`?**  
    O enunciado diz expressamente: *"considere que duas instâncias de `RefrigeratedVehicle` são iguais..."*. Se usássemos `this.getClass() != obj.getClass()`, estaríamos a restringir a igualdade apenas a instâncias da classe concreta `RefrigeratedVehicleImpl`. Se houvesse outra classe (ex: `AdvancedRefrigeratedVehicleImpl`) que implementasse a mesma interface, o `equals` retornaria `false` mesmo com códigos idênticos. O `instanceof` garante a conformidade com a especificação da interface.
-2. **Por que foi adicionado o `hashCode()` se o enunciado pedia apenas o `equals`?**  
-   Sempre que se redefine o `equals` em Java, é um requisito estrito da linguagem redefinir o `hashCode()`. Se não o fizéssemos, o código continuaria a compilar, mas qualquer coleção que use tabelas de dispersão (como `HashSet<Vehicle>` ou `HashMap<Vehicle, Route>`) falharia ao detetar duplicados, violando o comportamento lógico do sistema.
-3. **Uso de `final` nos atributos**:  
+2. **Uso de `final` nos atributos**:  
    Atributos como `code`, `supplyType`, `maxCapacity` e `maxKilometers` foram declarados como `final` para evidenciar a sua **imutabilidade**. Uma vez criado o veículo, estes dados não se alteram. O único atributo não-final é o `state`, pois o estado do veículo pode transitar de ativo para inativo.
 
 ---
@@ -555,7 +537,7 @@ public class TestRefrigeratedVehicle {
         v1.setState(VehicleState.ENABLED); // Repor para os testes seguintes
         System.out.println();
 
-        // 5. Testar Métodos equals() e hashCode()
+        // 5. Testar Método equals()
         System.out.println("--- Teste do Método equals() ---");
         // Caso A: Mesma Referência física
         System.out.println("A. v1.equals(v1) [Esperado: true]: " + v1.equals(v1));
@@ -571,12 +553,6 @@ public class TestRefrigeratedVehicle {
         
         // Caso E: Comparação com tipo incompatível
         System.out.println("E. v1.equals(\"String Qualquer\") [Esperado: false]: " + v1.equals("String Qualquer"));
-        
-        System.out.println("\n--- Teste do Método hashCode() ---");
-        System.out.println("Hash de v1: " + v1.hashCode());
-        System.out.println("Hash de v2 (deve ser idêntico ao v1): " + v2.hashCode());
-        System.out.println("Hash de v3 (deve ser diferente): " + v3.hashCode());
-        System.out.println("v1.hashCode() == v2.hashCode() [Esperado: true]: " + (v1.hashCode() == v2.hashCode()));
         System.out.println();
 
         // 6. Testar Método toString()

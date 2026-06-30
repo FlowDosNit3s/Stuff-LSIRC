@@ -173,8 +173,6 @@ A identidade de um objeto refere-se à sua localização física na memória Hea
 O método toString tem a função de fornecer uma representação legível em formato de texto contendo o estado do objeto, sendo invocado implicitamente em concatenações de cadeias de caracteres ou na escrita para a consola. Para estruturar corretamente o método equals, deve verificar-se a igualdade referencial imediata como otimização de desempenho, de seguida validar se a referência comparada é nula, depois averiguar a correspondência exata de classes recorrendo ao método getClass para evitar incompatibilidades de herança, e por fim efetuar o cast seguro da referência para comparar os campos identificativos chave.
 
 ```java
-import java.util.Objects;
-
 public class Estudante {
     private String numeroEstudante;
     private String nome;
@@ -196,12 +194,10 @@ public class Estudante {
             return false;
         }
         Estudante outro = (Estudante) obj;
-        return Objects.equals(this.numeroEstudante, outro.numeroEstudante);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(numeroEstudante);
+        if (this.numeroEstudante == null) {
+            return outro.numeroEstudante == null;
+        }
+        return this.numeroEstudante.equals(outro.numeroEstudante);
     }
 
     @Override
@@ -217,8 +213,6 @@ public class Estudante {
 
 ### Pergunta 1a
 ```java
-import java.util.Objects;
-
 public class RefrigeratedVehicleImpl implements RefrigeratedVehicle {
     private final String code;
     private final ItemType supplyType;
@@ -284,11 +278,6 @@ public class RefrigeratedVehicleImpl implements RefrigeratedVehicle {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(this.code);
-    }
-
-    @Override
     public String toString() {
         return "Veiculo Refrigerado [Codigo: " + code + " | Tipo: " + supplyType + " | Estado: " + state + "]";
     }
@@ -320,10 +309,6 @@ public class TestRefrigeratedVehicle {
         System.out.println("Igualdade v1 com v3 (codigos diferentes): " + v1.equals(v3));
         System.out.println("Igualdade v1 com nulo: " + v1.equals(null));
         System.out.println("Igualdade v1 com outro tipo: " + v1.equals("Texto"));
-
-        System.out.println("Hash v1: " + v1.hashCode());
-        System.out.println("Hash v2: " + v2.hashCode());
-        System.out.println("Hash v3: " + v3.hashCode());
 
         System.out.println("Representacao textual v1: " + v1.toString());
     }
