@@ -1,0 +1,197 @@
+1a)
+
+public class RefrigeratedVehicleImpl implements RefrigeratedVehicle{
+	private String code;
+	private ItemType supplyType;
+	private double maxCapacity;
+	private double maxKilometers;
+	private VehicleState state;
+
+	public RefrigeratedVehicleImpl(String code, ItemType supplyType, double maxCapacity, double maxKilometers){
+		this.code = code;
+		this.supplyType = supplyType;
+		this.maxCapacity = maxCapacity;
+		this.maxKilometers = maxKilometers;
+		this.state = VehicleState.ENABLED;
+	}
+	
+	@Override
+	public String getCode(){
+		return this.code;
+	}
+	
+	@Override
+	public ItemType getSupplyType(){
+		return this.supplyType;
+	}
+
+	@Override
+	public double getMaxCapacity(){
+		return this.maxCapacity;
+	}
+
+	@Override
+	public double getMaxKilometers(){
+		return this.maxKilometers;
+	}
+
+	@Override
+	public boolean equals(Object obj){
+		if(this == obj){
+			return true;
+		}
+		if(obj == null){
+			return false;
+		}
+		if(!(obj instanceof RefrigeratedVehicle)){
+			return false;
+		}
+		RefrigeratedVehicle other = (RefrigeratedVehicle) obj;
+
+		if(this.code == null){
+			return other.getCode() = null;
+		}
+		return this.code.equals(other.getCode());
+	}
+	
+	@Override
+	public String toString(){
+		return "RefrigeratedVehicleImpl[code: " + code +
+			", supplyType: " + supplyType + 
+			", maxCapacity: " + maxCapacity + 
+			", maxKilometers: " + maxKilometers + 
+			", state: " + state + ]";
+
+	}
+}
+
+1b)
+public class Main{
+	public static void main(String[] args){
+		//instanciar
+		RefrigeratedVehicleImpl r1 = new RefrigeratedVehicleImpl("A02", ItemType.FOOD, 100, 200);
+		RefrigeratedVehicleImpl r2 = new RefrigeratedVehicleImpl("A02", ItemType.MEDICINE, 200, 300);
+		RefrigeratedVehicleImpl r3 = new RefrigeratedVehicleImpl("A03", ItemType.FOOD, 150, 150);
+
+		//testar os gets
+		System.out.println("r1.getCode() = " + r1.getCode());
+		System.out.println("r1.getSupplyType() = " + r1.getSupplyType());
+		System.out.println("r1.getMaxCapacity() = " + r1.getMaxCapacity());
+		System.out.println("r1.getMaxKilometers() = " + r1.getMaxKilometers());
+		
+		//testar o equals
+		System.out.println("r1.equals(r2) = " + r1.equals(r2));
+		System.out.println("r1.equals(r3) = " + r1.equals(r3));
+		System.out.println("r1.equals(null) = " + r1.equals(null));
+		System.out.println("r1.equals(r1) = " + r1.equals(r1));
+
+		//testar o toString
+		System.out.println("r1.toString() = " + r1.toString());
+	}
+}
+
+2a1)
+
+private boolean hasCollectableContainer(Vehicle vehicle, AidBox aidBox){
+	if(vehicle == null || aidBox == null){
+		return false;
+	}
+
+	Container[] containers = aidBox.getContainers();
+
+	if(containers == null){
+		return false;
+	}
+	
+	for(int i = 0; i < containers.length; i++){
+		if(containers[i].getType() == vehicle.getSupplyType()){
+			Measurement last = containers[i].getLastMeasurement();
+			if(last != null){
+				double percentagem = last.getValue();
+				double capacidade = containers[i].getCapacity();
+				if(percentagem > (capacidade * 0.8)){
+					return true;
+				}
+			}
+		}
+	}
+	return false;
+}
+2a2)
+
+private boolean addAidBoxToRoute(Route route, AidBox aidbox, RouteValidator validator){
+	if(route == null || aidBox == null || validator == null){
+		return false;
+	}
+
+	if(!validator.validate(route,aidbox)){
+		return false;
+	}
+
+	try{
+		route.addAidBox(aidBox);
+		return true;
+	} catch (RouteException e ){
+		return false;
+	}
+}
+
+
+2b)
+
+public class StrategyImpl implements Strategy{
+	
+    @Override
+    public Route[] generate(IInstitution inst, RouteValidator validator) {
+        if (inst == null || validator == null) {
+            return new Route[0];
+        }
+        
+        AidBox[] aidBoxes = inst.getAidBoxes();
+        Vehicle[] vehicles = inst.getVehicles();
+
+        if (aidBoxes == null || aidBoxes.length == 0 || vehicles == null || vehicles.length == 0) {
+            return new Route[0];
+        }
+
+        Route[] tempRoutes = new Route[vehicles.length];
+        int routeCount = 0;
+        
+        for (int i = 0; i < vehicles.length; i++) {
+            if (vehicles[i] == null) {
+                continue;
+            }
+            
+            Route novaRota = new RouteImpl(vehicles[i]);
+            boolean rotaTemCaixas = false;
+
+            for (int j = 0; j < aidBoxes.length; j++) {
+                if (aidBoxes[j] == null) {
+                    continue;
+                }
+                
+                if (hasCollectableContainer(vehicles[i], aidBoxes[j])) {
+                    if (addAidBoxToRoute(novaRota, aidBoxes[j], validator)) {
+                        rotaTemCaixas = true;
+                    }
+                }
+            }
+            
+            if (rotaTemCaixas) {
+                tempRoutes[routeCount] = novaRota;
+                routeCount++;
+            }
+        }
+        
+        Route[] result = new Route[routeCount];
+        for (int k = 0; k < routeCount; k++) {
+            result[k] = tempRoutes[k];
+        }
+        return result;
+    }
+}
+	
+
+	
+	
+

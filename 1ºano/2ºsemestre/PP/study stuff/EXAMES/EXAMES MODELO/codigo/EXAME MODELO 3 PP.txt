@@ -1,0 +1,293 @@
+EXAME MODELO 3 PP
+
+Pergunta 1a (3 valores)
+Considere a interface Container que representa um contentor de bens. Implemente a interface
+numa classe denominada ContainerImpl . O contentor deve armazenar um array de medições
+( Measurement ) com capacidade máxima de 50 medições. O método addMeasurement deve lançar
+ContainerException se a medição for nula ou se o valor da medição exceder a capacidade do
+contentor. O método getLastMeasurement deve devolver a última medição adicionada ou null se
+não existirem medições. Para o método equals , dois contentores são iguais se possuírem o
+mesmo código.
+
+public class ContainerImpl implements Container {
+    private String code;
+    private ItemType type;
+    private double capacity;
+    private Measurement[] measurements;
+    private int numMeasurements;   
+ 
+    private final int MAX_MEASUREMENTS = 50; // Corrigido o nome
+
+    public ContainerImpl(String code, ItemType type, double capacity) {
+        this.code = code;
+        this.type = type;
+        this.capacity = capacity;
+        this.measurements = new Measurement[MAX_MEASUREMENTS];
+        this.numMeasurements = 0;
+    }
+
+    @Override
+    public String getCode() {
+        return this.code;
+    }
+
+    @Override 
+    public ItemType getType() {
+        return this.type;
+    }
+
+    @Override
+    public double getCapacity() {
+        return this.capacity;
+    }
+
+    @Override 
+    public Measurement[] getMeasurements() {
+        Measurement[] result = new Measurement[numMeasurements];
+        for (int i = 0; i < numMeasurements; i++) {
+            result[i] = measurements[i];
+        }
+        return result;
+    }
+
+    @Override
+    public Measurement getLastMeasurement() {
+        if (numMeasurements == 0) {
+            return null;
+        }
+        return measurements[numMeasurements - 1];
+    }
+
+    @Override
+    public void addMeasurement(Measurement measurement) throws ContainerException {
+        if (measurement == null) {
+            throw new ContainerException("A medicao nao pode ser nula.");
+        }
+        if (measurement.getValue() > this.capacity) {
+            throw new ContainerException("O valor da medicao excede a capacidade do contentor.");
+        }
+        
+        if (numMeasurements >= MAX_MEASUREMENTS) {
+            throw new ContainerException("Capacidade maxima de medicoes atingida (50).");
+        }
+        
+        this.measurements[numMeasurements] = measurement;
+        this.numMeasurements++;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Container)) { 
+            return false;
+        }
+        Container other = (Container) obj;
+
+        if (this.code == null) {
+            return other.getCode() == null;
+        }
+        return this.code.equals(other.getCode());
+    }
+
+    @Override
+    public String toString() {
+        String result = "ContainerImpl [Code=" + code + ", ItemType=" + type + ", Capacity=" + capacity + ", Measurements=[";
+        
+        for (int i = 0; i < numMeasurements; i++) {
+            result += measurements[i].toString();
+            if (i < numMeasurements - 1) {
+                result += ", ";
+            }
+        }
+
+        result += "]]";
+        return result;
+    }
+}
+
+Pergunta 1b (2 valores)
+Desenvolva o código necessário para testar a classe implementada (por exemplo, no contexto de
+um método main ). Apresente um exemplo de teste para cada método implementado.
+		
+			
+public class Main{
+	public static void main(String[] args) throws ContainerException{
+	
+	//instanciar
+	ContainerImpl c1 = new ContainerImpl("A1", ItemType.PERISHABLE_FOOD, 100);
+	ContainerImpl c2 = new ContainerImpl("A1", ItemType.NON_PERISHABLE_FOOD, 200);
+	ContainerImpl c3 = new ContainerImpl("A2", ItemType.CLOTHING, 300);
+
+	//testar os gets
+	System.out.println("código de c1: " + c1.getCode());
+	System.out.println("tipo de c1: " + c1.getType());
+	System.out.println("capacidade de c1: " + c1.getCapacity());
+	System.out.println("ultima mediçao: " + c1.getLastMeasurement());
+	
+	//testar o addMeasurement()
+	Measurement m1 = new MeasurementImpl(100, "2026-07-01");
+	Measurement m2 = new MeasurementImpl(80.0, "2026-07-02");
+	c1.addMeasurement(m1);
+	c2.addMeasurement(m2);
+	
+	//testar o equals
+	System.out.println("c1.equals(c2): " + c1.equals(c2));
+	System.out.println("c1.equals(c3): " + c1.equals(c3));
+	System.out.println("c1.equals(null): " + c1.equals(null));
+	System.out.println("c1.equals(c1): " + c1.equals(c1));
+
+	//testar o toString
+	System.out.println("c1.toString(): " + c1.toString());
+	}
+}
+
+public class PickingMapImpl implements PickingMap{
+	private boolean hasContainerOfType(AidBox aidBox, ItemType type){
+		Container[] containers = aidBox.getContainers();
+		
+		if (containers == null) {
+       			return false;
+    		}
+		
+		for(int i = 0; i < containers.length; i++){
+			if(containers[i].getType() == type){
+				return true;
+			}
+		}
+	return false;
+	}
+	
+
+	private boolean needsCollection(Container container){
+		if(container == null){
+			return false;
+		}
+		if(containter.getType() == ItemType.PERISHABLE_FOOD){
+			return true;
+		}
+		
+		Measurment last = container.getLastMeasurment();
+
+		if(last == null){
+			return false;
+		}
+		double limite = container.getCapacity() * 07;
+		if(last.getValue() > limite){
+			return true;
+		}
+		return false;
+	}
+}	
+		
+Pergunta 2b (5 valores)
+Na classe PickingMapImpl , implemente o método getPickingMap .
+Regras a considerar:
+O método deve percorrer todas as AidBoxes devolvidas pelo método getAidBoxes() da
+interface IInstitution .
+Apenas devem ser incluídas AidBoxes que possuam pelo menos um contentor do tipo
+especificado (utilizando hasContainerOfType ).
+Das AidBoxes filtradas, apenas devem ser incluídas aquelas que possuam pelo menos um
+contentor do tipo especificado que necessite de recolha (utilizando needsCollection ).
+O array devolvido não deve conter posições nulas.
+
+
+public class PickingMapImpl implements PickingMap {
+
+    private boolean hasContainerOfType(AidBox aidBox, ItemType type) {
+        Container[] containers = aidBox.getContainers(); 
+        
+        if (containers == null) {
+            return false;
+        }
+        
+        for (int i = 0; i < containers.length; i++) {
+            if (containers[i] != null && containers[i].getType() == type) { 
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean needsCollection(Container container) {
+        if (container == null) {
+            return false;
+        }
+        
+        Measurement last = container.getLastMeasurement();
+
+        if (last == null) {
+            return false;
+        }
+        
+        if (container.getType() == ItemType.PERISHABLE_FOOD) { 
+            return true;
+        }
+        
+        double limite = container.getCapacity() * 0.7; 
+        if (last.getValue() > limite) { 
+            return true;
+        }
+        
+        return false;
+    }
+
+    @Override
+    public AidBox[] getPickingMap(IInstitution inst, ItemType type) { 
+        if (inst == null || type == null) {
+            return new AidBox[0];
+        }
+        
+        AidBox[] aidBoxes = inst.getAidBoxes(); 
+        if (aidBoxes == null || aidBoxes.length == 0) {
+            return new AidBox[0];
+        }
+        
+        AidBox[] temp = new AidBox[aidBoxes.length];
+        int count = 0;
+        
+        for (int i = 0; i < aidBoxes.length; i++) {
+            if (aidBoxes[i] == null) { // Corrigido para null com dois 'l's
+                continue;
+            }
+            
+            if (!hasContainerOfType(aidBoxes[i], type)) {
+                continue;
+            }
+            
+            Container[] containers = aidBoxes[i].getContainers(); 
+            boolean adicionarCaixa = false;
+            
+            if (containers != null) {
+                for (int j = 0; j < containers.length; j++) {
+                    if (containers[j] != null) {
+                        if (containers[j].getType() == type && needsCollection(containers[j])) {
+                            adicionarCaixa = true;
+                            break; 
+                        }
+                    }
+                }
+            }
+        
+            if (adicionarCaixa) {
+                temp[count] = aidBoxes[i];
+                count++;
+            }
+        }
+        
+        AidBox[] result = new AidBox[count];
+        for (int i = 0; i < count; i++) {
+            result[i] = temp[i];
+        }
+        
+        return result;
+    }
+}
+	
+
+
+	

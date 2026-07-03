@@ -1,0 +1,114 @@
+1a)
+
+public class AidBoxImpl implements AidBox{
+	private String code;
+	private String zone;
+	private Container[] containers;
+	private int numContainers;
+
+	private final int MAX_CONTAINERS = 4;
+	
+	public AidBoxImpl ( String code, String zone){
+		this.code = code;
+		this.zone = zone;
+		this.containers = new Container[MAX_CONTAINERS];
+		this.numContainers = 0;
+	}
+
+	@Override
+	public String getCode(){
+		return this.code;
+	}
+
+	@Override
+	public String getZone(){
+		return this.zone;
+
+	}
+
+	@Override
+	public Container[] getContainers(){
+		Containers result = new Contairner[numCotainers]
+		for(int i = 0; i < numContainers; i++){
+			result[i] = containers[i];
+		}
+		return result;
+	}
+
+	public void addContainer(Container container) throws Exception{
+		if(container == null){
+			throw new Exception("Container nao pode ser nulo");
+		}
+		if(numContainers >= MAX_CONTAINERS){
+			throw new Exception("Nao cabem mais conteiners");
+		}
+		this.conteinars[numContainers] = container;
+		numContainers++;
+	}
+
+	@Override
+	public boolean equals(Object obj){
+		if(this == obj){
+			return true;
+		}
+		if(obj == null){
+			return false;
+		}
+		if(!(obj instanceof AidBox)){
+			return false;
+		}
+		AidBox other = (AidBox) obj;
+
+		if(this.code == null){
+			return other.getCode() == null;
+		}
+		return this.code.equals(other.getCode());
+	}
+
+	@Override
+	public String toString(){
+		String result = "AidBoxImpl[ code: " + code +
+					", zone: " + zone 
+					", conteiners: ";
+		
+		for(int k = 0; k < numContainers; k++){
+			result += containers[k] + " ";
+			
+		}
+		result += "]";
+		return result;	
+	}
+}
+
+1b)
+
+public class Main{
+	public static void main(String[] args){
+		//instanciar
+		AidBoxImpl a1 = new AidBoxImpl("A1","PORTO");
+		AidBoxImpl a2 = new AidBoxImpl("A1","LISBOA");
+		AidBoxImpl a3 = new AidBoxImpl("A2","PORTO");
+
+		//testar os gets
+		System.out.println("a1.getCode(): " + a1.getCode());
+		System.out.println("a1.getZone(): " + a1.getZone());
+		System.out.println("a1.getContainers(): " + a1.getContainers().length);
+
+		try {
+			Container c1 = null; 
+            		a1.addContainer(c1);
+            		System.out.println("Container adicionado com sucesso!");
+		catch (Exception e) {
+            		System.out.println("Erro ao adicionar: " + e.getMessage());
+        	}
+		
+		// Testar o equals
+        	System.out.println("a1.equals(a2): " + a1.equals(a2));        	
+		System.out.println("a1.equals(a3): " + a1.equals(a3)); 
+        	System.out.println("a1.equals(null): " + a1.equals(null)); 
+
+        	// Testar o toString
+        	System.out.println("a1.toString(): " + a1.toString());
+    	}
+}
+		
