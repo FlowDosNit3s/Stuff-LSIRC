@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"PP_ER_8230255.core"},{"l":"PP_ER_8230255.io"},{"l":"PP_ER_8230255.main"},{"l":"PP_ER_8230255.pickingManagement"}]
