@@ -624,6 +624,7 @@
             <li class="nav-item"><a href="#sec18" class="nav-link">18. A Palavra final</a></li>
             <li class="nav-item"><a href="#sec19" class="nav-link">19. Palavras Reservadas</a></li>
             <li class="nav-item"><a href="#sec20" class="nav-link">20. Padrões de Exame</a></li>
+            <li class="nav-item"><a href="#sec21" class="nav-link">21. Perguntas Teóricas de Exame</a></li>
         </ul>
 
         <div class="sidebar-footer">
@@ -658,6 +659,25 @@
                     <p>Java possui 8 tipos primitivos. Os tipos primitivos armazenam o valor diretamente na Stack de execução da JVM e não são considerados objetos:</p>
                     <p><code>byte</code> (8 bits), <code>short</code> (16 bits), <code>int</code> (32 bits), <code>long</code> (64 bits), <code>float</code> (32 bits), <code>double</code> (64 bits), <code>char</code> (16 bits Unicode) e <code>boolean</code> (true/false).</p>
                     <p>Os valores por defeito dos tipos primitivos, quando declarados como atributos de instância de uma classe, são: 0 para numéricos inteiros, 0.0 para reais, <code>'\u0000'</code> para char e <code>false</code> para boolean. As variáveis locais declaradas no corpo dos métodos não possuem valores por defeito, obrigando o compilador a validar a sua inicialização obrigatória antes de qualquer utilização.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class ExemploPrimitivos {
+    // Variáveis de instância: inicializadas automaticamente com valores por defeito
+    int numero;         // Valor por defeito: 0
+    boolean ativo;      // Valor por defeito: false
+    char letra;         // Valor por defeito: '\u0000'
+    String referencia;  // Valor por defeito: null (tipo de referência)
+
+    public void demonstrar() {
+        // Variável local: não tem valor por defeito
+        int x;
+        // System.out.println(x); // ERRO de compilação: variável x pode não ter sido inicializada!
+        
+        x = 10; // Inicialização local obrigatória antes do uso
+        System.out.println(x); // Compila com sucesso
+    }
+}</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -754,11 +774,45 @@ int[] preDef = {1, 2, 3, 4, 5};    // Inicialização literal direta</code></pre
                 <div class="subsection-block">
                     <h3 class="subsection-title">3.1 Definição</h3>
                     <p>Os construtores são blocos de código especiais encarregues de inicializar o estado de um objeto durante a instanciação com <code>new</code>. Apresentam as seguintes regras rígidas de sintaxe: devem possuir obrigatoriamente o mesmo nome exato da classe e não admitem qualquer tipo de retorno, nem mesmo a palavra-chave <code>void</code>.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Livro {
+    private String titulo;
+
+    // Construtor: mesmo nome da classe, sem tipo de retorno
+    public Livro(String titulo) {
+        this.titulo = titulo;
+    }
+    
+    // public void Livro(String titulo) {} 
+    // ^ ATENÇÃO: Isto não é um construtor, é um método comum que retorna void!
+}</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
                     <h3 class="subsection-title">3.2 Construtor por Defeito</h3>
                     <p>Se nenhuma declaração de construtor for especificada pelo programador na escrita da classe, o compilador gera em tempo de compilação um construtor por defeito sem parâmetros. Este construtor invoca a inicialização da superclasse com `super()` e define o valor padrão para todos os campos. Se o programador escrever qualquer construtor parametrizado, o construtor automático por defeito deixa de ser gerado.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class ExemploDefeito {
+    // 1. Sem qualquer construtor: o compilador gera automaticamente o construtor vazio.
+    // public ExemploDefeito() { super(); }
+}
+
+class OutraClasse {
+    private int valor;
+
+    // Construtor parametrizado escrito manualmente
+    public OutraClasse(int valor) {
+        this.valor = valor;
+    }
+    
+    // Como definimos o construtor acima, o construtor por defeito sem parâmetros deixa de existir!
+    // OutraClasse o = new OutraClasse(); // ERRO de compilação!
+    // OutraClasse o = new OutraClasse(10); // Correto
+}</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -793,6 +847,25 @@ int[] preDef = {1, 2, 3, 4, 5};    // Inicialização literal direta</code></pre
                 <div class="subsection-block">
                     <h3 class="subsection-title">4.1 Conceito de Encapsulamento</h3>
                     <p>O encapsulamento visa a proteção da integridade dos dados internos de um objeto. O estado interno (atributos) deve ser blindado a acessos externos não validados declarando os campos como privados. O acesso ou mutação do estado realiza-se unicamente através de métodos públicos getters e setters que validam a consistência das operações.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class ContaBancaria {
+    private double saldo; // Privado: impossibilita acesso e modificação direta externa
+
+    public double getSaldo() {
+        return this.saldo;
+    }
+
+    public void depositar(double valor) {
+        if (valor > 0) { // Validação do estado e proteção de regras de negócio
+            this.saldo += valor;
+        }
+    }
+}
+// ContaBancaria conta = new ContaBancaria();
+// conta.saldo = -500; // ERRO de compilação!
+// conta.depositar(100); // Correto e seguro</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -804,6 +877,29 @@ int[] preDef = {1, 2, 3, 4, 5};    // Inicialização literal direta</code></pre
                         <li><strong>Sem modificador (package-private):</strong> Visibilidade restrita às classes contidas no mesmo pacote lógico.</li>
                         <li><strong>public:</strong> Acesso livre a partir de qualquer classe em qualquer pacote da aplicação.</li>
                     </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">package pacoteA;
+
+public class ClasseA {
+    public int a = 1;       // Qualquer classe acede
+    protected int b = 2;    // Mesmo pacote ou subclasses em outros pacotes
+    int c = 3;              // Package-private (sem modificador): apenas neste pacote
+    private int d = 4;      // Apenas dentro de ClasseA
+}
+
+package pacoteB;
+import pacoteA.ClasseA;
+
+public class ClasseB extends ClasseA {
+    public void testarAcesso() {
+        System.out.println(this.a); // Válido (public)
+        System.out.println(this.b); // Válido (protected na subclasse)
+        // System.out.println(this.c); // ERRO: c é package-private e ClasseB está noutro pacote
+        // System.out.println(this.d); // ERRO: d é privado da ClasseA
+    }
+}</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -875,6 +971,19 @@ int[] preDef = {1, 2, 3, 4, 5};    // Inicialização literal direta</code></pre
                 <div class="subsection-block">
                     <h3 class="subsection-title">6.1 Definição de Métodos</h3>
                     <p>Um método define o comportamento operacional da classe. É estruturado através da sua assinatura de método, que consiste na combinação do nome do método e da lista ordenada de parâmetros (tipos e quantidade). O tipo de retorno não faz parte da assinatura do método.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Calculadora {
+    // Assinatura: somar(int, int)
+    public int somar(int a, int b) { 
+        return a + b; 
+    }
+    
+    // public double somar(int x, int y) { return x + y; }
+    // ^ ERRO de compilação: mesma assinatura somar(int, int).
+    // O tipo de retorno e nomes dos parâmetros não diferenciam a assinatura!
+}</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -923,6 +1032,29 @@ public static void reatribuir(int[] arr) {
                 <div class="subsection-block">
                     <h3 class="subsection-title">8.1 Conceito</h3>
                     <p>A herança apoia a reutilização de comportamento através da definição de hierarquias onde uma subclasse (especialização) estende membros públicos e protegidos de uma superclasse (generalização). Java suporta apenas a herança simples de classes recorrendo à palavra <code>extends</code>.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// Superclasse
+public class Animal {
+    protected String nome;
+    
+    public void comer() {
+        System.out.println(nome + " esta a comer.");
+    }
+}
+
+// Subclasse
+public class Cao extends Animal {
+    public void ladrar() {
+        System.out.println("Woof!");
+    }
+}
+// Uso:
+// Cao c = new Cao();
+// c.nome = "Bobby"; // Acede a atributo protected herdado
+// c.comer();       // Executa método herdado da Superclasse
+// c.ladrar();      // Executa método específico da Subclasse</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -951,7 +1083,25 @@ public class Camiao extends Veiculo {
 
                 <div class="subsection-block">
                     <h3 class="subsection-title">8.3 Sobreposição de Métodos (Overriding)</h3>
-                    <p>A sobreposição ocorre quando um método da superclasse é redefinido na subclasse contendo a mesma assinatura e tipo de retorno incompatível. O compilador valida a redefinição sob a anotação <code>@Override</code>. A seleção do método a executar é dinâmica e decidida em tempo de execução pela JVM com base na classe da instância real na Heap.</p>
+                    <p>A sobreposição ocorre quando um método da superclasse é redefinido na subclasse contendo a mesma assinatura e tipo de retorno compatível (ou covariante). O compilador valida a redefinição sob a anotação <code>@Override</code>. A seleção do método a executar é dinâmica e decidida em tempo de execução pela JVM com base na classe da instância real na Heap.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Animal {
+    public void emitirSom() {
+        System.out.println("Som generico de animal");
+    }
+}
+
+public class Gato extends Animal {
+    @Override // O compilador valida se a assinatura coincide exatamente
+    public void emitirSom() {
+        System.out.println("Miau!");
+    }
+}
+// Polimorfismo:
+// Animal a = new Gato();
+// a.emitirSom(); // Imprime "Miau!" (determinado dinamicamente no runtime)</code></pre>
+                    </div>
                 </div>
             </section>
 
@@ -1043,6 +1193,40 @@ v.getCode(); // Métodos comuns do contrato principal são válidos</code></pre>
                 <div class="subsection-block">
                     <p><strong>Classes Abstratas:</strong> Estão integradas em hierarquias rígidas de herança simples. Têm a faculdade de reter e gerir variáveis de estado de instância mutáveis. Permitem a declaração de construtores de inicialização. Indicadas para relações "É UM".</p>
                     <p><strong>Interfaces:</strong> Propiciam maior flexibilidade sob herança múltipla de tipo. São vedadas de armazenar variáveis de estado de instância, aceitando apenas constantes globais. Desprovidas de construtores. Indicadas para relações de comportamento do tipo "CONSEGUE FAZER".</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// Classe Abstrata (Relação "É UM")
+public abstract class Veiculo {
+    private String matricula; // Pode ter atributos de instância mutáveis
+
+    public Veiculo(String matricula) { // Pode declarar construtores
+        this.matricula = matricula;
+    }
+    
+    public abstract void mover();
+}
+
+// Interface (Relação "CONSEGUE FAZER")
+public interface Eletrico {
+    // Atributos são implicitamente public static final (constantes)
+    int VOLTAGEM_PADRAO = 230; 
+    
+    void carregar(); // Métodos abstratos por defeito
+}
+
+// Classe concreta: herança simples (extends) + implementação múltipla (implements)
+public class Tesla extends Veiculo implements Eletrico {
+    public Tesla(String matricula) {
+        super(matricula);
+    }
+
+    @Override
+    public void mover() { System.out.println("A acelerar eletricamente..."); }
+
+    @Override
+    public void carregar() { System.out.println("Bateria a carregar..."); }
+}</code></pre>
+                    </div>
                 </div>
             </section>
 
@@ -1056,11 +1240,40 @@ v.getCode(); // Métodos comuns do contrato principal são válidos</code></pre>
                 <div class="subsection-block">
                     <h3 class="subsection-title">13.1 Polimorfismo de Sobreposição (Dynamic Binding)</h3>
                     <p>Ocorre em tempo de execução. O tipo formal da referência do objeto decide que métodos são permitidos ao compilar, mas no runtime a JVM executa a implementação da classe concreta baseada na instância real da Heap. Permite o tratamento uniforme de objetos de diferentes tipos sob uma mesma referência ancestral comum.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Funcionario {
+    public double getSalario() { return 1000.0; }
+}
+
+public class Diretor extends Funcionario {
+    @Override
+    public double getSalario() { return 3000.0; }
+}
+
+// Demonstração:
+Funcionario f1 = new Funcionario(); // Formal: Funcionario, Real: Funcionario
+Funcionario f2 = new Diretor();     // Formal: Funcionario, Real: Diretor (Upcasting)
+
+System.out.println(f1.getSalario()); // Imprime 1000.0
+System.out.println(f2.getSalario()); // Imprime 3000.0 (Dynamic Binding na JVM)</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
                     <h3 class="subsection-title">13.2 Polimorfismo de Sobrecarga (Static Binding)</h3>
                     <p>Ocorre em tempo de compilação. A JVM seleciona o método específico a invocar com base estrita no tipo dos argumentos declarados na chamada.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Impressora {
+    public void imprimir(String s) { System.out.println("Texto: " + s); }
+    public void imprimir(int i)    { System.out.println("Inteiro: " + i); }
+}
+
+Impressora imp = new Impressora();
+imp.imprimir("Ola"); // Compilador resolve para imprimir(String)
+imp.imprimir(100);   // Compilador resolve para imprimir(int)</code></pre>
+                    </div>
                 </div>
             </section>
 
@@ -1074,11 +1287,27 @@ v.getCode(); // Métodos comuns do contrato principal são válidos</code></pre>
                 <div class="subsection-block">
                     <h3 class="subsection-title">14.1 O Operador ==</h3>
                     <p>Compara a igualdade binária nos primitivos e a igualdade referencial nos objetos (verifica se ambas as variáveis apontam para a mesma morada física de memória Heap).</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">String s1 = new String("exemplo");
+String s2 = new String("exemplo");
+String s3 = s1;
+
+System.out.println(s1 == s2); // false (são objetos diferentes na Heap)
+System.out.println(s1 == s3); // true (apontam para o mesmo objeto na Heap)</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
                     <h3 class="subsection-title">14.2 O Método equals()</h3>
                     <p>Destina-se a definir a igualdade semântica ou lógica com base em campos de dados. A implementação original na classe <code>Object</code> limita-se a usar <code>==</code>, obrigando à sua sobreposição nas classes de negócio.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">String s1 = new String("exemplo");
+String s2 = new String("exemplo");
+
+System.out.println(s1.equals(s2)); // true (compara o conteúdo semântico)</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -1099,6 +1328,21 @@ public boolean equals(Object obj) {
                 <div class="subsection-block">
                     <h3 class="subsection-title">14.4 instanceof vs getClass()</h3>
                     <p>O operador <code>instanceof</code> aceita correspondências em subclasses descendentes da hierarquia e implementações de interfaces (visão polimórfica flexível). A instrução <code>getClass() == obj.getClass()</code> valida estritamente a mesma classe exata, excluindo classes derivadas (garantia rígida de simetria do contrato equals).</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">class Animal {}
+class Cao extends Animal {}
+
+Animal a = new Cao();
+
+// 1. instanceof (polimórfico, inclui subclasses)
+System.out.println(a instanceof Animal); // true (a é subclasse de Animal)
+System.out.println(a instanceof Cao);    // true
+
+// 2. getClass() (exato, exclui subclasses)
+System.out.println(a.getClass() == Animal.class); // false (tipo real é Cao)
+System.out.println(a.getClass() == Cao.class);    // true</code></pre>
+                    </div>
                 </div>
             </section>
 
@@ -1118,6 +1362,32 @@ public boolean equals(Object obj) {
                     <h3 class="subsection-title">15.2 Checked vs Unchecked</h3>
                     <p>As exceções verificadas (checked) são subclasses de <code>Exception</code> (com exceção das descendentes de <code>RuntimeException</code>). O compilador obriga a tratá-las explicitamente com <code>try-catch</code> ou a delegar o aviso na assinatura do método com a cláusula <code>throws</code>.</p>
                     <p>As exceções não verificadas (unchecked) herdam de <code>RuntimeException</code>. O compilador dispensa a verificação obrigatória, indicando habitualmente falhas ou inconsistências de desenvolvimento de código (ex: <code>NullPointerException</code>).</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// Exceção Unchecked (Runtime)
+public class SaldoInsuficienteException extends RuntimeException {
+    public SaldoInsuficienteException(String m) { super(m); }
+}
+
+// Exceção Checked (exige tratamento ou throws obrigatório)
+public class ConexaoFalhadaException extends Exception {
+    public ConexaoFalhadaException(String m) { super(m); }
+}
+
+public class ServicoBancario {
+    // 1. Checked exception: TEM de declarar throws na assinatura do método
+    public void conectarServidor() throws ConexaoFalhadaException {
+        throw new ConexaoFalhadaException("Timeout de conexao.");
+    }
+
+    // 2. Unchecked exception: NÃO necessita declarar throws na assinatura
+    public void levantar(double valor) {
+        if (valor > 1000) {
+            throw new SaldoInsuficienteException("Limite excedido.");
+        }
+    }
+}</code></pre>
+                    </div>
                 </div>
 
                 <div class="subsection-block">
@@ -1145,6 +1415,30 @@ public boolean equals(Object obj) {
                 <div class="subsection-block">
                     <p>A herança constitui uma ligação forte e estática baseada em relações "É UM", herdando a totalidade de membros da superclasse de forma direta. A composição propõe uma dependência fraca e dinâmica onde uma classe integra instâncias de outros objetos na sua declaração de atributos, estabelecendo relações do tipo "TEM UM".</p>
                     <p>A composição é comummente preferida à herança para reduzir o acoplamento sistémico entre classes, flexibilizar a substituição dinâmica de comportamentos em tempo de execução e contornar problemas de fragilidade inerentes à herança (onde mudanças na classe base afetam inesperadamente o funcionamento das subclasses).</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// Herança (Relação "É UM")
+public class Carro extends Veiculo {
+    // Herda todos os atributos e comportamentos de Veiculo
+}
+
+// Composição (Relação "TEM UM")
+public class Motor {
+    public void arrancar() { System.out.println("Motor ligado."); }
+}
+
+public class CarroComposto {
+    private Motor motor; // O Carro TEM UM Motor
+
+    public CarroComposto() {
+        this.motor = new Motor();
+    }
+
+    public void ligar() {
+        this.motor.arrancar(); // Delegação do trabalho ao motor composto
+    }
+}</code></pre>
+                    </div>
                 </div>
             </section>
 
@@ -1157,6 +1451,21 @@ public boolean equals(Object obj) {
 
                 <div class="subsection-block">
                     <p>Atributos e métodos estáticos pertencem conceptualmente ao escopo da classe, desvinculados de qualquer instância individual. Existe uma única alocação física do campo na memória JVM, que é partilhada por todas as instâncias da classe. Métodos estáticos podem ser chamados diretamente a partir do identificador da classe, estando impedidos de referenciar <code>this</code> ou interagir com campos de instância não-estáticos.</p>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Contador {
+    public static int contagemGlobal = 0; // Atributo estático (partilhado por todos)
+    public int idInstancia = 0;           // Atributo de instância (único de cada objeto)
+
+    public static void incrementar() {
+        contagemGlobal++;
+        // this.idInstancia++; // ERRO de compilação! Contexto estático não tem 'this'.
+        // idInstancia = 1;    // ERRO de compilação! Não pode aceder a variáveis não-estáticas.
+    }
+}
+// Chamada direta pelo nome da classe:
+// Contador.incrementar();</code></pre>
+                    </div>
                 </div>
             </section>
 
@@ -1174,6 +1483,21 @@ public boolean equals(Object obj) {
                         <li><strong>Em métodos:</strong> Proíbe expressamente a sua sobreposição pelas subclasses na hierarquia.</li>
                         <li><strong>Em classes:</strong> Trunca a herança, impedindo a criação de quaisquer subclasses a partir da classe final.</li>
                     </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// 1. Classe final: não permite herança
+public final class CalculadorMatematico {
+    
+    // 2. Variável/Atributo final: imutável
+    public final double PI = 3.14159;
+
+    // 3. Método final: impede overriding (sobreposição) nas subclasses
+    public final void mostrarFormula() {
+        System.out.println("Formula imutavel.");
+    }
+}
+// class SuperCalculador extends CalculadorMatematico {} // ERRO de compilação!</code></pre>
+                    </div>
                 </div>
             </section>
 
@@ -1298,6 +1622,480 @@ for (int i = 0; i < filteredCount; i++) {
     result[i] = temp[i];
 }
 return result;</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Card 21 -->
+            <section class="section-card" id="sec21">
+                <div class="section-header-row">
+                    <span class="section-number">21</span>
+                    <h2 class="section-title">Perguntas Teóricas de Exames Resolvidas</h2>
+                </div>
+
+                <!-- EXAME NORMAL 2025/2026 -->
+                <div class="subsection-block" style="border-bottom: 2px solid var(--border-color); padding-bottom: 20px; margin-bottom: 30px;">
+                    <h3 class="subsection-title" style="font-size: 1.3rem;">Exame Época Normal 2025/2026 (15-06-2026)</h3>
+                    
+                    <h4 style="margin-top: 15px; color: var(--text-heading); font-size: 1rem;">Pergunta 1: Classes Abstratas vs Interfaces (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique detalhadamente as diferenças entre classes abstratas e interfaces em Java. Em que situações é mais adequado optar por uma classe abstrata e em que situações é preferível uma interface? Justifique a sua resposta e ilustre cada caso com um exemplo prático que evidencie as características distintivas de cada mecanismo.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Diferenças Principais:</strong>
+                            <ul>
+                                <li><strong>Estado:</strong> Classes abstratas podem conter atributos de instância mutáveis (estado privado/protegido do objeto). Interfaces (até ao Java 8) apenas aceitam constantes públicas, estáticas e finais (<code>public static final</code>).</li>
+                                <li><strong>Construtores:</strong> Classes abstratas podem definir construtores (para inicializar atributos partilhados). Interfaces não os admitem.</li>
+                                <li><strong>Herança:</strong> Java limita a herança a uma única classe (herança simples de classes). Em contrapartida, permite herança múltipla de tipo com múltiplas interfaces.</li>
+                                <li><strong>Métodos:</strong> Métodos em classes abstratas são concretos por omissão (devem usar <code>abstract</code> se não tiverem corpo). Em interfaces, são abstratos por defeito (Java 8 adicionou métodos <code>default</code> e <code>static</code>, e Java 9 métodos <code>private</code>).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Critérios de Escolha:</strong>
+                            <ul>
+                                <li><strong>Classe Abstrata (Relação "É UM"):</strong> Indicada se as subclasses fizerem parte de uma árvore hierárquica estrita e precisarem de partilhar código comum estrutural (atributos de instância e lógica de inicialização no construtor).</li>
+                                <li><strong>Interface (Relação "CONSEGUE FAZER"):</strong> Preferível para estabelecer contratos de comportamento transversais a classes em diferentes ramificações da hierarquia (ex: ser recarregável ou imprimível).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// CLASSE ABSTRATA: Define estado comum e construtor
+public abstract class Veiculo {
+    private String matricula; // Atributo de instância mutável
+
+    public Veiculo(String matricula) {
+        this.matricula = matricula;
+    }
+    public String getMatricula() { return matricula; }
+    public abstract void mover(); // Comportamento abstrato obrigatório
+}
+
+// INTERFACE: Estabelece capacidade de carregamento
+public interface Carregavel {
+    void carregar(); // Método abstrato por omissão
+}
+
+// Implementação que herda do pai e assume o contrato da interface
+public class CarroTesla extends Veiculo implements Carregavel {
+    public CarroTesla(String matricula) {
+        super(matricula);
+    }
+    @Override
+    public void mover() { System.out.println("A acelerar silenciosamente..."); }
+    @Override
+    public void carregar() { System.out.println("Tesla ligado ao Supercharger."); }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 2: Passagem de Argumentos em Métodos (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Descreva detalhadamente o modo como Java realiza a passagem de argumentos para os métodos, distinguindo o comportamento aplicado a tipos primitivos do comportamento aplicado a referências de objetos. Esclareça os equívocos frequentes associados a este mecanismo e fundamente a sua explicação com exemplos concretos que demonstrem os efeitos sobre os valores e os estados dos objetos.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Regra Geral:</strong> Toda a passagem de argumentos em Java é efetuada <strong>estritamente por valor</strong> (cópia do conteúdo da variável). Não existe passagem por referência nativa.</li>
+                        <li><strong>Tipos Primitivos:</strong> O valor copiado é o próprio dado binário. Como a variável local é uma cópia na pilha local do método, alterações efetuadas sobre ela não afetam a variável de origem.</li>
+                        <li><strong>Referências de Objetos:</strong> O "valor" da variável de referência é o endereço físico de memória na Heap. Ao passar um objeto, copia-se esse endereço de memória. Portanto, ambas as variáveis (do chamador e local do método) apontam para a mesma instância física na Heap.
+                            <ul>
+                                <li><strong>Modificar atributos:</strong> Modificações nos atributos do objeto (ex: <code>obj.setSaldo(...)</code>) são visíveis globalmente porque o objeto real na Heap é partilhado.</li>
+                                <li><strong>Reatribuição (O Equívoco Comum):</strong> Reatribuir a referência em si (ex: <code>obj = new MinhaClasse()</code>) apenas altera a cópia local do endereço na Stack do método, deixando a referência original do chamador intacta.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class TestePassagem {
+    public static void alterarPrimitivo(int x) {
+        x = 99; // Altera apenas o valor local na Stack
+    }
+    
+    public static void modificarObjeto(Conta conta) {
+        conta.saldo = 500.0; // Altera o objeto partilhado na Heap
+    }
+    
+    public static void tentarReatribuir(Conta conta) {
+        conta = new Conta(); // Altera apenas a variável de referência local
+        conta.saldo = 2000.0;
+    }
+    
+    public static void main(String[] args) {
+        int valor = 10;
+        alterarPrimitivo(valor);
+        System.out.println(valor); // Imprime 10 (primitivo inalterado)
+
+        Conta c = new Conta();
+        c.saldo = 100.0;
+        modificarObjeto(c);
+        System.out.println(c.saldo); // Imprime 500.0 (objeto modificado na Heap)
+
+        tentarReatribuir(c);
+        System.out.println(c.saldo); // Imprime 500.0 (a reatribuição local falhou)
+    }
+}
+class Conta { double saldo; }</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 3: Casting no Contexto da Herança (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique o conceito de conversão de tipos (*casting*) no contexto da herança e do polimorfismo. Discuta os riscos associados a conversões incorretas e as situações em que cada tipo de conversão é apropriado. Ilustre com um exemplo prático que demonstre as conversões.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Definição:</strong> O casting consiste em redefinir a perspetiva (o tipo formal de dados) sob a qual manipulamos um objeto existente na hierarquia de herança.</li>
+                        <li><strong>Upcasting (Ascendente):</strong> Conversão de uma subclasse para uma superclasse (ex: de <code>Cao</code> para <code>Animal</code>). É implícita e 100% segura, pois qualquer subclasse respeita o contrato do pai (relação "É UM").</li>
+                        <li><strong>Downcasting (Descendente):</strong> Conversão de uma referência genérica para uma mais específica (ex: de <code>Animal</code> para <code>Cao</code>). Deve ser explícito e acarreta riscos elevados. Se o objeto real em execução na Heap não for compatível com o tipo pretendido, a JVM lança a exceção <code>ClassCastException</code>. É obrigatório proteger a conversão com o operador <code>instanceof</code>.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">class Veiculo {}
+class Aviao extends Veiculo {
+    public void voar() { System.out.println("Aviao a voar..."); }
+}
+
+public class TesteCasting {
+    public static void main(String[] args) {
+        Aviao a = new Aviao();
+        Veiculo v = a; // Upcasting automático (seguro)
+        
+        // v.voar(); // ERRO: Tipo formal Veiculo não conhece o método voar()
+        
+        // Downcasting explícito seguro salvaguardado com instanceof
+        if (v instanceof Aviao) {
+            Aviao a2 = (Aviao) v;
+            a2.voar(); // Executa corretamente
+        }
+        
+        Veiculo vSimples = new Veiculo();
+        // Aviao a3 = (Aviao) vSimples; // Lança ClassCastException em runtime!
+    }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 4: Identidade vs Igualdade e toString (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Distinga os conceitos de identidade e de igualdade de objetos em Java, esclarecendo a diferença entre o operador `==` e o método `equals()`. Explique igualmente o papel do método `toString()`. Forneça um exemplo prático que demonstre a redefinição correta dos métodos `equals()` e `toString()` numa classe.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Identidade (Operador <code>==</code>):</strong> Compara se duas referências contêm o mesmo endereço de memória na Stack, ou seja, se apontam para a mesma instância física na Heap.</li>
+                        <li><strong>Igualdade (Método <code>equals()</code>):</strong> Compara se os objetos são semanticamente ou logicamente equivalentes com base no seu conteúdo (atributos). A implementação padrão em <code>Object</code> limita-se a usar <code>==</code>, pelo que deve ser sobreposta pelas classes de negócio.</li>
+                        <li><strong>Método <code>toString()</code>:</strong> Devolve uma String legível representativa do estado do objeto. A versão por defeito herdada de <code>Object</code> apenas devolve <code>NomeClasse@HashCode</code>.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Livro {
+    private String isbn;
+    private String titulo;
+
+    public Livro(String isbn, String titulo) {
+        this.isbn = isbn;
+        this.titulo = titulo;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // Identidade
+        if (obj == null) return false; // Nulo
+        if (this.getClass() != obj.getClass()) return false; // Compatibilidade exata
+        Livro other = (Livro) obj; // Cast seguro
+        
+        if (this.isbn == null) {
+            return other.isbn == null;
+        }
+        return this.isbn.equals(other.isbn); // Igualdade baseada no ISBN
+    }
+
+    @Override
+    public String toString() {
+        return "Livro [ISBN=" + isbn + ", Titulo=" + titulo + "]";
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- EXAME MODELO 1 -->
+                <div class="subsection-block" style="border-bottom: 2px solid var(--border-color); padding-bottom: 20px; margin-bottom: 30px;">
+                    <h3 class="subsection-title" style="font-size: 1.3rem;">Exame Modelo 1</h3>
+                    
+                    <h4 style="margin-top: 15px; color: var(--text-heading); font-size: 1rem;">Pergunta 1: Encapsulamento e Ocultação de Dados (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique detalhadamente o conceito de encapsulamento em Programação Orientada a Objetos. Descreva como os modificadores de acesso (`private`, `protected`, `public`) contribuem para este princípio. Justifique por que razão o acesso direto aos atributos de uma classe é considerado uma má prática e apresente um exemplo prático que demonstre o uso correto de getters e setters com validação.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Conceito:</strong> O encapsulamento visa proteger a integridade dos dados e expor apenas uma interface de comunicação controlada. O estado de um objeto deve ser privado, restrito a alterações externas diretas.</li>
+                        <li><strong>Contribuição dos Modificadores:</strong>
+                            <ul>
+                                <li><code>private</code>: Ocultação máxima (apenas a própria classe acede).</li>
+                                <li><code>protected</code>: Permite acesso apenas a classes no mesmo pacote e a subclasses derivadas (mesmo noutros pacotes).</li>
+                                <li><code>public</code>: Acesso irrestrito de qualquer parte do código.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Perigos do Acesso Direto:</strong> Ao expor atributos diretamente (ex: <code>conta.saldo = -500;</code>), contornam-se as validações e regras de negócio. Qualquer parte do código pode introduzir inconsistências no objeto.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Termostato {
+    private double temperatura; // Atributo encapsulado
+
+    public double getTemperatura() { return temperatura; }
+
+    public void setTemperatura(double temp) {
+        // Validação defensiva que protege o estado interno
+        if (temp < 0 || temp > 40) {
+            throw new IllegalArgumentException("Temperatura fora dos limites permitidos!");
+        }
+        this.temperatura = temp;
+    }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 2: Polimorfismo — Sobrecarga vs Sobreposição (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique o conceito de polimorfismo em Java, distinguindo entre polimorfismo de sobrecarga (*overloading*) e polimorfismo de sobreposição (*overriding*). Descreva as regras que devem ser respeitadas in cada caso e forneça exemplos de código que ilustrem ambos os tipos de polimorfismo. Explique também como a JVM determina qual o método a invocar em tempo de execução no caso da sobreposição.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Sobrecarga (Overloading / Static Binding):</strong> Múltiplos métodos com o mesmo nome na **mesma classe** com assinaturas diferentes (número ou tipo de parâmetros). Resolvido em tempo de compilação.</li>
+                        <li><strong>Sobreposição (Overriding / Dynamic Binding):</strong> Redefinição de um método herdado na **subclasse** com a mesma assinatura e tipo de retorno compatível. Resolvido em tempo de execução.</li>
+                        <li><strong>Dynamic Dispatch:</strong> No runtime, a JVM consulta a tabela de métodos virtuais (*vtable*) associada à classe concreta da instância real alocada na Heap para decidir a versão exata do método a invocar.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// Sobrecarga (Overloading)
+public class Matematica {
+    public int calcular(int a) { return a * a; }
+    public int calcular(int a, int b) { return a + b; }
+}
+
+// Sobreposição (Overriding)
+class Mensagem {
+    public void enviar() { System.out.println("Mensagem generica."); }
+}
+class Email extends Mensagem {
+    @Override
+    public void enviar() { System.out.println("Email enviado via SMTP."); }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 3: Classe Object e Consequências de Não Redefinir equals (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique o papel da classe `Object` como raiz da hierarquia de classes em Java. Descreva os métodos mais importantes que todas as classes herdam de `Object` (`equals()`, `toString()`, `getClass()`) e justifique em que circunstâncias devem ser redefinidos. Ilustre com um exemplo prático que demonstre as consequências de não redefinir o método `equals()`.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Papel de Object:</strong> Raiz de todas as classes. Permite polimorfismo genérico total.</li>
+                        <li><strong>Métodos Herdados:</strong> <code>equals()</code> (igualdade referencial por defeito), <code>toString()</code> (representação textual por defeito) e <code>getClass()</code> (obtenção de metadados em runtime).</li>
+                        <li><strong>Consequências de Não Redefinir equals:</strong> Duas instâncias logicamente idênticas (ex: mesmo código de barras) serão tratadas como objetos completamente diferentes pela JVM e pelas coleções nativas.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Item {
+    private String codigo;
+    public Item(String codigo) { this.codigo = codigo; }
+    
+    // Sem equals() redefinido, a comparação lógica falha:
+    public static void main(String[] args) {
+        Item i1 = new Item("IT-1");
+        Item i2 = new Item("IT-1");
+        System.out.println(i1.equals(i2)); // false! (apenas compara moradas de memória)
+    }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 4: Herança e a Palavra-chave super (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique o conceito de herança em Java. Descreva o papel da palavra reservada `super` e os diferentes contextos em que pode ser utilizada (construtor e métodos). Discuta as limitações da herança simples em Java e como as interfaces podem ser usadas para contornar essas limitações. Ilustre com um exemplo prático.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Herança:</strong> Mecanismo que define relações de especialização "É UM", herdando propriedades e comportamentos da superclasse.</li>
+                        <li><strong>Papel do super:</strong> <code>super(...)</code> invoca construtores da superclasse (obrigatoriamente na primeira linha do construtor). <code>super.metodo()</code> invoca métodos da superclasse para estender comportamento sem anular a lógica original.</li>
+                        <li><strong>Limitação:</strong> Herança simples impede estender mais do que uma classe. Contorna-se implementando múltiplas interfaces.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Person {
+    protected String name;
+    public Person(String name) { this.name = name; }
+}
+
+interface Runner { void run(); }
+interface Swimmer { void swim(); }
+
+// Contorna a herança simples implementando múltiplos contratos de interfaces
+public class Triathlete extends Person implements Runner, Swimmer {
+    public Triathlete(String name) {
+        super(name); // Chamada ao construtor da superclasse
+    }
+    @Override
+    public void run() { System.out.println("A correr..."); }
+    @Override
+    public void swim() { System.out.println("A nadar..."); }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- EXAME MODELO 2 -->
+                <div class="subsection-block" style="border-bottom: 2px solid var(--border-color); padding-bottom: 20px; margin-bottom: 30px;">
+                    <h3 class="subsection-title" style="font-size: 1.3rem;">Exame Modelo 2</h3>
+                    
+                    <h4 style="margin-top: 15px; color: var(--text-heading); font-size: 1rem;">Pergunta 1: Exceções em Java (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique detalhadamente o conceito de exceções em Java. Distinga entre exceções verificadas (*checked exceptions*) e exceções não verificadas (*unchecked exceptions*). Descreva o funcionamento do mecanismo `try-catch-finally` e explique quando é adequado criar exceções personalizadas. Ilustre com um exemplo prático que demonstre a criação e o lançamento de uma exceção personalizada.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Checked Exceptions:</strong> Subclasses de <code>Exception</code> (exceto <code>RuntimeException</code>). Devem ser obrigatoriamente tratadas ou declaradas.</li>
+                        <li><strong>Unchecked Exceptions:</strong> Subclasses de <code>RuntimeException</code>. Erros de lógica que não exigem tratamento obrigatório no compilador.</li>
+                        <li><strong>try-catch-finally:</strong> <code>try</code> executa o código sob risco, <code>catch</code> trata os erros e <code>finally</code> corre sempre para libertar recursos.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">// Exceção personalizada
+public class SaldoNegativoException extends Exception {
+    public SaldoNegativoException(String msg) { super(msg); }
+}
+
+public class ContaBancaria {
+    private double saldo;
+
+    public void levantar(double valor) throws SaldoNegativoException {
+        if (this.saldo - valor < 0) {
+            throw new SaldoNegativoException("Nao e permitido saldo devedor!");
+        }
+        this.saldo -= valor;
+    }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 2: Construtores em Java (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique o conceito de construtores em Java, descrevendo as suas características e regras de definição. Distinga entre construtor por defeito, construtor parametrizado e encadeamento de construtores (com `this(...)` e `super(...)`). Esclareça o que acontece quando uma classe não define nenhum construtor explicitamente. Ilustre com exemplos de código.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Definição:</strong> Método sem tipo de retorno e com o mesmo nome exato da classe, responsável por inicializar instâncias.</li>
+                        <li><strong>Encadeamento:</strong> <code>this(...)</code> encaminha a inicialização para outro construtor da mesma classe e <code>super(...)</code> invoca o construtor da superclasse.</li>
+                        <li><strong>Omissão:</strong> Se nenhum construtor for declarado, a JVM insere um construtor vazio implícito que apenas faz <code>super()</code>.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Caixa {
+    private int largura;
+    private int altura;
+
+    public Caixa() {
+        this(10, 10); // Encadeamento na mesma classe
+    }
+
+    public Caixa(int largura, int altura) {
+        this.largura = largura;
+        this.altura = altura;
+    }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 3: Tipos Enumerados — Enum (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique detalhadamente o conceito de tipos enumerados (`enum`) em Java. Descreva as vantagens de utilizar `enum` em vez de constantes inteiras ou Strings para representar conjuntos fixos de valores. Demonstre como um `enum` pode ter atributos, construtores e métodos. Ilustre com um exemplo prático.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Conceito:</strong> Tipo especial de classe para gerir um conjunto fixo de constantes singleton, assegurando segurança de tipo em tempo de compilação.</li>
+                        <li><strong>Vantagens:</strong> Protege o sistema contra a passagem de dados semânticos arbitrários ou inválidos (Type Safety), facilitando o uso em estruturas de decisão como switch.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public enum Prioridade {
+    ALTA(3), MEDIA(2), BAIXA(1);
+
+    private int nivel; // Atributo do enum
+
+    Prioridade(int nivel) { // Construtor obrigatoriamente privado
+        this.nivel = nivel;
+    }
+
+    public int getNivel() { return nivel; }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 4: Composição vs Herança (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique as diferenças entre composição e herança em Java, descrevendo quando cada mecanismo é mais adequado. Justifique por que razão a composição é frequentemente preferida em relação à herança no desenvolvimento de software e forneça um exemplo prático que demonstre a composição entre duas classes.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Herança ("É UM"):</strong> Vinculação estática rígida. A subclasse expõe e herda toda a API del pai diretamente.</li>
+                        <li><strong>Composição ("TEM UM"):</strong> Vinculação flexível onde um objeto guarda a referência de outros objetos para delegar comportamentos.</li>
+                        <li><strong>Preferência:</strong> A composição reduz o acoplamento, evita violações da API e contorna os riscos de quebra de subclasses decorrentes de modificações na classe pai (fragilidade da superclasse).</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">class Motor {
+    public void ligar() { System.out.println("Motor ligado."); }
+}
+
+public class Carro {
+    private Motor motor = new Motor(); // Composição
+
+    public void conduzir() {
+        motor.ligar(); // Delegação
+        System.out.println("A conduzir...");
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- EXAME MODELO 3 -->
+                <div class="subsection-block">
+                    <h3 class="subsection-title" style="font-size: 1.3rem;">Exame Modelo 3</h3>
+                    
+                    <h4 style="margin-top: 15px; color: var(--text-heading); font-size: 1rem;">Pergunta 1: Arrays de Objetos em Java (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique o conceito de arrays de objetos em Java, distinguindo entre a criação do array e a criação dos objetos que o compõem. Descreva os cuidados necessários ao manipular arrays de objetos, nomeadamente a verificação de posições nulas. Explique também como se pode redimensionar um array e por que razão os arrays em Java têm tamanho fixo. Ilustre com um exemplo prático.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Criação vs Instanciação:</strong> Ao declarar e instanciar um array de objetos (ex: <code>Aluno[] al = new Aluno[5];</code>), a JVM aloca espaço contíguo para 5 referências, que são inicializadas a <code>null</code>. Os objetos em si devem ser instanciados de forma individual e posterior.</li>
+                        <li><strong>Tamanho Fixo:</strong> Os arrays têm tamanho fixo para otimizar os acessos e leituras de memória (alocação de bloco contíguo na Heap). Para redimensionar, é obrigatório instanciar um novo array maior e transferir manualmente os dados.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class TesteArrays {
+    public static void main(String[] args) {
+        String[] lista = new String[2]; // Criado o array com referências a null
+        
+        // System.out.println(lista[0].toUpperCase()); // Lançaria NullPointerException!
+        
+        lista[0] = new String("Ola"); // Instanciação manual
+        
+        // Redimensionamento manual
+        String[] temp = new String[4];
+        System.arraycopy(lista, 0, temp, 0, lista.length);
+        lista = temp;
+    }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 2: instanceof vs getClass() (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Compare detalhadamente a utilização de `instanceof` com a utilização de `getClass()` para verificação de tipos em Java. Discuta as diferenças de comportamento na presença de herança e interfaces, explique em que contextos cada abordagem é mais adequada e fundamente com exemplos concretos que evidenciem as diferenças.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>instanceof:</strong> Operador polimórfico. Devolve <code>true</code> se o objeto for compatível com o tipo especificado, incluindo subclasses ou implementações de interfaces.</li>
+                        <li><strong>getClass():</strong> Comparação de tipo exato. Devolve <code>true</code> apenas se os objetos forem instâncias da mesma classe exata, desconsiderando heranças.</li>
+                        <li><strong>Aplicações:</strong> <code>instanceof</code> deve ser usado em filtragens polimórficas. <code>getClass()</code> deve ser usado na implementação do método <code>equals()</code> quando se pretende evitar incompatibilidades de comparação simétrica em hierarquias de herança.</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">class Animal {}
+class Cao extends Animal {}
+
+public class TesteComparacao {
+    public static void main(String[] args) {
+        Animal a = new Cao();
+        System.out.println(a instanceof Animal); // true
+        System.out.println(a.getClass() == Animal.class); // false (tipo real é Cao)
+    }
+}</code></pre>
+                    </div>
+
+                    <h4 style="margin-top: 25px; color: var(--text-heading); font-size: 1rem;">Pergunta 3: Membros Estáticos — static (1.5 valores)</h4>
+                    <p><strong>Questão:</strong> Explique o conceito de membros estáticos (`static`) em Java, distinguindo entre atributos estáticos e métodos estáticos. Descreva como os membros estáticos se diferenciam dos membros de instância no que diz respeito ao ciclo de vida, ao acesso e à partilha de informação entre objetos. Ilustre com um exemplo prático que demonstre um caso de uso adequado para um atributo estático.</p>
+                    <p><strong>Resposta Padrão:</strong></p>
+                    <ul>
+                        <li><strong>Conceito:</strong> Membros marcados com <code>static</code> pertencem à própria classe e são alocados em memória global uma única vez (partilhados por todas as instâncias).</li>
+                        <li><strong>Ciclo de Vida:</strong> Inicia com o carregamento da classe na JVM e termina com o encerramento do programa (independente de objetos criados com <code>new</code>).</li>
+                        <li><strong>Métodos Estáticos:</strong> Apenas acedem a dados estáticos. Não possuem contexto de instância (não admitem <code>this</code> nem acedem a atributos normais).</li>
+                    </ul>
+                    <div class="code-block-wrapper">
+                        <button class="copy-btn">Copiar</button>
+                        <pre><code class="language-java">public class Veiculo {
+    private static int totalVeiculos = 0; // Partilhado por todas as instâncias
+    
+    public Veiculo() {
+        totalVeiculos++;
+    }
+
+    public static int getTotalVeiculos() {
+        return totalVeiculos; // Acesso direto sem instanciar objetos
+    }
+}</code></pre>
                     </div>
                 </div>
             </section>
