@@ -7,6 +7,8 @@
 ## 🎯 TEORIA — PARTE 1 (6,0 VALORES)
 
 ### 📘 Módulo 1: Fundamentos & POO Core (Dia 1)
+
+#### Teoria
 - [ ] Sei explicar o princípio do **Encapsulamento** e por que razão ter atributos `public` é uma má prática.
 - [ ] Sei ordenar os 4 modificadores de acesso (`private`, default, `protected`, `public`) do mais restritivo ao mais permissivo.
 - [ ] Sei explicar a diferença entre **Classes Abstratas** e **Interfaces** (herança, estado, construtores e métodos).
@@ -18,7 +20,15 @@
 - [ ] Sei explicar por que razão a passagem de argumentos em Java é **estritamente por valor** (*pass-by-value*).
 - [ ] Sei o que acontece na Heap quando um método reatribui a referência de um objeto vs quando altera o seu estado interno.
 
+#### Treino Prático (Exercícios para Hoje)
+- [ ] **Exercício Prático 1:** Criar uma Interface `Vehicle` e uma Classe Abstrata `BaseVehicle` com atributos encapsulados (demonstrar encapsulamento, getters/setters e construtores).
+- [ ] **Exercício Prático 2:** Criar uma classe concreta (ex: `Truck`) que estende `BaseVehicle` e usar `super()` no construtor.
+- [ ] **Exercício Prático 3:** Instanciar dois objetos `Truck` com os mesmos dados, e redefinir `.equals()` e `.hashCode()` para que sejam logicamente iguais (`obj1.equals(obj2)` deve retornar `true`).
+- [ ] **Exercício Prático 4:** Criar um método estático (`static`) numa classe utilitária e tentar usar `this` (para ver o erro de compilação) e corrigir.
+
 ### 📙 Módulo 2: Tópicos Avançados, Polimorfismo, Exceções e I/O (Dia 2)
+
+#### Teoria
 - [ ] Sei a diferença entre **Sobrecarga (*Overloading*)** e **Sobreposição (*Overriding*)**.
 - [ ] Sei em que momento (compilação vs execução) a JVM decide qual o método a invocar (*Dynamic Binding*).
 - [ ] Sei a diferença entre **Upcasting** e **Downcasting** e o risco da exceção `ClassCastException`.
@@ -32,18 +42,31 @@
 - [ ] Sei distinguir **Byte Streams** (`InputStream`/`OutputStream`) de **Character Streams** (`Reader`/`Writer`).
 - [ ] Sei o papel de `Serializable`, `transient` e `serialVersionUID` na serialização de objetos.
 
+#### Treino Prático
+- [ ] **Exercício Prático 1:** Criar um array `Vehicle[]` e fazer *upcasting* inserindo objetos `Truck` e `Van`. Iterar o array invocando um método polimórfico (ex: `calcularCapacidade()`).
+- [ ] **Exercício Prático 2:** Fazer *downcasting* seguro iterando o array anterior, usando `instanceof` antes de fazer o cast para `Truck` e chamar um método exclusivo dessa classe.
+- [ ] **Exercício Prático 3:** Criar uma *Checked Exception* (ex: `InvalidCapacityException`) e um método que a lance. Usar um bloco `try-catch-finally` na main para a capturar.
+- [ ] **Exercício Prático 4:** Implementar `Serializable` numa classe, marcar um atributo como `transient` e gravar o objeto num ficheiro `.dat` e voltar a ler (I/O).
+
 ---
 
 ## 💻 PRÁTICA — PARTE 2 (14,0 VALORES)
 
 ### 📗 Módulo 3: Algoritmia em Arrays Nativos sem Collections (Dia 3)
+
+#### Teoria e Algoritmos
 - [ ] Sei desenhar e explicar o modelo de domínio do TP (Ajuda Humanitária: `IInstitution`, `AidBox`, `Container`, `Vehicle`, `RefrigeratedVehicle`, `Route`, `Strategy`).
 - [ ] Sei implementar o algoritmo de **Redimensionamento Dinâmico** de um array nativo quando a capacidade se esgota.
 - [ ] Sei implementar o algoritmo de **Compactação de Array** (remover elementos `null` e devolver array com dimensão exata).
 - [ ] Sei filtrar um array de objetos com base em múltiplos critérios (ex: tipo de item + medição > 80%).
 - [ ] Sei a diferença entre **Deep Copy** e **Shallow Copy** de arrays e sei como evitar fugas de encapsulamento.
-- [ ] Sei remover um elemento de um array por índice e reorganizar as posições restantes.
+- [ ] Sei remover um elemento de array por índice e reorganizar as posições restantes (fazer *shift* para a esquerda).
 - [ ] Sei ordenar um array nativo de objetos por um atributo numérico (ex: `Bubble Sort` por capacidade).
+
+#### Treino Prático Aplicado
+- [ ] **Exercício Prático 1:** Implementar a lógica de adição de um novo contentor a um array estático, fazendo o redimensionamento dinâmico automático (`resize`).
+- [ ] **Exercício Prático 2:** Implementar um método que recebe um array de objetos (alguns nulos) e devolve um novo array sem posições nulas (compactação).
+- [ ] **Exercício Prático 3:** Fazer uma cópia profunda (*Deep Copy*) num método getter (ex: `getVehicles()`), devolvendo um clone do array original para proteger o encapsulamento.
 
 ### 📕 Módulo 4: Caderno de 12 Exercícios Práticos (Dia 4)
 - [ ] **Exercício 1:** Implementei a classe `ContainerImpl` com medições e redimensionamento sem consultar a solução.

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treino Teórico Intensivo PP — 20 Valores</title>
+<style>
+:root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2d3142;
+    --text: #e4e6ed;
+    --text-dim: #9ca0ad;
+    --accent: #6c5ce7;
+    --accent2: #a29bfe;
+    --green: #00cec9;
+    --orange: #fdcb6e;
+    --red: #ff6b6b;
+    --blue: #74b9ff;
+    --pink: #fd79a8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    padding: 20px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, rgba(108,92,231,.15), rgba(0,206,201,.1));
+    border-radius: 16px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+}
+.hero h1 { font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
+.hero p { color: var(--text-dim); font-size: 1.1rem; }
+
+h2 { font-size: 1.4rem; margin: 30px 0 15px; color: var(--accent2); border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+p, li { margin-bottom: 8px; }
+ul { padding-left: 24px; margin-bottom: 12px; }
+
+/* CODE */
+pre {
+    background: #0d0f14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+code { font-family: 'Cascadia Code', 'Fira Code', monospace; color: var(--green); }
+pre code { color: #e4e6ed; }
+.kw { color: #c792ea; } /* Keywords */
+.str { color: #c3e88d; } /* Strings */
+.cm { color: #676e95; font-style: italic; } /* Comments */
+.tp { color: #ffcb6b; } /* Types/Classes */
+.fn { color: #82aaff; } /* Functions */
+.num { color: #f78c6c; } /* Numbers */
+
+/* EXAM QUESTION */
+.exam-q {
+    background: var(--surface2);
+    border-left: 4px solid var(--orange);
+    padding: 18px 22px;
+    margin: 14px 0 0 0;
+    border-radius: 8px 8px 0 0;
+    color: var(--text);
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+}
+.q-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+.prob {
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    white-space: nowrap;
+    margin-left: 15px;
+    font-weight: 700;
+}
+.prob.vhigh { background: rgba(255,107,107,0.2); color: var(--red); }
+.prob.high { background: rgba(253,203,110,0.2); color: var(--orange); }
+.prob.med { background: rgba(116,185,255,0.2); color: var(--blue); }
+
+/* DETAILS (Respostas Escondidas) */
+details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+details > summary {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--green);
+    list-style: none;
+    background: rgba(0, 206, 201, 0.05);
+    border-radius: 0 0 8px 8px;
+    transition: background 0.2s;
+}
+details > summary:hover { background: rgba(0, 206, 201, 0.1); }
+details > summary::before { content: "👀 Mostrar Resposta Essencial & Exemplo Prático"; }
+details[open] > summary { border-radius: 0; border-bottom: 1px solid var(--border); }
+details[open] > summary::before { content: "🙈 Ocultar Resposta"; }
+details > .content { padding: 20px; }
+details > .content h4 { color: var(--blue); margin-top: 15px; margin-bottom: 8px; }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>🧠 Coleção Definitiva de Teoria</h1>
+    <p>Todas as Perguntas dos Exames Modelo com Probabilidade Estimada</p>
+    <p style="font-size: 0.9rem; margin-top: 10px;">Enunciados formulados com rigor académico.</p>
+</div>
+
+<h2>Módulo 1: Fundamentos, Estrutura e Memória</h2>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>1. Encapsulamento & Modificadores de Acesso</strong><br>Explique detalhadamente o conceito de encapsulamento em Programação Orientada a Objetos. Descreva como os modificadores de acesso (private, protected, default, public) contribuem para este princípio. Justifique por que razão o acesso direto aos atributos de uma classe é considerado uma má prática e ilustre o uso correto com um exemplo prático.</span>
+        <span class="prob vhigh">🔥 95% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>O Essencial:</strong> Encapsulamento é a ocultação da estrutura interna de um objeto. O estado (atributos) não deve ser acedido diretamente, mas sim manipulado através de métodos controlados (getters/setters).</li>
+        <li><strong>Modificadores:</strong> <code>private</code> (só na classe), <code>default</code> (só no pacote), <code>protected</code> (pacote + subclasses), <code>public</code> (em todo o lado).</li>
+        <li><strong>Porquê não public?</strong> Porque quebra o encapsulamento. Código externo poderia injetar valores inválidos (ex: capacidade negativa), violando as regras de negócio.</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">Contentor</span> {
+    <span class="kw">private double</span> capacidade; <span class="cm">// Encapsulado!</span>
+
+    <span class="kw">public void</span> <span class="fn">setCapacidade</span>(<span class="kw">double</span> c) {
+        <span class="kw">if</span> (c <= <span class="num">0</span>) <span class="kw">throw new</span> IllegalArgumentException(<span class="str">"Inválido"</span>);
+        <span class="kw">this</span>.capacidade = c; <span class="cm">// Acesso validado defensivamente</span>
+    }
+}</code></pre>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>2. Construtores: invocação com `this()` e `super()`</strong><br>Discuta a finalidade dos construtores na instanciação de objetos em Java. Explique o conceito de sobrecarga de construtores e demonstre como o encadeamento de construtores pode ser alcançado através das palavras reservadas <code>this()</code> e <code>super()</code>. Esclareça as restrições sintáticas associadas à utilização destas invocações.</span>
+        <span class="prob high">⚡ 85% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>O Essencial:</strong> Construtores inicializam o estado de um objeto na Heap. Se nenhum for escrito, o compilador gera o <i>default constructor</i> vazio.</li>
+        <li><strong>Sobrecarga e Encadeamento:</strong> Podemos ter múltiplos construtores (com parâmetros diferentes). <code>this()</code> chama outro construtor da própria classe. <code>super()</code> chama o construtor da superclasse.</li>
+        <li><strong>Restrição Sintática Crítica:</strong> As invocações a <code>this()</code> ou <code>super()</code> têm de ser obrigatoriamente a <strong>primeira linha</strong> de código dentro do construtor, e nunca podem ser usadas em simultâneo no mesmo construtor.</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">Veiculo</span> {
+    <span class="kw">public</span> Veiculo(String mat) { <span class="cm">/* inicializa */</span> }
+}
+<span class="kw">public class</span> <span class="tp">Camiao</span> <span class="kw">extends</span> Veiculo {
+    <span class="kw">private double</span> tara;
+    
+    <span class="kw">public</span> Camiao(String mat, <span class="kw">double</span> tara) {
+        <span class="kw">super</span>(mat); <span class="cm">// Obrigatório ser a 1ª linha (chama Veiculo)</span>
+        <span class="kw">this</span>.tara = tara;
+    }
+    
+    <span class="kw">public</span> Camiao(String mat) {
+        <span class="kw">this</span>(mat, <span class="num">1000.0</span>); <span class="cm">// Encadeamento: chama o outro construtor de Camiao</span>
+    }
+}</code></pre>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>3. Variáveis de Classe (static) vs Variáveis de Instância</strong><br>Distinga detalhadamente as Variáveis de Instância das Variáveis de Classe no contexto da linguagem Java, incidindo sobre o modificador <code>static</code>. Esclareça as razões pelas quais a utilização da palavra reservada <code>this</code> não é permitida no corpo de métodos declarados como estáticos e ilustre a sua resposta com um exemplo estruturado.</span>
+        <span class="prob high">⚡ 85% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>O Essencial:</strong> Variáveis de <strong>instância</strong> pertencem a cada objeto (alocadas na Heap por cada <code>new</code>). Variáveis de <strong>classe</strong> (<code>static</code>) são únicas e partilhadas por todos os objetos da classe.</li>
+        <li><strong>Uso do `this`:</strong> O operador <code>this</code> refere-se ao "objeto atual que invocou o método". Como métodos estáticos pertencem à classe e podem ser executados sem que nenhum objeto exista em memória, não há nenhum objeto atual ao qual o <code>this</code> possa apontar (logo, é proibido).</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">AidBox</span> {
+    <span class="kw">private</span> String code; <span class="cm">// Instância (cada caixa tem o seu)</span>
+    <span class="kw">private static int</span> totalBoxes = <span class="num">0</span>; <span class="cm">// Classe (comum a todas as caixas)</span>
+
+    <span class="kw">public static int</span> <span class="fn">getTotal</span>() {
+        <span class="cm">// return this.code; -> ERRO DE COMPILAÇÃO! Não há "this" aqui.</span>
+        <span class="kw">return</span> totalBoxes; <span class="cm">// OK</span>
+    }
+}</code></pre>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>4. Modificador final (Primitivos vs Referências)</strong><br>Explique o impacto e a finalidade da utilização do modificador <code>final</code> em Java. Esclareça detalhadamente a diferença de comportamento de uma variável <code>final</code> quando esta armazena um tipo primitivo versus quando armazena uma referência para um objeto ou array. Fundamente a sua explicação com um exemplo de código representativo.</span>
+        <span class="prob high">⚡ 80% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>O Essencial:</strong> O modificador <code>final</code> impede a reatribuição da variável (torna-se constante após inicializada), impede a redefinição de métodos (override) e proíbe a herança de classes.</li>
+        <li><strong>Primitivos:</strong> O valor numérico fica inalterável na Stack.</li>
+        <li><strong>Referências:</strong> Apenas o "endereço de memória" para a Heap fica inalterável. Não é possível reatribuir um novo objeto com <code>new</code>, <strong>mas o estado interno do objeto é mutável</strong>.</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">final int</span> MAX = <span class="num">100</span>;
+<span class="cm">// MAX = 200; -> ERRO!</span>
+
+<span class="kw">final</span> Contentor c = <span class="kw">new</span> Contentor(<span class="num">100</span>);
+<span class="cm">// c = new Contentor(200); -> ERRO! Não pode mudar a referência.</span>
+c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior do objeto não está bloqueado.</span></code></pre>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>5. Memória (Stack/Heap), GC e NPE</strong><br>Discuta o modelo de gestão de memória adotado pela Máquina Virtual Java (JVM), descrevendo minuciosamente o papel da Stack e da Heap. Explique o processo pelo qual o Garbage Collector elimina objetos inalcançáveis e elucide as causas que conduzem a uma <code>NullPointerException</code>.</span>
+        <span class="prob high">⚡ 70% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Stack vs Heap:</strong> A Stack guarda variáveis locais (primitivos e referências) e os quadros de execução dos métodos por Thread. A Heap é a memória massiva onde residem todos os objetos concretos criados com <code>new</code>.</li>
+        <li><strong>Garbage Collector (GC):</strong> Analisa periodicamente a Heap. Quando deteta objetos para os quais já não há nenhuma variável da Stack a apontar ("inalcançáveis"), liberta-os da memória RAM para prevenir leaks.</li>
+        <li><strong>NullPointerException:</strong> Ocorre quando tentamos usar o "ponto" (invocar um método ou atributo) numa variável de referência que não está a apontar para nenhum objeto na Heap (ou seja, vale <code>null</code>). Previne-se com `if (obj != null)`.</li>
+    </ul>
+</div></details>
+
+
+<h2>Módulo 2: Herança, Interfaces e Polimorfismo</h2>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>6. Composição ("Tem Um") vs Herança ("É Um")</strong><br>Distinga os conceitos de Composição e Herança enquanto mecanismos de reutilização de código no paradigma orientado a objetos. Esclareça sob que premissas arquiteturais o uso de Herança é considerado apropriado, comparando-o com a abordagem de Composição. Ilustre a sua resposta com um exemplo prático.</span>
+        <span class="prob vhigh">🔥 90% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Herança ("É UM" / Is-A):</strong> Cria uma forte ligação de identidade. Reutiliza código fazendo uma classe estender a outra (<code>extends</code>). Só deve ser usada se a relação for logicamente absoluta (ex: Camião É UM Veículo). Traz forte acoplamento e Java só permite herança simples.</li>
+        <li><strong>Composição ("TEM UM" / Has-A):</strong> Cria uma ligação através de atributos. Uma classe contém instâncias de outras classes. Traz flexibilidade, baixo acoplamento e permite simular herança múltipla. Favorita nas boas práticas modernas de arquitetura (<i>"Favor composition over inheritance"</i>).</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="cm">// HERANÇA (Má escolha se um camião puder deixar de ser veículo?)</span>
+<span class="kw">class</span> <span class="tp">Camiao</span> <span class="kw">extends</span> Veiculo { ... }
+
+<span class="cm">// COMPOSIÇÃO (Boa escolha: um camião TEM um motor)</span>
+<span class="kw">class</span> <span class="tp">Camiao</span> {
+    <span class="kw">private</span> Motor motor; <span class="cm">// Delegação de responsabilidades</span>
+    <span class="kw">public</span> Camiao() { <span class="kw">this</span>.motor = <span class="kw">new</span> MotorV8(); }
+}</code></pre>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>7. Classes Abstratas vs Interfaces</strong><br>Explique detalhadamente as diferenças entre classes abstratas e interfaces em Java. Em que situações é mais adequado optar por uma classe abstrata e em que situações é preferível uma interface? Justifique a sua resposta e evidencie as características distintivas de cada mecanismo.</span>
+        <span class="prob vhigh">🔥 99% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Classes Abstratas:</strong> Permitem definir estado (atributos não-estáticos), construtores e métodos com implementação. Sofrem a limitação da herança simples (uma classe só faz extends de uma abstrata). Ideal para modelar a hierarquia core de objetos relacionados intimamente.</li>
+        <li><strong>Interfaces:</strong> Atuam como contratos 100% abstratos (até ao Java 8). Apenas contêm métodos públicos não implementados e constantes <code>public static final</code>. Uma classe pode implementar (<code>implements</code>) múltiplas interfaces. Ideal para partilhar capacidades/comportamentos entre classes não relacionadas (ex: `Serializavel`, `Imprimivel`).</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>8. Polimorfismo: Overloading vs Overriding</strong><br>Explique o conceito de polimorfismo em Java, distinguindo clara e objetivamente o polimorfismo de sobrecarga (overloading) do polimorfismo de sobreposição (overriding). Descreva as regras de vinculação (binding) estática e dinâmica na JVM.</span>
+        <span class="prob vhigh">🔥 95% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Sobrecarga (Overloading / Polimorfismo Estático):</strong> Vários métodos com o <strong>mesmo nome</strong> na mesma classe, mas <strong>parâmetros diferentes</strong>. O compilador decide qual método chamar em tempo de <strong>compilação</strong> (Early Binding) com base no tipo das variáveis.</li>
+        <li><strong>Sobreposição (Overriding / Polimorfismo Dinâmico):</strong> Uma subclasse <strong>redefine</strong> um método da superclasse com a mesma assinatura (usando <code>@Override</code>). A decisão de qual versão executar é tomada em tempo de <strong>execução</strong> (Dynamic Binding), dependendo do objeto real que foi instanciado na memória Heap, e não da variável que o guarda.</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>9. Conversão de Tipos: Upcasting, Downcasting e `instanceof`</strong><br>Aborde o conceito de conversão de tipos (casting) no contexto da herança. Distinga os mecanismos de upcasting e downcasting, discutindo criticamente os riscos associados à conversão para subclasses. Justifique a importância do operador <code>instanceof</code>.</span>
+        <span class="prob vhigh">🔥 95% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Upcasting:</strong> Tratar uma Subclasse pelo tipo da sua Superclasse (ou Interface). Ocorre <strong>implicitamente e de forma segura</strong>, pois a subclasse tem garantidamente tudo o que a superclasse tem.</li>
+        <li><strong>Downcasting:</strong> Forçar uma variável de Superclasse a ser tratada como Subclasse. É <strong>perigoso</strong> (requer cast explícito `(Tipo)`). Se o objeto na memória não for da subclasse indicada, a JVM aborta o programa com um <code>ClassCastException</code>.</li>
+        <li><strong>O operador `instanceof`:</strong> Permite perguntar "Este objeto na memória pertence a esta classe?" antes de realizar o downcasting, tornando a operação perfeitamente segura.</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>10. Métodos default em Interfaces e Conflito do Diamante</strong><br>Compare o conceito de Interfaces Marcadoras com a utilização de Métodos default (introduzidos no Java 8) em interfaces. Explique como os métodos default permitem evoluir contratos existentes, e descreva a regra de resolução da JVM para o conflito do problema do diamante.</span>
+        <span class="prob med">🟡 45% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Interfaces Marcadoras:</strong> Interfaces completamente vazias, sem métodos (ex: <code>Serializable</code>). Servem apenas para rotular ("marcar") a classe perante a JVM.</li>
+        <li><strong>Métodos default:</strong> Métodos em interfaces que têm um corpo de código (comportamento padrão). Servem para adicionar novos métodos a interfaces antigas sem quebrar o código de quem já as implementava.</li>
+        <li><strong>Problema do Diamante:</strong> Ocorre se uma classe implementar duas interfaces diferentes que possuam um método <code>default</code> com exatamente o mesmo nome. O Java obriga o programador a fazer o <code>@Override</code> desse método na classe, forçando a resolução explícita do conflito (ex: <code>InterfaceA.super.metodo();</code>).</li>
+    </ul>
+</div></details>
+
+<h2>Módulo 3: Object, Exceções, Enums e I/O</h2>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>11. Identidade (==) vs Igualdade (equals)</strong><br>Distinga os conceitos de identidade física e igualdade lógica de objetos em Java, contrapondo o uso do operador relacional <code>==</code> com a invocação do método <code>equals()</code>. Justifique as consequências caso uma classe negligencie a redefinição obrigatória do método <code>equals()</code> herdado de <code>Object</code>.</span>
+        <span class="prob vhigh">🔥 99% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Identidade Física (<code>==</code>):</strong> Avalia se as duas variáveis de referência apontam literalmente para a mesma zona de memória na Heap. Não avalia os dados!</li>
+        <li><strong>Igualdade Lógica (<code>equals()</code>):</strong> Avalia se as propriedades internas (estado lógico, ex: ID ou código) dos dois objetos distintos os tornam "iguais" para o negócio.</li>
+        <li><strong>A consequência:</strong> A classe <code>Object</code> implementa o <code>equals</code> usando <code>==</code>. Se não o redefinirmos (fizer override) na nossa classe, o <code>equals</code> não funcionará como igualdade lógica e duas instâncias criadas separadamente com os mesmos dados serão sempre consideradas diferentes.</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>12. Gestão de Exceções: Checked vs Unchecked e finally</strong><br>Explique o paradigma de gestão de erros em Java através de exceções. Distinga categoricamente entre exceções verificadas (Checked Exceptions) e não verificadas (Unchecked Exceptions). Descreva a arquitetura de cada componente do bloco <code>try-catch-finally</code>, salientando o papel fulcral do <code>finally</code>.</span>
+        <span class="prob vhigh">🔥 95% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Checked Exceptions:</strong> Condições recuperáveis (falha de I/O, base de dados offline). O compilador <strong>exige obrigatoriamente</strong> que o programador capture o erro (`try-catch`) ou avise que o lança (`throws`). Extensões diretas de <code>Exception</code>.</li>
+        <li><strong>Unchecked Exceptions:</strong> Erros de lógica de programação imprevisíveis (Index Out Of Bounds, Null Pointer). O compilador não obriga ao tratamento. Extensões de <code>RuntimeException</code>.</li>
+        <li><strong>O bloco `finally`:</strong> Garante a execução do código contido independentemente de haver um erro ou de um <code>return</code> antecipado. Essencial para fechar recursos (ficheiros, bases de dados).</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>13. Tipos Enumerados (Enum)</strong><br>Esclareça o conceito de tipos enumerados (enum) em Java e a sua superioridade perante a declaração tradicional de constantes estáticas. Explique a possibilidade de declaração de atributos, construtores e métodos internos a um enum, demonstrando as regras relativas ao modificador de acesso aplicável ao seu construtor.</span>
+        <span class="prob high">⚡ 85% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>O Essencial:</strong> <code>enum</code> define um conjunto restrito e finito de valores constantes tipificados com segurança em tempo de compilação (type-safe). Evita a passagem de strings ou inteiros inválidos.</li>
+        <li><strong>Construtores de Enum:</strong> Os enumerados podem ter atributos internos e métodos. Contudo, o seu construtor deve ser obrigatoriamente <strong>privado</strong> (implicito ou explícito), impedindo a instanciação de novos valores fora da declaração do Enum.</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">AlertType</span> {
+    CAPACITY_OVERFLOW(<span class="str">"Cheio"</span>), INVALID_SENSOR(<span class="str">"Sensor Avariado"</span>);
+
+    <span class="kw">private final</span> String description;
+    
+    <span class="kw">private</span> AlertType(String desc) { <span class="cm">// Construtor privado!</span>
+        <span class="kw">this</span>.description = desc;
+    }
+}</code></pre>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>14. Classes Wrapper e a Armadilha da Cache</strong><br>Apresente o conceito de classes Wrapper de envolvimento e o mecanismo de Autoboxing e Unboxing na linguagem Java. Discuta exaustivamente os riscos associados à utilização do operador de identidade <code>==</code> na comparação de instâncias da classe <code>Integer</code>, referenciando explicitamente o mecanismo interno de cache da JVM e os seus limites operacionais.</span>
+        <span class="prob high">⚡ 75% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Wrappers & Autoboxing:</strong> Classes como <code>Integer</code> ou <code>Double</code> encapsulam primitivos para que possam ser usados como Objetos. Autoboxing é a conversão automática do compilador (ex: `Integer i = 10;`).</li>
+        <li><strong>A Armadilha do <code>==</code> na Cache:</strong> Para poupar memória, a JVM mantém uma cache na Heap para todos os objetos <code>Integer</code> entre <strong>-128 e 127</strong>. 
+            <br>- Para números nesta gama, o <code>==</code> funciona porque a referência apontada é a mesma.
+            <br>- Fora desta gama (ex: 200), a JVM aloca objetos distintos. O <code>==</code> devolverá <code>false</code> mesmo que logicamente sejam os dois 200. Por isso, usa-se obrigatoriamente <code>equals()</code>.</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>15. Imutabilidade da String e o uso de StringBuilder</strong><br>Avalie criticamente o conceito de imutabilidade associado à classe <code>String</code> em Java e descreva o funcionamento do mecanismo de <code>String Pool</code> alocado na Heap. Compare esta abordagem arquitetural com a utilização da classe <code>StringBuilder</code>, justificando a preferência por esta última em cenários de processamento iterativo intensivo de cadeias de caracteres.</span>
+        <span class="prob med">🟡 60% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>String e Pool:</strong> A classe String é 100% imutável. Alterar o seu valor através de concatenação (<code>+</code>) aloca sempre um novo objeto na memória, abandonando o anterior, num ciclo vicioso de criação de lixo e desperdício de processamento. Valores literais partilham a memória num "String Pool".</li>
+        <li><strong>StringBuilder:</strong> Mantém um buffer de caracteres <strong>mutável</strong>. Métodos como <code>.append()</code> alteram a string no mesmo espaço de memória, sendo absurdamente mais eficiente em laços (<code>for/while</code>) massivos do que as Strings tradicionais.</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>16. Serialização: transient e serialVersionUID</strong><br>Explique o mecanismo de Serialização de objetos em Java e a sua finalidade no desenvolvimento de software. Indique como se assinala que uma classe é elegível para serialização e descreva detalhadamente a utilidade e o comportamento do modificador <code>transient</code> e do identificador <code>serialVersionUID</code>.</span>
+        <span class="prob high">⚡ 75% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Serialização:</strong> O processo de transformar o estado de um objeto na memória (Heap) num fluxo sequencial de bytes para guardar num ficheiro ou enviar pela rede. Requer que a classe implemente a interface marcadora <code>Serializable</code>.</li>
+        <li><strong>O modificador `transient`:</strong> Aplicado aos atributos que, por segurança (passwords) ou por falta de necessidade (temporários), <strong>não devem</strong> ser guardados no fluxo serializado. Esses atributos perdem o seu valor quando o objeto for reconstruído.</li>
+        <li><strong>serialVersionUID:</strong> Um ID numérico estático que garante o controlo de versões. Se alterarmos os métodos da classe no futuro, a JVM verifica se o ID guardado no ficheiro bate certo com a versão atual da classe.</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>17. I/O: Byte Streams vs Character Streams</strong><br>A biblioteca de Input/Output (I/O) do Java divide-se principalmente em classes orientadas a bytes (Streams) e classes orientadas a caracteres (Readers/Writers). Explique a diferença fundamental entre estas duas famílias de classes, indicando a dimensão dos dados processados e cenários práticos adequados.</span>
+        <span class="prob med">🟡 50% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Byte Streams (Classes Stream):</strong> Processam dados bit-a-bit à dimensão de <strong>8 bits</strong>. Útil para manipulação de dados em bruto/binários, tais como imagens, vídeos, ou ficheiros executáveis. (Ex: <code>FileInputStream</code>).</li>
+        <li><strong>Character Streams (Readers/Writers):</strong> Processam texto à dimensão de <strong>16 bits (Unicode)</strong>. Tratam a conversão de conjuntos de caracteres internacionais, sendo ideais para leitura de ficheiros texto, JSON, XML e relatórios (Ex: <code>FileReader</code>, <code>BufferedReader</code>).</li>
+    </ul>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><strong>18. Pacotes (Packages) e Modificador Default</strong><br>Explique o conceito de organização modular por pacotes (package) em Java. Descreva o comportamento do modificador de acesso por defeito (package-private / ausência de modificador explícito) relativamente a variáveis e métodos. Justifique em que situações este nível de encapsulamento é vantajoso no desenho arquitetural.</span>
+        <span class="prob med">🟡 40% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Pacotes:</strong> São como sub-pastas hierárquicas que evitam colisões de nomes (podem existir duas classes <code>Relatorio</code> desde que em pacotes distintos) e agrupam ficheiros logicamente afins.</li>
+        <li><strong>Modificador por defeito (Package-Private):</strong> Quando não se escreve nem <code>public</code>, nem <code>private</code>, nem <code>protected</code>. O método ou variável só pode ser acedido por classes que estejam exatamente no <strong>mesmo pacote</strong>. Ideal para expor métodos auxiliares aos vizinhos do módulo interno, ocultando-os de todo o código fora do pacote, não poluindo a API pública.</li>
+    </ul>
+</div></details>
+
+<br>
+<div style="text-align: center; color: var(--text-dim); margin: 30px 0;">
+    <i>Nota do Assistente: Domine estas 18 perguntas e os 6.0 valores da Teoria estão perfeitamente assegurados na avaliação!</i>
+</div>
+
+</body>
+</html>
