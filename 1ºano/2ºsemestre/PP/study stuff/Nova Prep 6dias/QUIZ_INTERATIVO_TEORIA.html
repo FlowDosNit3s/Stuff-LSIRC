@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interativo — 10 Perguntas Fatais</title>
+    <title>Quiz Interativo — As 18 Perguntas Fatais</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -268,8 +268,8 @@
         <!-- START SCREEN -->
         <div class="card view" id="start-screen">
             <div class="header">
-                <h1>Teste de Conhecimentos: Top 10</h1>
-                <p>Selecionámos as 10 perguntas mais sérias e cirúrgicas para o exame prático/teórico de POO.</p>
+                <h1>Teste de Conhecimentos: Top 18 (Exames)</h1>
+                <p>O Mega Quiz com todas as rasteiras teóricas (incluindo as dos exames de Época Normal e Recurso).</p>
             </div>
             <div style="text-align: center;">
                 <button class="btn visible" onclick="startQuiz()" style="padding: 18px 40px; font-size: 1.2rem;">Começar o Modo Try-Hard 🔥</button>
@@ -280,7 +280,7 @@
         <div class="card view" id="quiz-screen" style="display: none;">
             <div class="question-header">
                 <span id="q-category">Encapsulamento</span>
-                <span>Pergunta <span id="q-current">1</span>/10</span>
+                <span>Pergunta <span id="q-current">1</span>/18</span>
             </div>
             
             <div class="progress-bar">
@@ -302,7 +302,7 @@
 
         <!-- RESULT SCREEN -->
         <div class="card view result-screen" id="result-screen">
-            <div class="score-circle" id="score-display">0/10</div>
+            <div class="score-circle" id="score-display">0/18</div>
             <div class="result-msg" id="result-msg">Analisando resultados...</div>
             <div class="result-sub" id="result-sub"></div>
             <button class="btn visible" onclick="location.reload()">Tentar Novamente</button>
@@ -411,6 +411,86 @@
                     "C) Podem estender (extends) outras classes e enumerados para partilhar constantes genéricas com o resto do projeto."
                 ],
                 correctIndex: 1
+            },
+            {
+                category: "11. Passagem de Argumentos",
+                text: "Como funciona o mecanismo de passagem de argumentos (pass-by-value) em Java quando passamos a referência de um objeto (ex: Contentor c) para um método?",
+                options: [
+                    "A) O objeto é clonado na Heap e o método recebe a cópia exata do objeto.",
+                    "B) A referência da memória é passada por valor. Alterar os atributos internos do objeto (ex: c.setCapacity(50)) afeta o objeto real original na Heap.",
+                    "C) A referência é passada por referência. Fazer 'c = new Contentor()' dentro do método substitui o objeto na variável original fora do método."
+                ],
+                correctIndex: 1
+            },
+            {
+                category: "12. Composição vs Herança",
+                text: "No contexto do design arquitetural, qual a diferença entre usar Herança ('É-Um') e usar Composição ('Tem-Um')?",
+                options: [
+                    "A) A Herança cria forte acoplamento e está limitada a uma superclasse. A Composição oferece maior flexibilidade ao guardar instâncias de outras classes como atributos.",
+                    "B) A Herança consome menos memória na Heap do que a Composição, sendo obrigatória por lei na POO.",
+                    "C) A Composição é usada exclusivamente quando queremos partilhar métodos estáticos, enquanto a Herança partilha métodos abstratos."
+                ],
+                correctIndex: 0
+            },
+            {
+                category: "13. Métodos default e o Diamante",
+                text: "A partir do Java 8, as interfaces passaram a suportar métodos com implementação ('default'). O que acontece se uma classe implementar duas interfaces que tenham um método default com o mesmo nome e assinatura (Problema do Diamante)?",
+                options: [
+                    "A) O compilador Java escolhe automaticamente a implementação da primeira interface declarada.",
+                    "B) O programa compila, mas atira uma RuntimeException quando o método é chamado.",
+                    "C) O compilador gera um erro e obriga o programador a fazer o @Override do método na classe para resolver o conflito explicitamente."
+                ],
+                correctIndex: 2
+            },
+            {
+                category: "14. String vs StringBuilder",
+                text: "Devido à imutabilidade da classe String, usar o operador '+' dentro de um ciclo gigante para concatenar texto é considerado uma má prática. Qual a solução recomendada?",
+                options: [
+                    "A) Usar a classe StringBuilder, que mantém um buffer mutável, alterando a cadeia de texto no mesmo espaço de memória sem criar lixo.",
+                    "B) Chamar o Garbage Collector (System.gc()) a cada iteração do ciclo para limpar as Strings abandonadas.",
+                    "C) Usar Arrays de chars primitivos declarados como finais."
+                ],
+                correctIndex: 0
+            },
+            {
+                category: "15. Memória: GC e NullPointer",
+                text: "O Garbage Collector é responsável por libertar memória na Heap. Qual o critério principal usado para decidir se um objeto pode ser eliminado, e o que causa uma NullPointerException?",
+                options: [
+                    "A) Um objeto é eliminado quando o seu tamanho excede 10MB. O NPE ocorre se criarmos muitos objetos.",
+                    "B) Um objeto é eliminado se já não existir nenhuma referência (inalcançável) a apontar para ele. O NPE ocorre se tentarmos invocar um método numa referência nula.",
+                    "C) Um objeto é eliminado imediatamente após sair do bloco if. O NPE ocorre porque o Garbage Collector é demasiado lento."
+                ],
+                correctIndex: 1
+            },
+            {
+                category: "16. Serialização e transient",
+                text: "No mecanismo de Serialização (guardar objetos em ficheiros ou rede), qual é o efeito prático de declarar um atributo de instância com a palavra reservada 'transient' (ex: private transient String password;)?",
+                options: [
+                    "A) O atributo ganha prioridade e é o primeiro a ser guardado no ficheiro binário.",
+                    "B) O compilador impede que o ficheiro seja lido por programas externos.",
+                    "C) O atributo é ignorado pelo mecanismo de serialização, não sendo guardado no ficheiro (perde o valor ao reconstruir o objeto)."
+                ],
+                correctIndex: 2
+            },
+            {
+                category: "17. I/O: Byte vs Character Streams",
+                text: "A biblioteca java.io divide-se essencialmente em Byte Streams e Character Streams (Readers/Writers). Qual a distinção técnica principal entre eles?",
+                options: [
+                    "A) Byte Streams processam os dados em blocos de 8 bits (ideal para binários/imagens). Character Streams processam caracteres a 16 bits (Unicode), ideal para ficheiros de texto.",
+                    "B) Byte Streams só podem ser usados para ler, Character Streams só podem ser usados para escrever.",
+                    "C) Byte Streams são mais rápidos mas perdem dados; Character Streams são lentos mas 100% fiáveis."
+                ],
+                correctIndex: 0
+            },
+            {
+                category: "18. Pacotes (Packages) e Visibilidade",
+                text: "Se declararmos uma classe ou um método sem nenhum modificador de acesso explícito (ou seja, omitimos o public, private e protected), qual o nível de visibilidade atribuído por defeito?",
+                options: [
+                    "A) Fica visível para qualquer classe, desde que use a importação (import) correta.",
+                    "B) Ganha visibilidade 'Package-Private' (default), ou seja, só pode ser acedido pelas classes que residam exatamente no mesmo pacote hierárquico.",
+                    "C) Fica estritamente visível apenas para a própria classe onde foi declarado, idêntico a private."
+                ],
+                correctIndex: 1
             }
         ];
 
@@ -496,20 +576,20 @@
             screens.quiz.style.display = 'none';
             screens.result.style.display = 'block';
             
-            document.getElementById('score-display').textContent = score + '/10';
+            document.getElementById('score-display').textContent = score + '/18';
             
             const msg = document.getElementById('result-msg');
             const sub = document.getElementById('result-sub');
             
-            if (score === 10) {
+            if (score === 18) {
                 msg.textContent = "🏆 20 Valores Perfeitos!";
                 sub.textContent = "Mestre da POO. A teoria não tem segredos para si. Está 100% pronto para ir escrever código!";
                 document.getElementById('score-display').style.borderColor = "#10b981";
                 document.getElementById('score-display').style.color = "#10b981";
-            } else if (score >= 7) {
+            } else if (score >= 14) {
                 msg.textContent = "🔥 Excelente Trabalho!";
                 sub.textContent = "Cometeu uns pequenos deslizes, mas o núcleo duro está lá. Revise os que errou e avance para a prática.";
-            } else if (score >= 5) {
+            } else if (score >= 9) {
                 msg.textContent = "👍 Aprovado, mas com avisos!";
                 sub.textContent = "Passou na teoria, mas cuidado, algumas rasteiras apanharam-no. Leia a Cheatsheet antes de praticar.";
                 document.getElementById('score-display').style.borderColor = "#fdcb6e";
