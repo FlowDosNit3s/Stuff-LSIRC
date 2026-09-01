@@ -174,6 +174,16 @@ details > .content { padding: 0 16px 16px; }
 .check-item input { width: 18px; height: 18px; accent-color: var(--green); cursor: pointer; }
 .check-item label { cursor: pointer; flex: 1; }
 
+/* DAY CARDS */
+.day-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin: 20px 0; }
+.day-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; transition: transform 0.2s, border-color 0.2s; }
+.day-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.day-card h3 { margin-top: 0; color: var(--accent2); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 12px; }
+.day-card ul { margin-top: 10px; padding-left: 20px; }
+.day-card li { font-size: 14px; margin-bottom: 6px; color: var(--text); }
+.day-card a { color: var(--blue); text-decoration: none; font-weight: 600; }
+.day-card a:hover { text-decoration: underline; }
+
 /* PROGRESS */
 .progress-wrap { background: var(--surface2); border-radius: 20px; height: 24px; margin: 12px 0; overflow: hidden; }
 .progress-fill { background: linear-gradient(90deg, var(--accent), var(--green)); height: 100%; border-radius: 20px; transition: width .4s; width: 0%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; min-width: 40px; }
@@ -277,6 +287,64 @@ details > .content { padding: 0 16px 16px; }
 <tr><td>Dia 5</td><td>Resolução dos Exames Modelo + Época Normal, Recurso e Época Especial</td><td>6h</td></tr>
 <tr><td>Dia 6</td><td>Exame Simulado cronometrado (2h) + Revisão final</td><td>4h</td></tr>
 </table>
+
+<h2>📅 Plano Detalhado Dia-a-Dia</h2>
+<div class="day-grid">
+    <div class="day-card">
+        <h3>Dia 1: Fundamentos POO</h3>
+        <p><strong>Foco:</strong> Encapsulamento, Classes Abstratas vs Interfaces, static, final, equals</p>
+        <ul>
+            <li><strong>Estudar:</strong> <a href="#sec3">Secção 3.1 a 3.8</a> da matéria completa.</li>
+            <li><strong>Rever:</strong> Diferenças cruciais na <a href="#sec4">Cheatsheet (Secção 4)</a>.</li>
+            <li><strong>Tarefa:</strong> Marcar os primeiros 6 itens teóricos na <a href="#sec2">Checklist</a>.</li>
+        </ul>
+    </div>
+    <div class="day-card">
+        <h3>Dia 2: Tópicos Avançados</h3>
+        <p><strong>Foco:</strong> Polimorfismo, Exceções, Enums, Wrappers, I/O, Serialização</p>
+        <ul>
+            <li><strong>Estudar:</strong> <a href="#sec3">Secção 3.9 a 3.16</a> da matéria.</li>
+            <li><strong>Rever:</strong> Criação de Exceptions e Enums na <a href="#sec4">Cheatsheet</a>.</li>
+            <li><strong>Tarefa:</strong> Completar a avaliação teórica na <a href="#sec2">Checklist</a>.</li>
+        </ul>
+    </div>
+    <div class="day-card">
+        <h3>Dia 3: Domínio & Algoritmia</h3>
+        <p><strong>Foco:</strong> Domínio do TP + Algoritmia de Arrays Nativos</p>
+        <ul>
+            <li><strong>Estudar:</strong> <a href="#sec6">Modelo de Domínio (Secção 6)</a>.</li>
+            <li><strong>Praticar:</strong> Algoritmos de Arrays na <a href="#sec3">Secção 3.17</a>.</li>
+            <li><strong>Tarefa:</strong> Entender o "Guia Mestre" na <a href="#sec5">Secção 5</a>.</li>
+        </ul>
+    </div>
+    <div class="day-card">
+        <h3>Dia 4: Prática Intensiva</h3>
+        <p><strong>Foco:</strong> Conjuntos Práticos no formato de exame</p>
+        <ul>
+            <li><strong>Resolver:</strong> <a href="#sec7">Conjunto 1 (AidBoxImpl + ReportImpl)</a>.</li>
+            <li><strong>Aprofundar:</strong> Usar as dicas do <a href="#sec5">Guia de 9 Valores</a>.</li>
+            <li><strong>Tarefa:</strong> Validar as resoluções e tirar dúvidas no código.</li>
+        </ul>
+    </div>
+    <div class="day-card">
+        <h3>Dia 5: Exames Anteriores</h3>
+        <p><strong>Foco:</strong> Exames Modelo e Exames Reais</p>
+        <ul>
+            <li><strong>Resolver:</strong> <a href="#sec8">Exame Real Época Normal</a> (Obrigatório).</li>
+            <li><strong>Rever:</strong> Exames de Recurso e Época Especial.</li>
+            <li><strong>Tarefa:</strong> Identificar padrões repetidos (métodos booleanos e algoritmos <code>generate</code>).</li>
+        </ul>
+    </div>
+    <div class="day-card">
+        <h3>Dia 6: Simulação & Revisão</h3>
+        <p><strong>Foco:</strong> Simulado de 2h + Revisões Finais</p>
+        <ul>
+            <li><strong>Desafio:</strong> Fazer o exame simulado estritamente em 120 minutos.</li>
+            <li><strong>Avaliar:</strong> Usar a <a href="#sec2">Checklist (Secção 2)</a> para ver progresso.</li>
+            <li><strong>Revisão:</strong> Ler a <a href="#sec4">Cheatsheet</a> minutos antes da prova.</li>
+        </ul>
+    </div>
+</div>
 </div>
 
 <!-- ==================== SECÇÃO 2: CHECKLIST ==================== -->
