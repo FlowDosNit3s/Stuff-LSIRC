@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interativo — As 18 Perguntas Fatais</title>
+    <title>Quiz Interativo — As 20 Perguntas Fatais</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -268,7 +268,7 @@
         <!-- START SCREEN -->
         <div class="card view" id="start-screen">
             <div class="header">
-                <h1>Teste de Conhecimentos: Top 18 (Exames)</h1>
+                <h1>Teste de Conhecimentos: Top 20 (Exames)</h1>
                 <p>O Mega Quiz com todas as rasteiras teóricas (incluindo as dos exames de Época Normal e Recurso).</p>
             </div>
             <div style="text-align: center;">
@@ -280,7 +280,7 @@
         <div class="card view" id="quiz-screen" style="display: none;">
             <div class="question-header">
                 <span id="q-category">Encapsulamento</span>
-                <span>Pergunta <span id="q-current">1</span>/18</span>
+                <span>Pergunta <span id="q-current">1</span>/20</span>
             </div>
             
             <div class="progress-bar">
@@ -302,7 +302,7 @@
 
         <!-- RESULT SCREEN -->
         <div class="card view result-screen" id="result-screen">
-            <div class="score-circle" id="score-display">0/18</div>
+            <div class="score-circle" id="score-display">0/20</div>
             <div class="result-msg" id="result-msg">Analisando resultados...</div>
             <div class="result-sub" id="result-sub"></div>
             <button class="btn visible" onclick="location.reload()">Tentar Novamente</button>
@@ -314,181 +314,201 @@
         const questions = [
             {
                 category: "1. Encapsulamento & Modificadores",
-                text: "Qual é a justificação arquitetural principal para não declararmos os atributos de uma classe como 'public' em Java?",
+                text: "Explique detalhadamente o conceito de encapsulamento em POO. Qual a justificação arquitetural para que o acesso direto (public) aos atributos de uma classe seja considerado uma má prática?",
                 options: [
-                    "A) O código compila mais lentamente devido ao excesso de visibilidade externa.",
-                    "B) O acesso direto permite que código externo altere o estado interno com valores inválidos, quebrando as regras de negócio e violando o encapsulamento.",
-                    "C) Variáveis public não podem ser instanciadas na Heap, causando memory leaks."
+                    "A) Porque o acesso direto public sobrecarrega a Stack da JVM, tornando a execução dos métodos mais lenta.",
+                    "B) Porque permite a injeção de estado inválido por código externo, violando o encapsulamento e as regras lógicas de negócio do objeto.",
+                    "C) Porque atributos public obrigam à declaração simultânea de métodos static, quebrando o paradigma de instâncias."
                 ],
                 correctIndex: 1
             },
             {
                 category: "2. Construtores (this e super)",
-                text: "No contexto da inicialização de objetos, qual destas regras de sintaxe aplica-se obrigatoriamente às invocações de this() e super()?",
+                text: "No âmbito da instanciação de objetos, discuta as restrições sintáticas e arquiteturais aplicáveis à invocação de construtores encadeados através das palavras reservadas this() e super().",
                 options: [
-                    "A) Têm de ser obrigatoriamente a primeira instrução dentro do construtor e nunca podem ser usadas simultaneamente no mesmo construtor.",
-                    "B) Podem ser chamadas em qualquer linha de código dentro do bloco try-catch do construtor.",
-                    "C) O this() serve para invocar métodos estáticos da própria classe e o super() os métodos estáticos da superclasse."
+                    "A) Ambas as invocações têm de ser obrigatoriamente a primeira instrução no corpo do construtor, sendo impossível utilizá-las em simultâneo.",
+                    "B) O super() deve ser a primeira instrução, mas o this() pode ser chamado em qualquer linha para reatribuir o estado.",
+                    "C) Servem apenas para invocar os métodos estáticos da própria classe e da superclasse, respetivamente."
                 ],
                 correctIndex: 0
             },
             {
                 category: "3. Variáveis e Métodos static",
-                text: "Porque é que a utilização da palavra reservada 'this' resulta num erro de compilação quando colocada dentro de um método declarado como 'static'?",
+                text: "Distinga o contexto de execução de variáveis de instância e de classe. Esclareça os motivos pelos quais a palavra reservada 'this' gera um erro de compilação num método declarado como 'static'.",
                 options: [
-                    "A) Porque métodos static pertencem à classe e podem ser executados sem existir qualquer objeto na memória, não havendo assim uma 'instância atual' para o this apontar.",
-                    "B) Porque os métodos static apenas aceitam parâmetros primitivos e o this é uma referência de objeto.",
-                    "C) Porque o this está exclusivamente reservado para o método equals() e para os construtores."
+                    "A) O erro ocorre porque um método estático é alocado na Heap e não pode interagir com os atributos da Stack onde reside o this.",
+                    "B) Porque os métodos static pertencem ao escopo da classe (podem correr sem objetos). Logo, não existe uma 'instância atual' para a qual o this possa apontar.",
+                    "C) Porque o uso do this requer obrigatoriamente a presença do modificador final nos argumentos do método estático."
                 ],
-                correctIndex: 0
+                correctIndex: 1
             },
             {
                 category: "4. Modificador final",
-                text: "O que acontece na memória quando declaramos uma variável de referência (ex: um Array) como 'final' (ex: final int[] notas = new int[5];)?",
+                text: "Explique o impacto do modificador 'final'. Distinga o seu comportamento quando aplicado a um tipo primitivo versus quando aplicado a uma referência de objeto (ex: um Array).",
                 options: [
-                    "A) O array torna-se completamente imutável. Não podemos alterar os valores guardados nas suas posições.",
-                    "B) O array é apagado imediatamente pelo Garbage Collector assim que o método termina a sua execução.",
-                    "C) O endereço de memória fica inalterável (não podemos fazer 'notas = new int[10]'), mas o estado interno do array PODE ser alterado livremente (ex: notas[0] = 99)."
+                    "A) Em referências de objetos, o 'final' congela todo o conteúdo na Heap, tornando o array ou objeto totalmente imutável de forma recursiva.",
+                    "B) Em primitivos torna o valor imutável. Em objetos, destrói a referência assim que o escopo de execução termina, invocando o GC.",
+                    "C) Em objetos, impede a reatribuição da variável para outro endereço de memória, mas o estado interno do objeto na Heap continua mutável."
                 ],
                 correctIndex: 2
             },
             {
                 category: "5. Abstratas vs Interfaces",
-                text: "Relativamente às restrições do Java para Classes Abstratas e Interfaces, qual das seguintes afirmações é verdadeira?",
+                text: "Explique detalhadamente as restrições estruturais impostas pela linguagem Java a Classes Abstratas comparativamente a Interfaces.",
                 options: [
-                    "A) Uma classe pode herdar de várias classes abstratas (herança múltipla), mas apenas implementar uma interface.",
-                    "B) Uma Interface não pode declarar variáveis de instância (estado) para os objetos, enquanto uma classe Abstrata pode.",
-                    "C) Nenhuma das duas estruturas permite ter métodos com código (implementados), mesmo nas versões mais recentes do Java."
-                ],
-                correctIndex: 1
-            },
-            {
-                category: "6. Polimorfismo (Overload vs Override)",
-                text: "Qual é a principal distinção no momento de decisão da JVM entre Overloading (Sobrecarga) e Overriding (Sobreposição)?",
-                options: [
-                    "A) O Overloading resolve-se estaticamente em tempo de compilação; o Overriding resolve-se dinamicamente em tempo de execução, dependendo do objeto real instanciado na Heap.",
-                    "B) O Overloading exige a utilização da anotação @Override, enquanto o Overriding não necessita de nenhuma anotação explícita.",
-                    "C) O Overloading permite alterar o nome do método na subclasse para o adaptar, enquanto o Overriding obriga a manter o mesmo nome mas com parâmetros diferentes."
+                    "A) O Java apenas permite que uma classe herde de uma única Classe Abstrata, mas permite que implemente múltiplas Interfaces simultaneamente.",
+                    "B) Uma Interface pode declarar variáveis de instância (estado mutável), enquanto a Classe Abstrata apenas permite métodos abstratos.",
+                    "C) A Classe Abstrata não possui construtores, ao passo que as Interfaces exigem a declaração de um construtor default público."
                 ],
                 correctIndex: 0
             },
             {
-                category: "7. Upcasting e Downcasting",
-                text: "Durante a execução de um programa, ao forçarmos o Downcasting explícito de uma variável do tipo genérico Veiculo para um tipo específico Camiao (Camiao c = (Camiao) v):",
+                category: "6. Polimorfismo (Overload vs Override)",
+                text: "Distinga o Polimorfismo de Sobrecarga (Overloading) do Polimorfismo de Sobreposição (Overriding), abordando a fase em que a JVM efetua a vinculação (binding).",
                 options: [
-                    "A) O objeto na memória é imediatamente clonado e convertido de forma segura para Camião.",
-                    "B) O compilador Java garante matematicamente que o objeto é um Camião, não havendo qualquer perigo de crash.",
-                    "C) Corremos o sério risco de sofrer uma ClassCastException, sendo vital proteger a conversão com a instrução 'if (v instanceof Camiao)'."
+                    "A) O Overloading requer herança e anotação @Override. O Overriding ocorre na mesma classe com parâmetros distintos.",
+                    "B) O Overloading resolve-se estaticamente em tempo de compilação. O Overriding resolve-se dinamicamente em runtime, avaliando a instância real na Heap.",
+                    "C) Ambos os mecanismos são resolvidos em runtime, no entanto, apenas o Overloading permite alterar a visibilidade (ex: protected para public)."
+                ],
+                correctIndex: 1
+            },
+            {
+                category: "7. Upcasting e Downcasting",
+                text: "Aborde o conceito de conversão de tipos (casting). Discuta os riscos associados ao Downcasting explícito e justifique a utilização do operador instanceof.",
+                options: [
+                    "A) O Downcasting cria um novo objeto na memória com as propriedades da subclasse, consumindo demasiados recursos do sistema.",
+                    "B) O compilador valida o Downcasting, tornando impossível o lançamento de erros em runtime sem aviso prévio.",
+                    "C) O Downcasting pode gerar uma ClassCastException em runtime caso a instância real na memória não corresponda à subclasse esperada. O instanceof atua como guarda de segurança."
                 ],
                 correctIndex: 2
             },
             {
                 category: "8. Identidade vs Igualdade",
-                text: "Se criarmos uma nova classe AidBox e NÃO redefinirmos (override) o método equals() herdado da classe base Object, o que acontecerá quando compararmos duas caixas diferentes?",
+                text: "Distinga a identidade física (operador ==) da igualdade lógica (método equals()). Qual a consequência direta de omitir a redefinição do método equals() de Object?",
                 options: [
-                    "A) O compilador Java emitirá um erro fatal impedindo a compilação do programa.",
-                    "B) O equals() comportar-se-á exatamente como o operador '==', avaliando as caixas como iguais APENAS se ambas partilharem exatamente o mesmo endereço de memória.",
-                    "C) O método equals() comparará automaticamente, por reflexão, o valor de todos os atributos que declarámos na caixa."
+                    "A) O compilador injetará um equals() por defeito que compara reflexivamente todos os atributos da classe, gerando problemas de performance.",
+                    "B) O método herdado comportar-se-á como a identidade (==), considerando objetos como iguais APENAS se partilharem a mesma referência de memória.",
+                    "C) O objeto ficará imune a comparações lógicas, gerando uma UnsupportedOperationException sempre que invocado em coleções."
                 ],
                 correctIndex: 1
             },
             {
                 category: "9. Exceções e bloco finally",
-                text: "Qual a diferença fulcral entre Checked Exceptions e Unchecked Exceptions, e qual o comportamento do bloco finally?",
+                text: "Distinga Checked Exceptions de Unchecked Exceptions. Descreva o papel fulcral do bloco finally no desenho de aplicações Java robustas.",
                 options: [
-                    "A) Checked Exceptions (ex: RouteException) obrigam explicitamente o programador a usar try-catch ou throws. O bloco finally executa SEMPRE, quer ocorra erro ou não.",
-                    "B) Unchecked Exceptions (ex: NullPointerException) são as únicas que o compilador obriga a tratar. O bloco finally só executa se o catch falhar em apanhar o erro.",
-                    "C) Checked Exceptions apenas existem para I/O. O finally é usado para forçar um crash controlado na JVM caso o erro seja irrecuperável."
+                    "A) Checked Exceptions (ex: RouteException) exigem tratamento obrigatório (try-catch/throws) pelo compilador. O finally garante execução absoluta de código de limpeza, independentemente de erros.",
+                    "B) Unchecked Exceptions são as únicas que podem originar falhas catastróficas. O bloco finally executa apenas se nenhuma exceção for lançada no try.",
+                    "C) O bloco finally só pode ser acoplado a Checked Exceptions e previne que o Garbage Collector limpe os objetos acidentalmente."
                 ],
                 correctIndex: 0
             },
             {
                 category: "10. Tipos Enumerados (Enum)",
-                text: "Sobre as capacidades estruturais de um Tipo Enumerado (Enum) em Java, é correto afirmar que:",
+                text: "Avalie as características estruturais de um Tipo Enumerado (Enum) em Java, detalhando as regras aplicáveis aos seus construtores e herança.",
                 options: [
-                    "A) Não podem conter atributos, construtores nem métodos. Servem exclusivamente para criar listas de texto imutáveis.",
-                    "B) Podem ter atributos, métodos e construtores. Contudo, o seu construtor tem de ser sempre estritamente privado, impedindo a criação manual com 'new' fora da própria enumeração.",
-                    "C) Podem estender (extends) outras classes e enumerados para partilhar constantes genéricas com o resto do projeto."
+                    "A) Podem possuir atributos e métodos mutáveis, contudo, o seu construtor é estritamente privado para impedir instanciação externa indiscriminada.",
+                    "B) Não aceitam a declaração de atributos internos e a sua principal limitação é não permitirem o uso do switch-case.",
+                    "C) Podem estender qualquer outra classe concreta para reutilizar comportamento, dado que internamente atuam como interfaces marker."
                 ],
-                correctIndex: 1
+                correctIndex: 0
             },
             {
                 category: "11. Passagem de Argumentos",
-                text: "Como funciona o mecanismo de passagem de argumentos (pass-by-value) em Java quando passamos a referência de um objeto (ex: Contentor c) para um método?",
+                text: "Descreva detalhadamente a mecânica de passagem de argumentos (pass-by-value) na linguagem Java aquando da passagem de referências de objetos para métodos mutadores.",
                 options: [
-                    "A) O objeto é clonado na Heap e o método recebe a cópia exata do objeto.",
-                    "B) A referência da memória é passada por valor. Alterar os atributos internos do objeto (ex: c.setCapacity(50)) afeta o objeto real original na Heap.",
-                    "C) A referência é passada por referência. Fazer 'c = new Contentor()' dentro do método substitui o objeto na variável original fora do método."
+                    "A) A JVM cria uma shallow copy do objeto na Stack, protegendo o objeto original de alterações.",
+                    "B) O valor do ponteiro de memória é passado. Invocação de métodos (setters) altera a instância original na Heap, mas a reatribuição da variável apenas altera a cópia local.",
+                    "C) A referência é passada estritamente por referência (pass-by-reference), o que significa que o operador 'new' dentro do método sobrepõe o objeto externo."
                 ],
                 correctIndex: 1
             },
             {
                 category: "12. Composição vs Herança",
-                text: "No contexto do design arquitetural, qual a diferença entre usar Herança ('É-Um') e usar Composição ('Tem-Um')?",
+                text: "Distinga os paradigmas de Composição ('Tem-Um') e Herança ('É-Um'). Sob que premissas arquiteturais o uso da Herança é fortemente desencorajado?",
                 options: [
-                    "A) A Herança cria forte acoplamento e está limitada a uma superclasse. A Composição oferece maior flexibilidade ao guardar instâncias de outras classes como atributos.",
-                    "B) A Herança consome menos memória na Heap do que a Composição, sendo obrigatória por lei na POO.",
-                    "C) A Composição é usada exclusivamente quando queremos partilhar métodos estáticos, enquanto a Herança partilha métodos abstratos."
+                    "A) A Herança induz acoplamento forte e consome o único 'slot' de extends do Java. A Composição deve ser privilegiada para maior flexibilidade em tempo de execução.",
+                    "B) A Composição reduz a velocidade de execução devido à alocação dispersa na Heap, devendo a Herança ser o método default.",
+                    "C) A Herança deve ser evitada sempre que existam métodos estáticos no sistema, pois estes não suportam a sobreposição (overriding)."
                 ],
                 correctIndex: 0
             },
             {
                 category: "13. Métodos default e o Diamante",
-                text: "A partir do Java 8, as interfaces passaram a suportar métodos com implementação ('default'). O que acontece se uma classe implementar duas interfaces que tenham um método default com o mesmo nome e assinatura (Problema do Diamante)?",
+                text: "Explique a introdução de métodos 'default' nas Interfaces no Java 8. Descreva o comportamento da JVM perante o problema do Diamante (assinaturas conflituosas).",
                 options: [
-                    "A) O compilador Java escolhe automaticamente a implementação da primeira interface declarada.",
-                    "B) O programa compila, mas atira uma RuntimeException quando o método é chamado.",
-                    "C) O compilador gera um erro e obriga o programador a fazer o @Override do método na classe para resolver o conflito explicitamente."
+                    "A) O problema do Diamante é ignorado pelo Java, executando o primeiro método encontrado no Classloader.",
+                    "B) O compilador exige a utilização de blocos try-catch para capturar AmbiguousMethodException em runtime.",
+                    "C) O compilador recusa compilar a classe até que o programador efetue o @Override explícito do método em conflito, forçando a resolução determinística."
                 ],
                 correctIndex: 2
             },
             {
                 category: "14. String vs StringBuilder",
-                text: "Devido à imutabilidade da classe String, usar o operador '+' dentro de um ciclo gigante para concatenar texto é considerado uma má prática. Qual a solução recomendada?",
+                text: "Avalie criticamente o conceito de imutabilidade associado à classe String. Justifique a obrigatoriedade do uso de StringBuilder em cenários de forte iteração.",
                 options: [
-                    "A) Usar a classe StringBuilder, que mantém um buffer mutável, alterando a cadeia de texto no mesmo espaço de memória sem criar lixo.",
-                    "B) Chamar o Garbage Collector (System.gc()) a cada iteração do ciclo para limpar as Strings abandonadas.",
-                    "C) Usar Arrays de chars primitivos declarados como finais."
+                    "A) O uso de Strings concatenadas em ciclos gera excessivos objetos descartáveis (lixo) na Heap. O StringBuilder atua sobre um buffer mutável sem alocar novos objetos.",
+                    "B) O StringBuilder possui integração direta com o String Pool nativo da Heap, contornando a cache do Garbage Collector.",
+                    "C) A classe String obriga a operações I/O pesadas para gravação em memória, enquanto o StringBuilder apenas usa os registos do processador."
                 ],
                 correctIndex: 0
             },
             {
                 category: "15. Memória: GC e NullPointer",
-                text: "O Garbage Collector é responsável por libertar memória na Heap. Qual o critério principal usado para decidir se um objeto pode ser eliminado, e o que causa uma NullPointerException?",
+                text: "Discuta o processo de identificação de objetos inalcançáveis efetuado pelo Garbage Collector. Identifique a causa canónica de uma NullPointerException.",
                 options: [
-                    "A) Um objeto é eliminado quando o seu tamanho excede 10MB. O NPE ocorre se criarmos muitos objetos.",
-                    "B) Um objeto é eliminado se já não existir nenhuma referência (inalcançável) a apontar para ele. O NPE ocorre se tentarmos invocar um método numa referência nula.",
-                    "C) Um objeto é eliminado imediatamente após sair do bloco if. O NPE ocorre porque o Garbage Collector é demasiado lento."
+                    "A) Um objeto é recolhido pelo GC se os seus atributos internos excederem a Heap. O NPE ocorre se criarmos matrizes bidimensionais não inicializadas.",
+                    "B) O GC elimina objetos sem referências ativas. O NPE ocorre quando acedemos a atributos ou invocamos métodos sobre uma referência vazia (null).",
+                    "C) O NPE decorre de atrasos no Garbage Collector (Memory Leaks temporários) que impedem a libertação da Stack a tempo."
                 ],
                 correctIndex: 1
             },
             {
                 category: "16. Serialização e transient",
-                text: "No mecanismo de Serialização (guardar objetos em ficheiros ou rede), qual é o efeito prático de declarar um atributo de instância com a palavra reservada 'transient' (ex: private transient String password;)?",
+                text: "Explique a finalidade do mecanismo de Serialização e elucide o comportamento do processo face ao modificador de campo 'transient'.",
                 options: [
-                    "A) O atributo ganha prioridade e é o primeiro a ser guardado no ficheiro binário.",
-                    "B) O compilador impede que o ficheiro seja lido por programas externos.",
-                    "C) O atributo é ignorado pelo mecanismo de serialização, não sendo guardado no ficheiro (perde o valor ao reconstruir o objeto)."
+                    "A) A serialização transcreve métodos em bytecode para a rede. O 'transient' assinala métodos que não podem ser sobrescritos.",
+                    "B) A serialização converte o estado (Heap) para fluxo de bytes. O modificador 'transient' exclui intencionalmente a variável desse fluxo por razões de segurança ou inutilidade.",
+                    "C) O 'transient' alerta a JVM que o objeto em causa deve ser guardado exclusivamente em bases de dados SQL estáticas."
                 ],
-                correctIndex: 2
+                correctIndex: 1
             },
             {
                 category: "17. I/O: Byte vs Character Streams",
-                text: "A biblioteca java.io divide-se essencialmente em Byte Streams e Character Streams (Readers/Writers). Qual a distinção técnica principal entre eles?",
+                text: "Distinga o processamento orientado a Byte Streams do processamento orientado a Character Streams na biblioteca java.io, especificando a dimensão do fluxo.",
                 options: [
-                    "A) Byte Streams processam os dados em blocos de 8 bits (ideal para binários/imagens). Character Streams processam caracteres a 16 bits (Unicode), ideal para ficheiros de texto.",
-                    "B) Byte Streams só podem ser usados para ler, Character Streams só podem ser usados para escrever.",
-                    "C) Byte Streams são mais rápidos mas perdem dados; Character Streams são lentos mas 100% fiáveis."
+                    "A) Byte Streams (8-bit) manipulam dados binários crús. Character Streams (16-bit Unicode) gerem ficheiros textuais, garantindo o correto tratamento de codificações internacionais.",
+                    "B) Byte Streams (32-bit) são exclusivos para ficheiros compactados (.zip), ao passo que os Character Streams atuam sobre qualquer ficheiro binário pesado.",
+                    "C) Ambas as bibliotecas atuam a 8-bit, divergindo apenas na presença ou ausência de métodos assíncronos de buffer."
                 ],
                 correctIndex: 0
             },
             {
                 category: "18. Pacotes (Packages) e Visibilidade",
-                text: "Se declararmos uma classe ou um método sem nenhum modificador de acesso explícito (ou seja, omitimos o public, private e protected), qual o nível de visibilidade atribuído por defeito?",
+                text: "Avalie o impacto arquitetural do modificador de visibilidade por defeito (Package-Private) no contexto de organização modular em Java.",
                 options: [
-                    "A) Fica visível para qualquer classe, desde que use a importação (import) correta.",
-                    "B) Ganha visibilidade 'Package-Private' (default), ou seja, só pode ser acedido pelas classes que residam exatamente no mesmo pacote hierárquico.",
-                    "C) Fica estritamente visível apenas para a própria classe onde foi declarado, idêntico a private."
+                    "A) Torna os membros invisíveis para qualquer classe no sistema, simulando uma classe anónima abstrata.",
+                    "B) Exige que qualquer classe consumidora faça obrigatoriamente a declaração 'import' do membro, independentemente da localização.",
+                    "C) Oculta os membros do exterior da API, limitando o acesso estritamente às classes declaradas dentro do mesmo pacote, garantindo coesão modular."
+                ],
+                correctIndex: 2
+            },
+            {
+                category: "19. Contrato equals() e hashCode()",
+                text: "No contexto da especificação do protocolo da classe Object, qual é o contrato fundamental que deve ser respeitado ao redefinir o método equals() e o método hashCode()?",
+                options: [
+                    "A) Se dois objetos forem considerados iguais pelo método equals(), as suas invocações do método hashCode() têm obrigatoriamente de devolver o mesmo número inteiro.",
+                    "B) Se dois objetos produzirem o mesmo número inteiro no hashCode(), o método equals() tem de devolver obrigatoriamente true.",
+                    "C) O método hashCode() serve para encriptar a memória da Heap, sendo independente do resultado retornado pelo equals()."
+                ],
+                correctIndex: 0
+            },
+            {
+                category: "20. Exceções Personalizadas",
+                text: "Na implementação de um modelo de domínio robusto, qual é a hierarquia de classes correta que uma nova exceção personalizada deve estender para ser classificada obrigatoriamente como uma Checked Exception?",
+                options: [
+                    "A) Deve estender diretamente a classe java.lang.RuntimeException para garantir verificação estática pelo compilador.",
+                    "B) Deve estender a classe java.lang.Exception (ou subclasses que não herdem de RuntimeException), forçando a obrigatoriedade de captura ou declaração throws.",
+                    "C) Deve estender a classe java.lang.Error, sinalizando ao sistema um erro de ambiente irrecuperável."
                 ],
                 correctIndex: 1
             }
@@ -576,20 +596,20 @@
             screens.quiz.style.display = 'none';
             screens.result.style.display = 'block';
             
-            document.getElementById('score-display').textContent = score + '/18';
+            document.getElementById('score-display').textContent = score + '/20';
             
             const msg = document.getElementById('result-msg');
             const sub = document.getElementById('result-sub');
             
-            if (score === 18) {
+            if (score === 20) {
                 msg.textContent = "🏆 20 Valores Perfeitos!";
                 sub.textContent = "Mestre da POO. A teoria não tem segredos para si. Está 100% pronto para ir escrever código!";
                 document.getElementById('score-display').style.borderColor = "#10b981";
                 document.getElementById('score-display').style.color = "#10b981";
-            } else if (score >= 14) {
+            } else if (score >= 16) {
                 msg.textContent = "🔥 Excelente Trabalho!";
                 sub.textContent = "Cometeu uns pequenos deslizes, mas o núcleo duro está lá. Revise os que errou e avance para a prática.";
-            } else if (score >= 9) {
+            } else if (score >= 10) {
                 msg.textContent = "👍 Aprovado, mas com avisos!";
                 sub.textContent = "Passou na teoria, mas cuidado, algumas rasteiras apanharam-no. Leia a Cheatsheet antes de praticar.";
                 document.getElementById('score-display').style.borderColor = "#fdcb6e";
