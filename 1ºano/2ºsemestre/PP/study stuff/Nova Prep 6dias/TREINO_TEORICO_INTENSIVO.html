@@ -324,25 +324,13 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
     </ul>
 </div></details>
 
-<div class="exam-q">
-    <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 4)</span><br><strong>10. Métodos default em Interfaces e Conflito do Diamante</strong><br>Compare o conceito de Interfaces Marcadoras com a utilização de Métodos default (introduzidos no Java 8) em interfaces. Explique como os métodos default permitem evoluir contratos existentes, e descreva a regra de resolução da JVM para o conflito do problema do diamante.</span>
-        <span class="prob med">🟡 45% Prob.</span>
-    </div>
-</div>
-<details><summary></summary><div class="content">
-    <ul>
-        <li><strong>Interfaces Marcadoras:</strong> Interfaces completamente vazias, sem métodos (ex: <code>Serializable</code>). Servem apenas para rotular ("marcar") a classe perante a JVM.</li>
-        <li><strong>Métodos default:</strong> Métodos em interfaces que têm um corpo de código (comportamento padrão). Servem para adicionar novos métodos a interfaces antigas sem quebrar o código de quem já as implementava.</li>
-        <li><strong>Problema do Diamante:</strong> Ocorre se uma classe implementar duas interfaces diferentes que possuam um método <code>default</code> com exatamente o mesmo nome. O Java obriga o programador a fazer o <code>@Override</code> desse método na classe, forçando a resolução explícita do conflito (ex: <code>InterfaceA.super.metodo();</code>).</li>
-    </ul>
-</div></details>
+
 
 <h2>Módulo 3: Object, Exceções, Enums e I/O</h2>
 
 <div class="exam-q">
     <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 4 - Saída Confirmada)</span><br><strong>11. Identidade (==) vs Igualdade (equals)</strong><br>Distinga os conceitos de identidade física e igualdade lógica de objetos em Java, contrapondo o uso do operador relacional <code>==</code> com a invocação do método <code>equals()</code>. Justifique as consequências caso uma classe negligencie a redefinição obrigatória do método <code>equals()</code> herdado de <code>Object</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 4 - Saída Confirmada)</span><br><strong>10. Identidade (==) vs Igualdade (equals)</strong><br>Distinga os conceitos de identidade física e igualdade lógica de objetos em Java, contrapondo o uso do operador relacional <code>==</code> com a invocação do método <code>equals()</code>. Justifique as consequências caso uma classe negligencie a redefinição obrigatória do método <code>equals()</code> herdado de <code>Object</code>.</span>
         <span class="prob vhigh">🔥 99% Prob.</span>
     </div>
 </div>
@@ -356,7 +344,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P1 - Alta Probabilidade)</span><br><strong>12. Gestão de Exceções: Checked vs Unchecked e finally</strong><br>Explique o paradigma de gestão de erros em Java através de exceções. Distinga categoricamente entre exceções verificadas (Checked Exceptions) e não verificadas (Unchecked Exceptions). Descreva a arquitetura de cada componente do bloco <code>try-catch-finally</code>, salientando o papel fulcral do <code>finally</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P1 - Alta Probabilidade)</span><br><strong>11. Gestão de Exceções: Checked vs Unchecked e finally</strong><br>Explique o paradigma de gestão de erros em Java através de exceções. Distinga categoricamente entre exceções verificadas (Checked Exceptions) e não verificadas (Unchecked Exceptions). Descreva a arquitetura de cada componente do bloco <code>try-catch-finally</code>, salientando o papel fulcral do <code>finally</code>.</span>
         <span class="prob vhigh">🔥 95% Prob.</span>
     </div>
 </div>
@@ -370,7 +358,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Modelo 3 (Pergunta Teórica 3) & Época de Recurso</span><br><strong>13. Tipos Enumerados (Enum)</strong><br>Esclareça o conceito de tipos enumerados (enum) em Java e a sua superioridade perante a declaração tradicional de constantes estáticas. Explique a possibilidade de declaração de atributos, construtores e métodos internos a um enum, demonstrando as regras relativas ao modificador de acesso aplicável ao seu construtor.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 3 (Pergunta Teórica 3) & Época de Recurso</span><br><strong>12. Tipos Enumerados (Enum)</strong><br>Esclareça o conceito de tipos enumerados (enum) em Java e a sua superioridade perante a declaração tradicional de constantes estáticas. Explique a possibilidade de declaração de atributos, construtores e métodos internos a um enum, demonstrando as regras relativas ao modificador de acesso aplicável ao seu construtor.</span>
         <span class="prob high">⚡ 85% Prob.</span>
     </div>
 </div>
@@ -393,7 +381,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 2)</span><br><strong>14. Classes Wrapper e a Armadilha da Cache</strong><br>Apresente o conceito de classes Wrapper de envolvimento e o mecanismo de Autoboxing e Unboxing na linguagem Java. Discuta exaustivamente os riscos associados à utilização do operador de identidade <code>==</code> na comparação de instâncias da classe <code>Integer</code>, referenciando explicitamente o mecanismo interno de cache da JVM e os seus limites operacionais.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 2)</span><br><strong>13. Classes Wrapper e a Armadilha da Cache</strong><br>Apresente o conceito de classes Wrapper de envolvimento e o mecanismo de Autoboxing e Unboxing na linguagem Java. Discuta exaustivamente os riscos associados à utilização do operador de identidade <code>==</code> na comparação de instâncias da classe <code>Integer</code>, referenciando explicitamente o mecanismo interno de cache da JVM e os seus limites operacionais.</span>
         <span class="prob high">⚡ 75% Prob.</span>
     </div>
 </div>
@@ -406,22 +394,11 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
     </ul>
 </div></details>
 
-<div class="exam-q">
-    <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 2)</span><br><strong>15. Imutabilidade da String e o uso de StringBuilder</strong><br>Avalie criticamente o conceito de imutabilidade associado à classe <code>String</code> em Java e descreva o funcionamento do mecanismo de <code>String Pool</code> alocado na Heap. Compare esta abordagem arquitetural com a utilização da classe <code>StringBuilder</code>, justificando a preferência por esta última em cenários de processamento iterativo intensivo de cadeias de caracteres.</span>
-        <span class="prob med">🟡 60% Prob.</span>
-    </div>
-</div>
-<details><summary></summary><div class="content">
-    <ul>
-        <li><strong>String e Pool:</strong> A classe String é 100% imutável. Alterar o seu valor através de concatenação (<code>+</code>) aloca sempre um novo objeto na memória, abandonando o anterior, num ciclo vicioso de criação de lixo e desperdício de processamento. Valores literais partilham a memória num "String Pool".</li>
-        <li><strong>StringBuilder:</strong> Mantém um buffer de caracteres <strong>mutável</strong>. Métodos como <code>.append()</code> alteram a string no mesmo espaço de memória, sendo absurdamente mais eficiente em laços (<code>for/while</code>) massivos do que as Strings tradicionais.</li>
-    </ul>
-</div></details>
+
 
 <div class="exam-q">
     <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 3)</span><br><strong>16. Serialização: transient e serialVersionUID</strong><br>Explique o mecanismo de Serialização de objetos em Java e a sua finalidade no desenvolvimento de software. Indique como se assinala que uma classe é elegível para serialização e descreva detalhadamente a utilidade e o comportamento do modificador <code>transient</code> e do identificador <code>serialVersionUID</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 3)</span><br><strong>14. Serialização: transient e serialVersionUID</strong><br>Explique o mecanismo de Serialização de objetos em Java e a sua finalidade no desenvolvimento de software. Indique como se assinala que uma classe é elegível para serialização e descreva detalhadamente a utilidade e o comportamento do modificador <code>transient</code> e do identificador <code>serialVersionUID</code>.</span>
         <span class="prob high">⚡ 75% Prob.</span>
     </div>
 </div>
@@ -433,35 +410,11 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
     </ul>
 </div></details>
 
-<div class="exam-q">
-    <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 4)</span><br><strong>17. I/O: Byte Streams vs Character Streams</strong><br>A biblioteca de Input/Output (I/O) do Java divide-se principalmente em classes orientadas a bytes (Streams) e classes orientadas a caracteres (Readers/Writers). Explique a diferença fundamental entre estas duas famílias de classes, indicando a dimensão dos dados processados e cenários práticos adequados.</span>
-        <span class="prob med">🟡 50% Prob.</span>
-    </div>
-</div>
-<details><summary></summary><div class="content">
-    <ul>
-        <li><strong>Byte Streams (Classes Stream):</strong> Processam dados bit-a-bit à dimensão de <strong>8 bits</strong>. Útil para manipulação de dados em bruto/binários, tais como imagens, vídeos, ou ficheiros executáveis. (Ex: <code>FileInputStream</code>).</li>
-        <li><strong>Character Streams (Readers/Writers):</strong> Processam texto à dimensão de <strong>16 bits (Unicode)</strong>. Tratam a conversão de conjuntos de caracteres internacionais, sendo ideais para leitura de ficheiros texto, JSON, XML e relatórios (Ex: <code>FileReader</code>, <code>BufferedReader</code>).</li>
-    </ul>
-</div></details>
+
 
 <div class="exam-q">
     <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 3)</span><br><strong>18. Pacotes (Packages) e Modificador Default</strong><br>Explique o conceito de organização modular por pacotes (package) em Java. Descreva o comportamento do modificador de acesso por defeito (package-private / ausência de modificador explícito) relativamente a variáveis e métodos. Justifique em que situações este nível de encapsulamento é vantajoso no desenho arquitetural.</span>
-        <span class="prob med">🟡 40% Prob.</span>
-    </div>
-</div>
-<details><summary></summary><div class="content">
-    <ul>
-        <li><strong>Pacotes:</strong> São como sub-pastas hierárquicas que evitam colisões de nomes (podem existir duas classes <code>Relatorio</code> desde que em pacotes distintos) e agrupam ficheiros logicamente afins.</li>
-        <li><strong>Modificador por defeito (Package-Private):</strong> Quando não se escreve nem <code>public</code>, nem <code>private</code>, nem <code>protected</code>. O método ou variável só pode ser acedido por classes que estejam exatamente no <strong>mesmo pacote</strong>. Ideal para expor métodos auxiliares aos vizinhos do módulo interno, ocultando-os de todo o código fora do pacote, não poluindo a API pública.</li>
-    </ul>
-</div></details>
-
-<div class="exam-q">
-    <div class="q-title">
-        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 2 - Saída Confirmada)</span><br><strong>19. Passagem de Argumentos: Primitivos vs Referências de Objetos</strong><br>Descreva detalhadamente o modo como Java realiza a passagem de argumentos para os métodos, distinguindo o comportamento aplicado a tipos primitivos do comportamento aplicado a referências de objetos. Esclareça os equívocos frequentes associados a este mecanismo.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 2 - Saída Confirmada)</span><br><strong>15. Passagem de Argumentos: Primitivos vs Referências de Objetos</strong><br>Descreva detalhadamente o modo como Java realiza a passagem de argumentos para os métodos, distinguindo o comportamento aplicado a tipos primitivos do comportamento aplicado a referências de objetos. Esclareça os equívocos frequentes associados a este mecanismo.</span>
         <span class="prob vhigh">🔥 95% Prob.</span>
     </div>
 </div>
@@ -473,9 +426,49 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
     </ul>
 </div></details>
 
+<div class="exam-q">
+    <div class="q-title">
+        <span><span class="source-tag">📌 Origem: Exame Modelo 3 (Pergunta Teórica 1)</span><br><strong>16. Arrays de Objetos em Java: Instanciação e Redimensionamento</strong><br>Explique o conceito de arrays de objetos em Java, distinguindo entre a criação do array e a criação dos objetos que o compõem. Descreva os cuidados necessários ao manipular arrays de objetos (verificação de posições nulas) e explique como se efetua o redimensionamento manual de um array nativo.</span>
+        <span class="prob high">⚡ 80% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Instanciação do Array vs Elementos:</strong> Executar <code>new Container[5]</code> apenas aloca na Heap o array com 5 posições contendo <code>null</code>. Cada posição precisa de ser explicitamente instanciada com <code>new ContainerImpl(...)</code> para evitar <code>NullPointerException</code>.</li>
+        <li><strong>Tamanho Fixo & Redimensionamento:</strong> Arrays nativos em Java têm tamanho imutável após criados. Para redimensionar, é necessário alocar um novo array com maior capacidade e copiar manualmente os elementos através de um laço <code>for</code> ou de <code>System.arraycopy()</code>.</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code>Container[] arr = <span class="kw">new</span> Container[<span class="num">5</span>]; <span class="cm">// Posições preenchidas com null!</span>
+arr[<span class="num">0</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C01"</span>, ItemType.CLOTHING, <span class="num">50.0</span>); <span class="cm">// Instanciar elemento</span>
+
+<span class="cm">// Redimensionamento manual:</span>
+Container[] temp = <span class="kw">new</span> Container[arr.length * <span class="num">2</span>];
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < arr.length; i++) temp[i] = arr[i];
+arr = temp;</code></pre>
+</div></details>
+
+<div class="exam-q">
+    <div class="q-title">
+        <span><span class="source-tag">📌 Origem: Exame Modelo 3 (Pergunta Teórica 2)</span><br><strong>17. Verificação de Tipos em Runtime: `instanceof` vs `getClass()`</strong><br>Compare detalhadamente a utilização do operador <code>instanceof</code> com a invocação do método <code>getClass()</code> para verificação de tipos em Java. Discuta as diferenças de comportamento na presença de herança e interfaces, e explique em que contextos cada abordagem é mais adequada.</span>
+        <span class="prob high">⚡ 75% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Operador `instanceof`:</strong> Avalia se o objeto na memória é uma instância da classe indicada <strong>ou de qualquer uma das suas subclasses ou interfaces implementadas</strong>. É polimórfico e seguro para casting.</li>
+        <li><strong>Método `getClass()`:</strong> Devolve a classe exata de tempo de execução (<code>Class&lt;?&gt;</code>). A comparação <code>obj1.getClass() == obj2.getClass()</code> exige que ambos os objetos pertençam rigorosamente à mesma classe concreta, ignorando a hierarquia de herança.</li>
+        <li><strong>Regra de Ouro:</strong> Usa-se <code>instanceof</code> quando queremos respeitar a substituição de Liskov e polimorfismo. Usa-se <code>getClass()</code> quando queremos garantir igualdade de tipo exato (ex: redefinição estrita de <code>equals()</code> sem subclasse).</li>
+    </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code>Vehicle v = <span class="kw">new</span> RefrigeratedVehicleImpl(<span class="str">"V1"</span>, ItemType.MEDICINE, <span class="num">100</span>, <span class="num">500</span>);
+
+System.out.println(v <span class="kw">instanceof</span> Vehicle); <span class="cm">// true (é subclasse/implementação!)</span>
+System.out.println(v.getClass() == Vehicle.<span class="kw">class</span>); <span class="cm">// false (classe exata é RefrigeratedVehicleImpl!)</span></code></pre>
+</div></details>
+
 <br>
 <div style="text-align: center; color: var(--text-dim); margin: 30px 0;">
-    <i>Nota do Assistente: Domine estas 19 perguntas e os 6.0 valores da Teoria estão perfeitamente assegurados na avaliação!</i>
+    <i>Nota do Assistente: Domine estas 17 perguntas de alta probabilidade (>= 70%) e a Teoria do Exame está 100% garantida!</i>
 </div>
 
 </body>
