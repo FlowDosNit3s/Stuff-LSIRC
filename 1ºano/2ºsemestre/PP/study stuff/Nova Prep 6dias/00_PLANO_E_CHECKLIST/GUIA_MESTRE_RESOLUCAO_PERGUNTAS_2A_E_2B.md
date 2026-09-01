@@ -4,7 +4,26 @@
 
 ---
 
-## 💡 A ESTRUTURA MENTALE DAS PERGUNTAS 2A E 2B
+# ⚡ DICIONÁRIO MESTRE DE DECODIFICAÇÃO DE ENUNCIADOS
+### ("Ao Ver Esta Frase no Enunciado do Professor -> Penso e Escrevo Este Código Instantaneamente")
+
+| 📝 Frase / Palavra-Chave no Enunciado | 🧠 O que Deves Pensar Imediatamente | 💻 Código Exato a Escrever |
+| :--- | :--- | :--- |
+| **"Não deve conter posições nulas" / "Array compacto"** | Nunca devolver o array original com folgas nulas. Contar elementos válidos, criar array de tamanho `count` exato e copiar. | `Tipo[] res = new Tipo[count]; for(int i=0; i<count; i++) res[i] = temp[i]; return res;` |
+| **"Caso a invocação origine uma RouteException, retornar false"** | Métodos que lançam Checked Exception DEVEM ser envolvidos em `try-catch` para que a alínea devolva `boolean`. | `try { route.addAidBox(box); return true; } catch(RouteException e) { return false; }` |
+| **"Pelo menos um contentor..." / "Se existir ocorrência..."** | Ciclo `for` que devolve `true` no primeiro encontro elegível. Se o ciclo terminar sem encontrar nada, devolve `false`. | `for(...) { if(condicao) return true; } return false;` |
+| **"Se a caixa for nula ou não possuir medições..."** | Evitar `NullPointerException` fazendo validações defensivas no topo do método. | `if (box == null \|\| box.getContainers() == null) return 0;` |
+| **"Última medição registada..."** | Obter o objeto medição e testar se é `null` antes de extrair o valor com `.getValue()`. | `Measurement last = c.getLastMeasurement(); if(last == null) return false;` |
+| **"Ocupação superior a X%"** | Percentagem = `(últimaMedição / capacidade) * 100`. | `(last.getValue() / container.getCapacity()) * 100.0 > X` |
+| **"Para cada veículo... criar uma nova rota"** | Instanciar um objeto `RouteImpl` passando o veículo no construtor dentro do ciclo de veículos. | `for(Vehicle v : vehicles) { Route r = new RouteImpl(v); ... }` |
+| **"Assuma que apenas existe um veículo para cada tipo"** | Comparar o tipo do veículo com o tipo do bem do contentor. | `if (c.getType() == vehicle.getSupplyType())` |
+| **"Lançar a exceção AidBoxFullException se exceder a capacidade"** | Se o número de elementos atingir a capacidade máxima (`count >= MAX`), fazer `throw new AidBoxFullException(...)`. | `if (this.count >= MAX) throw new AidBoxFullException("Cheia!");` |
+| **"Dois objetos são iguais se tiverem o mesmo código"** | Implementar `equals(Object obj)` testando `this == obj`, `instanceof` da interface e `this.code.equals(other.getCode())`. | `@Override public boolean equals(Object obj) { ... }` |
+| **"Se o contentor for do tipo PERISHABLE_FOOD..."** | Alimentos perecíveis têm recolha urgente assim que há 1 medição. Exige um desvio `if` dedicado. | `if (c.getType() == ItemType.PERISHABLE_FOOD) return last != null;` |
+
+---
+
+## 💡 A ESTRUTURA MENTAL DAS PERGUNTAS 2A E 2B
 
 ```
  ┌────────────────────────────────────────────────────────────────────────┐
@@ -27,205 +46,188 @@
 
 ---
 
-# 🧠 PARTE 1: RECEITA PASSO-A-PASSO PARA A PERGUNTA 2A (4,0 VALORES)
+# 🏆 PARTE 1: EXAME OFICIAL DA ÉPOCA NORMAL 2025/2026 (EXAME DESTE ANO — StrategyImpl)
 
-A Pergunta 2a exige **SEMPRE 2 métodos auxiliares**. Identifique a tipologia de cada método e aplique o modelo correspondente:
+### 📜 ENUNCIADO OFICIAL ÍPSIS VERBIS DO PROFESSOR:
 
----
-
-### 🔹 TIPOLOGIA 1: Método de Verificação Booleana (Devolve `boolean`)
-*Exemplo:* `boolean hasCollectableContainer(Vehicle vehicle, AidBox aidbox)` ou `boolean isContainerFull(Container container, double threshold)`
-
-#### 📝 Esqueleto Infalível de Código (Copiar e Adaptar):
+**Pergunta 2a (4 valores):**
+Implemente os seguintes métodos que podem ser utilizados para a geração da rota na classe `StrategyImpl`:
 ```java
-public boolean temElementoElegivel(Vehicle vehicle, AidBox aidbox) {
-    // PASSO 1: Validar nulos nas entradas (se for null, devove false)
-    if (vehicle == null || aidbox == null) {
-        return false;
-    }
-
-    // PASSO 2: Obter o array interno de elementos e validar se é null
-    Container[] containers = aidbox.getContainers();
-    if (containers == null) {
-        return false;
-    }
-
-    // PASSO 3: Ciclo for com validação de nulo em CADA elemento
-    for (int i = 0; i < containers.length; i++) {
-        Container c = containers[i];
-        if (c != null && c.getType() == vehicle.getSupplyType()) { // Comparação de enum com ==
-            Measurement last = c.getLastMeasurement();
-            // Validar se a medição existe e se cumpre a condição % (ex: > 80% da capacidade)
-            if (last != null && last.getValue() > (c.getCapacity() * 0.8)) {
-                return true; // Encontrou pelo menos um que cumpre! Retorna imediatamente true.
-            }
-        }
-    }
-
-    // PASSO 4: Se o ciclo terminar sem encontrar nenhum elegível
-    return false;
-}
+boolean hasCollectableContainer(Vehicle vehicle, AidBox aidbox);
 ```
+- Este método deve devolver `true` caso exista a ocorrência de, pelo menos, um container cujo tipo seja igual ao do veículo e se a sua última medição registada tiver um valor superior a 80% da sua capacidade.
 
----
-
-### 🔹 TIPOLOGIA 2: Método de Ação / Validação com Exceção (Devolve `boolean` ou `void`)
-*Exemplo:* `boolean addAidBoxToRoute(Route route, AidBox aidbox, RouteValidator validator)`
-
-#### 📝 Esqueleto Infalível de Código (Copiar e Adaptar):
 ```java
-public boolean adicionarComValidacao(Route route, AidBox aidbox, RouteValidator validator) {
-    // PASSO 1: Validar se qualquer um dos objetos recebidos é null
-    if (route == null || aidbox == null || validator == null) {
-        return false;
-    }
-
-    // PASSO 2: Invocar a validação prévia (ex: validator)
-    if (!validator.validate(route, aidbox)) {
-        return false; // Se a validação falhar, não adiciona e devolve false
-    }
-
-    // PASSO 3: Tentar adicionar dentro de um bloco try-catch para capturar a RouteException
-    try {
-        route.addAidBox(aidbox);
-        return true; // Adicionado com sucesso!
-    } catch (RouteException e) {
-        // Se o método addAidBox lançar RouteException (ex: caixa cheia ou duplicada)
-        return false; // Captura a exceção e devolve false
-    }
-}
+boolean addAidBoxToRoute(Route route, AidBox aidbox, RouteValidator validator);
 ```
+- O método deve devolver `true` caso a AidBox seja adicionada à rota.
+- Para adicionar a AidBox à rota, deve previamente efetuar uma validação com recurso ao método `validator.validate(Route route, AidBox aidbox)`:
+  - Se validado, a AidBox deve ser adicionada à rota utilizando o método `void addAidBox(AidBox aidBox)` da classe `Route`.
+  - Caso a invocação do método `addAidBox` origine uma `RouteException`, o método `addAidBoxToRoute` deve retornar `false`.
+
+**Pergunta 2b (5 valores):**
+Na classe `StrategyImpl`, implemente o método `generate`, gerando as rotas necessárias.
+Regras a considerar:
+- Para cada veículo devolvido pelo método `getVehicles()` da interface `Institution`, deve ser criada uma nova rota. Assuma que só existe um veículo para cada tipo.
+- As AidBoxes existentes são as devolvidas pelo método `getAidBoxes()` da interface `Institution`.
+- Deve utilizar os métodos desenvolvidos na alínea anterior. Se não os implementou anteriormente, assuma que os métodos já existem.
+- O array devolvido pelo método `generate` deve conter rotas com as AidBoxes (sem posições nulas ou rotas vazias).
 
 ---
 
-### 🔹 TIPOLOGIA 3: Método de Cálculo Numérico / Média (Devolve `double` ou `int`)
-*Exemplo:* `double getAverageOccupancy(AidBox aidbox)` ou `int countContainersByType(AidBox aidbox, ItemType type)`
-
-#### 📝 Esqueleto Infalível de Código (Copiar e Adaptar):
-```java
-public double calcularMediaOccupancy(AidBox aidbox) {
-    // PASSO 1: Validar nulos nas entradas
-    if (aidbox == null || aidbox.getContainers() == null) {
-        return 0.0;
-    }
-
-    Container[] containers = aidbox.getContainers();
-    double somaTotal = 0.0;
-    int contadorValidos = 0;
-
-    // PASSO 2: Percorrer os elementos
-    for (int i = 0; i < containers.length; i++) {
-        Container c = containers[i];
-        if (c != null && c.getCapacity() > 0) {
-            Measurement last = c.getLastMeasurement();
-            if (last != null) {
-                // Cálculo da percentagem individual
-                double percentagem = (last.getValue() / c.getCapacity()) * 100.0;
-                somaTotal += percentagem;
-                contadorValidos++;
-            }
-        }
-    }
-
-    // PASSO 3: Devolver salvaguardando a divisão por zero
-    if (contadorValidos == 0) return 0.0;
-    return somaTotal / contadorValidos;
-}
-```
-
----
-
-# 🧠 PARTE 2: RECEITA PASSO-A-PASSO PARA A PERGUNTA 2B (5,0 VALORES)
-
-A Pergunta 2b é a grande pergunta de algoritmia. Pede tipicamente o método `generate` na classe `StrategyImpl` ou o método `generateReport` na classe `ReportImpl`.
-
----
-
-### 🚀 ALGORITMO INFALÍVEL PARA `Route[] generate(IInstitution inst, RouteValidator validator)`
-
-Aplique estritamente estes **5 PASSOS OBRIGATÓRIOS**:
+### 💡 ANÁLISE DO PORQUÊ DA RESOLUÇÃO DO EXAME DESTE ANO:
+1. **Em `hasCollectableContainer`:**
+   - Testamos se o tipo do contentor coincide com o do veículo (`c.getType() == vehicle.getSupplyType()`).
+   - Verificamos se existe última medição (`last != null`) e se o valor é estritamente superior a 80% da capacidade (`last.getValue() > (c.getCapacity() * 0.8)`).
+2. **Em `addAidBoxToRoute`:**
+   - Invocamos `validator.validate(route, aidbox)`. Se for `false`, devolvemos `false`.
+   - Envolvemos `route.addAidBox(aidbox)` num `try-catch`. Se a chamada lançar `RouteException`, capturamos a exceção e devolvemos `false` sem crashar a aplicação.
+3. **Em `generate`:**
+   - Criamos o array temporário `tempRoutes` com capacidade `vehicles.length`.
+   - Dentro do ciclo de veículos, instanciamos `Route currentRoute = new RouteImpl(v)`.
+   - Iteramos pelas AidBoxes e chamamos `addAidBoxToRoute(currentRoute, box, validator)`.
+   - Guardamos a rota apenas se não estiver vazia (`currentRoute.getRoute().length > 0`).
+   - No final, compactamos o array `finalRoutes` com o tamanho `count` para **remover todas as posições nulas**.
 
 ```java
 public class StrategyImpl implements Strategy {
 
+    // 2a (1) - Método de Verificação Booleana (4,0v)
+    public boolean hasCollectableContainer(Vehicle vehicle, AidBox aidbox) {
+        if (vehicle == null || aidbox == null) return false;
+        Container[] containers = aidbox.getContainers();
+        if (containers == null) return false;
+
+        for (int i = 0; i < containers.length; i++) {
+            Container c = containers[i];
+            if (c != null && c.getType() == vehicle.getSupplyType()) {
+                Measurement last = c.getLastMeasurement();
+                if (last != null && last.getValue() > (c.getCapacity() * 0.8)) {
+                    return true; // Encontrou pelo menos um que cumpre a regra dos 80%!
+                }
+            }
+        }
+        return false;
+    }
+
+    // 2a (2) - Método de Ação com Exceção try-catch (4,0v)
+    public boolean addAidBoxToRoute(Route route, AidBox aidbox, RouteValidator validator) {
+        if (route == null || aidbox == null || validator == null) return false;
+        if (!validator.validate(route, aidbox)) return false;
+
+        try {
+            route.addAidBox(aidbox);
+            return true; // Adicionada com sucesso!
+        } catch (RouteException e) {
+            return false; // Captura exceção e devolve false
+        }
+    }
+
+    // 2b - Método Principal generate com Compactação (5,0v)
     @Override
     public Route[] generate(IInstitution inst, RouteValidator validator) {
-        
-        // =========================================================================
-        // PASSO 1: VALIDAÇÃO DE NULOS NAS ENTRADAS DA INSTITUIÇÃO E VALIDATOR
-        // =========================================================================
-        if (inst == null || validator == null) {
-            return new Route[0]; // NUNCA devolva null! Devolva um array de tamanho 0.
-        }
+        if (inst == null || validator == null) return new Route[0];
 
         Vehicle[] vehicles = inst.getVehicles();
         AidBox[] aidBoxes = inst.getAidBoxes();
+        if (vehicles == null || aidBoxes == null) return new Route[0];
 
-        if (vehicles == null || aidBoxes == null) {
-            return new Route[0];
-        }
-
-        // =========================================================================
-        // PASSO 2: ALOCAR ARRAY TEMPORÁRIO (TAMANHO MÁXIMO POSSÍVEL = Nº VEÍCULOS)
-        // =========================================================================
         Route[] tempRoutes = new Route[vehicles.length];
-        int rotasValidasCount = 0; // Contador de rotas criadas que possuem caixas
+        int count = 0;
 
-        // =========================================================================
-        // PASSO 3: CICLO DUPLO (PERCORRER VEÍCULOS X PERCORRER AIDBOXES)
-        // =========================================================================
         for (int i = 0; i < vehicles.length; i++) {
             Vehicle v = vehicles[i];
-            if (v == null) continue; // Ignora veículos nulos
+            if (v == null) continue;
 
-            // 3.1 Instanciar uma nova Rota para o veículo atual
-            Route RotaAtual = new RouteImpl(v);
-
-            // 3.2 Percorrer todas as AidBoxes disponíveis
+            Route currentRoute = new RouteImpl(v);
             for (int j = 0; j < aidBoxes.length; j++) {
                 AidBox box = aidBoxes[j];
-
-                // 3.3 Usar o PRIMEIRO método de 2a para saber se a caixa é elegível!
                 if (box != null && hasCollectableContainer(v, box)) {
-                    
-                    // 3.4 Usar o SEGUNDO método de 2a para tentar adicionar à rota!
-                    addAidBoxToRoute(RotaAtual, box, validator);
+                    addAidBoxToRoute(currentRoute, box, validator);
                 }
             }
 
-            // =========================================================================
-            // PASSO 4: APENAS GUARDAR A ROTA SE ELA NÃO ESTIVER VAZIA (TIVER AIDBOXES)
-            // =========================================================================
-            if (RotaAtual.getRoute() != null && RotaAtual.getRoute().length > 0) {
-                tempRoutes[rotasValidasCount] = RotaAtual;
-                rotasValidasCount++;
+            // Apenas guarda se a rota tiver AidBoxes adicionadas
+            if (currentRoute.getRoute() != null && currentRoute.getRoute().length > 0) {
+                tempRoutes[count++] = currentRoute;
             }
         }
 
-        // =========================================================================
-        // PASSO 5: COMPACTAÇÃO FINAL DO ARRAY (ELIMINAR POSIÇÕES NULL)
-        // =========================================================================
-        Route[] rotasFinais = new Route[rotasValidasCount];
-        for (int i = 0; i < rotasValidasCount; i++) {
-            rotasFinais[i] = tempRoutes[i];
-        }
-
-        return rotasFinais; // Array 100% limpo sem nulos nem posições sobrantes!
+        // Compactação do array final (remoção de nulos)
+        Route[] finalRoutes = new Route[count];
+        for (int i = 0; i < count; i++) finalRoutes[i] = tempRoutes[i];
+        return finalRoutes;
     }
 }
 ```
 
 ---
 
-## ⚡ CHECKLIST DE SOBREVIVÊNCIA PARA AS PERGUNTAS 2A E 2B
+# 📚 PARTE 2: ESTUDOS DE CASO DOS EXAMES MODELO 1, 2 E 3
 
-Quando terminares de escrever a Pergunta 2a e 2b, faz esta verificação mental em 15 segundos:
+## 🎯 EXAME MODELO 1 — ReportImpl (Relatório Textual)
 
-1. [ ] Colocaste `if (parametro == null) return ...;` no início de TODOS os métodos?
-2. [ ] No ciclo `for`, validaste `if (array[i] != null)` antes de chamar qualquer getter?
-3. [ ] Em 2b, usaste o tamanho de `vehicles.length` para criar o array temporário?
-4. [ ] Em 2b, invocaste os métodos que criaste na 2a para filtrar e adicionar?
-5. [ ] Em 2b, verificaste se a rota não estava vazia (`getRoute().length > 0`) antes de guardar?
-6. [ ] Em 2b, criaste o array final `rotasFinais` com o tamanho `rotasValidasCount` para **remover todos os nulos**?
+### 📜 ENUNCIADO OFICIAL DO PROFESSOR:
+**Pergunta 2a (4 valores):**
+1. `int countContainersByType(AidBox aidbox, ItemType type)`: Devolver o número de contentores na AidBox do tipo recebido.
+2. `double getAverageOccupancy(AidBox aidbox)`: Devolver a média de ocupação de todos os contentores da AidBox `(últimaMedição / capacidade) * 100`.
 
-Se cumprires estes 6 pontos, tens **9,0 em 9,0 valores garantidos** nas Perguntas 2a e 2b!
+**Pergunta 2b (5 valores):**
+`generate(IInstitution inst)`: Gerar um relatório textual percorrendo as AidBoxes da instituição. Incluir apenas AidBoxes cuja ocupação média seja **superior a 50%**.
+
+### 💡 PORQUÊ DESTA RESOLUÇÃO:
+- `countContainersByType` incrementa o contador quando o tipo coincide.
+- `getAverageOccupancy` evita divisão por zero.
+- `generate` filtra por `> 50.0` e concatena o texto com `StringBuilder`.
+
+```java
+public class ReportImpl implements Report {
+    public int countContainersByType(AidBox aidbox, ItemType type) {
+        if (aidbox == null || type == null || aidbox.getContainers() == null) return 0;
+        Container[] containers = aidbox.getContainers();
+        int count = 0;
+        for (int i = 0; i < containers.length; i++) {
+            if (containers[i] != null && containers[i].getType() == type) count++;
+        }
+        return count;
+    }
+
+    public double getAverageOccupancy(AidBox aidbox) {
+        if (aidbox == null || aidbox.getContainers() == null) return 0.0;
+        Container[] containers = aidbox.getContainers();
+        double sum = 0.0;
+        int validCount = 0;
+        for (int i = 0; i < containers.length; i++) {
+            Container c = containers[i];
+            if (c != null && c.getCapacity() > 0) {
+                Measurement last = c.getLastMeasurement();
+                if (last != null) {
+                    sum += (last.getValue() / c.getCapacity()) * 100.0;
+                    validCount++;
+                }
+            }
+        }
+        if (validCount == 0) return 0.0;
+        return sum / validCount;
+    }
+
+    @Override
+    public String generate(IInstitution inst) {
+        if (inst == null || inst.getAidBoxes() == null) return "";
+        AidBox[] boxes = inst.getAidBoxes();
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== RELATÓRIO DE RECOLHA HUMANITÁRIA ===\n");
+
+        for (int i = 0; i < boxes.length; i++) {
+            AidBox box = boxes[i];
+            if (box != null && getAverageOccupancy(box) > 50.0) {
+                sb.append("AidBox: ").append(box.getCode()).append(" | Zona: ").append(box.getZone()).append("\n");
+                sb.append(" - Perecíveis: ").append(countContainersByType(box, ItemType.PERISHABLE_FOOD)).append("\n");
+                sb.append(" - Medicamentos: ").append(countContainersByType(box, ItemType.MEDICINE)).append("\n");
+                sb.append(" - Ocupação Média: ").append(String.format("%.2f", getAverageOccupancy(box))).append("%\n\n");
+            }
+        }
+        return sb.toString();
+    }
+}
+```
