@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soluções Exercícios Práticos Dia 4 — PP 20 Valores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --border-color: #334155;
+            --code-bg: #090d16;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 { color: var(--accent-blue); font-size: 2.2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 12px; }
+        h2 { color: var(--accent-green); font-size: 1.4rem; margin-top: 30px; border-left: 4px solid var(--accent-green); padding-left: 12px; }
+
+        pre { background: var(--code-bg); padding: 18px; border-radius: 10px; overflow-x: auto; border: 1px solid var(--border-color); }
+        code { font-family: 'JetBrains Mono', monospace; color: #e2e8f0; }
+
+        a { color: var(--accent-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 SOLUÇÕES EXAMES MODELO PRÁTICOS (20 VALORES) — DIA 4</h1>
+        
+        <h2>📋 CONJUNTO 1 — RESOLUÇÃO COMPLETA</h2>
+        
+        <h3>AidBoxImpl:</h3>
+<pre><code>public class AidBoxImpl implements AidBox {
+    private String code;
+    private String zone;
+    private Container[] containers;
+    private int numberOfContainers;
+    private static final int MAX_CAPACITY = 4;
+
+    public AidBoxImpl(String code, String zone) {
+        if (code == null || zone == null) throw new IllegalArgumentException("Nulos não permitidos.");
+        this.code = code;
+        this.zone = zone;
+        this.containers = new Container[MAX_CAPACITY];
+        this.numberOfContainers = 0;
+    }
+
+    @Override public String getCode() { return this.code; }
+    @Override public String getZone() { return this.zone; }
+
+    @Override
+    public Container[] getContainers() {
+        Container[] result = new Container[this.numberOfContainers];
+        for (int i = 0; i &lt; this.numberOfContainers; i++) result[i] = this.containers[i];
+        return result;
+    }
+
+    public boolean addContainer(Container container) throws AidBoxFullException {
+        if (container == null) throw new IllegalArgumentException("Contentor nulo.");
+        if (this.numberOfContainers &gt;= MAX_CAPACITY) throw new AidBoxFullException("Cheio.");
+        this.containers[this.numberOfContainers++] = container;
+        return true;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof AidBox)) return false;
+        AidBox other = (AidBox) obj;
+        return this.code != null &amp;&amp; this.code.equals(other.getCode());
+    }
+}</code></pre>
+
+        <p><a href="../00_PLANO_E_CHECKLIST/00_PLANO_ESTUDO_6_DIAS_20_VALORES.html">⬅️ Voltar ao Plano Mestre</a></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soluções Exames Modelo & Época Normal — PP 20 Valores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --border-color: #334155;
+            --code-bg: #090d16;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+        }
+
+        h1 { color: var(--accent-blue); font-size: 2.2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 12px; }
+        h2 { color: var(--accent-green); font-size: 1.4rem; margin-top: 30px; border-left: 4px solid var(--accent-green); padding-left: 12px; }
+        h3 { color: var(--accent-purple); font-size: 1.2rem; }
+
+        pre { background: var(--code-bg); padding: 18px; border-radius: 10px; overflow-x: auto; border: 1px solid var(--border-color); }
+        code { font-family: 'JetBrains Mono', monospace; color: #e2e8f0; }
+
+        a { color: var(--accent-blue); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔑 SOLUÇÕES EXAMES MODELO &amp; ÉPOCA NORMAL (20 VALORES)</h1>
+        
+        <h2>📌 RESOLUÇÃO INTEGRAL DO EXAME DA ÉPOCA NORMAL 2025/2026</h2>
+        
+        <h3>Pergunta 1a (3,0v): RefrigeratedVehicleImpl</h3>
+<pre><code>public class RefrigeratedVehicleImpl implements RefrigeratedVehicle {
+    private String code;
+    private ItemType supplyType;
+    private double maxCapacity;
+    private double maxKilometers;
+    private VehicleStatus status;
+
+    public RefrigeratedVehicleImpl(String code, ItemType supplyType, double maxCapacity, double maxKilometers) {
+        if (code == null || supplyType == null || maxCapacity &lt;= 0 || maxKilometers &lt;= 0) {
+            throw new IllegalArgumentException("Parâmetros inválidos.");
+        }
+        this.code = code;
+        this.supplyType = supplyType;
+        this.maxCapacity = maxCapacity;
+        this.maxKilometers = maxKilometers;
+        this.status = VehicleStatus.ENABLED;
+    }
+
+    @Override public String getCode() { return this.code; }
+    @Override public ItemType getSupplyType() { return this.supplyType; }
+    @Override public double getMaxCapacity() { return this.maxCapacity; }
+    @Override public double getMaxKilometers() { return this.maxKilometers; }
+    @Override public VehicleStatus getStatus() { return this.status; }
+    @Override public void setStatus(VehicleStatus status) { if (status != null) this.status = status; }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || !(obj instanceof RefrigeratedVehicle)) return false;
+        RefrigeratedVehicle other = (RefrigeratedVehicle) obj;
+        return this.code != null &amp;&amp; this.code.equals(other.getCode());
+    }
+}</code></pre>
+
+        <h3>Pergunta 2b (5,0v): Método generate em StrategyImpl</h3>
+<pre><code>public class StrategyImpl implements Strategy {
+    @Override
+    public Route[] generate(IInstitution inst, RouteValidator validator) {
+        if (inst == null || validator == null) return new Route[0];
+        Vehicle[] vehicles = inst.getVehicles();
+        AidBox[] aidBoxes = inst.getAidBoxes();
+        if (vehicles == null || aidBoxes == null) return new Route[0];
+
+        Route[] tempRoutes = new Route[vehicles.length];
+        int count = 0;
+
+        for (int i = 0; i &lt; vehicles.length; i++) {
+            Vehicle v = vehicles[i];
+            if (v == null) continue;
+            Route currentRoute = new RouteImpl(v);
+            for (int j = 0; j &lt; aidBoxes.length; j++) {
+                AidBox box = aidBoxes[j];
+                if (box != null &amp;&amp; hasCollectableContainer(v, box)) {
+                    addAidBoxToRoute(currentRoute, box, validator);
+                }
+            }
+            if (currentRoute.getRoute() != null &amp;&amp; currentRoute.getRoute().length &gt; 0) {
+                tempRoutes[count++] = currentRoute;
+            }
+        }
+
+        Route[] finalRoutes = new Route[count];
+        for (int i = 0; i &lt; count; i++) finalRoutes[i] = tempRoutes[i];
+        return finalRoutes;
+    }
+}</code></pre>
+
+        <p><a href="../00_PLANO_E_CHECKLIST/00_PLANO_ESTUDO_6_DIAS_20_VALORES.html">⬅️ Voltar ao Plano Mestre</a></p>
+    </div>
+</body>
+</html>
