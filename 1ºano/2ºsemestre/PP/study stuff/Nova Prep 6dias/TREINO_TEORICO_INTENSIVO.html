@@ -98,6 +98,18 @@ pre code { color: #e4e6ed; }
 .prob.high { background: rgba(253,203,110,0.2); color: var(--orange); }
 .prob.med { background: rgba(116,185,255,0.2); color: var(--blue); }
 
+.source-tag {
+    font-size: 0.8rem;
+    color: var(--accent2);
+    background: rgba(108, 92, 241, 0.15);
+    border: 1px solid rgba(108, 92, 241, 0.3);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    display: inline-block;
+    font-weight: 600;
+}
+
 /* DETAILS (Respostas Escondidas) */
 details {
     background: var(--surface);
@@ -138,7 +150,7 @@ details > .content h4 { color: var(--blue); margin-top: 15px; margin-bottom: 8px
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>1. Encapsulamento & Modificadores de Acesso</strong><br>Explique detalhadamente o conceito de encapsulamento em Programação Orientada a Objetos. Descreva como os modificadores de acesso (private, protected, default, public) contribuem para este princípio. Justifique por que razão o acesso direto aos atributos de uma classe é considerado uma má prática e ilustre o uso correto com um exemplo prático.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P2) & Modelo 1</span><br><strong>1. Encapsulamento & Modificadores de Acesso</strong><br>Explique detalhadamente o conceito de encapsulamento em Programação Orientada a Objetos. Descreva como os modificadores de acesso (private, protected, default, public) contribuem para este princípio. Justifique por que razão o acesso direto aos atributos de uma classe é considerado uma má prática e ilustre o uso correto com um exemplo prático.</span>
         <span class="prob vhigh">🔥 95% Prob.</span>
     </div>
 </div>
@@ -161,7 +173,7 @@ details > .content h4 { color: var(--blue); margin-top: 15px; margin-bottom: 8px
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>2. Construtores: invocação com `this()` e `super()`</strong><br>Discuta a finalidade dos construtores na instanciação de objetos em Java. Explique o conceito de sobrecarga de construtores e demonstre como o encadeamento de construtores pode ser alcançado através das palavras reservadas <code>this()</code> e <code>super()</code>. Esclareça as restrições sintáticas associadas à utilização destas invocações.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 2 (Pergunta Teórica 2)</span><br><strong>2. Construtores: invocação com `this()` e `super()`</strong><br>Discuta a finalidade dos construtores na instanciação de objetos em Java. Explique o conceito de sobrecarga de construtores e demonstre como o encadeamento de construtores pode ser alcançado através das palavras reservadas <code>this()</code> e <code>super()</code>. Esclareça as restrições sintáticas associadas à utilização destas invocações.</span>
         <span class="prob high">⚡ 85% Prob.</span>
     </div>
 </div>
@@ -191,7 +203,7 @@ details > .content h4 { color: var(--blue); margin-top: 15px; margin-bottom: 8px
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>3. Variáveis de Classe (static) vs Variáveis de Instância</strong><br>Distinga detalhadamente as Variáveis de Instância das Variáveis de Classe no contexto da linguagem Java, incidindo sobre o modificador <code>static</code>. Esclareça as razões pelas quais a utilização da palavra reservada <code>this</code> não é permitida no corpo de métodos declarados como estáticos e ilustre a sua resposta com um exemplo estruturado.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P4) & Modelo 3</span><br><strong>3. Variáveis de Classe (static) vs Variáveis de Instância</strong><br>Distinga detalhadamente as Variáveis de Instância das Variáveis de Classe no contexto da linguagem Java, incidindo sobre o modificador <code>static</code>. Esclareça as razões pelas quais a utilização da palavra reservada <code>this</code> não é permitida no corpo de métodos declarados como estáticos e ilustre a sua resposta com um exemplo estruturado.</span>
         <span class="prob high">⚡ 85% Prob.</span>
     </div>
 </div>
@@ -214,7 +226,7 @@ details > .content h4 { color: var(--blue); margin-top: 15px; margin-bottom: 8px
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>4. Modificador final (Primitivos vs Referências)</strong><br>Explique o impacto e a finalidade da utilização do modificador <code>final</code> em Java. Esclareça detalhadamente a diferença de comportamento de uma variável <code>final</code> quando esta armazena um tipo primitivo versus quando armazena uma referência para um objeto ou array. Fundamente a sua explicação com um exemplo de código representativo.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P5) & Modelo 4</span><br><strong>4. Modificador final (Primitivos vs Referências)</strong><br>Explique o impacto e a finalidade da utilização do modificador <code>final</code> em Java. Esclareça detalhadamente a diferença de comportamento de uma variável <code>final</code> quando esta armazena um tipo primitivo versus quando armazena uma referência para um objeto ou array. Fundamente a sua explicação com um exemplo de código representativo.</span>
         <span class="prob high">⚡ 80% Prob.</span>
     </div>
 </div>
@@ -235,7 +247,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>5. Memória (Stack/Heap), GC e NPE</strong><br>Discuta o modelo de gestão de memória adotado pela Máquina Virtual Java (JVM), descrevendo minuciosamente o papel da Stack e da Heap. Explique o processo pelo qual o Garbage Collector elimina objetos inalcançáveis e elucide as causas que conduzem a uma <code>NullPointerException</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 1)</span><br><strong>5. Memória (Stack/Heap), GC e NPE</strong><br>Discuta o modelo de gestão de memória adotado pela Máquina Virtual Java (JVM), descrevendo minuciosamente o papel da Stack e da Heap. Explique o processo pelo qual o Garbage Collector elimina objetos inalcançáveis e elucide as causas que conduzem a uma <code>NullPointerException</code>.</span>
         <span class="prob high">⚡ 70% Prob.</span>
     </div>
 </div>
@@ -252,7 +264,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>6. Composição ("Tem Um") vs Herança ("É Um")</strong><br>Distinga os conceitos de Composição e Herança enquanto mecanismos de reutilização de código no paradigma orientado a objetos. Esclareça sob que premissas arquiteturais o uso de Herança é considerado apropriado, comparando-o com a abordagem de Composição. Ilustre a sua resposta com um exemplo prático.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P6) & Modelo 2</span><br><strong>6. Composição ("Tem Um") vs Herança ("É Um")</strong><br>Distinga os conceitos de Composição e Herança enquanto mecanismos de reutilização de código no paradigma orientado a objetos. Esclareça sob que premissas arquiteturais o uso de Herança é considerado apropriado, comparando-o com a abordagem de Composição. Ilustre a sua resposta com um exemplo prático.</span>
         <span class="prob vhigh">🔥 90% Prob.</span>
     </div>
 </div>
@@ -274,7 +286,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>7. Classes Abstratas vs Interfaces</strong><br>Explique detalhadamente as diferenças entre classes abstratas e interfaces em Java. Em que situações é mais adequado optar por uma classe abstrata e em que situações é preferível uma interface? Justifique a sua resposta e evidencie as características distintivas de cada mecanismo.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 1 - Saída Confirmada)</span><br><strong>7. Classes Abstratas vs Interfaces</strong><br>Explique detalhadamente as diferenças entre classes abstratas e interfaces em Java. Em que situações é mais adequado optar por uma classe abstrata e em que situações é preferível uma interface? Justifique a sua resposta e evidencie as características distintivas de cada mecanismo.</span>
         <span class="prob vhigh">🔥 99% Prob.</span>
     </div>
 </div>
@@ -287,7 +299,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>8. Polimorfismo: Overloading vs Overriding</strong><br>Explique o conceito de polimorfismo em Java, distinguindo clara e objetivamente o polimorfismo de sobrecarga (overloading) do polimorfismo de sobreposição (overriding). Descreva as regras de vinculação (binding) estática e dinâmica na JVM.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P3) & Modelo 1</span><br><strong>8. Polimorfismo: Overloading vs Overriding</strong><br>Explique o conceito de polimorfismo em Java, distinguindo clara e objetivamente o polimorfismo de sobrecarga (overloading) do polimorfismo de sobreposição (overriding). Descreva as regras de vinculação (binding) estática e dinâmica na JVM.</span>
         <span class="prob vhigh">🔥 95% Prob.</span>
     </div>
 </div>
@@ -300,7 +312,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>9. Conversão de Tipos: Upcasting, Downcasting e `instanceof`</strong><br>Aborde o conceito de conversão de tipos (casting) no contexto da herança. Distinga os mecanismos de upcasting e downcasting, discutindo criticamente os riscos associados à conversão para subclasses. Justifique a importância do operador <code>instanceof</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 3 - Saída Confirmada)</span><br><strong>9. Conversão de Tipos: Upcasting, Downcasting e `instanceof`</strong><br>Aborde o conceito de conversão de tipos (casting) no contexto da herança. Distinga os mecanismos de upcasting e downcasting, discutindo criticamente os riscos associados à conversão para subclasses. Justifique a importância do operador <code>instanceof</code>.</span>
         <span class="prob vhigh">🔥 95% Prob.</span>
     </div>
 </div>
@@ -314,7 +326,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>10. Métodos default em Interfaces e Conflito do Diamante</strong><br>Compare o conceito de Interfaces Marcadoras com a utilização de Métodos default (introduzidos no Java 8) em interfaces. Explique como os métodos default permitem evoluir contratos existentes, e descreva a regra de resolução da JVM para o conflito do problema do diamante.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 4)</span><br><strong>10. Métodos default em Interfaces e Conflito do Diamante</strong><br>Compare o conceito de Interfaces Marcadoras com a utilização de Métodos default (introduzidos no Java 8) em interfaces. Explique como os métodos default permitem evoluir contratos existentes, e descreva a regra de resolução da JVM para o conflito do problema do diamante.</span>
         <span class="prob med">🟡 45% Prob.</span>
     </div>
 </div>
@@ -330,7 +342,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>11. Identidade (==) vs Igualdade (equals)</strong><br>Distinga os conceitos de identidade física e igualdade lógica de objetos em Java, contrapondo o uso do operador relacional <code>==</code> com a invocação do método <code>equals()</code>. Justifique as consequências caso uma classe negligencie a redefinição obrigatória do método <code>equals()</code> herdado de <code>Object</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 4 - Saída Confirmada)</span><br><strong>11. Identidade (==) vs Igualdade (equals)</strong><br>Distinga os conceitos de identidade física e igualdade lógica de objetos em Java, contrapondo o uso do operador relacional <code>==</code> com a invocação do método <code>equals()</code>. Justifique as consequências caso uma classe negligencie a redefinição obrigatória do método <code>equals()</code> herdado de <code>Object</code>.</span>
         <span class="prob vhigh">🔥 99% Prob.</span>
     </div>
 </div>
@@ -344,7 +356,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>12. Gestão de Exceções: Checked vs Unchecked e finally</strong><br>Explique o paradigma de gestão de erros em Java através de exceções. Distinga categoricamente entre exceções verificadas (Checked Exceptions) e não verificadas (Unchecked Exceptions). Descreva a arquitetura de cada componente do bloco <code>try-catch-finally</code>, salientando o papel fulcral do <code>finally</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Real — Época de Recurso (Prioridade P1 - Alta Probabilidade)</span><br><strong>12. Gestão de Exceções: Checked vs Unchecked e finally</strong><br>Explique o paradigma de gestão de erros em Java através de exceções. Distinga categoricamente entre exceções verificadas (Checked Exceptions) e não verificadas (Unchecked Exceptions). Descreva a arquitetura de cada componente do bloco <code>try-catch-finally</code>, salientando o papel fulcral do <code>finally</code>.</span>
         <span class="prob vhigh">🔥 95% Prob.</span>
     </div>
 </div>
@@ -358,7 +370,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>13. Tipos Enumerados (Enum)</strong><br>Esclareça o conceito de tipos enumerados (enum) em Java e a sua superioridade perante a declaração tradicional de constantes estáticas. Explique a possibilidade de declaração de atributos, construtores e métodos internos a um enum, demonstrando as regras relativas ao modificador de acesso aplicável ao seu construtor.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 3 (Pergunta Teórica 3) & Época de Recurso</span><br><strong>13. Tipos Enumerados (Enum)</strong><br>Esclareça o conceito de tipos enumerados (enum) em Java e a sua superioridade perante a declaração tradicional de constantes estáticas. Explique a possibilidade de declaração de atributos, construtores e métodos internos a um enum, demonstrando as regras relativas ao modificador de acesso aplicável ao seu construtor.</span>
         <span class="prob high">⚡ 85% Prob.</span>
     </div>
 </div>
@@ -381,7 +393,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>14. Classes Wrapper e a Armadilha da Cache</strong><br>Apresente o conceito de classes Wrapper de envolvimento e o mecanismo de Autoboxing e Unboxing na linguagem Java. Discuta exaustivamente os riscos associados à utilização do operador de identidade <code>==</code> na comparação de instâncias da classe <code>Integer</code>, referenciando explicitamente o mecanismo interno de cache da JVM e os seus limites operacionais.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 2)</span><br><strong>14. Classes Wrapper e a Armadilha da Cache</strong><br>Apresente o conceito de classes Wrapper de envolvimento e o mecanismo de Autoboxing e Unboxing na linguagem Java. Discuta exaustivamente os riscos associados à utilização do operador de identidade <code>==</code> na comparação de instâncias da classe <code>Integer</code>, referenciando explicitamente o mecanismo interno de cache da JVM e os seus limites operacionais.</span>
         <span class="prob high">⚡ 75% Prob.</span>
     </div>
 </div>
@@ -396,7 +408,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>15. Imutabilidade da String e o uso de StringBuilder</strong><br>Avalie criticamente o conceito de imutabilidade associado à classe <code>String</code> em Java e descreva o funcionamento do mecanismo de <code>String Pool</code> alocado na Heap. Compare esta abordagem arquitetural com a utilização da classe <code>StringBuilder</code>, justificando a preferência por esta última em cenários de processamento iterativo intensivo de cadeias de caracteres.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 2)</span><br><strong>15. Imutabilidade da String e o uso de StringBuilder</strong><br>Avalie criticamente o conceito de imutabilidade associado à classe <code>String</code> em Java e descreva o funcionamento do mecanismo de <code>String Pool</code> alocado na Heap. Compare esta abordagem arquitetural com a utilização da classe <code>StringBuilder</code>, justificando a preferência por esta última em cenários de processamento iterativo intensivo de cadeias de caracteres.</span>
         <span class="prob med">🟡 60% Prob.</span>
     </div>
 </div>
@@ -409,7 +421,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>16. Serialização: transient e serialVersionUID</strong><br>Explique o mecanismo de Serialização de objetos em Java e a sua finalidade no desenvolvimento de software. Indique como se assinala que uma classe é elegível para serialização e descreva detalhadamente a utilidade e o comportamento do modificador <code>transient</code> e do identificador <code>serialVersionUID</code>.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 3)</span><br><strong>16. Serialização: transient e serialVersionUID</strong><br>Explique o mecanismo de Serialização de objetos em Java e a sua finalidade no desenvolvimento de software. Indique como se assinala que uma classe é elegível para serialização e descreva detalhadamente a utilidade e o comportamento do modificador <code>transient</code> e do identificador <code>serialVersionUID</code>.</span>
         <span class="prob high">⚡ 75% Prob.</span>
     </div>
 </div>
@@ -423,7 +435,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>17. I/O: Byte Streams vs Character Streams</strong><br>A biblioteca de Input/Output (I/O) do Java divide-se principalmente em classes orientadas a bytes (Streams) e classes orientadas a caracteres (Readers/Writers). Explique a diferença fundamental entre estas duas famílias de classes, indicando a dimensão dos dados processados e cenários práticos adequados.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 4 (Pergunta Teórica 4)</span><br><strong>17. I/O: Byte Streams vs Character Streams</strong><br>A biblioteca de Input/Output (I/O) do Java divide-se principalmente em classes orientadas a bytes (Streams) e classes orientadas a caracteres (Readers/Writers). Explique a diferença fundamental entre estas duas famílias de classes, indicando a dimensão dos dados processados e cenários práticos adequados.</span>
         <span class="prob med">🟡 50% Prob.</span>
     </div>
 </div>
@@ -436,7 +448,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
 
 <div class="exam-q">
     <div class="q-title">
-        <span><strong>18. Pacotes (Packages) e Modificador Default</strong><br>Explique o conceito de organização modular por pacotes (package) em Java. Descreva o comportamento do modificador de acesso por defeito (package-private / ausência de modificador explícito) relativamente a variáveis e métodos. Justifique em que situações este nível de encapsulamento é vantajoso no desenho arquitetural.</span>
+        <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 3)</span><br><strong>18. Pacotes (Packages) e Modificador Default</strong><br>Explique o conceito de organização modular por pacotes (package) em Java. Descreva o comportamento do modificador de acesso por defeito (package-private / ausência de modificador explícito) relativamente a variáveis e métodos. Justifique em que situações este nível de encapsulamento é vantajoso no desenho arquitetural.</span>
         <span class="prob med">🟡 40% Prob.</span>
     </div>
 </div>
@@ -447,9 +459,23 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O interior
     </ul>
 </div></details>
 
+<div class="exam-q">
+    <div class="q-title">
+        <span><span class="source-tag">📌 Origem: Exame Real — Época Normal 2025/2026 (Pergunta Teórica 2 - Saída Confirmada)</span><br><strong>19. Passagem de Argumentos: Primitivos vs Referências de Objetos</strong><br>Descreva detalhadamente o modo como Java realiza a passagem de argumentos para os métodos, distinguindo o comportamento aplicado a tipos primitivos do comportamento aplicado a referências de objetos. Esclareça os equívocos frequentes associados a este mecanismo.</span>
+        <span class="prob vhigh">🔥 95% Prob.</span>
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <ul>
+        <li><strong>Passagem por Valor (Pass-by-Value):</strong> Em Java, TUDO é passado por valor.</li>
+        <li><strong>Primitivos:</strong> É copiado o valor numérico para a Stack do método. Alterações no parâmetro não afetam a variável original.</li>
+        <li><strong>Referências:</strong> É copiado o endereço de memória da referência. Reatribuir o parâmetro local (<code>c = new Container()</code>) não altera a variável original. Contudo, invocar métodos mutadores no objeto (<code>c.setCapacity(50)</code>) altera diretamente o objeto partilhado na Heap!</li>
+    </ul>
+</div></details>
+
 <br>
 <div style="text-align: center; color: var(--text-dim); margin: 30px 0;">
-    <i>Nota do Assistente: Domine estas 18 perguntas e os 6.0 valores da Teoria estão perfeitamente assegurados na avaliação!</i>
+    <i>Nota do Assistente: Domine estas 19 perguntas e os 6.0 valores da Teoria estão perfeitamente assegurados na avaliação!</i>
 </div>
 
 </body>
