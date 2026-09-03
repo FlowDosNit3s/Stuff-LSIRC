@@ -623,6 +623,466 @@ details > .content { padding: 25px; }
 }</code></pre>
 </div></details>
 
+<!-- ==================== EXAME AVANÇADO 1 ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">🔥 FICHA 6: DESAFIO AVANÇADO 1 — EmergencyStrategyImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">9,0 Valores (Dificuldade Superior)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor (Sem java.util):</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">ItemType</span> { PERISHABLE_FOOD, NON_PERISHABLE_FOOD, CLOTHING, MEDICINE }
+<span class="kw">public interface</span> <span class="tp">Measurement</span> { <span class="kw">double</span> <span class="fn">getValue</span>(); String <span class="fn">getDate</span>(); }
+<span class="kw">public interface</span> <span class="tp">Container</span> { String <span class="fn">getCode</span>(); ItemType <span class="fn">getType</span>(); <span class="kw">double</span> <span class="fn">getCapacity</span>(); Measurement <span class="fn">getLastMeasurement</span>(); }
+<span class="kw">public interface</span> <span class="tp">Vehicle</span> { String <span class="fn">getCode</span>(); ItemType <span class="fn">getSupplyType</span>(); <span class="kw">double</span> <span class="fn">getMaxCapacity</span>(); }
+<span class="kw">public interface</span> <span class="tp">AidBox</span> { String <span class="fn">getCode</span>(); Container[] <span class="fn">getContainers</span>(); <span class="kw">double</span> <span class="fn">getDistanceToBase</span>(); }
+<span class="kw">public interface</span> <span class="tp">Route</span> { Vehicle <span class="fn">getVehicle</span>(); <span class="kw">double</span> <span class="fn">getTotalVolume</span>(); <span class="kw">void</span> <span class="fn">addAidBox</span>(AidBox box) <span class="kw">throws</span> RouteException; AidBox[] <span class="fn">getRoute</span>(); }
+<span class="kw">public interface</span> <span class="tp">RouteValidator</span> { <span class="kw">boolean</span> <span class="fn">validate</span>(Route r, AidBox b); }
+<span class="kw">public interface</span> <span class="tp">EmergencyStrategy</span> { Route[] <span class="fn">generateEmergencyRoutes</span>(IInstitution inst, RouteValidator validator, <span class="kw">double</span> maxDistance); }
+<span class="kw">public interface</span> <span class="tp">IInstitution</span> { Vehicle[] <span class="fn">getVehicles</span>(); AidBox[] <span class="fn">getAidBoxes</span>(); }</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado dos Métodos a Implementar na classe <code>EmergencyStrategyImpl</code>:</h4>
+
+    <div class="method-spec">
+        <strong>2a.1 (2,0v):</strong> <code>double getAidBoxEmergencyVolume(AidBox aidbox, ItemType type)</code><br>
+        Calcula e devolve a soma do volume (valor da última medição) de todos os contentores da caixa <code>aidbox</code> que correspondam ao tipo de mantimento <code>type</code> e cuja taxa de ocupação seja estritamente superior a 85.0% da sua capacidade. Devolve <code>0.0</code> se a caixa for nula, o tipo for nulo ou se o array de contentores for nulo/vazio.
+    </div>
+
+    <div class="method-spec">
+        <strong>2a.2 (2,0v):</strong> <code>boolean tryAssignAidBoxToRoute(Route route, AidBox aidbox, RouteValidator validator, double maxDistance)</code><br>
+        Tenta adicionar a caixa <code>aidbox</code> à rota <code>route</code>. A caixa só pode ser considerada se a sua distância até à base (<code>getDistanceToBase()</code>) for menor ou igual a <code>maxDistance</code>. Valida com <code>validator.validate(route, aidbox)</code>. Se validado, invoca <code>route.addAidBox(aidbox)</code> e devolve <code>true</code>. Se ultrapassar a distância, se falhar a validação ou se a invocação de <code>addAidBox</code> capturar uma <code>RouteException</code>, devolve <code>false</code> sem interromper a execução. Retorna <code>false</code> se algum parâmetro for nulo.
+    </div>
+
+    <div class="method-spec">
+        <strong>2b (5,0v):</strong> <code>Route[] generateEmergencyRoutes(IInstitution inst, RouteValidator validator, double maxDistance)</code><br>
+        Gera um array compacto de rotas de emergência para a instituição <code>inst</code>. Para cada veículo de <code>inst.getVehicles()</code>, cria uma nova rota <code>RouteImpl(vehicle)</code>. Percorre todas as caixas de <code>inst.getAidBoxes()</code>. Uma caixa só é elegível se o seu volume de emergência (<code>getAidBoxEmergencyVolume</code>) para o tipo do veículo for estritamente superior a <code>0.0</code>. Tenta adicioná-la à rota com <code>tryAssignAidBoxToRoute</code>. O array final compactado (sem posições <code>null</code>) só deve incluir rotas que possuam pelo menos 1 caixa de ajuda (verificado se <code>currentRoute.getRoute().length > 0</code>).
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa e Comentada (Sem java.util):</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">EmergencyStrategyImpl</span> <span class="kw">implements</span> EmergencyStrategy {
+
+    <span class="kw">public double</span> <span class="fn">getAidBoxEmergencyVolume</span>(AidBox aidbox, ItemType type) {
+        <span class="kw">if</span> (aidbox == <span class="kw">null</span> || type == <span class="kw">null</span> || aidbox.getContainers() == <span class="kw">null</span>) <span class="kw">return</span> <span class="num">0.0</span>;
+        
+        <span class="kw">double</span> totalVolume = <span class="num">0.0</span>;
+        Container[] containers = aidbox.getContainers();
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < containers.length; i++) {
+            Container c = containers[i];
+            <span class="kw">if</span> (c != <span class="kw">null</span> && c.getType() == type && c.getCapacity() > <span class="num">0</span>) {
+                Measurement last = c.getLastMeasurement();
+                <span class="kw">if</span> (last != <span class="kw">null</span>) {
+                    <span class="kw">double</span> ocupacao = (last.getValue() / c.getCapacity()) * <span class="num">100.0</span>;
+                    <span class="kw">if</span> (ocupacao > <span class="num">85.0</span>) {
+                        totalVolume += last.getValue();
+                    }
+                }
+            }
+        }
+        <span class="kw">return</span> totalVolume;
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">tryAssignAidBoxToRoute</span>(Route route, AidBox aidbox, RouteValidator validator, <span class="kw">double</span> maxDistance) {
+        <span class="kw">if</span> (route == <span class="kw">null</span> || aidbox == <span class="kw">null</span> || validator == <span class="kw">null</span>) <span class="kw">return false</span>;
+        <span class="kw">if</span> (aidbox.getDistanceToBase() > maxDistance) <span class="kw">return false</span>;
+        <span class="kw">if</span> (!validator.validate(route, aidbox)) <span class="kw">return false</span>;
+        
+        <span class="kw">try</span> {
+            route.addAidBox(aidbox);
+            <span class="kw">return true</span>;
+        } <span class="kw">catch</span> (RouteException e) {
+            <span class="kw">return false</span>;
+        }
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> Route[] <span class="fn">generateEmergencyRoutes</span>(IInstitution inst, RouteValidator validator, <span class="kw">double</span> maxDistance) {
+        <span class="kw">if</span> (inst == <span class="kw">null</span> || validator == <span class="kw">null</span>) <span class="kw">return new</span> Route[<span class="num">0</span>];
+        Vehicle[] vehicles = inst.getVehicles();
+        AidBox[] aidBoxes = inst.getAidBoxes();
+        <span class="kw">if</span> (vehicles == <span class="kw">null</span> || aidBoxes == <span class="kw">null</span>) <span class="kw">return new</span> Route[<span class="num">0</span>];
+
+        Route[] temp = <span class="kw">new</span> Route[vehicles.length];
+        <span class="kw">int</span> count = <span class="num">0</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < vehicles.length; i++) {
+            Vehicle v = vehicles[i];
+            <span class="kw">if</span> (v == <span class="kw">null</span>) <span class="kw">continue</span>;
+
+            Route currentRoute = <span class="kw">new</span> RouteImpl(v);
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j < aidBoxes.length; j++) {
+                AidBox box = aidBoxes[j];
+                <span class="kw">if</span> (box != <span class="kw">null</span>) {
+                    <span class="kw">double</span> emergVolume = getAidBoxEmergencyVolume(box, v.getSupplyType());
+                    <span class="kw">if</span> (emergVolume > <span class="num">0.0</span>) {
+                        tryAssignAidBoxToRoute(currentRoute, box, validator, maxDistance);
+                    }
+                }
+            }
+
+            <span class="kw">if</span> (currentRoute.getRoute() != <span class="kw">null</span> && currentRoute.getRoute().length > <span class="num">0</span>) {
+                temp[count++] = currentRoute;
+            }
+        }
+
+        Route[] result = <span class="kw">new</span> Route[count];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < count; i++) {
+            result[i] = temp[i];
+        }
+        <span class="kw">return</span> result;
+    }
+}</code></pre>
+</div></details>
+
+<!-- ==================== EXAME AVANÇADO 2 ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">🔥 FICHA 7: DESAFIO AVANÇADO 2 — AuditManagerImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">9,0 Valores (Dificuldade Superior)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor (Sem java.util):</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">SensorStatus</span> { OK, CALIBRATION_NEEDED, HARDWARE_FAULT }
+<span class="kw">public interface</span> <span class="tp">Measurement</span> { <span class="kw">double</span> <span class="fn">getValue</span>(); String <span class="fn">getDate</span>(); SensorStatus <span class="fn">getSensorStatus</span>(); }
+<span class="kw">public interface</span> <span class="tp">Container</span> { String <span class="fn">getCode</span>(); ItemType <span class="fn">getType</span>(); <span class="kw">double</span> <span class="fn">getCapacity</span>(); Measurement <span class="fn">getLastMeasurement</span>(); }
+<span class="kw">public interface</span> <span class="tp">AidBox</span> { String <span class="fn">getCode</span>(); String <span class="fn">getZone</span>(); Container[] <span class="fn">getContainers</span>(); }
+<span class="kw">public interface</span> <span class="tp">IInstitution</span> { AidBox[] <span class="fn">getAidBoxes</span>(); }
+<span class="kw">public interface</span> <span class="tp">AuditReport</span> { String <span class="fn">getAidBoxCode</span>(); String <span class="fn">getZone</span>(); <span class="kw">int</span> <span class="fn">getFaultyContainersCount</span>(); <span class="kw">double</span> <span class="fn">getAverageFaultOccupancy</span>(); }
+<span class="kw">public interface</span> <span class="tp">AuditManager</span> { AuditReport[] <span class="fn">generateZoneAudit</span>(IInstitution inst, String targetZone); }</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado dos Métodos a Implementar na classe <code>AuditManagerImpl</code>:</h4>
+
+    <div class="method-spec">
+        <strong>2a.1 (2,0v):</strong> <code>boolean isSensorFaulty(Container container)</code><br>
+        Devolve <code>true</code> se o contentor <code>container</code> for nulo, se a sua capacidade for <code>&lt;= 0</code>, se a sua última medição for nula OU se a medição registar <code>SensorStatus.HARDWARE_FAULT</code> ou um valor de medição estritamente superior a 100.0% da sua capacidade. Devolve <code>false</code> caso contrário.
+    </div>
+
+    <div class="method-spec">
+        <strong>2a.2 (2,0v):</strong> <code>double getAverageFaultOccupancyInAidBox(AidBox box)</code><br>
+        Calcula e devolve a média da percentagem de ocupação considerando **apenas** os contentores que apresentem falha (verificados via <code>isSensorFaulty</code>) pertencentes à caixa <code>box</code>. Devolve <code>0.0</code> se a caixa for nula, o array de contentores for nulo ou se não existirem contentores com falha.
+    </div>
+
+    <div class="method-spec">
+        <strong>2b (5,0v):</strong> <code>AuditReport[] generateZoneAudit(IInstitution inst, String targetZone)</code><br>
+        Gera e devolve um array compacto contendo relatórios de auditoria <code>AuditReportImpl(box.getCode(), targetZone, numFalhas, mediaOcupacaoFalhas)</code> para todas as caixas de ajuda da instituição <code>inst</code> pertencentes à zona <code>targetZone</code> (comparação de Strings ignorando maiúsculas/minúsculas com <code>equalsIgnoresCase</code>) que possuam pelo menos 1 contentor com falha. Além de compactado sem posições nulas, o array final deve ser ordenado manualmente por ordem decrescente do número de falhas (da caixa com mais falhas para a que tem menos). Não é permitida a utilização de coleções ou utilitários do pacote <code>java.util</code>.
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa e Comentada (Sem java.util):</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">AuditManagerImpl</span> <span class="kw">implements</span> AuditManager {
+
+    <span class="kw">public boolean</span> <span class="fn">isSensorFaulty</span>(Container container) {
+        <span class="kw">if</span> (container == <span class="kw">null</span> || container.getCapacity() <= <span class="num">0</span>) <span class="kw">return true</span>;
+        Measurement last = container.getLastMeasurement();
+        <span class="kw">if</span> (last == <span class="kw">null</span>) <span class="kw">return true</span>;
+        
+        <span class="kw">if</span> (last.getSensorStatus() == SensorStatus.HARDWARE_FAULT) <span class="kw">return true</span>;
+        
+        <span class="kw">double</span> ocupacao = (last.getValue() / container.getCapacity()) * <span class="num">100.0</span>;
+        <span class="kw">return</span> ocupacao > <span class="num">100.0</span>;
+    }
+
+    <span class="kw">public double</span> <span class="fn">getAverageFaultOccupancyInAidBox</span>(AidBox box) {
+        <span class="kw">if</span> (box == <span class="kw">null</span> || box.getContainers() == <span class="kw">null</span>) <span class="kw">return</span> <span class="num">0.0</span>;
+        
+        <span class="kw">double</span> somaPercentagens = <span class="num">0.0</span>;
+        <span class="kw">int</span> countFalhas = <span class="num">0</span>;
+        Container[] containers = box.getContainers();
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < containers.length; i++) {
+            Container c = containers[i];
+            <span class="kw">if</span> (isSensorFaulty(c)) {
+                countFalhas++;
+                <span class="kw">if</span> (c != <span class="kw">null</span> && c.getCapacity() > <span class="num">0</span> && c.getLastMeasurement() != <span class="kw">null</span>) {
+                    somaPercentagens += (c.getLastMeasurement().getValue() / c.getCapacity()) * <span class="num">100.0</span>;
+                }
+            }
+        }
+        <span class="kw">return</span> countFalhas == <span class="num">0</span> ? <span class="num">0.0</span> : somaPercentagens / countFalhas;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> AuditReport[] <span class="fn">generateZoneAudit</span>(IInstitution inst, String targetZone) {
+        <span class="kw">if</span> (inst == <span class="kw">null</span> || targetZone == <span class="kw">null</span> || inst.getAidBoxes() == <span class="kw">null</span>) {
+            <span class="kw">return new</span> AuditReport[<span class="num">0</span>];
+        }
+
+        AidBox[] boxes = inst.getAidBoxes();
+        AuditReport[] temp = <span class="kw">new</span> AuditReport[boxes.length];
+        <span class="kw">int</span> count = <span class="num">0</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < boxes.length; i++) {
+            AidBox box = boxes[i];
+            <span class="kw">if</span> (box != <span class="kw">null</span> && box.getZone() != <span class="kw">null</span> && box.getZone().equalsIgnoreCase(targetZone)) {
+                <span class="kw">int</span> falhas = <span class="num">0</span>;
+                Container[] cs = box.getContainers();
+                <span class="kw">if</span> (cs != <span class="kw">null</span>) {
+                    <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j < cs.length; j++) {
+                        <span class="kw">if</span> (isSensorFaulty(cs[j])) falhas++;
+                    }
+                }
+
+                <span class="kw">if</span> (falhas > <span class="num">0</span>) {
+                    <span class="kw">double</span> avgFaultOcup = getAverageFaultOccupancyInAidBox(box);
+                    temp[count++] = <span class="kw">new</span> AuditReportImpl(box.getCode(), targetZone, falhas, avgFaultOcup);
+                }
+            }
+        }
+
+        <span class="cm">// Copiar para array final de tamanho exato</span>
+        AuditReport[] result = <span class="kw">new</span> AuditReport[count];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < count; i++) {
+            result[i] = temp[i];
+        }
+
+        <span class="cm">// Ordenação Manual por Ordem Decrescente do Número de Falhas (Bubble Sort sem java.util)</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < count - <span class="num">1</span>; i++) {
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j < count - <span class="num">1</span> - i; j++) {
+                <span class="kw">if</span> (result[j].getFaultyContainersCount() < result[j + <span class="num">1</span>].getFaultyContainersCount()) {
+                    AuditReport tempReport = result[j];
+                    result[j] = result[j + <span class="num">1</span>];
+                    result[j + <span class="num">1</span>] = tempReport;
+                }
+            }
+        }
+
+        <span class="kw">return</span> result;
+    }
+}</code></pre>
+</div></details>
+
+<!-- ==================== EXAME AVANÇADO 3 ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">🔥 FICHA 8: DESAFIO AVANÇADO 3 — FleetRouteOptimizerImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">9,0 Valores (Dificuldade Superior)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor (Sem java.util):</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">ItemType</span> { PERISHABLE_FOOD, NON_PERISHABLE_FOOD, CLOTHING, MEDICINE }
+<span class="kw">public interface</span> <span class="tp">Measurement</span> { <span class="kw">double</span> <span class="fn">getValue</span>(); String <span class="fn">getDate</span>(); }
+<span class="kw">public interface</span> <span class="tp">Container</span> { String <span class="fn">getCode</span>(); ItemType <span class="fn">getType</span>(); <span class="kw">double</span> <span class="fn">getCapacity</span>(); Measurement <span class="fn">getLastMeasurement</span>(); }
+<span class="kw">public interface</span> <span class="tp">Vehicle</span> { String <span class="fn">getCode</span>(); ItemType <span class="fn">getSupplyType</span>(); <span class="kw">double</span> <span class="fn">getMaxCapacity</span>(); <span class="kw">double</span> <span class="fn">getMaxAutonomy</span>(); }
+<span class="kw">public interface</span> <span class="tp">AidBox</span> { String <span class="fn">getCode</span>(); Container[] <span class="fn">getContainers</span>(); <span class="kw">double</span> <span class="fn">getDistance</span>(); <span class="kw">double</span> <span class="fn">getTotalWeight</span>(); }
+<span class="kw">public interface</span> <span class="tp">Route</span> { Vehicle <span class="fn">getVehicle</span>(); <span class="kw">double</span> <span class="fn">getCurrentWeight</span>(); <span class="kw">double</span> <span class="fn">getCurrentDistance</span>(); <span class="kw">void</span> <span class="fn">addAidBox</span>(AidBox box) <span class="kw">throws</span> RouteException; AidBox[] <span class="fn">getRoute</span>(); }
+<span class="kw">public interface</span> <span class="tp">FleetOptimizer</span> { Route[] <span class="fn">generateOptimizedFleetRoutes</span>(IInstitution inst); }
+<span class="kw">public interface</span> <span class="tp">IInstitution</span> { Vehicle[] <span class="fn">getVehicles</span>(); AidBox[] <span class="fn">getAidBoxes</span>(); }</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado dos Métodos a Implementar na classe <code>FleetRouteOptimizerImpl</code>:</h4>
+
+    <div class="method-spec">
+        <strong>2a.1 (2,0v):</strong> <code>boolean canVehicleHandleAidBox(Vehicle vehicle, AidBox aidbox, Route currentRoute)</code><br>
+        Devolve <code>true</code> se a caixa <code>aidbox</code> tiver pelo menos um contentor do tipo do veículo (com medição <code>> 0.0</code>), se a soma do peso da caixa (<code>getTotalWeight()</code>) com o peso atual da rota (<code>getCurrentWeight()</code>) não exceder a capacidade máxima do veículo (<code>getMaxCapacity()</code>), E se a soma da distância da caixa (<code>getDistance()</code>) com a distância atual da rota (<code>getCurrentDistance()</code>) não exceder a autonomia máxima do veículo (<code>getMaxAutonomy()</code>). Devolve <code>false</code> se algum parâmetro for nulo ou se violar qualquer limite.
+    </div>
+
+    <div class="method-spec">
+        <strong>2a.2 (2,0v):</strong> <code>boolean safeAddAidBoxToRoute(Route route, AidBox aidbox)</code><br>
+        Tenta adicionar a caixa <code>aidbox</code> à rota <code>route</code> invocando o método <code>route.addAidBox(aidbox)</code>. Se a adição for realizada com sucesso, devolve <code>true</code>. Caso ocorra uma <code>RouteException</code> ou se algum parâmetro for nulo, deve capturar a exceção e devolver <code>false</code> sem crashar o programa.
+    </div>
+
+    <div class="method-spec">
+        <strong>2b (5,0v):</strong> <code>Route[] generateOptimizedFleetRoutes(IInstitution inst)</code><br>
+        Gera um array compacto de rotas otimizadas para os veículos da instituição <code>inst</code>. Para cada veículo de <code>inst.getVehicles()</code>, cria uma nova rota <code>RouteImpl(vehicle)</code>. Percorre todas as caixas de <code>inst.getAidBoxes()</code>. Se a caixa puder ser processada pelo veículo na rota atual (verificado com <code>canVehicleHandleAidBox</code>), tenta adicioná-la à rota chamando <code>safeAddAidBoxToRoute</code>. O array devolvido deve ser compacto (sem elementos nulos) e conter apenas as rotas que possuam pelo menos 1 caixa de ajuda adicionada com sucesso.
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa e Comentada (Sem java.util):</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">FleetRouteOptimizerImpl</span> <span class="kw">implements</span> FleetOptimizer {
+
+    <span class="kw">public boolean</span> <span class="fn">canVehicleHandleAidBox</span>(Vehicle vehicle, AidBox aidbox, Route currentRoute) {
+        <span class="kw">if</span> (vehicle == <span class="kw">null</span> || aidbox == <span class="kw">null</span> || currentRoute == <span class="kw">null</span>) <span class="kw">return false</span>;
+        <span class="kw">if</span> (aidbox.getContainers() == <span class="kw">null</span>) <span class="kw">return false</span>;
+
+        <span class="cm">// Verificar capacidade de peso</span>
+        <span class="kw">if</span> (currentRoute.getCurrentWeight() + aidbox.getTotalWeight() > vehicle.getMaxCapacity()) {
+            <span class="kw">return false</span>;
+        }
+
+        <span class="cm">// Verificar autonomia de distância</span>
+        <span class="kw">if</span> (currentRoute.getCurrentDistance() + aidbox.getDistance() > vehicle.getMaxAutonomy()) {
+            <span class="kw">return false</span>;
+        }
+
+        <span class="cm">// Verificar se possui pelo menos 1 contentor compatível com medição válida</span>
+        Container[] containers = aidbox.getContainers();
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < containers.length; i++) {
+            Container c = containers[i];
+            <span class="kw">if</span> (c != <span class="kw">null</span> && c.getType() == vehicle.getSupplyType()) {
+                Measurement m = c.getLastMeasurement();
+                <span class="kw">if</span> (m != <span class="kw">null</span> && m.getValue() > <span class="num">0.0</span>) {
+                    <span class="kw">return true</span>;
+                }
+            }
+        }
+        <span class="kw">return false</span>;
+    }
+
+    <span class="kw">public boolean</span> <span class="fn">safeAddAidBoxToRoute</span>(Route route, AidBox aidbox) {
+        <span class="kw">if</span> (route == <span class="kw">null</span> || aidbox == <span class="kw">null</span>) <span class="kw">return false</span>;
+        <span class="kw">try</span> {
+            route.addAidBox(aidbox);
+            <span class="kw">return true</span>;
+        } <span class="kw">catch</span> (RouteException e) {
+            <span class="kw">return false</span>;
+        }
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> Route[] <span class="fn">generateOptimizedFleetRoutes</span>(IInstitution inst) {
+        <span class="kw">if</span> (inst == <span class="kw">null</span> || inst.getVehicles() == <span class="kw">null</span> || inst.getAidBoxes() == <span class="kw">null</span>) {
+            <span class="kw">return new</span> Route[<span class="num">0</span>];
+        }
+
+        Vehicle[] vehicles = inst.getVehicles();
+        AidBox[] aidBoxes = inst.getAidBoxes();
+        Route[] temp = <span class="kw">new</span> Route[vehicles.length];
+        <span class="kw">int</span> count = <span class="num">0</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < vehicles.length; i++) {
+            Vehicle v = vehicles[i];
+            <span class="kw">if</span> (v == <span class="kw">null</span>) <span class="kw">continue</span>;
+
+            Route currentRoute = <span class="kw">new</span> RouteImpl(v);
+            <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j < aidBoxes.length; j++) {
+                AidBox box = aidBoxes[j];
+                <span class="kw">if</span> (box != <span class="kw">null</span> && canVehicleHandleAidBox(v, box, currentRoute)) {
+                    safeAddAidBoxToRoute(currentRoute, box);
+                }
+            }
+
+            <span class="kw">if</span> (currentRoute.getRoute() != <span class="kw">null</span> && currentRoute.getRoute().length > <span class="num">0</span>) {
+                temp[count++] = currentRoute;
+            }
+        }
+
+        Route[] result = <span class="kw">new</span> Route[count];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < count; i++) {
+            result[i] = temp[i];
+        }
+        <span class="kw">return</span> result;
+    }
+}</code></pre>
+</div></details>
+
+<!-- ==================== EXAME AVANÇADO 4 ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">🔥 FICHA 9: DESAFIO AVANÇADO 4 — RegionalDistributionManagerImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">9,0 Valores (Dificuldade Superior)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor (Sem java.util):</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">PriorityLevel</span> { LOW, MEDIUM, HIGH, URGENT }
+<span class="kw">public interface</span> <span class="tp">Measurement</span> { <span class="kw">double</span> <span class="fn">getValue</span>(); String <span class="fn">getDate</span>(); }
+<span class="kw">public interface</span> <span class="tp">Container</span> { String <span class="fn">getCode</span>(); ItemType <span class="fn">getType</span>(); <span class="kw">double</span> <span class="fn">getCapacity</span>(); Measurement <span class="fn">getLastMeasurement</span>(); }
+<span class="kw">public interface</span> <span class="tp">AidBox</span> { String <span class="fn">getCode</span>(); String <span class="fn">getRegion</span>(); PriorityLevel <span class="fn">getPriority</span>(); Container[] <span class="fn">getContainers</span>(); }
+<span class="kw">public interface</span> <span class="tp">IInstitution</span> { AidBox[] <span class="fn">getAidBoxes</span>(); }
+<span class="kw">public interface</span> <span class="tp">RegionalReport</span> { String <span class="fn">getRegion</span>(); AidBox[] <span class="fn">getUrgentAidBoxes</span>(); <span class="kw">double</span> <span class="fn">getTotalUrgentVolume</span>(); }
+<span class="kw">public interface</span> <span class="tp">RegionalDistributionManager</span> { RegionalReport[] <span class="fn">generateRegionalDistribution</span>(IInstitution inst, String targetRegion); }</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado dos Métodos a Implementar na classe <code>RegionalDistributionManagerImpl</code>:</h4>
+
+    <div class="method-spec">
+        <strong>2a.1 (2,0v):</strong> <code>double getUrgentVolumeInAidBox(AidBox box)</code><br>
+        Calcula e devolve a soma do volume (valor da última medição) de todos os contentores de uma caixa <code>box</code> cuja prioridade da caixa seja <code>URGENT</code> ou <code>HIGH</code> e cuja taxa de ocupação do contentor seja estritamente superior a 75.0%. Devolve <code>0.0</code> se a caixa for nula, se a prioridade for <code>LOW</code> ou <code>MEDIUM</code> ou se o array de contentores for nulo.
+    </div>
+
+    <div class="method-spec">
+        <strong>2a.2 (2,0v):</strong> <code>AidBox[] filterUrgentBoxesByRegion(AidBox[] boxes, String targetRegion)</code><br>
+        Filtra o array de caixas <code>boxes</code> devolvendo um array compacto contendo apenas as caixas pertencentes à região <code>targetRegion</code> (comparação de Strings ignorando maiúsculas/minúsculas) que possuam um volume urgente estritamente superior a <code>0.0</code> (calculado com <code>getUrgentVolumeInAidBox</code>). Devolve um array de tamanho 0 se <code>boxes</code> ou <code>targetRegion</code> forem nulos.
+    </div>
+
+    <div class="method-spec">
+        <strong>2b (5,0v):</strong> <code>RegionalReport[] generateRegionalDistribution(IInstitution inst, String targetRegion)</code><br>
+        Na classe <code>RegionalDistributionManagerImpl</code>, utiliza o método <code>filterUrgentBoxesByRegion</code> para obter as caixas urgentes da região <code>targetRegion</code> a partir das caixas de <code>inst.getAidBoxes()</code>. Se não existirem caixas urgentes filtradas, devolve um array de tamanho 0. Caso contrário, calcula o volume urgente total acumulado dessas caixas e devolve um array contendo um único relatório <code>RegionalReportImpl(targetRegion, urgentBoxes, totalUrgentVolume)</code>. É proibido usar qualquer coleção do pacote <code>java.util</code>.
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa e Comentada (Sem java.util):</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">RegionalDistributionManagerImpl</span> <span class="kw">implements</span> RegionalDistributionManager {
+
+    <span class="kw">public double</span> <span class="fn">getUrgentVolumeInAidBox</span>(AidBox box) {
+        <span class="kw">if</span> (box == <span class="kw">null</span> || box.getContainers() == <span class="kw">null</span>) <span class="kw">return</span> <span class="num">0.0</span>;
+        
+        PriorityLevel prio = box.getPriority();
+        <span class="kw">if</span> (prio != PriorityLevel.URGENT && prio != PriorityLevel.HIGH) {
+            <span class="kw">return</span> <span class="num">0.0</span>;
+        }
+
+        <span class="kw">double</span> totalVolume = <span class="num">0.0</span>;
+        Container[] containers = box.getContainers();
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < containers.length; i++) {
+            Container c = containers[i];
+            <span class="kw">if</span> (c != <span class="kw">null</span> && c.getCapacity() > <span class="num">0</span>) {
+                Measurement last = c.getLastMeasurement();
+                <span class="kw">if</span> (last != <span class="kw">null</span>) {
+                    <span class="kw">double</span> ocupacao = (last.getValue() / c.getCapacity()) * <span class="num">100.0</span>;
+                    <span class="kw">if</span> (ocupacao > <span class="num">75.0</span>) {
+                        totalVolume += last.getValue();
+                    }
+                }
+            }
+        }
+        <span class="kw">return</span> totalVolume;
+    }
+
+    <span class="kw">public</span> AidBox[] <span class="fn">filterUrgentBoxesByRegion</span>(AidBox[] boxes, String targetRegion) {
+        <span class="kw">if</span> (boxes == <span class="kw">null</span> || targetRegion == <span class="kw">null</span>) <span class="kw">return new</span> AidBox[<span class="num">0</span>];
+
+        AidBox[] temp = <span class="kw">new</span> AidBox[boxes.length];
+        <span class="kw">int</span> count = <span class="num">0</span>;
+
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < boxes.length; i++) {
+            AidBox box = boxes[i];
+            <span class="kw">if</span> (box != <span class="kw">null</span> && box.getRegion() != <span class="kw">null</span> && box.getRegion().equalsIgnoreCase(targetRegion)) {
+                <span class="kw">if</span> (getUrgentVolumeInAidBox(box) > <span class="num">0.0</span>) {
+                    temp[count++] = box;
+                }
+            }
+        }
+
+        AidBox[] result = <span class="kw">new</span> AidBox[count];
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < count; i++) {
+            result[i] = temp[i];
+        }
+        <span class="kw">return</span> result;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> RegionalReport[] <span class="fn">generateRegionalDistribution</span>(IInstitution inst, String targetRegion) {
+        <span class="kw">if</span> (inst == <span class="kw">null</span> || targetRegion == <span class="kw">null</span> || inst.getAidBoxes() == <span class="kw">null</span>) {
+            <span class="kw">return new</span> RegionalReport[<span class="num">0</span>];
+        }
+
+        AidBox[] urgentBoxes = filterUrgentBoxesByRegion(inst.getAidBoxes(), targetRegion);
+        <span class="kw">if</span> (urgentBoxes.length == <span class="num">0</span>) {
+            <span class="kw">return new</span> RegionalReport[<span class="num">0</span>];
+        }
+
+        <span class="kw">double</span> totalVolumeRegional = <span class="num">0.0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < urgentBoxes.length; i++) {
+            totalVolumeRegional += getUrgentVolumeInAidBox(urgentBoxes[i]);
+        }
+
+        RegionalReport report = <span class="kw">new</span> RegionalReportImpl(targetRegion, urgentBoxes, totalVolumeRegional);
+        
+        RegionalReport[] result = <span class="kw">new</span> RegionalReport[<span class="num">1</span>];
+        result[<span class="num">0</span>] = report;
+        <span class="kw">return</span> result;
+    }
+}</code></pre>
+</div></details>
+
 <br>
 <div style="text-align: center; color: var(--text-dim); margin: 30px 0;">
     <i>Nota do Assistente: Agora tem as interfaces fornecidas, o enunciado explícito de cada método e a solução para treinar a sério!</i>
@@ -630,3 +1090,4 @@ details > .content { padding: 25px; }
 
 </body>
 </html>
+
