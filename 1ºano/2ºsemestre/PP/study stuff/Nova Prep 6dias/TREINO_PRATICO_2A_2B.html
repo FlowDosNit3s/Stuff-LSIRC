@@ -206,6 +206,7 @@ details > .content { padding: 25px; }
 <span class="kw">public interface</span> <span class="tp">AidBox</span> { String <span class="fn">getCode</span>(); Container[] <span class="fn">getContainers</span>(); }
 <span class="kw">public interface</span> <span class="tp">Route</span> { Vehicle <span class="fn">getVehicle</span>(); <span class="kw">void</span> <span class="fn">addAidBox</span>(AidBox box) <span class="kw">throws</span> RouteException; AidBox[] <span class="fn">getRoute</span>(); }
 <span class="kw">public interface</span> <span class="tp">RouteValidator</span> { <span class="kw">boolean</span> <span class="fn">validate</span>(Route r, AidBox b); }
+<span class="kw">public interface</span> <span class="tp">Strategy</span> { Route[] <span class="fn">generate</span>(IInstitution inst, RouteValidator validator); }
 <span class="kw">public interface</span> <span class="tp">IInstitution</span> { Vehicle[] <span class="fn">getVehicles</span>(); AidBox[] <span class="fn">getAidBoxes</span>(); }</code></pre>
     </div>
 
@@ -213,17 +214,17 @@ details > .content { padding: 25px; }
 
     <div class="method-spec">
         <strong>2a.1 (2,0v):</strong> <code>boolean hasCollectableContainer(Vehicle vehicle, AidBox aidbox)</code><br>
-        Devolve <code>true</code> se a caixa de ajuda <code>aidbox</code> possuir pelo menos um contentor cujo tipo seja igual ao tipo de mantimento do veículo <code>vehicle</code> (<code>getSupplyType()</code>) e cuja última medição (<code>getLastMeasurement()</code>) seja estritamente superior a 80% da sua capacidade (<code>getCapacity()</code>). Devolve <code>false</code> caso contrário ou se algum parâmetro for nulo.
+        Devolve <code>true</code> se existir a ocorrência de, pelo menos, um contentor cujo tipo seja igual ao do veículo (<code>getSupplyType()</code>) e se a sua última medição registada tiver um valor superior a 80% da sua capacidade. Devolve <code>false</code> caso contrário ou se nulo.
     </div>
 
     <div class="method-spec">
         <strong>2a.2 (2,0v):</strong> <code>boolean addAidBoxToRoute(Route route, AidBox aidbox, RouteValidator validator)</code><br>
-        Valida se a caixa de ajuda <code>aidbox</code> pode ser adicionada à rota <code>route</code> recorrendo ao validador <code>validator.validate(route, aidbox)</code>. Se a validação for verdadeira, adiciona a caixa à rota chamando <code>route.addAidBox(aidbox)</code> e devolve <code>true</code>. Caso ocorra uma <code>RouteException</code> durante a adição ou a validação falhe/seja nula, deve capturar a exceção e devolver <code>false</code> sem interromper o programa.
+        Devolve <code>true</code> caso a <code>AidBox</code> seja adicionada à rota. Deve previamente efetuar uma validação com <code>validator.validate(route, aidbox)</code>. Se validado, adiciona a caixa com <code>route.addAidBox(aidbox)</code>. Caso a invocação de <code>addAidBox</code> origine uma <code>RouteException</code> ou a validação falhe/seja nula, deve retornar <code>false</code>.
     </div>
 
     <div class="method-spec">
         <strong>2b (5,0v):</strong> <code>Route[] generate(IInstitution inst, RouteValidator validator)</code><br>
-        Gera e retorna um array compacto contendo as rotas de recolha para todos os veículos da instituição <code>inst</code>. Para cada veículo, cria uma nova rota <code>RouteImpl(vehicle)</code> e percorre todas as caixas de ajuda da instituição. Adiciona à rota apenas as caixas elegíveis (usando <code>hasCollectableContainer</code> e <code>addAidBoxToRoute</code>). Apenas rotas que possuam pelo menos 1 caixa de ajuda adicionada com sucesso devem ser incluídas no array final compactado (sem posições <code>null</code>).
+        Na classe <code>StrategyImpl</code>, implemente o método <code>generate</code>. Para cada veículo devolvido por <code>getVehicles()</code> da instituição, deve ser criada uma nova rota. Percorre as <code>AidBoxes</code> existentes devolvidas por <code>getAidBoxes()</code> e adiciona apenas as caixas elegíveis recorrendo aos métodos desenvolvidos em 2a. O array devolvido deve conter apenas rotas com <code>AidBoxes</code> (sem posições nulas ou rotas vazias).
     </div>
 </div>
 <details><summary></summary><div class="content">
