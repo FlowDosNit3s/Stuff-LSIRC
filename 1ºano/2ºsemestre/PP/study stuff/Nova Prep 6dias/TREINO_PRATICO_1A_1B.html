@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Treino Prático Intensivo — Perguntas 1a e 1b (5,0 Valores)</title>
+<style>
+:root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #232733;
+    --border: #2d3142;
+    --text: #e4e6ed;
+    --text-dim: #9ca0ad;
+    --accent: #6c5ce7;
+    --accent2: #a29bfe;
+    --green: #00cec9;
+    --orange: #fdcb6e;
+    --red: #ff6b6b;
+    --blue: #74b9ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    padding: 20px 40px;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, rgba(108,92,231,.2), rgba(0,206,201,.15));
+    border-radius: 16px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+}
+.hero h1 { font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
+.hero p { color: var(--text-dim); font-size: 1.1rem; }
+
+h2 { font-size: 1.4rem; margin: 35px 0 15px; color: var(--accent2); border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+p, li { margin-bottom: 8px; }
+ul, ol { padding-left: 24px; margin-bottom: 12px; }
+
+/* CHEATSHEET CARD */
+.algorithm-box {
+    background: rgba(108, 92, 241, 0.1);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 35px;
+}
+.algorithm-box h3 { color: #fff; margin-bottom: 15px; font-size: 1.2rem; }
+.step {
+    background: var(--surface2);
+    border-left: 4px solid var(--green);
+    padding: 12px 18px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+}
+.step-title { font-weight: 700; color: var(--green); margin-bottom: 4px; }
+
+/* INTERFACES BOX */
+.interfaces-box {
+    background: #12141d;
+    border: 1px solid rgba(116, 185, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+}
+.interfaces-box h4 { color: var(--blue); margin-bottom: 8px; font-size: 0.95rem; }
+
+/* METHOD SPECIFICATION */
+.method-spec {
+    background: rgba(253, 203, 110, 0.05);
+    border-left: 3px solid var(--orange);
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 6px 6px 0;
+}
+.method-spec strong { color: var(--orange); }
+
+/* CODE STYLING */
+pre {
+    background: #0d0f14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-size: 13px;
+    line-height: 1.5;
+}
+code { font-family: 'Cascadia Code', 'Fira Code', monospace; color: var(--green); }
+pre code { color: #e4e6ed; }
+.kw { color: #c792ea; }
+.str { color: #c3e88d; }
+.cm { color: #676e95; font-style: italic; }
+.tp { color: #ffcb6b; }
+.fn { color: #82aaff; }
+.num { color: #f78c6c; }
+
+/* EXAM CARD */
+.exam-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 24px;
+    margin: 25px 0 0 0;
+    border-radius: 12px 12px 0 0;
+}
+.exam-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.source-tag {
+    font-size: 0.85rem;
+    color: var(--accent2);
+    background: rgba(108, 92, 241, 0.18);
+    border: 1px solid rgba(108, 92, 241, 0.4);
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+/* DETAILS SOLUTION */
+details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    margin-bottom: 40px;
+}
+details > summary {
+    padding: 14px 20px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--green);
+    list-style: none;
+    background: rgba(0, 206, 201, 0.06);
+    border-radius: 0 0 12px 12px;
+    transition: background 0.2s;
+}
+details > summary:hover { background: rgba(0, 206, 201, 0.14); }
+details > summary::before { content: "🔑 Clique para ver a Resolução em Java (...Impl + Main)"; }
+details[open] > summary { border-radius: 0; border-bottom: 1px solid var(--border); }
+details[open] > summary::before { content: "🙈 Ocultar Solução"; }
+details > .content { padding: 25px; }
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <h1>🛠️ Ficha de Treino Prático: 1a e 1b</h1>
+    <p>Implementação de Classes (<code>...Impl</code>), Encapsulamento, Estados, Redefinição de <code>equals()</code> &amp; Testes de Unidade no <code>main()</code> (5,0 Valores)</p>
+    <p style="font-size: 0.9rem; margin-top: 10px;">Aprenda a estruturar classes infalíveis na Pergunta 1a (3,0v) e a criar uma suite de testes completa no método <code>main</code> na Pergunta 1b (2,0v).</p>
+</div>
+
+<!-- ==================== RECEITA DE BOLO UNIVERSAL ==================== -->
+<div class="algorithm-box">
+    <h3>🚀 O Algoritmo Universal em 4 Passos (Perguntas 1a e 1b)</h3>
+    
+    <div class="step">
+        <div class="step-title">Passo 1: Atributos Privados e Construtores com Estados por Defeito (1a)</div>
+        Declare todos os atributos como <code>private</code>. No construtor, inicialize os atributos recebidos e garanta que os estados enum por defeito (ex: <code>ENABLED</code>, <code>ACTIVE</code>, <code>STANDBY</code>) ou valores padrão de baterias/cargas são configurados corretamente.
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 2: Implementar Getters, Setters e Regras de Negócio (1a)</div>
+        Respeite rigorosamente a assinatura dos métodos definidos nas interfaces. Em métodos que alterem estados (ex: <code>setStatus</code> ou descarregar bateria), aplique as regras condicionais exigidas no enunciado.
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 3: O Método <code>equals(Object obj)</code> Perfeito (1a)</div>
+        Siga a estrutura padrão em 4 verificações:<br>
+        <code>1. if (this == obj) return true;</code><br>
+        <code>2. if (obj == null || getClass() != obj.getClass()) return false;</code> (ou <code>!(obj instanceof Tipo)</code>)<br>
+        <code>3. TipoImpl other = (TipoImpl) obj;</code><br>
+        <code>4. return this.code.equalsIgnoreCase(other.code);</code> (ou comparação das chaves primárias indicadas).
+    </div>
+
+    <div class="step">
+        <div class="step-title">Passo 4: Suite de Teste Completa no Método <code>main()</code> (1b)</div>
+        Crie a classe de teste. No <code>main</code>, teste <b>100% das funcionalidades</b>:<br>
+        1. Instanciação de objetos válidos.<br>
+        2. Invocação de todos os getters e exibição no ecrã com <code>System.out.println</code>.<br>
+        3. Alteração de estados e verificação de regras de negócio.<br>
+        4. Testes de <code>equals</code> com: (a) objetos iguais, (b) objetos com códigos diferentes, (c) comparação com <code>null</code>, e (d) comparação com objetos de outra classe.
+    </div>
+</div>
+
+<h2>🎯 Fichas Práticas de Exame</h2>
+
+<!-- ==================== EXAME REAL 25/26 (1a & 1b) ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">📌 FICHA 1: EXAME REAL 2025/2026 — RefrigeratedVehicleImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">5,0 Valores (3,0v + 2,0v)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor:</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">ItemType</span> { PERISHABLE_FOOD, NON_PERISHABLE_FOOD, CLOTHING, MEDICINE }
+<span class="kw">public enum</span> <span class="tp">VehicleStatus</span> { ENABLED, DISABLED }
+
+<span class="kw">public interface</span> <span class="tp">Vehicle</span> {
+    String <span class="fn">getCode</span>();
+    ItemType <span class="fn">getSupplyType</span>();
+    <span class="kw">double</span> <span class="fn">getMaxCapacity</span>();
+}
+
+<span class="kw">public interface</span> <span class="tp">RefrigeratedVehicle</span> <span class="kw">extends</span> Vehicle {
+    <span class="kw">double</span> <span class="fn">getMaxKilometers</span>();
+    VehicleStatus <span class="fn">getStatus</span>();
+    <span class="kw">void</span> <span class="fn">setStatus</span>(VehicleStatus status);
+    <span class="kw">boolean</span> <span class="fn">equals</span>(Object obj);
+}</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado das Perguntas:</h4>
+
+    <div class="method-spec">
+        <strong>Pergunta 1a (3,0v):</strong> Implemente a interface <code>RefrigeratedVehicle</code> numa classe denominada <code>RefrigeratedVehicleImpl</code>.<br>
+        - A classe deve armazenar o código (<code>code</code>), o tipo de mantimento (<code>supplyType</code>), a capacidade máxima (<code>maxCapacity</code>), a distância máxima em quilómetros (<code>maxKilometers</code>) e o estado (<code>status</code>).<br>
+        - O veículo deve ser inicializado por defeito com o estado <code>VehicleStatus.ENABLED</code>.<br>
+        - Duas instâncias de <code>RefrigeratedVehicle</code> são consideradas iguais no método <code>equals</code> se possuírem o mesmo código (devolvido por <code>getCode()</code>), ignorando maiúsculas/minúsculas.
+    </div>
+
+    <div class="method-spec">
+        <strong>Pergunta 1b (2,0v):</strong> Desenvolva o código necessário para testar a classe implementada no contexto de um método <code>main</code> na classe <code>RefrigeratedVehicleTest</code>.<br>
+        - Apresente um exemplo prático de teste para <b>cada método implementado</b> (getters, setter de estado, <code>equals</code> e <code>toString</code>).<br>
+        - No teste do <code>equals</code>, teste obrigatoriamente: igualdade entre dois objetos com o mesmo código, diferença para um código distinto, teste com <code>null</code> e teste com um objeto de outra classe.
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa da Pergunta 1a e 1b:</h4>
+<pre><code><span class="cm">// ==================== PERGUNTA 1a ====================</span>
+<span class="kw">public class</span> <span class="tp">RefrigeratedVehicleImpl</span> <span class="kw">implements</span> RefrigeratedVehicle {
+    <span class="kw">private</span> String code;
+    <span class="kw">private</span> ItemType supplyType;
+    <span class="kw">private double</span> maxCapacity;
+    <span class="kw">private double</span> maxKilometers;
+    <span class="kw">private</span> VehicleStatus status;
+
+    <span class="kw">public</span> <span class="fn">RefrigeratedVehicleImpl</span>(String code, ItemType supplyType, <span class="kw">double</span> maxCapacity, <span class="kw">double</span> maxKilometers) {
+        <span class="kw">this</span>.code = code;
+        <span class="kw">this</span>.supplyType = supplyType;
+        <span class="kw">this</span>.maxCapacity = maxCapacity;
+        <span class="kw">this</span>.maxKilometers = maxKilometers;
+        <span class="kw">this</span>.status = VehicleStatus.ENABLED; <span class="cm">// Estado por defeito: ENABLED</span>
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">getCode</span>() { <span class="kw">return</span> code; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> ItemType <span class="fn">getSupplyType</span>() { <span class="kw">return</span> supplyType; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getMaxCapacity</span>() { <span class="kw">return</span> maxCapacity; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getMaxKilometers</span>() { <span class="kw">return</span> maxKilometers; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> VehicleStatus <span class="fn">getStatus</span>() { <span class="kw">return</span> status; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> <span class="fn">setStatus</span>(VehicleStatus status) {
+        <span class="kw">if</span> (status != <span class="kw">null</span>) {
+            <span class="kw">this</span>.status = status;
+        }
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(Object obj) {
+        <span class="kw">if</span> (<span class="kw">this</span> == obj) <span class="kw">return true</span>;
+        <span class="kw">if</span> (obj == <span class="kw">null</span> || !(obj <span class="kw">instanceof</span> Vehicle)) <span class="kw">return false</span>;
+        Vehicle other = (Vehicle) obj;
+        <span class="kw">if</span> (<span class="kw">this</span>.code == <span class="kw">null</span> || other.getCode() == <span class="kw">null</span>) <span class="kw">return false</span>;
+        <span class="kw">return this</span>.code.equalsIgnoreCase(other.getCode());
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="str">"RefrigeratedVehicle[Code="</span> + code + <span class="str">", Type="</span> + supplyType + 
+               <span class="str">", Cap="</span> + maxCapacity + <span class="str">"kg, MaxKm="</span> + maxKilometers + <span class="str">"km, Status="</span> + status + <span class="str">"]"</span>;
+    }
+}
+
+<span class="cm">// ==================== PERGUNTA 1b ====================</span>
+<span class="kw">public class</span> <span class="tp">RefrigeratedVehicleTest</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.println(<span class="str">"=== TESTE PERGUNTA 1a e 1b: RefrigeratedVehicleImpl ==="</span>);
+
+        <span class="cm">// 1. Instanciação e Getters</span>
+        RefrigeratedVehicle v1 = <span class="kw">new</span> RefrigeratedVehicleImpl(<span class="str">"V-101"</span>, ItemType.PERISHABLE_FOOD, <span class="num">1500.0</span>, <span class="num">450.0</span>);
+        System.out.println(<span class="str">"Código: "</span> + v1.getCode());
+        System.out.println(<span class="str">"Tipo: "</span> + v1.getSupplyType());
+        System.out.println(<span class="str">"Capacidade Máxima: "</span> + v1.getMaxCapacity());
+        System.out.println(<span class="str">"Km Máximos: "</span> + v1.getMaxKilometers());
+        System.out.println(<span class="str">"Estado Inicial (deve ser ENABLED): "</span> + v1.getStatus());
+
+        <span class="cm">// 2. Alteração de Estado (setStatus)</span>
+        v1.setStatus(VehicleStatus.DISABLED);
+        System.out.println(<span class="str">"Estado Após Alteração (deve ser DISABLED): "</span> + v1.getStatus());
+
+        <span class="cm">// 3. Teste toString</span>
+        System.out.println(<span class="str">"toString: "</span> + v1);
+
+        <span class="cm">// 4. Testes do Método equals()</span>
+        RefrigeratedVehicle v2 = <span class="kw">new</span> RefrigeratedVehicleImpl(<span class="str">"v-101"</span>, ItemType.MEDICINE, <span class="num">2000.0</span>, <span class="num">300.0</span>);
+        RefrigeratedVehicle v3 = <span class="kw">new</span> RefrigeratedVehicleImpl(<span class="str">"V-999"</span>, ItemType.PERISHABLE_FOOD, <span class="num">1500.0</span>, <span class="num">450.0</span>);
+
+        System.out.println(<span class="str">"\n--- Testes de Igualdade (equals) ---"</span>);
+        System.out.println(<span class="str">"v1.equals(v2) [Mesmo código case-insensitive -> true]: "</span> + v1.equals(v2));
+        System.out.println(<span class="str">"v1.equals(v3) [Código diferente -> false]: "</span> + v1.equals(v3));
+        System.out.println(<span class="str">"v1.equals(null) [Null check -> false]: "</span> + v1.equals(<span class="kw">null</span>));
+        System.out.println(<span class="str">"v1.equals(\"Outra Classe\") [Classe diferente -> false]: "</span> + v1.equals(<span class="str">"Outra Classe"</span>));
+    }
+}</code></pre>
+</div></details>
+
+<!-- ==================== EXAME MODELO 1 (1a & 1b) ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">📌 FICHA 2: DESAFIO PRÁTICO 2 — SmartAidBoxImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">5,0 Valores (Dificuldade Exame)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor:</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">OperationalState</span> { ACTIVE, MAINTENANCE, DECOMMISSIONED }
+
+<span class="kw">public interface</span> <span class="tp">AidBox</span> {
+    String <span class="fn">getCode</span>();
+    String <span class="fn">getZone</span>();
+    <span class="kw">int</span> <span class="fn">getMaxContainers</span>();
+}
+
+<span class="kw">public interface</span> <span class="tp">SmartAidBox</span> <span class="kw">extends</span> AidBox {
+    <span class="kw">double</span> <span class="fn">getBatteryLevel</span>();
+    OperationalState <span class="fn">getState</span>();
+    <span class="kw">void</span> <span class="fn">updateBattery</span>(<span class="kw">double</span> newLevel);
+    <span class="kw">void</span> <span class="fn">setState</span>(OperationalState state);
+    <span class="kw">boolean</span> <span class="fn">equals</span>(Object obj);
+}</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado das Perguntas:</h4>
+
+    <div class="method-spec">
+        <strong>Pergunta 1a (3,0v):</strong> Implemente a interface <code>SmartAidBox</code> na classe <code>SmartAidBoxImpl</code>.<br>
+        - Atributos privados: <code>code</code> (String), <code>zone</code> (String), <code>maxContainers</code> (int), <code>batteryLevel</code> (double) e <code>state</code> (OperationalState).<br>
+        - O construtor deve aceitar <code>code</code>, <code>zone</code> e <code>maxContainers</code>. O <code>batteryLevel</code> deve ser inicializado a <code>100.0</code> e o estado como <code>OperationalState.ACTIVE</code>.<br>
+        - O método <code>updateBattery(double newLevel)</code> deve atualizar a bateria. Se <code>newLevel &lt;= 15.0%</code>, o estado do equipamento deve ser alterado <b>automaticamente</b> para <code>OperationalState.MAINTENANCE</code>.<br>
+        - Duas caixas inteligentes são iguais (<code>equals</code>) se possuírem a mesma zona E o mesmo código (comparação ignorando maiúsculas/minúsculas).
+    </div>
+
+    <div class="method-spec">
+        <strong>Pergunta 1b (2,0v):</strong> Crie a classe <code>SmartAidBoxTest</code> com o método <code>main</code> para testar todas as funcionalidades:<br>
+        - Crie instâncias e teste todos os getters.<br>
+        - Demonstre a alteração automática de estado para <code>MAINTENANCE</code> quando a bateria é atualizada para 10%.<br>
+        - Execute testes completos ao método <code>equals</code> (caixas iguais em código e zona, caixas com zonas diferentes, caixas com códigos diferentes, <code>null</code> e outro tipo de objeto).
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa da Pergunta 1a e 1b:</h4>
+<pre><code><span class="cm">// ==================== PERGUNTA 1a ====================</span>
+<span class="kw">public class</span> <span class="tp">SmartAidBoxImpl</span> <span class="kw">implements</span> SmartAidBox {
+    <span class="kw">private</span> String code;
+    <span class="kw">private</span> String zone;
+    <span class="kw">private int</span> maxContainers;
+    <span class="kw">private double</span> batteryLevel;
+    <span class="kw">private</span> OperationalState state;
+
+    <span class="kw">public</span> <span class="fn">SmartAidBoxImpl</span>(String code, String zone, <span class="kw">int</span> maxContainers) {
+        <span class="kw">this</span>.code = code;
+        <span class="kw">this</span>.zone = zone;
+        <span class="kw">this</span>.maxContainers = maxContainers;
+        <span class="kw">this</span>.batteryLevel = <span class="num">100.0</span>; <span class="cm">// Bateria inicial 100%</span>
+        <span class="kw">this</span>.state = OperationalState.ACTIVE; <span class="cm">// Estado por defeito: ACTIVE</span>
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">getCode</span>() { <span class="kw">return</span> code; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">getZone</span>() { <span class="kw">return</span> zone; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public int</span> <span class="fn">getMaxContainers</span>() { <span class="kw">return</span> maxContainers; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getBatteryLevel</span>() { <span class="kw">return</span> batteryLevel; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> OperationalState <span class="fn">getState</span>() { <span class="kw">return</span> state; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> <span class="fn">setState</span>(OperationalState state) {
+        <span class="kw">if</span> (state != <span class="kw">null</span>) {
+            <span class="kw">this</span>.state = state;
+        }
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> <span class="fn">updateBattery</span>(<span class="kw">double</span> newLevel) {
+        <span class="kw">this</span>.batteryLevel = newLevel;
+        <span class="kw">if</span> (<span class="kw">this</span>.batteryLevel <= <span class="num">15.0</span>) {
+            <span class="kw">this</span>.state = OperationalState.MAINTENANCE;
+        }
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(Object obj) {
+        <span class="kw">if</span> (<span class="kw">this</span> == obj) <span class="kw">return true</span>;
+        <span class="kw">if</span> (obj == <span class="kw">null</span> || !(obj <span class="kw">instanceof</span> SmartAidBox)) <span class="kw">return false</span>;
+        SmartAidBox other = (SmartAidBox) obj;
+        
+        <span class="kw">if</span> (<span class="kw">this</span>.code == <span class="kw">null</span> || other.getCode() == <span class="kw">null</span>) <span class="kw">return false</span>;
+        <span class="kw">if</span> (<span class="kw">this</span>.zone == <span class="kw">null</span> || other.getZone() == <span class="kw">null</span>) <span class="kw">return false</span>;
+
+        <span class="kw">return this</span>.code.equalsIgnoreCase(other.getCode()) && <span class="kw">this</span>.zone.equalsIgnoreCase(other.getZone());
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="str">"SmartAidBox[Code="</span> + code + <span class="str">", Zone="</span> + zone + <span class="str">", MaxContainers="</span> + maxContainers + 
+               <span class="str">", Battery="</span> + batteryLevel + <span class="str">"%, State="</span> + state + <span class="str">"]"</span>;
+    }
+}
+
+<span class="cm">// ==================== PERGUNTA 1b ====================</span>
+<span class="kw">public class</span> <span class="tp">SmartAidBoxTest</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.println(<span class="str">"=== TESTE PERGUNTA 1a e 1b: SmartAidBoxImpl ==="</span>);
+
+        <span class="cm">// 1. Instanciação e Verificação de Estado Inicial</span>
+        SmartAidBox box1 = <span class="kw">new</span> SmartAidBoxImpl(<span class="str">"BOX-01"</span>, <span class="str">"Norte"</span>, <span class="num">8</span>);
+        System.out.println(<span class="str">"Código: "</span> + box1.getCode());
+        System.out.println(<span class="str">"Zona: "</span> + box1.getZone());
+        System.out.println(<span class="str">"Max Containers: "</span> + box1.getMaxContainers());
+        System.out.println(<span class="str">"Bateria Inicial (100%): "</span> + box1.getBatteryLevel());
+        System.out.println(<span class="str">"Estado Inicial (ACTIVE): "</span> + box1.getState());
+
+        <span class="cm">// 2. Teste de atualização de bateria e mudança de estado para MAINTENANCE</span>
+        box1.updateBattery(<span class="num">10.0</span>);
+        System.out.println(<span class="str">"\nApós Bateria passar a 10.0%:"</span>);
+        System.out.println(<span class="str">"Bateria Atual: "</span> + box1.getBatteryLevel());
+        System.out.println(<span class="str">"Estado (Deve ter mudado para MAINTENANCE): "</span> + box1.getState());
+
+        <span class="cm">// 3. Teste do Método equals()</span>
+        SmartAidBox box2 = <span class="kw">new</span> SmartAidBoxImpl(<span class="str">"box-01"</span>, <span class="str">"NORTE"</span>, <span class="num">12</span>);
+        SmartAidBox box3 = <span class="kw">new</span> SmartAidBoxImpl(<span class="str">"BOX-01"</span>, <span class="str">"Sul"</span>, <span class="num">8</span>);
+        SmartAidBox box4 = <span class="kw">new</span> SmartAidBoxImpl(<span class="str">"BOX-02"</span>, <span class="str">"Norte"</span>, <span class="num">8</span>);
+
+        System.out.println(<span class="str">"\n--- Testes de Igualdade (equals) ---"</span>);
+        System.out.println(<span class="str">"box1.equals(box2) [Mesmo código e mesma zona -> true]: "</span> + box1.equals(box2));
+        System.out.println(<span class="str">"box1.equals(box3) [Zona diferente -> false]: "</span> + box1.equals(box3));
+        System.out.println(<span class="str">"box1.equals(box4) [Código diferente -> false]: "</span> + box1.equals(box4));
+        System.out.println(<span class="str">"box1.equals(null) [Com null -> false]: "</span> + box1.equals(<span class="kw">null</span>));
+        System.out.println(<span class="str">"box1.equals(12345) [Outro tipo de objeto -> false]: "</span> + box1.equals(<span class="num">12345</span>));
+    }
+}</code></pre>
+</div></details>
+
+<!-- ==================== EXAME MODELO 2 (1a & 1b) ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">🔥 FICHA 3: DESAFIO AVANÇADO 1 — InsulatedContainerImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">5,0 Valores (Dificuldade Superior)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor:</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">ItemType</span> { PERISHABLE_FOOD, NON_PERISHABLE_FOOD, CLOTHING, MEDICINE }
+<span class="kw">public enum</span> <span class="tp">TempRating</span> { FROZEN, CHILLED, AMBIENT }
+
+<span class="kw">public interface</span> <span class="tp">Container</span> {
+    String <span class="fn">getCode</span>();
+    ItemType <span class="fn">getType</span>();
+    <span class="kw">double</span> <span class="fn">getCapacity</span>();
+}
+
+<span class="kw">public interface</span> <span class="tp">InsulatedContainer</span> <span class="kw">extends</span> Container {
+    TempRating <span class="fn">getTempRating</span>();
+    <span class="kw">double</span> <span class="fn">getCurrentTemp</span>();
+    <span class="kw">double</span> <span class="fn">getMaxTempLimit</span>();
+    <span class="kw">boolean</span> <span class="fn">isTemperatureCritical</span>();
+    <span class="kw">boolean</span> <span class="fn">equals</span>(Object obj);
+}</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado das Perguntas:</h4>
+
+    <div class="method-spec">
+        <strong>Pergunta 1a (3,0v):</strong> Implemente a interface <code>InsulatedContainer</code> na classe <code>InsulatedContainerImpl</code>.<br>
+        - Armazene o código (<code>code</code>), o tipo (<code>type</code>), a capacidade (<code>capacity</code>), a classificação de temperatura (<code>tempRating</code>), a temperatura atual registada (<code>currentTemp</code>) e a temperatura máxima limite (<code>maxTempLimit</code>).<br>
+        - O método <code>isTemperatureCritical()</code> deve devolver <code>true</code> se a temperatura atual for estritamente superior à temperatura máxima limite (<code>currentTemp &gt; maxTempLimit</code>).<br>
+        - Dois contentores isolados são considerados iguais no método <code>equals</code> se possuírem o mesmo código E a mesma classificação de temperatura (<code>tempRating</code>).
+    </div>
+
+    <div class="method-spec">
+        <strong>Pergunta 1b (2,0v):</strong> Crie a classe de teste <code>InsulatedContainerTest</code> com o método <code>main</code>:<br>
+        - Teste a criação de objetos e todos os métodos seletores (getters).<br>
+        - Teste o comportamento de <code>isTemperatureCritical()</code> em duas situações: uma com temperatura segura e outra com temperatura crítica.<br>
+        - Teste o método <code>equals</code> para todas as possibilidades (objetos iguais, códigos diferentes, classificações térmicas diferentes, <code>null</code> e objetos não relacionados).
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa da Pergunta 1a e 1b:</h4>
+<pre><code><span class="cm">// ==================== PERGUNTA 1a ====================</span>
+<span class="kw">public class</span> <span class="tp">InsulatedContainerImpl</span> <span class="kw">implements</span> InsulatedContainer {
+    <span class="kw">private</span> String code;
+    <span class="kw">private</span> ItemType type;
+    <span class="kw">private double</span> capacity;
+    <span class="kw">private</span> TempRating tempRating;
+    <span class="kw">private double</span> currentTemp;
+    <span class="kw">private double</span> maxTempLimit;
+
+    <span class="kw">public</span> <span class="fn">InsulatedContainerImpl</span>(String code, ItemType type, <span class="kw">double</span> capacity, TempRating tempRating, <span class="kw">double</span> currentTemp, <span class="kw">double</span> maxTempLimit) {
+        <span class="kw">this</span>.code = code;
+        <span class="kw">this</span>.type = type;
+        <span class="kw">this</span>.capacity = capacity;
+        <span class="kw">this</span>.tempRating = tempRating;
+        <span class="kw">this</span>.currentTemp = currentTemp;
+        <span class="kw">this</span>.maxTempLimit = maxTempLimit;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">getCode</span>() { <span class="kw">return</span> code; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> ItemType <span class="fn">getType</span>() { <span class="kw">return</span> type; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getCapacity</span>() { <span class="kw">return</span> capacity; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> TempRating <span class="fn">getTempRating</span>() { <span class="kw">return</span> tempRating; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getCurrentTemp</span>() { <span class="kw">return</span> currentTemp; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getMaxTempLimit</span>() { <span class="kw">return</span> maxTempLimit; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">isTemperatureCritical</span>() {
+        <span class="kw">return</span> currentTemp > maxTempLimit;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(Object obj) {
+        <span class="kw">if</span> (<span class="kw">this</span> == obj) <span class="kw">return true</span>;
+        <span class="kw">if</span> (obj == <span class="kw">null</span> || !(obj <span class="kw">instanceof</span> InsulatedContainer)) <span class="kw">return false</span>;
+        InsulatedContainer other = (InsulatedContainer) obj;
+
+        <span class="kw">if</span> (<span class="kw">this</span>.code == <span class="kw">null</span> || other.getCode() == <span class="kw">null</span>) <span class="kw">return false</span>;
+
+        <span class="kw">return this</span>.code.equalsIgnoreCase(other.getCode()) && <span class="kw">this</span>.tempRating == other.getTempRating();
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="str">"InsulatedContainer[Code="</span> + code + <span class="str">", Type="</span> + type + <span class="str">", Rating="</span> + tempRating + 
+               <span class="str">", Temp="</span> + currentTemp + <span class="str">"ºC, Limit="</span> + maxTempLimit + <span class="str">"ºC, Critical="</span> + isTemperatureCritical() + <span class="str">"]"</span>;
+    }
+}
+
+<span class="cm">// ==================== PERGUNTA 1b ====================</span>
+<span class="kw">public class</span> <span class="tp">InsulatedContainerTest</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.println(<span class="str">"=== TESTE PERGUNTA 1a e 1b: InsulatedContainerImpl ==="</span>);
+
+        <span class="cm">// 1. Teste de Temperatura Normal</span>
+        InsulatedContainer c1 = <span class="kw">new</span> InsulatedContainerImpl(<span class="str">"CNT-FROZEN-01"</span>, ItemType.PERISHABLE_FOOD, <span class="num">500.0</span>, TempRating.FROZEN, -<span class="num">18.0</span>, -<span class="num">15.0</span>);
+        System.out.println(<span class="str">"Código: "</span> + c1.getCode());
+        System.out.println(<span class="str">"Temp Atual: "</span> + c1.getCurrentTemp() + <span class="str">"ºC | Limite: "</span> + c1.getMaxTempLimit() + <span class="str">"ºC"</span>);
+        System.out.println(<span class="str">"Está Crítico? (Deve ser false): "</span> + c1.isTemperatureCritical());
+
+        <span class="cm">// 2. Teste de Temperatura Crítica</span>
+        InsulatedContainer c2 = <span class="kw">new</span> InsulatedContainerImpl(<span class="str">"CNT-FROZEN-01"</span>, ItemType.PERISHABLE_FOOD, <span class="num">500.0</span>, TempRating.FROZEN, -<span class="num">10.0</span>, -<span class="num">15.0</span>);
+        System.out.println(<span class="str">"\nContentor C2 com Temperatura Elevada:"</span>);
+        System.out.println(<span class="str">"Temp Atual: "</span> + c2.getCurrentTemp() + <span class="str">"ºC | Limite: "</span> + c2.getMaxTempLimit() + <span class="str">"ºC"</span>);
+        System.out.println(<span class="str">"Está Crítico? (Deve ser true): "</span> + c2.isTemperatureCritical());
+
+        <span class="cm">// 3. Teste do Método equals()</span>
+        InsulatedContainer c3 = <span class="kw">new</span> InsulatedContainerImpl(<span class="str">"CNT-FROZEN-01"</span>, ItemType.MEDICINE, <span class="num">200.0</span>, TempRating.CHILLED, -<span class="num">18.0</span>, -<span class="num">15.0</span>);
+        InsulatedContainer c4 = <span class="kw">new</span> InsulatedContainerImpl(<span class="str">"CNT-OTHER-99"</span>, ItemType.PERISHABLE_FOOD, <span class="num">500.0</span>, TempRating.FROZEN, -<span class="num">18.0</span>, -<span class="num">15.0</span>);
+
+        System.out.println(<span class="str">"\n--- Testes de Igualdade (equals) ---"</span>);
+        System.out.println(<span class="str">"c1.equals(c2) [Mesmo código e mesmo TempRating -> true]: "</span> + c1.equals(c2));
+        System.out.println(<span class="str">"c1.equals(c3) [Mesmo código mas TempRating diferente -> false]: "</span> + c1.equals(c3));
+        System.out.println(<span class="str">"c1.equals(c4) [Código diferente -> false]: "</span> + c1.equals(c4));
+        System.out.println(<span class="str">"c1.equals(null) [Com null -> false]: "</span> + c1.equals(<span class="kw">null</span>));
+        System.out.println(<span class="str">"c1.equals(\"Contentor\") [Outro tipo de objeto -> false]: "</span> + c1.equals(<span class="str">"Contentor"</span>));
+    }
+}</code></pre>
+</div></details>
+
+<!-- ==================== EXAME MODELO 3 (1a & 1b) ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">🔥 FICHA 4: DESAFIO AVANÇADO 2 — AutonomousDroneVehicleImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">5,0 Valores (Dificuldade Superior)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor:</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">DroneMode</span> { STANDBY, IN_FLIGHT, CHARGING, EMERGENCY_LANDING }
+
+<span class="kw">public interface</span> <span class="tp">Vehicle</span> {
+    String <span class="fn">getCode</span>();
+    <span class="kw">double</span> <span class="fn">getMaxCapacity</span>();
+}
+
+<span class="kw">public interface</span> <span class="tp">AutonomousDroneVehicle</span> <span class="kw">extends</span> Vehicle {
+    <span class="kw">double</span> <span class="fn">getFlightRangeKm</span>();
+    <span class="kw">double</span> <span class="fn">getCurrentPayloadWeight</span>();
+    DroneMode <span class="fn">getFlightMode</span>();
+    <span class="kw">boolean</span> <span class="fn">loadCargo</span>(<span class="kw">double</span> weightKg);
+    <span class="kw">void</span> <span class="fn">triggerEmergency</span>();
+    <span class="kw">boolean</span> <span class="fn">equals</span>(Object obj);
+}</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado das Perguntas:</h4>
+
+    <div class="method-spec">
+        <strong>Pergunta 1a (3,0v):</strong> Implemente a interface <code>AutonomousDroneVehicle</code> na classe <code>AutonomousDroneVehicleImpl</code>.<br>
+        - Atributos: <code>code</code> (String), <code>maxCapacity</code> (double), <code>flightRangeKm</code> (double), <code>currentPayloadWeight</code> (double) e <code>flightMode</code> (DroneMode).<br>
+        - O construtor deve receber <code>code</code>, <code>maxCapacity</code> e <code>flightRangeKm</code>. A carga inicial deve ser <code>0.0</code> e o modo inicial deve ser <code>DroneMode.STANDBY</code>.<br>
+        - O método <code>loadCargo(double weightKg)</code> adiciona peso à carga atual e devolve <code>true</code> se <code>flightMode == DroneMode.STANDBY</code> E se o novo peso total não exceder <code>maxCapacity</code>. Caso contrário, não altera nada e devolve <code>false</code>.<br>
+        - O método <code>triggerEmergency()</code> altera o modo para <code>DroneMode.EMERGENCY_LANDING</code> e reseta a carga atual para <code>0.0</code>.<br>
+        - Dois drones são iguais se possuírem o mesmo código (case-insensitive) E a mesma autonomia de voo (<code>flightRangeKm</code> com tolerância de 0.001).
+    </div>
+
+    <div class="method-spec">
+        <strong>Pergunta 1b (2,0v):</strong> Escreva a classe de testes <code>DroneTest</code> com o método <code>main</code>:<br>
+        - Teste a criação do drone e a verificação dos estados iniciais.<br>
+        - Teste o método <code>loadCargo</code> adicionando carga válida e tentando adicionar carga excessiva.<br>
+        - Teste a função de emergência <code>triggerEmergency()</code> verificando o reset do peso.<br>
+        - Teste o <code>equals</code> com drones idênticos, autonomias diferentes, códigos diferentes, <code>null</code> e objetos de outras classes.
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa da Pergunta 1a e 1b:</h4>
+<pre><code><span class="cm">// ==================== PERGUNTA 1a ====================</span>
+<span class="kw">public class</span> <span class="tp">AutonomousDroneVehicleImpl</span> <span class="kw">implements</span> AutonomousDroneVehicle {
+    <span class="kw">private</span> String code;
+    <span class="kw">private double</span> maxCapacity;
+    <span class="kw">private double</span> flightRangeKm;
+    <span class="kw">private double</span> currentPayloadWeight;
+    <span class="kw">private</span> DroneMode flightMode;
+
+    <span class="kw">public</span> <span class="fn">AutonomousDroneVehicleImpl</span>(String code, <span class="kw">double</span> maxCapacity, <span class="kw">double</span> flightRangeKm) {
+        <span class="kw">this</span>.code = code;
+        <span class="kw">this</span>.maxCapacity = maxCapacity;
+        <span class="kw">this</span>.flightRangeKm = flightRangeKm;
+        <span class="kw">this</span>.currentPayloadWeight = <span class="num">0.0</span>;
+        <span class="kw">this</span>.flightMode = DroneMode.STANDBY;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">getCode</span>() { <span class="kw">return</span> code; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getMaxCapacity</span>() { <span class="kw">return</span> maxCapacity; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getFlightRangeKm</span>() { <span class="kw">return</span> flightRangeKm; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public double</span> <span class="fn">getCurrentPayloadWeight</span>() { <span class="kw">return</span> currentPayloadWeight; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> DroneMode <span class="fn">getFlightMode</span>() { <span class="kw">return</span> flightMode; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">loadCargo</span>(<span class="kw">double</span> weightKg) {
+        <span class="kw">if</span> (flightMode != DroneMode.STANDBY || weightKg <= <span class="num">0</span>) <span class="kw">return false</span>;
+        <span class="kw">if</span> (currentPayloadWeight + weightKg > maxCapacity) <span class="kw">return false</span>;
+
+        currentPayloadWeight += weightKg;
+        <span class="kw">return true</span>;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> <span class="fn">triggerEmergency</span>() {
+        <span class="kw">this</span>.flightMode = DroneMode.EMERGENCY_LANDING;
+        <span class="kw">this</span>.currentPayloadWeight = <span class="num">0.0</span>; <span class="cm">// Descarte de emergência</span>
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(Object obj) {
+        <span class="kw">if</span> (<span class="kw">this</span> == obj) <span class="kw">return true</span>;
+        <span class="kw">if</span> (obj == <span class="kw">null</span> || !(obj <span class="kw">instanceof</span> AutonomousDroneVehicle)) <span class="kw">return false</span>;
+        AutonomousDroneVehicle other = (AutonomousDroneVehicle) obj;
+
+        <span class="kw">if</span> (<span class="kw">this</span>.code == <span class="kw">null</span> || other.getCode() == <span class="kw">null</span>) <span class="kw">return false</span>;
+
+        <span class="kw">boolean</span> mesmoCodigo = <span class="kw">this</span>.code.equalsIgnoreCase(other.getCode());
+        <span class="kw">boolean</span> mesmaAutonomia = Math.abs(<span class="kw">this</span>.flightRangeKm - other.getFlightRangeKm()) < <span class="num">0.001</span>;
+
+        <span class="kw">return</span> mesmoCodigo && mesmaAutonomia;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="str">"AutonomousDrone[Code="</span> + code + <span class="str">", MaxCap="</span> + maxCapacity + <span class="str">"kg, Payload="</span> + currentPayloadWeight + 
+               <span class="str">"kg, Range="</span> + flightRangeKm + <span class="str">"km, Mode="</span> + flightMode + <span class="str">"]"</span>;
+    }
+}
+
+<span class="cm">// ==================== PERGUNTA 1b ====================</span>
+<span class="kw">public class</span> <span class="tp">DroneTest</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.println(<span class="str">"=== TESTE PERGUNTA 1a e 1b: AutonomousDroneVehicleImpl ==="</span>);
+
+        <span class="cm">// 1. Instanciação</span>
+        AutonomousDroneVehicle drone1 = <span class="kw">new</span> AutonomousDroneVehicleImpl(<span class="str">"DRONE-ALPHA"</span>, <span class="num">25.0</span>, <span class="num">120.0</span>);
+        System.out.println(<span class="str">"Drone Criado: "</span> + drone1);
+
+        <span class="cm">// 2. Testar Carregamento Válido e Excessivo</span>
+        System.out.println(<span class="str">"Carregar 10kg (Deve dar true): "</span> + drone1.loadCargo(<span class="num">10.0</span>));
+        System.out.println(<span class="str">"Carga Atual: "</span> + drone1.getCurrentPayloadWeight() + <span class="str">"kg"</span>);
+
+        System.out.println(<span class="str">"Carregar mais 20kg (Total 30kg > Cap 25kg -> Deve dar false): "</span> + drone1.loadCargo(<span class="num">20.0</span>));
+        System.out.println(<span class="str">"Carga Mantida: "</span> + drone1.getCurrentPayloadWeight() + <span class="str">"kg"</span>);
+
+        <span class="cm">// 3. Teste de Emergência</span>
+        drone1.triggerEmergency();
+        System.out.println(<span class="str">"\nApós Emergência:"</span>);
+        System.out.println(<span class="str">"Modo de Voo (Deve ser EMERGENCY_LANDING): "</span> + drone1.getFlightMode());
+        System.out.println(<span class="str">"Carga (Deve ter sido resetada para 0.0): "</span> + drone1.getCurrentPayloadWeight() + <span class="str">"kg"</span>);
+
+        <span class="cm">// 4. Testes de equals()</span>
+        AutonomousDroneVehicle drone2 = <span class="kw">new</span> AutonomousDroneVehicleImpl(<span class="str">"drone-alpha"</span>, <span class="num">50.0</span>, <span class="num">120.0</span>);
+        AutonomousDroneVehicle drone3 = <span class="kw">new</span> AutonomousDroneVehicleImpl(<span class="str">"DRONE-ALPHA"</span>, <span class="num">25.0</span>, <span class="num">300.0</span>);
+
+        System.out.println(<span class="str">"\n--- Testes de Igualdade (equals) ---"</span>);
+        System.out.println(<span class="str">"drone1.equals(drone2) [Mesmo código e mesma autonomia -> true]: "</span> + drone1.equals(drone2));
+        System.out.println(<span class="str">"drone1.equals(drone3) [Autonomia diferente -> false]: "</span> + drone1.equals(drone3));
+        System.out.println(<span class="str">"drone1.equals(null) [Null check -> false]: "</span> + drone1.equals(<span class="kw">null</span>));
+        System.out.println(<span class="str">"drone1.equals(\"Drone\") [Classe diferente -> false]: "</span> + drone1.equals(<span class="str">"Drone"</span>));
+    }
+}</code></pre>
+</div></details>
+
+<!-- ==================== EXAME MODELO 4 (1a & 1b) ==================== -->
+<div class="exam-card">
+    <div class="exam-title">
+        <span class="source-tag">🔥 FICHA 5: DESAFIO AVANÇADO 3 — HighPriorityAidBoxImpl</span>
+        <span style="color: var(--orange); font-weight: 700;">5,0 Valores (Dificuldade Superior)</span>
+    </div>
+    
+    <div class="interfaces-box">
+        <h4>📋 Interfaces e Tipos Fornecidos pelo Professor:</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">PriorityLevel</span> { LOW, MEDIUM, HIGH, URGENT }
+
+<span class="kw">public interface</span> <span class="tp">AidBox</span> {
+    String <span class="fn">getCode</span>();
+    String <span class="fn">getZone</span>();
+    Container[] <span class="fn">getContainers</span>();
+}
+
+<span class="kw">public interface</span> <span class="tp">HighPriorityAidBox</span> <span class="kw">extends</span> AidBox {
+    PriorityLevel <span class="fn">getPriority</span>();
+    <span class="kw">void</span> <span class="fn">setPriority</span>(PriorityLevel priority);
+    <span class="kw">boolean</span> <span class="fn">isUrgentCollectionNeeded</span>();
+    <span class="kw">int</span> <span class="fn">countContainers</span>();
+    <span class="kw">boolean</span> <span class="fn">equals</span>(Object obj);
+}</code></pre>
+    </div>
+
+    <h4 style="color: #fff; margin-top: 15px;">📝 Enunciado das Perguntas:</h4>
+
+    <div class="method-spec">
+        <strong>Pergunta 1a (3,0v):</strong> Implemente a interface <code>HighPriorityAidBox</code> na classe <code>HighPriorityAidBoxImpl</code>.<br>
+        - Atributos: <code>code</code> (String), <code>zone</code> (String), <code>containers</code> (array <code>Container[]</code>) e <code>priority</code> (PriorityLevel).<br>
+        - O construtor deve inicializar os 4 atributos. Se <code>containers</code> for nulo, deve atribuir um array vazio de tamanho 0.<br>
+        - O método <code>countContainers()</code> deve contar e devolver o número de contentores válidos (não nulos) presentes no array <code>containers</code>.<br>
+        - O método <code>isUrgentCollectionNeeded()</code> devolve <code>true</code> se <code>priority == PriorityLevel.URGENT</code> OU se a contagem de contentores válidos for estritamente superior a 5.<br>
+        - Duas caixas são iguais no método <code>equals</code> se possuírem o mesmo código, a mesma zona E o mesmo número de contentores válidos (obtido por <code>countContainers()</code>).
+    </div>
+
+    <div class="method-spec">
+        <strong>Pergunta 1b (2,0v):</strong> Desenvolva a classe de teste <code>HighPriorityAidBoxTest</code> com o método <code>main</code>:<br>
+        - Instancie caixas com arrays contendo elementos válidos e nulos.<br>
+        - Teste a contagem de contentores (<code>countContainers()</code>) e a alteração de prioridade com <code>setPriority()</code>.<br>
+        - Teste o método <code>isUrgentCollectionNeeded()</code> sob várias condições (prioridade URGENT vs LOW com muitos contentores).<br>
+        - Teste exaustivamente o <code>equals</code> para caixas iguais em código, zona e contagem, diferenças em cada atributo, <code>null</code> e outros tipos de objetos.
+    </div>
+</div>
+<details><summary></summary><div class="content">
+    <h4>💻 Resolução Completa da Pergunta 1a e 1b:</h4>
+<pre><code><span class="cm">// ==================== PERGUNTA 1a ====================</span>
+<span class="kw">public class</span> <span class="tp">HighPriorityAidBoxImpl</span> <span class="kw">implements</span> HighPriorityAidBox {
+    <span class="kw">private</span> String code;
+    <span class="kw">private</span> String zone;
+    <span class="kw">private</span> Container[] containers;
+    <span class="kw">private</span> PriorityLevel priority;
+
+    <span class="kw">public</span> <span class="fn">HighPriorityAidBoxImpl</span>(String code, String zone, Container[] containers, PriorityLevel priority) {
+        <span class="kw">this</span>.code = code;
+        <span class="kw">this</span>.zone = zone;
+        <span class="kw">this</span>.containers = (containers != <span class="kw">null</span>) ? containers : <span class="kw">new</span> Container[<span class="num">0</span>];
+        <span class="kw">this</span>.priority = (priority != <span class="kw">null</span>) ? priority : PriorityLevel.LOW;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">getCode</span>() { <span class="kw">return</span> code; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">getZone</span>() { <span class="kw">return</span> zone; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> Container[] <span class="fn">getContainers</span>() { <span class="kw">return</span> containers; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> PriorityLevel <span class="fn">getPriority</span>() { <span class="kw">return</span> priority; }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public void</span> <span class="fn">setPriority</span>(PriorityLevel priority) {
+        <span class="kw">if</span> (priority != <span class="kw">null</span>) {
+            <span class="kw">this</span>.priority = priority;
+        }
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public int</span> <span class="fn">countContainers</span>() {
+        <span class="kw">if</span> (containers == <span class="kw">null</span>) <span class="kw">return</span> <span class="num">0</span>;
+        <span class="kw">int</span> count = <span class="num">0</span>;
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < containers.length; i++) {
+            <span class="kw">if</span> (containers[i] != <span class="kw">null</span>) count++;
+        }
+        <span class="kw">return</span> count;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">isUrgentCollectionNeeded</span>() {
+        <span class="kw">if</span> (priority == PriorityLevel.URGENT) <span class="kw">return true</span>;
+        <span class="kw">return</span> countContainers() > <span class="num">5</span>;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(Object obj) {
+        <span class="kw">if</span> (<span class="kw">this</span> == obj) <span class="kw">return true</span>;
+        <span class="kw">if</span> (obj == <span class="kw">null</span> || !(obj <span class="kw">instanceof</span> HighPriorityAidBox)) <span class="kw">return false</span>;
+        HighPriorityAidBox other = (HighPriorityAidBox) obj;
+
+        <span class="kw">if</span> (<span class="kw">this</span>.code == <span class="kw">null</span> || other.getCode() == <span class="kw">null</span>) <span class="kw">return false</span>;
+        <span class="kw">if</span> (<span class="kw">this</span>.zone == <span class="kw">null</span> || other.getZone() == <span class="kw">null</span>) <span class="kw">return false</span>;
+
+        <span class="kw">boolean</span> mesmoCodigo = <span class="kw">this</span>.code.equalsIgnoreCase(other.getCode());
+        <span class="kw">boolean</span> mesmaZona = <span class="kw">this</span>.zone.equalsIgnoreCase(other.getZone());
+        <span class="kw">boolean</span> mesmaContagem = <span class="kw">this</span>.countContainers() == other.countContainers();
+
+        <span class="kw">return</span> mesmoCodigo && mesmaZona && mesmaContagem;
+    }
+
+    <span class="kw">@Override</span>
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="str">"HighPriorityAidBox[Code="</span> + code + <span class="str">", Zone="</span> + zone + <span class="str">", Priority="</span> + priority + 
+               <span class="str">", ContainersValidos="</span> + countContainers() + <span class="str">", Urgent="</span> + isUrgentCollectionNeeded() + <span class="str">"]"</span>;
+    }
+}
+
+<span class="cm">// ==================== PERGUNTA 1b ====================</span>
+<span class="kw">public class</span> <span class="tp">HighPriorityAidBoxTest</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        System.out.println(<span class="str">"=== TESTE PERGUNTA 1a e 1b: HighPriorityAidBoxImpl ==="</span>);
+
+        <span class="cm">// Dummy array de contentores (com elementos nulos pelo meio)</span>
+        Container[] cArray = <span class="kw">new</span> Container[<span class="num">7</span>];
+        cArray[<span class="num">0</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C1"</span>);
+        cArray[<span class="num">1</span>] = <span class="kw">null</span>;
+        cArray[<span class="num">2</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C2"</span>);
+        cArray[<span class="num">3</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C3"</span>);
+
+        <span class="cm">// 1. Criar Objeto</span>
+        HighPriorityAidBox box1 = <span class="kw">new</span> HighPriorityAidBoxImpl(<span class="str">"HP-100"</span>, <span class="str">"Porto"</span>, cArray, PriorityLevel.HIGH);
+        System.out.println(<span class="str">"Box Criada: "</span> + box1);
+        System.out.println(<span class="str">"Contagem de Contentores Válidos (Deve ser 3): "</span> + box1.countContainers());
+        System.out.println(<span class="str">"Necessita Recolha Urgente? (HIGH com 3 cnts -> false): "</span> + box1.isUrgentCollectionNeeded());
+
+        <span class="cm">// 2. Alterar Prioridade para URGENT</span>
+        box1.setPriority(PriorityLevel.URGENT);
+        System.out.println(<span class="str">"\nApós alterar prioridade para URGENT:"</span>);
+        System.out.println(<span class="str">"Necessita Recolha Urgente? (Deve ser true): "</span> + box1.isUrgentCollectionNeeded());
+
+        <span class="cm">// 3. Testes do Método equals()</span>
+        Container[] cArray2 = <span class="kw">new</span> Container[<span class="num">3</span>];
+        cArray2[<span class="num">0</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C10"</span>);
+        cArray2[<span class="num">1</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C11"</span>);
+        cArray2[<span class="num">2</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C12"</span>);
+
+        HighPriorityAidBox box2 = <span class="kw">new</span> HighPriorityAidBoxImpl(<span class="str">"hp-100"</span>, <span class="str">"PORTO"</span>, cArray2, PriorityLevel.LOW);
+        HighPriorityAidBox box3 = <span class="kw">new</span> HighPriorityAidBoxImpl(<span class="str">"hp-100"</span>, <span class="str">"PORTO"</span>, <span class="kw">new</span> Container[<span class="num">0</span>], PriorityLevel.URGENT);
+
+        System.out.println(<span class="str">"\n--- Testes de Igualdade (equals) ---"</span>);
+        System.out.println(<span class="str">"box1.equals(box2) [Mesmo código, zona e contagem (3 cnts) -> true]: "</span> + box1.equals(box2));
+        System.out.println(<span class="str">"box1.equals(box3) [Contagem diferente (3 vs 0) -> false]: "</span> + box1.equals(box3));
+        System.out.println(<span class="str">"box1.equals(null) [Null check -> false]: "</span> + box1.equals(<span class="kw">null</span>));
+        System.out.println(<span class="str">"box1.equals(\"Caixa\") [Outra classe -> false]: "</span> + box1.equals(<span class="str">"Caixa"</span>));
+    }
+}</code></pre>
+</div></details>
+
+<br>
+<div style="text-align: center; color: var(--text-dim); margin: 30px 0;">
+    <i>Nota do Assistente: Utilize estas fichas para treinar a escrita rápida e sem erros da classe de implementação e do método main de testes!</i>
+</div>
+
+</body>
+</html>
