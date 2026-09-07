@@ -1,196 +1,193 @@
-# Resolução — Exame Modelo 5 — Paradigmas de Programação
-**Época de Recurso | Ano Letivo: 2025/2026**
+# Resolução do Exame Modelo 5 — Paradigmas de Programação (Época Especial)
+
+## PARTE 1 (6,0 VALORES) — RESPOSTA ABERTA TEÓRICA
+
+### Pergunta 1 (1,5 valores)
+
+#### Resposta Teórica:
+A memória gerida pela JVM divide-se em duas regiões fundamentais:
+1. **Stack (Pilha)**: Armazena variáveis locais, primitivos e referências a objetos no âmbito da execução de métodos por cada thread. A memória é libertada automaticamente quando o método termina (escopo LIFO).
+2. **Heap (Monte)**: Área de memória global partilhada onde todos os objetos e arrays são alocados dinamicamente com o operador `new`.
+
+**Ciclo de Vida dos Objetos e GC:**
+Um objeto reside na Heap e torna-se **elegível para o Garbage Collector (GC)** assim que deixa de ser alcançável por qualquer cadeia de referências ativas a partir das raízes do GC (*GC Roots*, como variáveis locais ativas na Stack ou campos estáticos).
+
+**Tipos de Referências em Java (`java.lang.ref`):**
+- **Referências Fortes (*Strong References*)**: A referência padrão (ex.: `Object obj = new Object()`). O GC nunca recolhe o objeto enquanto houver uma referência forte ativa.
+- **`SoftReference`**: O objeto é mantido na memória e só é recolhido pelo GC se a JVM estiver prestes a esgotar a memória livre (Memory Pressure). Útil para *caches*.
+- **`WeakReference`**: O objeto é recolhido no próximo ciclo de coleta do GC, independentemente do nível de memória livre. Utilizado para mapeamentos fracos (ex.: `WeakHashMap`).
+
+**Descontinuação de `finalize()`:**
+O método `finalize()` foi depreciado devido à falta de garantias de tempo de execução, problemas de segurança e degradação de performance. A alternativa moderna é o uso da interface `AutoCloseable` com `try-with-resources`.
 
 ---
 
-## PARTE 1 – Perguntas Teóricas
+### Pergunta 2 (1,5 valores)
 
-### Pergunta 1
-A Máquina Virtual Java (JVM) organiza a memória atribuída às aplicações principalmente em duas áreas fundamentais:
+#### Resposta Teórica:
+A resolução de chamadas a métodos sobrecarregados (*Overloading Resolution*) é efetuada pelo compilador em tempo de compilação (**Resolução Estática**), respeitando a seguinte ordem rigorosa de prioridade com base nos tipos declarativos dos argumentos:
+1. **Correspondência Exata de Tipos**: Procura um método cujos parâmetros coincidam exatamente com os argumentos.
+2. **Promoção Primitiva (*Widening*)**: Converte tipos primitivos mais pequenos para maiores (ex.: `int` para `long` ou `double`).
+3. **Autoboxing / Unboxing**: Converte primitivos nos seus respetivos wrappers (ex.: `int` para `Integer`).
+4. **Argumentos Variáveis (*Varargs* `...`)**: A menor prioridade; acionada se nenhuma das anteriores for aplicável.
 
-1. **Stack (Pilha de Execução):**
-   - **Propósito:** Armazena as chamadas de métodos (*frames* de pilha), variáveis locais e primitivos de curta duração.
-   - **Características:** O acesso é extremamente rápido e a alocação/desalocação ocorre automaticamente à medida que os métodos entram e saem de escopo (LIFO — *Last-In, First-Out*). Cada *thread* possui a sua própria Stack isolada.
-2. **Heap (Memória Dinâmica):**
-   - **Propósito:** Armazena todas as instâncias de objetos e arrays criados dinamicamente com o operador `new`.
-   - **Características:** É partilhada por todas as *threads* da aplicação. A sua gestão é efetuada pelo **Garbage Collector (GC)**, que identifica objetos aos quais já não é possível aceder a partir de nenhuma referência ativa na Stack (*unreachable objects*) e deita-os fora para libertar memória.
+**Comparação com Despacho Dinâmico (*Overriding*):**
+Enquanto a sobrecarga é resolvida estaticamente na compilação, a sobreposição (*Overriding*) é resolvida em tempo de execução pela JVM (**Despacho Dinâmico**), executando a implementação da subclasse real alocada na Heap.
 
-**Prevenção da `NullPointerException` (NPE):**
-A exceção `NullPointerException` ocorre sempre que o programa tenta invocar um método ou aceder a um atributo através de uma variável de referência que contém o valor `null`.
-- **Estratégias defensivas:**
-  1. Validar explicitamente os argumentos recebidos nos construtores/métodos com `if (ref == null)`.
-  2. Inverter comparações literais de String (ex: `"PERISHABLE".equals(tipo)` em vez de `tipo.equals("PERISHABLE")`).
-  3. Inicializar coleções e arrays nos construtores em vez de os deixar como `null`.
-  4. Retornar arrays de tamanho 0 (`new Elemento[0]`) em vez de retornar `null` em métodos que devolvem coleções.
+---
+
+### Pergunta 3 (1,5 valores)
+
+#### Resposta Teórica:
+- **Strategy**: Encapsula uma família de algoritmos em classes separadas que implementam uma interface comum. Permite alterar dinamicamente o algoritmo utilizado por um objeto sem modificar a sua classe.
+- **Factory Method**: Define uma interface/método abstrato para criação de objetos, delegando às subclasses a decisão de qual classe concreta instanciar.
+
+**Princípio Open/Closed (SOLID):**
+Ao aplicar o padrão **Strategy**, se surgirem novas regras de cálculo ou seleção de rotas, basta criar uma nova classe que implemente a interface da estratégia. A classe cliente permanece **fechada para modificação**, mas o sistema fica **aberto para extensão**.
+
+#### Exemplo Prático:
 
 ```java
-public class GestaoMemoria {
-    public void exemploDefensivo(String texto) {
-        // Prevenção de NPE com comparação invertida e validação prévia
-        if (texto != null && "OK".equalsIgnoreCase(texto)) {
-            System.out.println("Texto válido.");
-        }
-    }
+public interface AlgoritmoCalculo {
+    double calcular(double base);
+}
+
+public class CalculoUrgente implements AlgoritmoCalculo {
+    @Override
+    public double calcular(double base) { return base * 1.5; }
+}
+
+public class ProcessadorRotas {
+    private final AlgoritmoCalculo algoritmo;
+    public ProcessadorRotas(AlgoritmoCalculo algoritmo) { this.algoritmo = algoritmo; }
+    public double executar(double v) { return algoritmo.calcular(v); }
 }
 ```
 
 ---
 
-### Pergunta 2
-A classe `String` em Java é **imutável**, o que significa que uma vez criado o objeto String na memória, a sua sequência de caracteres não pode ser alterada. Qualquer operação de modificação (como `concat()`, `toUpperCase()` ou o operador `+`) cria um objeto `String` completamente novo na Heap.
+### Pergunta 4 (1,5 valores)
 
-- **String Pool:** É uma área de memória reservada na Heap onde a JVM armazena literais de texto. Se dois literais com o mesmo conteúdo forem declarados (ex: `String s1 = "ola"; String s2 = "ola";`), a JVM reutiliza a mesma referência do String Pool para poupar memória.
-- **`String` vs `StringBuilder` vs `StringBuffer` em Ciclos:**
-  - Se concatenar Strings dentro de um ciclo usando o operador `+`, a JVM cria milhares de objetos intermédios temporários na Heap, sobrecarregando o Garbage Collector e degradando o desempenho.
-  - A classe `StringBuilder` é **mutável** e deve ser utilizada para concatenações intensivas em ciclos num único thread, pois modifica o seu buffer interno sem criar novos objetos.
-  - A classe `StringBuffer` é equivalente ao `StringBuilder`, mas os seus métodos são **sincronizados (`synchronized`)**, garantindo segurança em ambientes multithread (*thread-safe*), embora com um pequeno custo de desempenho.
+#### Resposta Teórica:
+O contrato obrigatório entre `equals()` e `hashCode()` exige que:
+1. **Se dois objetos forem iguais segundo o método `equals()`, eles DEVEM obrigatoriamente devolver o mesmo valor no método `hashCode()`.**
+2. Se dois objetos tiverem o mesmo `hashCode()`, não é garantido que sejam iguais (colisão de hash).
 
-```java
-public class TesteString {
-    public static void main(String[] args) {
-        // Má prática: cria N objetos String temporários
-        String resultadoIncorreto = "";
-        for (int i = 0; i < 1000; i++) {
-            resultadoIncorreto += i;
-        }
-
-        // Boa prática: reutiliza o buffer interno do StringBuilder
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 1000; i++) {
-            sb.append(i);
-        }
-        String resultadoCorreto = sb.toString();
-    }
-}
-```
+**Consequências de violar o contrato:**
+Ao redefinir `equals()` sem redefinir `hashCode()`, objetos logicamente iguais terão hashes diferentes derivados do endereço de memória de `Object`. Em coleções baseadas em *hashing* (`HashSet`, `HashMap`), a coleção procurará o objeto no *bucket* errado, resultando na duplicação indevida de elementos em `Set`s e falhas de localização em `Map`s.
 
 ---
 
-### Pergunta 3
-Em Java, a instrução `package` permite agrupar e organizar classes e interfaces relacionadas em módulos lógicos, evitando conflitos de nomes entre bibliotecas.
+## PARTE 2 (14,0 VALORES) — PROGRAMAÇÃO PRÁTICA EM JAVA (DOMÍNIO TP)
 
-**Visibilidade por Defeito (*Package-Private* / sem modificador):**
-Quando não é especificado nenhum modificador de acesso (`public`, `protected` ou `private`) antes de uma classe, atributo ou método, este assume a visibilidade *package-private*.
-- **Comportamento:** O membro ou classe fica acessível exclusivamente por classes que pertençam exatamente ao **mesmo pacote**. Classes localizadas noutros pacotes (mesmo que sejam subclasses) não conseguem aceder ao elemento.
-
-**Vantagem na Arquitetura de Software:**
-O encapsulamento ao nível de pacote permite ocultar os detalhes de implementação interna e as classes auxiliares de uma biblioteca, expondo apenas as interfaces públicas e classes principais da API. Isto previne a utilização indevida de partes internas pelo código cliente e permite refatorar a implementação interna do pacote sem quebrar a compatibilidade com o exterior.
+### Pergunta 1a (3,0 valores)
 
 ```java
-// Ficheiro: com/empresa/logistica/interna/MotorCalculo.java
-package com.empresa.logistica.interna;
-
-// Visibilidade de pacote: apenas visível dentro de com.empresa.logistica.interna
-class MotorCalculo {
-    void processar() {
-        System.out.println("Processamento interno");
-    }
-}
-```
-
----
-
-### Pergunta 4
-- **Interfaces Marcadoras (*Marker Interfaces*):** São interfaces que não declaram qualquer método ou constante (ex: `Serializable`, `Cloneable`). O seu propósito é assinalar ao compilador ou à JVM que a classe que a implementa possui uma determinada propriedade ou permissão especial.
-- **Métodos `default` em Interfaces (Java 8+):** Permitem adicionar métodos com uma implementação por defeito diretamente no corpo de uma interface (utilizando a palavra reservada `default`). O seu objetivo principal é permitir a **evolução de interfaces pré-existentes** adicionando novas funcionalidades sem quebrar o código de classes antigas que já implementavam a interface.
-
-**Resolução de Conflitos (Problema do Diamante em Métodos `default`):**
-Se uma classe implementar duas interfaces distintas que declarem um método `default` com exatamente a mesma assinatura, o compilador exige obrigatoriamente que a classe sobreponha (`@Override`) o método conflitante para resolver explicitamente a ambiguidade.
-
-```java
-interface A {
-    default void saudar() {
-        System.out.println("Olá da Interface A");
+// Exceção personalizada verificada para Contentores
+public class ContainerException extends Exception {
+    public ContainerException(String message) {
+        super(message);
     }
 }
 
-interface B {
-    default void saudar() {
-        System.out.println("Olá da Interface B");
-    }
-}
+// Implementação da classe RefrigeratedContainerImpl
+public class RefrigeratedContainerImpl implements RefrigeratedContainer {
+    private final String code;
+    private final ItemType type;
+    private final double capacity;
+    private final double minTemperature;
+    private final double maxTemperature;
+    private final Measurement[] measurements;
+    private int numberOfMeasurements;
 
-public class Servico implements A, B {
-    // Obrigatório resolver a ambiguidade!
-    @Override
-    public void saudar() {
-        A.super.saudar(); // Escolhe explicitamente a implementação de A (ou fornece uma nova)
-    }
-}
-```
-
----
-
-## PARTE 2 – Programação em Java
-
-### Pergunta 1a
-```java
-public class ShipmentBatchImpl implements ShipmentBatch {
-    private static final int MAX_CONTAINERS = 6;
-    private String batchCode;
-    private ItemType itemType;
-    private Container[] containers;
-    private int numberOfContainers;
-
-    public ShipmentBatchImpl(String batchCode, ItemType itemType) {
-        if (batchCode == null || batchCode.trim().isEmpty()) {
-            throw new IllegalArgumentException("O codigo do lote nao pode ser nulo.");
+    public RefrigeratedContainerImpl(String code, ItemType type, double capacity, double minTemperature, double maxTemperature) {
+        if (code == null || code.trim().isEmpty()) {
+            throw new IllegalArgumentException("O código do contentor não pode ser nulo nem vazio.");
         }
-        if (itemType == null) {
-            throw new IllegalArgumentException("O tipo de item do lote nao pode ser nulo.");
+        if (type == null) {
+            throw new IllegalArgumentException("O tipo de item não pode ser nulo.");
         }
-        this.batchCode = batchCode;
-        this.itemType = itemType;
-        this.containers = new Container[MAX_CONTAINERS];
-        this.numberOfContainers = 0;
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("A capacidade deve ser estritamente positiva.");
+        }
+        if (minTemperature >= maxTemperature) {
+            throw new IllegalArgumentException("A temperatura mínima deve ser inferior à temperatura máxima.");
+        }
+
+        this.code = code;
+        this.type = type;
+        this.capacity = capacity;
+        this.minTemperature = minTemperature;
+        this.maxTemperature = maxTemperature;
+        this.measurements = new Measurement[20]; // Capacidade máxima de 20 medições
+        this.numberOfMeasurements = 0;
     }
 
     @Override
-    public String getBatchCode() {
-        return this.batchCode;
+    public String getCode() {
+        return this.code;
     }
 
     @Override
-    public ItemType getItemType() {
-        return this.itemType;
+    public ItemType getType() {
+        return this.type;
     }
 
     @Override
-    public Container[] getContainers() {
-        Container[] result = new Container[numberOfContainers];
-        for (int i = 0; i < numberOfContainers; i++) {
-            result[i] = containers[i];
-        }
-        return result;
+    public double getCapacity() {
+        return this.capacity;
     }
 
     @Override
-    public void addContainer(Container container) throws ShipmentException {
-        if (container == null) {
-            throw new ShipmentException("O contentor a adicionar nao pode ser nulo.");
-        }
-        if (container.getType() != this.itemType) {
-            throw new ShipmentException("O tipo do contentor (" + container.getType() + ") e incompativel com o lote (" + this.itemType + ").");
-        }
-        if (numberOfContainers >= MAX_CONTAINERS) {
-            throw new ShipmentException("Capacidade maxima do lote de " + MAX_CONTAINERS + " contentores atingida.");
-        }
-        containers[numberOfContainers] = container;
-        numberOfContainers++;
+    public double getMinTemperature() {
+        return this.minTemperature;
     }
 
     @Override
-    public double getTotalWeight() {
-        double total = 0;
-        for (int i = 0; i < numberOfContainers; i++) {
-            if (containers[i] != null) {
-                Measurement last = containers[i].getLastMeasurement();
-                if (last != null) {
-                    total += last.getValue();
-                }
-            }
+    public double getMaxTemperature() {
+        return this.maxTemperature;
+    }
+
+    @Override
+    public double getCurrentTemperature() {
+        Measurement last = getLastMeasurement();
+        return (last != null) ? last.getValue() : 0.0;
+    }
+
+    @Override
+    public Measurement getLastMeasurement() {
+        if (numberOfMeasurements == 0) {
+            return null;
         }
-        return total;
+        return measurements[numberOfMeasurements - 1];
+    }
+
+    @Override
+    public Measurement[] getMeasurements() {
+        Measurement[] copy = new Measurement[numberOfMeasurements];
+        for (int i = 0; i < numberOfMeasurements; i++) {
+            copy[i] = measurements[i];
+        }
+        return copy;
+    }
+
+    @Override
+    public void addMeasurement(Measurement measurement) throws ContainerException {
+        if (measurement == null) {
+            throw new ContainerException("A medição a adicionar não pode ser nula.");
+        }
+        if (numberOfMeasurements >= 20) {
+            throw new ContainerException("Capacidade máxima de 20 medições atingida no contentor " + code);
+        }
+
+        double val = measurement.getValue();
+        if (val < minTemperature || val > maxTemperature) {
+            throw new ContainerException("Violação de Limites Térmicos! Valor " + val + "°C fora da gama [" 
+                    + minTemperature + "°C, " + maxTemperature + "°C].");
+        }
+
+        measurements[numberOfMeasurements] = measurement;
+        numberOfMeasurements++;
     }
 
     @Override
@@ -198,190 +195,224 @@ public class ShipmentBatchImpl implements ShipmentBatch {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (obj == null || !(obj instanceof Container)) {
             return false;
         }
-        if (!(obj instanceof ShipmentBatch)) {
-            return false;
-        }
-        ShipmentBatch other = (ShipmentBatch) obj;
-        return this.batchCode.equals(other.getBatchCode());
-    }
-
-    @Override
-    public String toString() {
-        return "ShipmentBatchImpl [Codigo: " + batchCode + " | Tipo: " + itemType + " | Contentores: " + numberOfContainers + "/" + MAX_CONTAINERS + "]";
+        Container other = (Container) obj;
+        return this.code.equals(other.getCode());
     }
 }
 ```
 
 ---
 
-### Pergunta 1b
+### Pergunta 1b (2,0 valores)
+
 ```java
-public class TestShipmentBatch {
+public class RefrigeratedContainerTest {
     public static void main(String[] args) {
-        System.out.println("=== Teste da Classe ShipmentBatchImpl ===");
+        System.out.println("=== Início do Teste RefrigeratedContainerTest (Pergunta 1b) ===");
 
-        ShipmentBatchImpl lote1 = new ShipmentBatchImpl("BATCH-100", ItemType.MEDICINE);
-        ShipmentBatchImpl lote2 = new ShipmentBatchImpl("BATCH-100", ItemType.MEDICINE);
-        ShipmentBatchImpl lote3 = new ShipmentBatchImpl("BATCH-200", ItemType.CLOTHING);
+        RefrigeratedContainer container = new RefrigeratedContainerImpl(
+            "CONT-MED-01", ItemType.MEDICINE, 500.0, -25.0, -5.0
+        );
 
-        System.out.println("Codigo Lote 1: " + lote1.getBatchCode());
-        System.out.println("Tipo Lote 1: " + lote1.getItemType());
-        System.out.println("Contentores Iniciais: " + lote1.getContainers().length);
-
-        // Teste de Igualdade
-        System.out.println("lote1.equals(lote2) [mesmo código]: " + lote1.equals(lote2)); // true
-        System.out.println("lote1.equals(lote3) [códigos dif]: " + lote1.equals(lote3)); // false
-
-        // Captura de exceção ao adicionar null ou tipo incompatível
+        // 1. Adição bem-sucedida de medições válidas
         try {
-            lote1.addContainer(null);
-        } catch (ShipmentException e) {
-            System.out.println("Exceção capturada (null): " + e.getMessage());
+            Measurement m1 = new Measurement() {
+                @Override public double getValue() { return -15.0; }
+                @Override public String getDate() { return "2026-09-07"; }
+            };
+            container.addMeasurement(m1);
+            System.out.println("Medição válida adicionada: -15.0°C. Temp Atual=" + container.getCurrentTemperature());
+        } catch (ContainerException e) {
+            System.err.println("Erro inesperado: " + e.getMessage());
         }
 
-        System.out.println("Peso Total inicial lote1: " + lote1.getTotalWeight());
+        // 2. Tentativa de adicionar medição fora dos limites térmicos (Captura de ContainerException)
+        try {
+            Measurement mInvalida = new Measurement() {
+                @Override public double getValue() { return 10.0; } // 10.0°C é maior que max -5.0°C!
+                @Override public String getDate() { return "2026-09-07"; }
+            };
+            container.addMeasurement(mInvalida);
+            System.err.println("ERRO: Devia ter lançado ContainerException por violação de temperatura!");
+        } catch (ContainerException e) {
+            System.out.println("Sucesso! Capturada a exceção esperada -> " + e.getMessage());
+        }
+
+        // 3. Verificação do método equals()
+        RefrigeratedContainer container2 = new RefrigeratedContainerImpl(
+            "CONT-MED-01", ItemType.MEDICINE, 1000.0, -30.0, 0.0
+        );
+        RefrigeratedContainer container3 = new RefrigeratedContainerImpl(
+            "CONT-MED-02", ItemType.MEDICINE, 500.0, -25.0, -5.0
+        );
+
+        System.out.println("container.equals(container2) [Mesmo código]: " + container.equals(container2)); // true
+        System.out.println("container.equals(container3) [Códigos diferentes]: " + container.equals(container3)); // false
+
+        System.out.println("=== Todos os testes concluídos com sucesso! ===");
     }
 }
 ```
 
 ---
 
-### Pergunta 2a
-```java
-public class LoadPlannerImpl implements LoadPlanner {
+### Pergunta 2a (4,0 valores)
 
-    public double calculateTotalCapacityBySupplyType(AidBox aidbox, ItemType type) {
-        if (aidbox == null || type == null) {
-            return 0;
+```java
+public class DistributionPlannerImpl implements DistributionPlanner {
+
+    public double calculateAidBoxTotalVolume(AidBox aidbox) {
+        if (aidbox == null) {
+            return 0.0;
         }
+
         Container[] containers = aidbox.getContainers();
-        if (containers == null || containers.length == 0) {
-            return 0;
+        if (containers == null) {
+            return 0.0;
         }
-        double somaCapacidade = 0;
-        for (int i = 0; i < containers.length; i++) {
-            if (containers[i] != null && containers[i].getType() == type) {
-                somaCapacidade += containers[i].getCapacity();
+
+        double totalVolume = 0.0;
+        for (Container c : containers) {
+            if (c != null) {
+                Measurement last = c.getLastMeasurement();
+                if (last != null) {
+                    totalVolume += last.getValue();
+                }
             }
         }
-        return somaCapacidade;
+        return totalVolume;
     }
 
-    public boolean isVehicleCompatible(Vehicle vehicle, AidBox aidbox) {
-        if (vehicle == null || aidbox == null) {
+    public boolean isHighPriorityAidBox(AidBox aidbox, ItemType priorityType, double threshold) {
+        if (aidbox == null || priorityType == null) {
             return false;
         }
-        ItemType tipoVeiculo = vehicle.getSupplyType();
-        if (tipoVeiculo == null) {
-            return false;
-        }
+
         Container[] containers = aidbox.getContainers();
-        if (containers == null || containers.length == 0) {
+        if (containers == null) {
             return false;
         }
-        for (int i = 0; i < containers.length; i++) {
-            if (containers[i] != null && containers[i].getType() == tipoVeiculo) {
-                return true;
+
+        for (Container c : containers) {
+            if (c != null && c.getType() == priorityType) {
+                Measurement last = c.getLastMeasurement();
+                if (last != null && c.getCapacity() > 0) {
+                    double percentage = (last.getValue() / c.getCapacity()) * 100.0;
+                    if (percentage > threshold) {
+                        return true; // Encontrou pelo menos um contentor de prioridade crítico
+                    }
+                }
             }
         }
         return false;
     }
 
     @Override
-    public AidBox[] getPriorityAidBoxesForVehicle(IInstitution inst, Vehicle vehicle, double minimumCapacityRequired) {
-        return new AidBox[0];
+    public Route[] planDistribution(IInstitution inst, RouteValidator validator) {
+        // Implementado na Pergunta 2b
+        return null;
     }
 }
 ```
 
 ---
 
-### Pergunta 2b
-```java
-public class LoadPlannerImpl implements LoadPlanner {
+### Pergunta 2b (5,0 valores)
 
-    public double calculateTotalCapacityBySupplyType(AidBox aidbox, ItemType type) {
-        if (aidbox == null || type == null) {
-            return 0;
-        }
+```java
+public class DistributionPlannerImpl implements DistributionPlanner {
+
+    public double calculateAidBoxTotalVolume(AidBox aidbox) {
+        // (Código da Pergunta 2a)
+        if (aidbox == null) return 0.0;
         Container[] containers = aidbox.getContainers();
-        if (containers == null || containers.length == 0) {
-            return 0;
-        }
-        double somaCapacidade = 0;
-        for (int i = 0; i < containers.length; i++) {
-            if (containers[i] != null && containers[i].getType() == type) {
-                somaCapacidade += containers[i].getCapacity();
+        if (containers == null) return 0.0;
+        double sum = 0.0;
+        for (Container c : containers) {
+            if (c != null && c.getLastMeasurement() != null) {
+                sum += c.getLastMeasurement().getValue();
             }
         }
-        return somaCapacidade;
+        return sum;
     }
 
-    public boolean isVehicleCompatible(Vehicle vehicle, AidBox aidbox) {
-        if (vehicle == null || aidbox == null) {
-            return false;
-        }
-        ItemType tipoVeiculo = vehicle.getSupplyType();
-        if (tipoVeiculo == null) {
-            return false;
-        }
+    public boolean isHighPriorityAidBox(AidBox aidbox, ItemType priorityType, double threshold) {
+        // (Código da Pergunta 2a)
+        if (aidbox == null || priorityType == null) return false;
         Container[] containers = aidbox.getContainers();
-        if (containers == null || containers.length == 0) {
-            return false;
-        }
-        for (int i = 0; i < containers.length; i++) {
-            if (containers[i] != null && containers[i].getType() == tipoVeiculo) {
-                return true;
+        if (containers == null) return false;
+        for (Container c : containers) {
+            if (c != null && c.getType() == priorityType) {
+                Measurement last = c.getLastMeasurement();
+                if (last != null && c.getCapacity() > 0) {
+                    if ((last.getValue() / c.getCapacity()) * 100.0 > threshold) {
+                        return true;
+                    }
+                }
             }
         }
         return false;
     }
 
     @Override
-    public AidBox[] getPriorityAidBoxesForVehicle(IInstitution inst, Vehicle vehicle, double minimumCapacityRequired) {
-        if (inst == null || vehicle == null) {
-            return new AidBox[0];
+    public Route[] planDistribution(IInstitution inst, RouteValidator validator) {
+        if (inst == null || validator == null) {
+            return new Route[0];
         }
+
+        Vehicle[] vehicles = inst.getVehicles();
         AidBox[] aidBoxes = inst.getAidBoxes();
-        if (aidBoxes == null || aidBoxes.length == 0) {
-            return new AidBox[0];
+
+        if (vehicles == null || aidBoxes == null) {
+            return new Route[0];
         }
 
-        ItemType tipoVeiculo = vehicle.getSupplyType();
+        Route[] tempRoutes = new Route[vehicles.length];
+        int validRouteCount = 0;
 
-        // 1º Passo: Contar AidBoxes elegíveis para criar o array com tamanho exato
-        int selecionadas = 0;
-        for (int i = 0; i < aidBoxes.length; i++) {
-            if (aidBoxes[i] != null && isVehicleCompatible(vehicle, aidBoxes[i])) {
-                double capacidadeTipo = calculateTotalCapacityBySupplyType(aidBoxes[i], tipoVeiculo);
-                if (capacidadeTipo >= minimumCapacityRequired) {
-                    selecionadas++;
+        for (Vehicle v : vehicles) {
+            if (v == null) {
+                continue;
+            }
+
+            Route currentRoute = new RouteImpl(v);
+
+            for (AidBox box : aidBoxes) {
+                if (box != null) {
+                    // USO OBRIGATÓRIO DO MÉTODO 2 DE 2A
+                    if (isHighPriorityAidBox(box, v.getSupplyType(), 80.0)) {
+                        
+                        // Validação com RouteValidator
+                        if (validator.validate(currentRoute, box)) {
+                            try {
+                                currentRoute.addAidBox(box);
+                            } catch (RouteException e) {
+                                // Trata a exceção caso a adição falhe
+                            }
+                        }
+
+                    }
                 }
+            }
+
+            // Apenas adicionar a rota se ela contiver pelo menos uma AidBox
+            AidBox[] assignedBoxes = currentRoute.getRoute();
+            if (assignedBoxes != null && assignedBoxes.length > 0) {
+                tempRoutes[validRouteCount] = currentRoute;
+                validRouteCount++;
             }
         }
 
-        if (selecionadas == 0) {
-            return new AidBox[0];
+        // Construir o array final com dimensão exata sem posições nulas nem rotas vazias
+        Route[] finalRoutes = new Route[validRouteCount];
+        for (int i = 0; i < validRouteCount; i++) {
+            finalRoutes[i] = tempRoutes[i];
         }
 
-        // 2º Passo: Preencher o array sem posições nulas
-        AidBox[] result = new AidBox[selecionadas];
-        int index = 0;
-
-        for (int i = 0; i < aidBoxes.length; i++) {
-            if (aidBoxes[i] != null && isVehicleCompatible(vehicle, aidBoxes[i])) {
-                double capacidadeTipo = calculateTotalCapacityBySupplyType(aidBoxes[i], tipoVeiculo);
-                if (capacidadeTipo >= minimumCapacityRequired) {
-                    result[index] = aidBoxes[i];
-                    index++;
-                }
-            }
-        }
-
-        return result;
+        return finalRoutes;
     }
 }
 ```

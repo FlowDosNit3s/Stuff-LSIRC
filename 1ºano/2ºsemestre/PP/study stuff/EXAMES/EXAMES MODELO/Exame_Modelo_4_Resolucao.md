@@ -1,158 +1,154 @@
-# Resolução — Exame Modelo 4 — Paradigmas de Programação
-**Época de Recurso | Ano Letivo: 2025/2026**
+# Resolução do Exame Modelo 4 — Paradigmas de Programação (Época Especial)
+
+## PARTE 1 (6,0 VALORES) — RESPOSTA ABERTA TEÓRICA
+
+### Pergunta 1 (1,5 valores)
+
+#### Resposta Teórica:
+Toda a hierarquia de exceções em Java deriva da classe `java.lang.Throwable`. Esta divide-se em dois ramos principais:
+1. **Exceções Verificadas (*Checked Exceptions*)**: Derivam diretamente de `Exception` (excluindo `RuntimeException`). Representam situações anómalas das quais o programa pode recuperar (ex.: `AidBoxFullException`, `IOException`). O compilador Java **obriga** a que estas exceções sejam capturadas num bloco `try-catch` ou declaradas explicitamente na assinatura do método através da cláusula `throws`.
+2. **Exceções Não Verificadas (*Unchecked Exceptions*)**: Derivam de `RuntimeException` (ex.: `NullPointerException`, `IllegalArgumentException`). Indicam geralmente erros de programação ou pré-condições violadas. O compilador não exige a sua captura ou declaração obrigatória.
+
+**Fluxo `try-catch-finally` e a instrução `return`:**
+- O bloco `try` contém o código suscetível de lançar exceções.
+- O bloco `catch` captura e trata a exceção especificada.
+- O bloco `finally` **executa SEMPRE**, quer ocorra uma exceção quer o bloco `try` termine com sucesso.
+- **Comportamento com `return`**: Se existir uma instrução `return` dentro do bloco `try`, o valor a retornar é avaliado e guardado temporariamente, mas a execução salta imediatamente para o bloco `finally` antes de o método ser encerrado. Se o bloco `finally` contiver também um `return`, este irá sobrepor-se (*override*) ao `return` do `try`, alterando o valor final devolvido.
+
+**`try-with-resources` e `AutoCloseable`:**
+O `try-with-resources` garante que recursos (streams, ficheiros) são automaticamente fechados no final do bloco, desde que implementem a interface `java.lang.AutoCloseable`, eliminando a necessidade de invocar `.close()` manualmente no `finally`.
 
 ---
 
-## PARTE 1 – Perguntas Teóricas
+### Pergunta 2 (1,5 valores)
 
-### Pergunta 1
-A palavra reservada `final` em Java é utilizada para declarar elementos inalteráveis, possuindo comportamentos distintos consoante o contexto de aplicação:
+#### Resposta Teórica:
+O **Encapsulamento** oculta os detalhes de implementação interna de uma classe e protege o seu estado contra modificações indevidas a partir de código externo, impondo uma interface pública controlada.
 
-1. **Aplicada a uma Classe (`final class`):** Impede que a classe seja herdada/especializada por qualquer outra classe (proíbe o uso de `extends`). Garante a imutabilidade da hierarquia e a segurança de tipos (por exemplo, a classe `java.lang.String` é `final`).
-2. **Aplicada a um Método (`final void metodo()`):** Impede que o método seja sobreposto (*overridden*) por subclasse alguma. É utilizado para assegurar que a implementação de um comportamento crítico não pode ser alterada por especializações.
-3. **Aplicada a uma Variável / Atributo (`final int x`):** Transforma a variável numa constante de atribuição única. Após ser inicializada com um valor, qualquer tentativa subsequente de reatribuição resulta num erro de compilação.
+**Os 4 Modificadores de Acesso (por ordem crescente de permissividade):**
+1. `private`: Acessível **apenas dentro da própria classe**.
+2. *package-private* (default, sem modificador): Acessível por qualquer classe dentro do **mesmo pacote**.
+3. `protected`: Acessível no **mesmo pacote** e por **subclasses** noutros pacotes.
+4. `public`: Acessível por **qualquer classe** em qualquer pacote.
 
-**Diferença entre Tipos Primitivos e Referências de Objetos:**
-- **Tipo Primitivo:** O valor em si armazenado na variável fica selado e inalterável (ex: `final int MAX = 10;` — a variável `MAX` conterá permanentemente o valor 10).
-- **Tipo de Referência (Objeto):** O **endereço de memória** (referência) contido na variável é inalterável, o que significa que a variável não pode ser reatribuída para apontar para outro objeto na Heap. Contudo, **o estado interno do objeto apontado pode ser modificado**, desde que a classe do objeto forneça métodos mutadores (setters) ou atributos acessíveis.
+**Má Prática de Atributos `public`:**
+Declarar atributos como `public` permite que código externo altere o estado do objeto para valores inválidos ou incoerentes (ex.: capacidade negativa), contornando qualquer regra de negócio ou validação. Além disso, acopla o código cliente à representação interna da classe.
+
+#### Exemplo Prático:
 
 ```java
-public final class ExemploFinal {
-    private final int limitePrimitivo = 100;
-    private final int[] numeros = new int[]{1, 2, 3};
+public class ContainerValidade {
+    private double capacity; // private para garantir encapsulamento
 
-    public void demonstrar() {
-        // limitePrimitivo = 200; // ERRO DE COMPILAÇÃO! Não pode alterar o valor primitivo.
+    public double getCapacity() {
+        return capacity;
+    }
 
-        // numeros = new int[]{4, 5, 6}; // ERRO DE COMPILAÇÃO! Não pode reatribuir a referência.
-
-        numeros[0] = 99; // PERMITIDO! O conteúdo do array apontado pela referência pode ser alterado.
+    public void setCapacity(double capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("A capacidade deve ser estritamente positiva (> 0).");
+        }
+        this.capacity = capacity;
     }
 }
 ```
 
 ---
 
-### Pergunta 2
-As **classes Wrapper** (como `Integer`, `Double`, `Boolean`, `Character`) são classes utilitárias que encapsulam os tipos primitivos correspondentes em objetos Java. O seu propósito fundamental é permitir a utilização de tipos primitivos em contextos da linguagem onde apenas objetos são aceites, tais como no âmbito do mecanismo de Generics e nas coleções da Java Collections Framework (por exemplo, `ArrayList<Integer>`).
+### Pergunta 3 (1,5 valores)
 
-- **Autoboxing:** Conversão automática realizada pelo compilador do tipo primitivo para a respetiva classe Wrapper (ex: `Integer obj = 10;`).
-- **Unboxing:** Conversão automática inversa, onde o compilador extrai o valor primitivo do interior do objeto Wrapper (ex: `int num = obj;`).
+#### Resposta Teórica:
+- **Sobrecarga (*Overloading*)**: Ocorre na **mesma classe**. Consiste em ter métodos com o **mesmo nome**, mas obrigatoriamente com **listas de parâmetros diferentes** (número, tipos ou ordem de argumentos). O tipo de retorno e as exceções podem variar, mas não servem para distinguir métodos sobrecarregados. É resolvido em tempo de compilação (**Resolução Estática**).
+- **Sobreposição (*Overriding*)**: Ocorre numa **subclasse**. Consiste em redefinir um método herdado de uma superclasse ou interface. O método redefinido **deve ter rigorosamente o mesmo nome, a mesma lista de parâmetros e um tipo de retorno compatível (covariante)**. Não pode aumentar a restritividade do modificador de acesso nem lançar exceções verificadas mais amplas.
 
-**Riscos da Comparação com `==` vs `equals()`:**
-O operador `==` compara a **identidade de referências de memória** (se ambas as variáveis apontam para a mesma posição na Heap) e não a igualdade de valores contidos nos objetos. Em Java, a JVM mantém uma cache interna de objetos `Integer` para valores no intervalo de **-128 a 127**. Assim, para números dentro desse intervalo, o autoboxing devolve a mesma instância reutilizada da cache, fazendo com que `==` devolva surpreendentemente `true`. No entanto, para valores fora desse intervalo, a JVM aloca objetos distintos na Heap, fazendo com que `==` devolva `false`, mesmo que os números sejam matematicamente idênticos. Para comparar os valores lógicos de objetos Wrapper de forma segura, deve utilizar-se **sempre o método `equals()`**.
+**Despacho Dinâmico (*Dynamic Method Dispatch*):**
+É o mecanismo através do qual a JVM determina, em **tempo de execução**, qual a implementação de um método sobreposto a invocar. A decisão é baseada no **tipo real do objeto** instanciado na memória Heap, e não no tipo declarativo da variável de referência.
+
+#### Exemplo Prático:
 
 ```java
-public class TesteWrapper {
+class Veiculo {
+    public void buzinar() { System.out.println("Buzina genérica"); }
+}
+
+class Ambulancia extends Veiculo {
+    @Override
+    public void buzinar() { System.out.println("Sirene de Emergência!"); } // Overriding
+}
+
+public class TestePolimorfismo {
     public static void main(String[] args) {
-        Integer a = 100;
-        Integer b = 100;
-        System.out.println(a == b); // true (reutiliza cache de -128 a 127)
-
-        Integer x = 200;
-        Integer y = 200;
-        System.out.println(x == y); // false (instâncias distintas na Heap!)
-        System.out.println(x.equals(y)); // true (compara os valores lógicos corretamente)
+        Veiculo v = new Ambulancia(); // Tipo declarativo Veiculo, tipo real Ambulancia
+        v.buzinar(); // Dynamic Dispatch -> Imprime "Sirene de Emergência!"
     }
 }
 ```
 
 ---
 
-### Pergunta 3
-A **Serialização** é o mecanismo em Java que permite converter o estado completo de um objeto (dados dos seus atributos na Heap) numa sequência contínua de bytes. Esta sequência de bytes pode ser armazenada em ficheiros de disco (persistência) ou transmitida através da rede (comunicação remota). O processo inverso denomina-se Deserialização.
+### Pergunta 4 (1,5 valores)
 
-Para que uma classe seja elegível para serialização, deve implementar a interface marcadora `java.io.Serializable` (que não possui métodos).
+#### Resposta Teórica:
+O modificador `static` indica que um membro (atributo ou método) pertence à **classe** em si, e não a uma instância específica dessa classe.
 
-**Mecanismos Associados:**
-- **Modificador `transient`:** É aplicado a atributos de uma classe que **não devem ser incluídos** no processo de serialização. É utilizado para omitir informação sensível (como palavras-passe), dados temporários ou referências a objetos não serializáveis (evitando a exceção `NotSerializableException`).
-- **Identificador `serialVersionUID`:** É uma constante estática de 64 bits (`private static final long serialVersionUID`) que atua como um número de versão do contrato da classe. Durante a deserialização, a JVM compara o `serialVersionUID` do fluxo de bytes com o da classe carregada na aplicação. Se os identificadores forem diferentes, a JVM lança uma exceção `InvalidClassException`, prevenindo a corrupção de memória decorrente de alterações incompatíveis na estrutura da classe.
+- **Atributos Estáticos**: São alocados uma única vez na memória quando a classe é carregada pela JVM. Todas as instâncias da classe partilham a mesma variável.
+- **Métodos Estáticos**: Podem ser invocados sem instanciar a classe (utilizando `NomeDaClasse.metodo()`).
 
-```java
-import java.io.Serializable;
+**Restrições sobre `this` e `super`:**
+As palavras reservadas `this` (referência para o objeto corrente) e `super` (referência para a superclasse da instância corrente) dependem da existência de uma **instância concreta** criada na Heap. Como os métodos estáticos pertencem à classe e podem ser executados sem qualquer objeto instanciado, não existe contexto de instância (`this` ou `super`). Tentar utilizar `this` ou `super` dentro de um método `static` provoca um erro de compilação imediato.
 
-public class Utilizador implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    private String username;
-    private transient String password; // Não será gravado/serializado no ficheiro
-    private String email;
-
-    public Utilizador(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-}
-```
-
----
-
-### Pergunta 4
-A biblioteca de Input/Output (`java.io`) em Java divide o processamento de fluxos de dados em duas famílias fundamentais:
-
-1. **Byte Streams (orientados a bytes):**
-   - **Tamanho dos dados:** Operam ao nível de **bytes em bruto (8 bits)**.
-   - **Classes base:** `InputStream` e `OutputStream` (e subclasses como `FileInputStream`, `FileOutputStream`, `BufferedInputStream`).
-   - **Cenários adequados:** Apropriados para qualquer tipo de dados binários ou ficheiros sem codificação de texto legível, tais como imagens (`.png`, `.jpg`), áudio/vídeo, ficheiros executáveis, ficheiros comprimidos (`.zip`) ou streams de sockets na rede.
-
-2. **Character Streams (orientados a caracteres):**
-   - **Tamanho dos dados:** Operam ao nível de **caracteres Unicode (16 bits)**.
-   - **Classes base:** `Reader` e `Writer` (e subclasses como `FileReader`, `FileWriter`, `BufferedReader`, `PrintWriter`).
-   - **Cenários adequados:** Concebidos especificamente para a leitura e escrita de texto legível por humanos (`.txt`, `.json`, `.xml`, `.csv`). Efetuam a tradução automática entre os bytes no suporte físico e a codificação de caracteres configurada no sistema (ex: UTF-8).
+#### Exemplo Prático:
 
 ```java
-import java.io.*;
+public class ContadorAidBox {
+    private static int totalAidBoxes = 0; // Partilhado por todas as caixas
+    private final String code;
 
-public class ExemploIO {
-    public void copiarFicheiroBinario(File origem, File destino) throws IOException {
-        try (InputStream in = new FileInputStream(origem);
-             OutputStream out = new FileOutputStream(destino)) {
-            byte[] buffer = new byte[1024];
-            int bytesLidos;
-            while ((bytesLidos = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesLidos);
-            }
-        }
-    }
-
-    public void lerFicheiroTexto(File ficheiro) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(ficheiro))) {
-            String linha;
-            while ((linha = reader.readLine()) != null) {
-                System.out.println(linha);
-            }
-        }
-    }
-}
-```
-
----
-
-## PARTE 2 – Programação em Java
-
-### Pergunta 1a
-```java
-public class AlertImpl implements Alert {
-    private String code;
-    private AlertType type;
-    private String description;
-    private int severityLevel;
-
-    public AlertImpl(String code, AlertType type, String description, int severityLevel) {
-        if (code == null || code.trim().isEmpty()) {
-            throw new IllegalArgumentException("O codigo do alerta nao pode ser nulo ou vazio.");
-        }
-        if (type == null) {
-            throw new IllegalArgumentException("O tipo de alerta nao pode ser nulo.");
-        }
-        if (severityLevel < 1 || severityLevel > 5) {
-            throw new IllegalArgumentException("O nivel de gravidade deve estar entre 1 e 5.");
-        }
+    public ContadorAidBox(String code) {
         this.code = code;
-        this.type = type;
-        this.description = (description != null) ? description : "";
-        this.severityLevel = severityLevel;
+        totalAidBoxes++; // Incrementa o contador estático
+    }
+
+    public static int getTotalAidBoxes() {
+        // System.out.println(this.code); -> ERRO DE COMPILAÇÃO! Não é permitido usar this aqui.
+        return totalAidBoxes;
+    }
+}
+```
+
+---
+
+## PARTE 2 (14,0 VALORES) — PROGRAMAÇÃO PRÁTICA EM JAVA (DOMÍNIO TP)
+
+### Pergunta 1a (3,0 valores)
+
+```java
+// Exceção personalizada verificada
+public class AidBoxFullException extends Exception {
+    public AidBoxFullException(String message) {
+        super(message);
+    }
+}
+
+// Implementação da classe AidBoxImpl
+public class AidBoxImpl implements AidBox {
+    private final String code;
+    private final String zone;
+    private final Container[] containers;
+    private int numberOfContainers;
+
+    public AidBoxImpl(String code, String zone) {
+        if (code == null || code.trim().isEmpty()) {
+            throw new IllegalArgumentException("O código da AidBox não pode ser nulo nem vazio.");
+        }
+        if (zone == null || zone.trim().isEmpty()) {
+            throw new IllegalArgumentException("A zona da AidBox não pode ser nula nem vazia.");
+        }
+
+        this.code = code;
+        this.zone = zone;
+        this.containers = new Container[5]; // Capacidade máxima de 5 contentores
+        this.numberOfContainers = 0;
     }
 
     @Override
@@ -161,18 +157,31 @@ public class AlertImpl implements Alert {
     }
 
     @Override
-    public AlertType getType() {
-        return this.type;
+    public String getZone() {
+        return this.zone;
     }
 
     @Override
-    public String getDescription() {
-        return this.description;
+    public Container[] getContainers() {
+        Container[] copy = new Container[numberOfContainers];
+        for (int i = 0; i < numberOfContainers; i++) {
+            copy[i] = containers[i];
+        }
+        return copy;
     }
 
     @Override
-    public int getSeverityLevel() {
-        return this.severityLevel;
+    public boolean addContainer(Container container) throws AidBoxFullException {
+        if (container == null) {
+            throw new AidBoxFullException("O contentor a adicionar não pode ser nulo.");
+        }
+        if (numberOfContainers >= 5) {
+            throw new AidBoxFullException("Capacidade máxima de 5 contentores atingida na AidBox " + code);
+        }
+
+        containers[numberOfContainers] = container;
+        numberOfContainers++;
+        return true;
     }
 
     @Override
@@ -180,189 +189,236 @@ public class AlertImpl implements Alert {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (obj == null || !(obj instanceof AidBox)) {
             return false;
         }
-        if (!(obj instanceof Alert)) {
-            return false;
-        }
-        Alert other = (Alert) obj;
-        return this.code.equals(other.getCode());
-    }
+        AidBox other = (AidBox) obj;
+        
+        boolean sameCode = this.code.equals(other.getCode());
+        boolean sameZone = this.zone.equals(other.getZone());
 
-    @Override
-    public String toString() {
-        return "AlertImpl [Codigo: " + code + " | Tipo: " + type + " | Gravidade: " + severityLevel + " | Descricao: " + description + "]";
+        return sameCode && sameZone;
     }
 }
 ```
 
 ---
 
-### Pergunta 1b
+### Pergunta 1b (2,0 valores)
+
 ```java
-public class TestAlert {
+public class AidBoxTest {
     public static void main(String[] args) {
-        System.out.println("=== Teste da Classe AlertImpl ===");
+        System.out.println("=== Início do Teste AidBoxTest (Pergunta 1b) ===");
 
-        // Teste de criação com dados válidos
-        AlertImpl a1 = new AlertImpl("ALT-001", AlertType.CAPACITY_OVERFLOW, "Contentor acima de 95%", 4);
-        AlertImpl a2 = new AlertImpl("ALT-001", AlertType.MISSING_MEASUREMENTS, "Sem medições registradas", 2);
-        AlertImpl a3 = new AlertImpl("ALT-002", AlertType.INVALID_SENSOR, "Falha de comunicação", 5);
+        // Instanciação da AidBox
+        AidBox box1 = new AidBoxImpl("BOX-PORTO-01", "ZONA-NORTE");
 
-        System.out.println("a1 Getters: " + a1.getCode() + " | " + a1.getType() + " | Grav: " + a1.getSeverityLevel());
-        System.out.println("a1 toString: " + a1.toString());
-
-        // Teste de igualdade lógica por código
-        System.out.println("a1.equals(a2) [mesmo código]: " + a1.equals(a2)); // Deve ser true
-        System.out.println("a1.equals(a3) [códigos diferentes]: " + a1.equals(a3)); // Deve ser false
-        System.out.println("a1.equals(null): " + a1.equals(null)); // Deve ser false
-
-        // Teste de validação de argumentos inválidos (exceções)
+        // 1. Adição com sucesso de contentores
         try {
-            new AlertImpl(null, AlertType.CAPACITY_OVERFLOW, "Erro", 3);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Exceção capturada (código nulo): " + e.getMessage());
+            for (int i = 1; i <= 5; i++) {
+                final int id = i;
+                Container c = new Container() {
+                    @Override public String getCode() { return "C-" + id; }
+                    @Override public ItemType getType() { return ItemType.MEDICINE; }
+                    @Override public double getCapacity() { return 100.0; }
+                    @Override public Measurement getLastMeasurement() { return null; }
+                };
+                box1.addContainer(c);
+                System.out.println("Adicionado contentor C-" + i + " com sucesso.");
+            }
+        } catch (AidBoxFullException e) {
+            System.err.println("Erro inesperado ao adicionar contentores válidos: " + e.getMessage());
         }
 
+        // 2. Tentativa de adicionar o 6º contentor (Demonstrar exceção AidBoxFullException)
         try {
-            new AlertImpl("ALT-999", AlertType.CAPACITY_OVERFLOW, "Erro", 10);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Exceção capturada (gravidade inválida): " + e.getMessage());
+            Container c6 = new Container() {
+                @Override public String getCode() { return "C-6"; }
+                @Override public ItemType getType() { return ItemType.CLOTHING; }
+                @Override public double getCapacity() { return 50.0; }
+                @Override public Measurement getLastMeasurement() { return null; }
+            };
+            box1.addContainer(c6);
+            System.err.println("ERRO: Devia ter lançado AidBoxFullException ao tentar inserir o 6º contentor!");
+        } catch (AidBoxFullException e) {
+            System.out.println("Sucesso! Capturada a exceção esperada -> " + e.getMessage());
         }
+
+        // 3. Verificação do método equals()
+        AidBox box2 = new AidBoxImpl("BOX-PORTO-01", "ZONA-NORTE"); // Mesmo código e zona
+        AidBox box3 = new AidBoxImpl("BOX-PORTO-01", "ZONA-SUL");   // Zona diferente
+
+        System.out.println("box1.equals(box2) [Mesmo código e zona]: " + box1.equals(box2)); // Deve ser true
+        System.out.println("box1.equals(box3) [Zona diferente]: " + box1.equals(box3));       // Deve ser false
+
+        System.out.println("=== Todos os testes concluídos com sucesso! ===");
     }
 }
 ```
 
 ---
 
-### Pergunta 2a
+### Pergunta 2a (4,0 valores)
+
 ```java
-public class AlertManagerImpl implements AlertManager {
+public class OptimizedStrategyImpl implements Strategy {
 
-    public boolean isContainerInCriticalState(Container container) {
-        if (container == null) {
-            return true;
-        }
-        Measurement last = container.getLastMeasurement();
-        if (last == null) {
-            return true;
-        }
-        double capacity = container.getCapacity();
-        if (capacity <= 0) {
-            return true;
-        }
-        double occupancyPercentage = (last.getValue() / capacity) * 100;
-        return occupancyPercentage > 95.0;
-    }
-
-    public int countCriticalContainersInAidBox(AidBox aidbox) {
+    public int countCriticalContainers(AidBox aidbox, double threshold) {
         if (aidbox == null) {
             return 0;
         }
+
         Container[] containers = aidbox.getContainers();
-        if (containers == null || containers.length == 0) {
+        if (containers == null) {
             return 0;
         }
-        int count = 0;
-        for (int i = 0; i < containers.length; i++) {
-            if (isContainerInCriticalState(containers[i])) {
-                count++;
+
+        int criticalCount = 0;
+        for (Container c : containers) {
+            if (c != null && c.getCapacity() > 0) {
+                Measurement last = c.getLastMeasurement();
+                if (last != null) {
+                    double percentage = (last.getValue() / c.getCapacity()) * 100.0;
+                    if (percentage > threshold) {
+                        criticalCount++;
+                    }
+                }
             }
         }
-        return count;
+        return criticalCount;
+    }
+
+    public boolean isEligibleAidBox(AidBox aidbox, Vehicle vehicle, double threshold) {
+        if (aidbox == null || vehicle == null) {
+            return false;
+        }
+
+        Container[] containers = aidbox.getContainers();
+        if (containers == null) {
+            return false;
+        }
+
+        boolean hasMatchingType = false;
+        for (Container c : containers) {
+            if (c != null && c.getType() == vehicle.getSupplyType()) {
+                hasMatchingType = true;
+                break;
+            }
+        }
+
+        if (!hasMatchingType) {
+            return false;
+        }
+
+        // Deve possuir pelo menos 1 contentor crítico
+        int criticalCount = countCriticalContainers(aidbox, threshold);
+        return criticalCount > 0;
     }
 
     @Override
-    public Alert[] generateMaintenanceAlerts(IInstitution inst) {
-        return new Alert[0];
+    public Route[] generate(IInstitution inst, RouteValidator validator) {
+        // Implementado na Pergunta 2b
+        return null;
     }
 }
 ```
 
 ---
 
-### Pergunta 2b
+### Pergunta 2b (5,0 valores)
+
 ```java
-public class AlertManagerImpl implements AlertManager {
+public class OptimizedStrategyImpl implements Strategy {
 
-    public boolean isContainerInCriticalState(Container container) {
-        if (container == null) {
-            return true;
-        }
-        Measurement last = container.getLastMeasurement();
-        if (last == null) {
-            return true;
-        }
-        double capacity = container.getCapacity();
-        if (capacity <= 0) {
-            return true;
-        }
-        double occupancyPercentage = (last.getValue() / capacity) * 100;
-        return occupancyPercentage > 95.0;
-    }
-
-    public int countCriticalContainersInAidBox(AidBox aidbox) {
-        if (aidbox == null) {
-            return 0;
-        }
+    public int countCriticalContainers(AidBox aidbox, double threshold) {
+        // (Código da Pergunta 2a)
+        if (aidbox == null) return 0;
         Container[] containers = aidbox.getContainers();
-        if (containers == null || containers.length == 0) {
-            return 0;
-        }
+        if (containers == null) return 0;
         int count = 0;
-        for (int i = 0; i < containers.length; i++) {
-            if (isContainerInCriticalState(containers[i])) {
-                count++;
+        for (Container c : containers) {
+            if (c != null && c.getCapacity() > 0) {
+                Measurement last = c.getLastMeasurement();
+                if (last != null && (last.getValue() / c.getCapacity()) * 100.0 > threshold) {
+                    count++;
+                }
             }
         }
         return count;
     }
 
-    @Override
-    public Alert[] generateMaintenanceAlerts(IInstitution inst) {
-        if (inst == null) {
-            return new Alert[0];
+    public boolean isEligibleAidBox(AidBox aidbox, Vehicle vehicle, double threshold) {
+        // (Código da Pergunta 2a)
+        if (aidbox == null || vehicle == null) return false;
+        Container[] containers = aidbox.getContainers();
+        if (containers == null) return false;
+        boolean hasType = false;
+        for (Container c : containers) {
+            if (c != null && c.getType() == vehicle.getSupplyType()) {
+                hasType = true;
+                break;
+            }
         }
+        return hasType && countCriticalContainers(aidbox, threshold) > 0;
+    }
+
+    @Override
+    public Route[] generate(IInstitution inst, RouteValidator validator) {
+        if (inst == null || validator == null) {
+            return new Route[0];
+        }
+
+        Vehicle[] vehicles = inst.getVehicles();
         AidBox[] aidBoxes = inst.getAidBoxes();
-        if (aidBoxes == null || aidBoxes.length == 0) {
-            return new Alert[0];
+
+        if (vehicles == null || aidBoxes == null) {
+            return new Route[0];
         }
 
-        // Primeiro passo: determinar quantos alertas serão gerados para alocar o array exato
-        int totalAlertas = 0;
-        for (int i = 0; i < aidBoxes.length; i++) {
-            if (aidBoxes[i] != null) {
-                int numCriticos = countCriticalContainersInAidBox(aidBoxes[i]);
-                if (numCriticos > 0) {
-                    totalAlertas++;
+        Route[] tempRoutes = new Route[vehicles.length];
+        int routeCount = 0;
+
+        for (Vehicle v : vehicles) {
+            if (v == null) {
+                continue;
+            }
+
+            Route currentRoute = new RouteImpl(v);
+
+            for (AidBox box : aidBoxes) {
+                if (box != null) {
+                    // USO OBRIGATÓRIO DO MÉTODO 2 DE 2A (que por sua vez consome o Método 1)
+                    if (isEligibleAidBox(box, v, 75.0)) {
+                        
+                        // Validação prévia com RouteValidator
+                        if (validator.validate(currentRoute, box)) {
+                            try {
+                                currentRoute.addAidBox(box);
+                            } catch (RouteException e) {
+                                // Captura a exceção caso a adição falhe, prosseguindo com as restantes
+                            }
+                        }
+
+                    }
                 }
+            }
+
+            // Apenas incluir rotas que não estejam vazias (possuam pelo menos 1 AidBox)
+            AidBox[] routeBoxes = currentRoute.getRoute();
+            if (routeBoxes != null && routeBoxes.length > 0) {
+                tempRoutes[routeCount] = currentRoute;
+                routeCount++;
             }
         }
 
-        if (totalAlertas == 0) {
-            return new Alert[0];
+        // Construir o array final de dimensões exatas sem nulos nem rotas vazias
+        Route[] finalRoutes = new Route[routeCount];
+        for (int i = 0; i < routeCount; i++) {
+            finalRoutes[i] = tempRoutes[i];
         }
 
-        // Segundo passo: preencher o array sem posições nulas
-        Alert[] result = new Alert[totalAlertas];
-        int index = 0;
-
-        for (int i = 0; i < aidBoxes.length; i++) {
-            if (aidBoxes[i] != null) {
-                int numCriticos = countCriticalContainersInAidBox(aidBoxes[i]);
-                if (numCriticos > 0) {
-                    String codigoAlerta = "ALT-" + aidBoxes[i].getCode();
-                    String descricao = "AidBox com " + numCriticos + " contentor(es) critico(s).";
-                    int gravidade = Math.min(numCriticos, 5);
-
-                    result[index] = new AlertImpl(codigoAlerta, AlertType.CAPACITY_OVERFLOW, descricao, gravidade);
-                    index++;
-                }
-            }
-        }
-
-        return result;
+        return finalRoutes;
     }
 }
 ```
