@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual Definitivo — Teoria Core PP (APP01 a APP12)</title>
+<style>
+:root {
+    --bg: #0d0e15;
+    --surface: #171a26;
+    --surface2: #212638;
+    --border: #2e344d;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --accent: #6366f1;
+    --accent2: #818cf8;
+    --green: #10b981;
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --blue: #38bdf8;
+    --purple: #c084fc;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR FIXA */
+aside.sidebar {
+    width: 290px;
+    min-width: 290px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; bottom: 0; left: 0;
+    overflow-y: auto;
+    padding: 20px 14px;
+    z-index: 1000;
+}
+aside.sidebar::-webkit-scrollbar { width: 5px; }
+aside.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+aside.sidebar h2 {
+    font-size: 1.1rem;
+    color: var(--accent2);
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent);
+}
+aside.sidebar nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    transition: all .2s;
+    display: block;
+    margin-bottom: 3px;
+}
+aside.sidebar nav a:hover {
+    background: var(--accent);
+    color: #fff;
+    transform: translateX(4px);
+}
+
+/* MAIN CONTENT */
+.main-wrapper {
+    margin-left: 290px;
+    flex: 1;
+    padding: 35px 45px;
+    max-width: 1150px;
+}
+
+.hero {
+    text-align: center;
+    padding: 40px 25px;
+    background: linear-gradient(135deg, rgba(99,102,241,.25), rgba(16,185,129,.15));
+    border-radius: 16px;
+    margin-bottom: 35px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+}
+.hero h1 { font-size: 2.2rem; color: #fff; margin-bottom: 10px; }
+.hero p { color: var(--text-dim); font-size: 1.1rem; }
+
+.section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px;
+    margin-bottom: 35px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.25);
+}
+h2 { font-size: 1.45rem; color: var(--accent2); margin-bottom: 16px; border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+h3 { font-size: 1.2rem; color: var(--green); margin: 24px 0 12px; }
+h4 { font-size: 1.05rem; color: var(--orange); margin: 16px 0 8px; }
+
+p, li { margin-bottom: 10px; }
+ul, ol { padding-left: 24px; margin-bottom: 14px; }
+
+/* CODE STYLING */
+pre {
+    background: #090a0f;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    overflow-x: auto;
+    margin: 14px 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+code { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; color: var(--green); }
+pre code { color: #e2e8f0; }
+.kw { color: #c792ea; font-weight: bold; }
+.str { color: #c3e88d; }
+.cm { color: #676e95; font-style: italic; }
+.tp { color: #ffcb6b; font-weight: bold; }
+.fn { color: #82aaff; }
+.num { color: #f78c6c; }
+
+/* TABLES */
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+th { background: var(--surface2); color: var(--accent2); padding: 12px; border: 1px solid var(--border); text-align: left; }
+td { padding: 10px 12px; border: 1px solid var(--border); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+/* BLUEPRINT RESPONSE BOX (TEMPLATE 20v) */
+.blueprint-box {
+    background: rgba(16, 185, 129, 0.06);
+    border: 2px solid var(--green);
+    border-radius: 10px;
+    padding: 22px;
+    margin: 20px 0;
+}
+.blueprint-box h4 { color: var(--green); font-size: 1.05rem; margin-top: 0; margin-bottom: 10px; }
+.blueprint-box ol { padding-left: 20px; }
+.blueprint-box li { margin-bottom: 8px; }
+
+/* DEEP EXPLANATION BOX */
+.explain-box {
+    background: rgba(99, 102, 241, 0.06);
+    border-left: 4px solid var(--accent);
+    padding: 20px;
+    border-radius: 0 10px 10px 0;
+    margin: 18px 0;
+}
+.explain-box h4 { color: var(--accent2); margin-top: 0; margin-bottom: 8px; font-size: 1.05rem; }
+
+/* ALERTS */
+.alert {
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-left: 4px solid;
+}
+.alert.warn { background: rgba(245,158,11,.08); border-color: var(--orange); }
+.alert.danger { background: rgba(239,68,68,.08); border-color: var(--red); }
+.alert.info { background: rgba(56,189,248,.08); border-color: var(--blue); }
+.alert.ok { background: rgba(16,185,129,.08); border-color: var(--green); }
+
+@media (max-width: 900px) {
+    body { flex-direction: column; }
+    aside.sidebar { position: relative; width: 100%; min-width: 100%; height: auto; }
+    .main-wrapper { margin-left: 0; padding: 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR FIXA -->
+<aside class="sidebar">
+<h2>📖 Parte 1: Teoria Core</h2>
+<nav>
+<a href="#vocab">🔑 Vocabulário Académico (1,5v)</a>
+<a href="#app01">APP01: Fundamentos POO</a>
+<a href="#app02">APP02: Tipos & Memória JVM</a>
+<a href="#app03">APP03: Construtores & `this`</a>
+<a href="#app04">APP04: Encapsulamento & Acesso</a>
+<a href="#app05">APP05: Static, Final & Enums</a>
+<a href="#app06">APP06: Memória & Arrays</a>
+<a href="#app07">APP07: Herança & `super`</a>
+<a href="#app08">APP08: Classes Abstratas</a>
+<a href="#app09">APP09: Interfaces & Conflitos</a>
+<a href="#app10">APP10: Object & Conversão Tipos</a>
+<a href="#app11">APP11: Exceções & `finally`</a>
+<a href="#app12">APP12: I/O Streams & Serialização</a>
+</nav>
+</aside>
+
+<!-- MAIN WRAPPER -->
+<div class="main-wrapper">
+
+<div class="hero">
+    <h1>🧠 Manual Teórico Detalhado — Parte 1: Teoria Core (6,0 Valores)</h1>
+    <p>Matéria Completa dos Slides (APP01 a APP12) + Explicações Aprofundadas + Tabelas Comparativas + Códigos Demonstrativos + Respostas Modelo de 20v</p>
+</div>
+
+<!-- VOCABULÁRIO ACADÉMICO -->
+<div class="section" id="vocab">
+    <h2>🔑 1. Vocabulário Técnico Exigido no Exame (Garantia de 1,5v em cada pergunta)</h2>
+    <p>Nas perguntas teóricas de resposta desenvolvida do Exame de Época Normal, a cotação total de 1,5v exige a utilização de **terminologia académica precisa**:</p>
+    <table>
+        <tr><th>Conceito Técnico</th><th>O que significa e onde aplicar na resposta</th></tr>
+        <tr><td><strong>Static / Early Binding</strong></td><td>Vinculação estática efetuada em tempo de <strong>compilação</strong> (ex: Sobrecarga/Overloading).</td></tr>
+        <tr><td><strong>Dynamic / Late Binding</strong></td><td>Vinculação dinâmica efetuada em tempo de <strong>execução</strong> (runtime) pela JVM com base na instância na Heap (ex: Sobreposição/Overriding).</td></tr>
+        <tr><td><strong>Defensive Copying / Validation</strong></td><td>Validação defensiva no construtor/setters para proteger o estado do objeto contra injeção externa.</td></tr>
+        <tr><td><strong>Inalcançabilidade (Unreachability)</strong></td><td>Condição de eliminação pelo Garbage Collector (GC) de objetos na Heap sem referências na Stack.</td></tr>
+        <tr><td><strong>Interface Marcadora (Marker Interface)</strong></td><td>Interface sem métodos (ex: <code>Serializable</code>) usada para assinalar uma capacidade à JVM.</td></tr>
+        <tr><td><strong>Princípio da Substituição de Liskov</strong></td><td>Uma subclasse deve poder substituir a superclasse sem alterar a correção do sistema (fundamento do Polimorfismo).</td></tr>
+        <tr><td><strong>Strict Package Visibilidade</strong></td><td>O modificador por defeito (package-private) restringe o acesso estritamente ao mesmo pacote Java.</td></tr>
+    </table>
+</div>
+
+<!-- APP01 -->
+<div class="section" id="app01">
+    <h2>APP01: Paradigma Orientado a Objetos e Pilares</h2>
+    
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada da Matéria:</h4>
+        <p>No paradigma imperativo/procedimental (como C), o software divide-se entre dados isolados e funções operando sobre esses dados. Em <strong>Programação Orientada a Objetos (POO)</strong>, o software é concebido como um conjunto de entidades autónomas designadas **Objetos**, que agregam o **estado** (atributos) e o **comportamento** (métodos).</p>
+        <ul>
+            <li><strong>Classe:</strong> Molde abstrato que define a estrutura de dados e comportamento de um novo tipo.</li>
+            <li><strong>Objeto / Instância:</strong> Entidade concreta alocada na memória Heap através do operador `new`.</li>
+        </ul>
+        <p><strong>Os 4 Pilares da POO:</strong></p>
+        <ol>
+            <li><strong>Abstração:</strong> Modelação de entidades do mundo real capturando apenas os aspetos e comportamentos estritamente relevantes para o problema.</li>
+            <li><strong>Encapsulamento:</strong> Ocultação dos detalhes internos de implementação e proteção do estado através de visibilidade privada (`private`) e métodos acessores públicos (`getters`/`setters`).</li>
+            <li><strong>Herança:</strong> Reutilização hierárquica de código onde subclasses herdam atributos e métodos da superclasse (`extends`).</li>
+            <li><strong>Polimorfismo:</strong> Capacidade de responder de forma distinta à mesma invocação de método consoante a instância concreta alocada na Heap.</li>
+        </ol>
+    </div>
+
+    <h4>💻 Código Teórico Demonstrativo:</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">AidBoxImpl</span> {
+    <span class="kw">private</span> String code; <span class="cm">// Estado encapsulado</span>
+    <span class="kw">private double</span> capacity;
+
+    <span class="kw">public</span> AidBoxImpl(String code, <span class="kw">double</span> capacity) {
+        <span class="kw">this</span>.code = code;
+        <span class="kw">this</span>.capacity = capacity;
+    }
+    <span class="kw">public double</span> <span class="fn">getCapacity</span>() { <span class="kw">return this</span>.capacity; }
+}</code></pre>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Encapsulamento e Modificadores"</h4>
+        <ol>
+            <li><strong>Conceito:</strong> Encapsulamento é a ocultação do estado interno de um objeto, controlando o acesso exclusivamente por métodos públicos.</li>
+            <li><strong>Mecanismo:</strong> Atributos declarados como `private` com métodos de acesso (`getters`/`setters`) contendo validação defensiva.</li>
+            <li><strong>Má Prática Public:</strong> Permite que código externo injete valores inválidos (ex: capacidade negativa) sem validação, violando a integridade das regras de negócio.</li>
+        </ol>
+    </div>
+</div>
+
+<!-- APP02 -->
+<div class="section" id="app02">
+    <h2>APP02: Tipos de Dados e Memória JVM (Stack vs Heap)</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada da Matéria:</h4>
+        <p>A JVM divide a memória em duas regiões operacionais principais:</p>
+        <ul>
+            <li><strong>Stack (Pilha de Execução):</strong> Organizada em quadros por Thread. Armazena variáveis locais, primitivos literais e referências para a Heap. É gerida com desalocação automática instantânea ao sair do método.</li>
+            <li><strong>Heap (Memória Dinâmica):</strong> Área de memória global onde residem **todos os objetos concretos e arrays** criados com `new`. É gerida pelo Garbage Collector (GC).</li>
+        </ul>
+    </div>
+
+    <h3>Atributos de Instância (Heap) vs Variáveis Locais (Stack)</h3>
+    <table>
+        <tr><th>Aspeto</th><th>Atributos de Instância (Heap)</th><th>Variáveis Locais (Stack)</th></tr>
+        <tr><td><strong>Onde são declarados?</strong></td><td>No corpo da classe (fora de métodos).</td><td>No corpo de métodos ou blocos.</td></tr>
+        <tr><td><strong>Inicialização</strong></td><td>**AUTOMÁTICA pela JVM** (`0`, `0.0`, `false`, `null`).</td><td>**NÃO HÁ INICIALIZAÇÃO**.</td></tr>
+        <tr><td><strong>Efeito de Leitura</strong></td><td>Devolve o valor por defeito sem erro.</td><td>**Erro de Compilação** se lida sem inicialização.</td></tr>
+    </table>
+
+    <h4>💻 Código Teórico Demonstrativo:</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">TesteMemoria</span> {
+    <span class="kw">private int</span> atributoHeap; <span class="cm">// Inicializado AUTOMATICAMENTE a 0 pela JVM</span>
+
+    <span class="kw">public void</span> <span class="fn">executar</span>() {
+        <span class="kw">int</span> varStack; <span class="cm">// NÃO É inicializada!</span>
+        System.out.println(<span class="kw">this</span>.atributoHeap); <span class="cm">// Imprime 0 (OK)</span>
+        <span class="cm">// System.out.println(varStack); -> ERRO DE COMPILAÇÃO!</span>
+    }
+}</code></pre>
+</div>
+
+<!-- APP03 -->
+<div class="section" id="app03">
+    <h2>APP03: Construtores, Sobrecarga e Encadeamento `this()`</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada da Matéria:</h4>
+        <p>Construtores inicializam o estado dos objetos na Heap. Se nenhum for escrito, o compilador gera o *default constructor* público sem argumentos. Ao declarar pelo menos um construtor, o compilador omite a geração automática.</p>
+        <p><strong>Sobrecarga:</strong> Declaração de múltiplos construtores com assinaturas de parâmetros diferentes. <strong>Encadeamento (`this()`):</strong> Invoca outro construtor da própria classe para evitar duplicação de código.</p>
+    </div>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Construtores e Encadeamento com this()"</h4>
+        <ol>
+            <li><strong>Papel:</strong> Construtores configuram o estado inicial dos objetos alocados na Heap via `new`.</li>
+            <li><strong>Sobrecarga & Encadeamento:</strong> Sobrecarga aceita parâmetros diferentes. `this()` chama outro construtor da mesma classe para evitar duplicação de código.</li>
+            <li><strong>Restrição Sintática Exigida:</strong> `this(...)` tem de ser obrigatoriamente a **PRIMEIRA linha de código** no construtor e não pode ser usado simultaneamente com `super()`.</li>
+        </ol>
+    </div>
+</div>
+
+<!-- APP04 -->
+<div class="section" id="app04">
+    <h2>APP04: Encapsulamento & Modificadores de Acesso</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada da Matéria:</h4>
+        <p>Tabela completa de visibilidade dos 4 modificadores de acesso em Java:</p>
+    </div>
+
+    <table>
+        <tr><th>Modificador</th><th>Própria Classe</th><th>Mesmo Pacote</th><th>Subclasses</th><th>Qualquer Classe</th></tr>
+        <tr><td><code>private</code></td><td>✅</td><td>❌</td><td>❌</td><td>❌</td></tr>
+        <tr><td><code>default</code> (package-private)</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td></tr>
+        <tr><td><code>protected</code></td><td>✅</td><td>✅</td><td>✅</td><td>❌</td></tr>
+        <tr><td><code>public</code></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+    </table>
+</div>
+
+<!-- APP05 -->
+<div class="section" id="app05">
+    <h2>APP05: Membros Static, Final, Enums e Cache Integer</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada da Matéria:</h4>
+        <ul>
+            <li><strong>`static`:</strong> Membros de classe partilhados por todas as instâncias. Métodos estáticos não possuem contexto de instância na Heap, sendo o uso de `this` ou `super` proibido por compilação.</li>
+            <li><strong>`final`:</strong> Primitivos (valor imutável); Referências (ponteiro imutável, mas estado do objeto mutável); Métodos (impede `@Override`); Classes (impede herança).</li>
+            <li><strong>`enum`:</strong> Constantes tipificadas com construtor obrigatoriamente `private`.</li>
+            <li><strong>Cache Integer:</strong> Cache mantida para valores de objetos `Integer` entre **-128 e 127**. Fora desta gama, `==` falha (usar sempre `.equals()`).</li>
+        </ul>
+    </div>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Static, Final e Cache Integer"</h4>
+        <ol>
+            <li><strong>Static & Proibição do `this`:</strong> Membros `static` pertencem à classe. Métodos `static` podem executar sem qualquer objeto alocado na Heap; como `this` representa a instância atual, a sua utilização em métodos estáticos é proibida por compilação.</li>
+            <li><strong>Impacto do Final:</strong> Em primitivos torna o valor imutável. Em objetos torna a referência imutável (sem novo `new`), mas o estado interno do objeto permanece mutável.</li>
+            <li><strong>Armadilha do Integer:</strong> O operador `==` compara referências. A JVM mantém cache de `Integer` apenas de **-128 a 127**. Fora dessa gama, `==` devolve `false` mesmo com números iguais (usar sempre `.equals()`).</li>
+        </ol>
+    </div>
+</div>
+
+<!-- APP06 -->
+<div class="section" id="app06">
+    <h2>APP06: Arrays de Objetos e Gestão de Memória</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada para Teoria:</h4>
+        <p>Executar `Container[] arr = new Container[5];` **NÃO aloca objetos Container na Heap**. Reserva apenas o array com 5 posições contendo `null`. É necessário instanciar cada posição individualmente com `new ContainerImpl(...)` para evitar `NullPointerException`.</p>
+    </div>
+</div>
+
+<!-- APP07 -->
+<div class="section" id="app07">
+    <h2>APP07: Herança e Reutilização com `super`</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada para Teoria:</h4>
+        <p>Herança (`extends`) representa a relação "É UM". `super(...)` chama o construtor da superclasse e tem de ser obrigatoriamente a **PRIMEIRA linha** do construtor da subclasse.</p>
+    </div>
+</div>
+
+<!-- APP08 -->
+<div class="section" id="app08">
+    <h2>APP08: Classes Abstratas vs Interfaces e Polimorfismo</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada da Matéria:</h4>
+        <p>Tabela comparativa detalhada entre Classes Abstratas e Interfaces:</p>
+    </div>
+
+    <table>
+        <tr><th>Característica</th><th>Classe Abstrata</th><th>Interface</th></tr>
+        <tr><td><strong>Herança</strong></td><td><code>extends</code> (apenas 1 superclasse)</td><td><code>implements</code> (múltiplas interfaces)</td></tr>
+        <tr><td><strong>Atributos</strong></td><td>Atributos de instância mutáveis</td><td>Apenas <code>public static final</code></td></tr>
+        <tr><td><strong>Construtores</strong></td><td>Possui construtores (via <code>super()</code>)</td><td>**NÃO possui construtores**</td></tr>
+        <tr><td><strong>Semântica</strong></td><td>Relação "É UM" (IS-A)</td><td>Contrato de comportamento ("É CAPAZ DE")</td></tr>
+    </table>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Classes Abstratas vs Interfaces"</h4>
+        <ol>
+            <li><strong>Classes Abstratas (`extends`):</strong> Não levam `new`. Suportam herança simples, atributos de instância mutáveis, construtores e métodos abstratos/concretos. Ideais para a relação "É UM" com partilha de código e estado.</li>
+            <li><strong>Interfaces (`implements`):</strong> Contratos puros de comportamento ("É CAPAZ DE"). Permitem herança múltipla de tipos, **não possuem construtores** e os atributos são exclusivamente `public static final`.</li>
+            <li><strong>Polimorfismo Dinâmico (Late Binding):</strong> A decisão de qual método executar ocorre em tempo de **execução** (runtime) com base na instância real na Heap.</li>
+        </ol>
+    </div>
+</div>
+
+<!-- APP09 -->
+<div class="section" id="app09">
+    <h2>APP09: Interfaces e Métodos Default (Java 8+)</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada para Teoria:</h4>
+        <p>Interfaces aceitam métodos `default` com corpo. Em caso de conflito de métodos `default` idênticos em duas interfaces implementadas, a classe é **obrigada a sobrescrever (`@Override`) o método** para resolver a ambiguidade.</p>
+    </div>
+</div>
+
+<!-- APP10 -->
+<div class="section" id="app10">
+    <h2>APP10: Hierarquia Object, Identidade vs Igualdade e Casting</h2>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Identidade (==) vs Igualdade (equals)"</h4>
+        <ol>
+            <li><strong>Identidade Physical (`==`):</strong> Avalia se duas variáveis de referência apontam para a **mesma posição de memória Heap**.</li>
+            <li><strong>Igualdade Logical (`equals()`):</strong> Avalia se dois objetos possuem o **mesmo conteúdo lógico**.</li>
+            <li><strong>Negligenciar `equals()`:</strong> O método herdado de `Object` usa `==`. Se não for redefinido, dois objetos distintos com dados idênticos serão considerados erradamente diferentes.</li>
+        </ol>
+    </div>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Upcasting, Downcasting e instanceof"</h4>
+        <ol>
+            <li><strong>Upcasting:</strong> Subclasse -> Superclasse (automático e 100% seguro).</li>
+            <li><strong>Downcasting:</strong> Superclasse -> Subclasse (explícito e arriscado, lança `ClassCastException`).</li>
+            <li><strong>Operador `instanceof`:</strong> Valida o tipo real na Heap em runtime antes de converter.</li>
+        </ol>
+    </div>
+</div>
+
+<!-- APP11 -->
+<div class="section" id="app11">
+    <h2>APP11: Gestão de Exceções (Checked vs Unchecked e `finally`)</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada para Teoria:</h4>
+        <pre><code>                     java.lang.Throwable
+                              |
+             +----------------+----------------+
+             |                                 |
+       java.lang.Error               java.lang.Exception
+                                               |
+                             +-----------------+-----------------+
+                             |                                   |
+                   Checked Exceptions                 RuntimeException
+                (IOException, etc.)                  (Unchecked Exceptions)</code></pre>
+    </div>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Checked vs Unchecked Exceptions e finally"</h4>
+        <ol>
+            <li><strong>Checked Exceptions (`Exception`):</strong> Erros ambientais recuperáveis. O compilador **exige obrigatoriamente** tratamento (`try-catch`) ou declaração (`throws`).</li>
+            <li><strong>Unchecked Exceptions (`RuntimeException`):</strong> Bugs de lógica. Compilador não exige verificação.</li>
+            <li><strong>Bloco `finally`:</strong> Executa **SEMPRE**, mesmo com exceções ou instrução `return` no `try`/`catch`.</li>
+        </ol>
+    </div>
+</div>
+
+<!-- APP12 -->
+<div class="section" id="app12">
+    <h2>APP12: I/O (Streams) & Serialização</h2>
+
+    <div class="explain-box">
+        <h4>💡 Explicação Aprofundada para Teoria:</h4>
+        <ul>
+            <li><strong>Byte Streams (`InputStream`/`OutputStream`):</strong> 8 bits (dados binários).</li>
+            <li><strong>Character Streams (`Reader`/`Writer`):</strong> 16 bits Unicode (texto legível UTF-8).</li>
+            <li><strong>Serialização:</strong> Converte o estado do objeto na Heap em fluxo de bytes (`Serializable`). O modificador `transient` omite atributos da serialização por segurança.</li>
+        </ul>
+    </div>
+
+    <div class="blueprint-box">
+        <h4>📋 Resposta Modelo (1,5v): "Byte vs Character Streams e Serialização"</h4>
+        <ol>
+            <li><strong>Byte Streams vs Character Streams:</strong> Byte Streams manipulam dados binários crús em pacotes de 8 bits. Character Streams manipulam texto de 16 bits Unicode com codificação automática de carateres (ex: UTF-8).</li>
+            <li><strong>Mecanismo de Serialização:</strong> Processo de conversão do estado de um objeto em bytes para gravação/transmissão (`Serializable`). `transient` impede a serialização de dados sensíveis e `serialVersionUID` valida a compatibilidade de versões da classe.</li>
+        </ol>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interativo — As 20 Perguntas Fatais</title>
+    <title>Quiz Interativo Mestre — Teoria PP (25 Perguntas Fatais)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,24 +17,21 @@
             --accent: #6366f1;
             --accent-hover: #4f46e5;
             --success: #10b981;
-            --success-bg: rgba(16, 185, 129, 0.1);
+            --success-bg: rgba(16, 185, 129, 0.12);
             --danger: #ef4444;
-            --danger-bg: rgba(239, 68, 68, 0.1);
+            --danger-bg: rgba(239, 68, 68, 0.12);
+            --orange: #f59e0b;
             --font-main: 'Inter', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--font-main);
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 25%);
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.1), transparent 30%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.08), transparent 30%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
@@ -46,11 +43,10 @@
 
         .container {
             width: 100%;
-            max-width: 800px;
+            max-width: 850px;
             position: relative;
         }
 
-        /* Glassmorphism Card */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -58,17 +54,17 @@
             -webkit-backdrop-filter: blur(20px);
             border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             transition: all 0.4s ease;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
         }
 
         .header h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             margin-bottom: 10px;
             background: linear-gradient(135deg, #a5b4fc, #6366f1);
@@ -81,122 +77,120 @@
             font-size: 1.1rem;
         }
 
-        /* Question Layout */
         .question-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+            margin-bottom: 15px;
+            font-size: 0.88rem;
             color: var(--text-muted);
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: var(--card-border);
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--accent);
+            background: linear-gradient(90deg, var(--accent), var(--success));
             width: 0%;
             border-radius: 10px;
             transition: width 0.3s ease;
         }
 
         .question-text {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 600;
-            margin-bottom: 30px;
-            line-height: 1.4;
+            margin-bottom: 25px;
+            line-height: 1.45;
         }
 
-        /* Options */
         .options {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 14px;
         }
 
         .option {
             background: rgba(255, 255, 255, 0.02);
             border: 2px solid var(--card-border);
-            padding: 20px 25px;
+            padding: 18px 22px;
             border-radius: 16px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1.02rem;
             font-family: inherit;
             color: var(--text-main);
             text-align: left;
             transition: all 0.2s ease;
             position: relative;
-            overflow: hidden;
             display: flex;
             align-items: center;
-        }
-
-        .option::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: transparent;
-            transition: background 0.2s;
+            line-height: 1.4;
         }
 
         .option:hover:not(.disabled) {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
         }
 
-        .option:hover:not(.disabled)::before {
-            background: var(--accent);
-        }
-
-        /* States */
         .option.correct {
             background: var(--success-bg);
             border-color: var(--success);
+            color: #fff;
         }
-        .option.correct::before { background: var(--success); }
         
         .option.wrong {
             background: var(--danger-bg);
             border-color: var(--danger);
+            color: #fff;
         }
-        .option.wrong::before { background: var(--danger); }
         
         .option.disabled {
             cursor: default;
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
-        /* Controls */
+        /* EXPLICADOR BOX (Feedback pedagógico) */
+        .explanation-box {
+            display: none;
+            margin-top: 20px;
+            padding: 18px 22px;
+            border-radius: 14px;
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            animation: fadeIn 0.3s forwards;
+        }
+        .explanation-box strong { color: var(--accent); }
+
         .controls {
             display: flex;
             justify-content: flex-end;
-            margin-top: 30px;
+            margin-top: 25px;
         }
 
         .btn {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 14px 28px;
+            font-size: 1.05rem;
+            font-weight: 700;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s;
             font-family: inherit;
-            display: none; /* hidden by default */
+            display: none;
         }
 
         .btn:hover {
@@ -207,57 +201,34 @@
 
         .btn.visible {
             display: inline-block;
-            animation: fadeIn 0.4s;
         }
 
-        /* Result Screen */
         .result-screen {
             text-align: center;
             display: none;
         }
 
         .score-circle {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             background: var(--card-bg);
             border: 8px solid var(--accent);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 30px;
-            font-size: 3rem;
+            margin: 0 auto 25px;
+            font-size: 3.2rem;
             font-weight: 800;
             box-shadow: 0 0 40px rgba(99, 102, 241, 0.3);
         }
 
-        .result-msg {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .result-sub {
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
+        .result-msg { font-size: 1.6rem; margin-bottom: 12px; font-weight: 800; }
+        .result-sub { color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem; }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .fade-out {
-            animation: fadeOut 0.3s forwards;
-        }
-        
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-10px); }
-        }
-
-        .view {
-            animation: fadeIn 0.4s forwards;
         }
     </style>
 </head>
@@ -266,21 +237,21 @@
     <div class="container">
         
         <!-- START SCREEN -->
-        <div class="card view" id="start-screen">
+        <div class="card" id="start-screen">
             <div class="header">
-                <h1>Teste de Conhecimentos: Top 20 (Exames)</h1>
-                <p>O Mega Quiz com todas as rasteiras teóricas (incluindo as dos exames de Época Normal e Recurso).</p>
+                <h1>Quiz Interativo Teórico PP (25 Perguntas)</h1>
+                <p>Mega Quiz de Treino Intensivo com Rasteiras de Exame da Época Normal e Recurso</p>
             </div>
             <div style="text-align: center;">
-                <button class="btn visible" onclick="startQuiz()" style="padding: 18px 40px; font-size: 1.2rem;">Começar o Modo Try-Hard 🔥</button>
+                <button class="btn visible" onclick="startQuiz()" style="padding: 18px 40px; font-size: 1.2rem;">Começar o Modo Try-Hard 🔥 (25 Perguntas)</button>
             </div>
         </div>
 
         <!-- QUIZ SCREEN -->
-        <div class="card view" id="quiz-screen" style="display: none;">
+        <div class="card" id="quiz-screen" style="display: none;">
             <div class="question-header">
                 <span id="q-category">Encapsulamento</span>
-                <span>Pergunta <span id="q-current">1</span>/20</span>
+                <span>Pergunta <span id="q-current">1</span>/25</span>
             </div>
             
             <div class="progress-bar">
@@ -288,11 +259,15 @@
             </div>
 
             <div class="question-text" id="q-text">
-                Qual é a pergunta?
+                Carregando pergunta...
             </div>
 
             <div class="options" id="options">
                 <!-- Options injected by JS -->
+            </div>
+
+            <div class="explanation-box" id="explanation">
+                <!-- Pedagogical explanation injected by JS -->
             </div>
 
             <div class="controls">
@@ -301,11 +276,11 @@
         </div>
 
         <!-- RESULT SCREEN -->
-        <div class="card view result-screen" id="result-screen">
-            <div class="score-circle" id="score-display">0/20</div>
+        <div class="card result-screen" id="result-screen">
+            <div class="score-circle" id="score-display">0/25</div>
             <div class="result-msg" id="result-msg">Analisando resultados...</div>
             <div class="result-sub" id="result-sub"></div>
-            <button class="btn visible" onclick="location.reload()">Tentar Novamente</button>
+            <button class="btn visible" onclick="location.reload()">Tentar Novamente 🔄</button>
         </div>
 
     </div>
@@ -314,203 +289,303 @@
         const questions = [
             {
                 category: "1. Encapsulamento & Modificadores",
-                text: "Explique detalhadamente o conceito de encapsulamento em POO. Qual a justificação arquitetural para que o acesso direto (public) aos atributos de uma classe seja considerado uma má prática?",
+                text: "Explique o conceito de encapsulamento em POO. Qual a justificação arquitetural para que o acesso direto (public) aos atributos de uma classe seja considerado uma má prática?",
                 options: [
-                    "A) Porque o acesso direto public sobrecarrega a Stack da JVM, tornando a execução dos métodos mais lenta.",
-                    "B) Porque permite a injeção de estado inválido por código externo, violando o encapsulamento e as regras lógicas de negócio do objeto.",
-                    "C) Porque atributos public obrigam à declaração simultânea de métodos static, quebrando o paradigma de instâncias."
+                    "A) Porque o acesso público sobrecarrega a memória Stack da JVM durante a chamada de métodos.",
+                    "B) Porque permite a injeção externa de estado inválido sem validação defensiva, violando a coesão e o encapsulamento do objeto.",
+                    "C) Porque atributos public exigem obrigatoriamente a declaração simultânea de métodos static.",
+                    "D) Porque o Java proíbe a compilação de atributos declarados como public."
                 ],
-                correctIndex: 1
+                correctIndex: 1,
+                explanation: "💡 **Explicação 20v:** Atributos `public` violam o encapsulamento pois permitem que qualquer classe cliente altere diretamente o estado interno do objeto (ex: atribuir capacidade negativa), contornando as regras de negócio da aplicação."
             },
             {
                 category: "2. Construtores (this e super)",
-                text: "No âmbito da instanciação de objetos, discuta as restrições sintáticas e arquiteturais aplicáveis à invocação de construtores encadeados através das palavras reservadas this() e super().",
+                text: "Quais as restrições sintáticas aplicáveis à invocação de construtores encadeados através das palavras reservadas this() e super() em Java?",
                 options: [
-                    "A) Ambas as invocações têm de ser obrigatoriamente a primeira instrução no corpo do construtor, sendo impossível utilizá-las em simultâneo.",
-                    "B) O super() deve ser a primeira instrução, mas o this() pode ser chamado em qualquer linha para reatribuir o estado.",
-                    "C) Servem apenas para invocar os métodos estáticos da própria classe e da superclasse, respetivamente."
+                    "A) Ambas as invocações têm de ser obrigatoriamente a PRIMEIRA instrução no corpo do construtor, sendo impossível utilizá-las em simultâneo no mesmo construtor.",
+                    "B) O super() deve ser a primeira instrução, mas o this() pode ser chamado em qualquer linha do construtor.",
+                    "C) O this() e o super() podem ser chamados em simultâneo na mesma linha separados por vírgula.",
+                    "D) Servem apenas para invocar métodos estáticos da própria classe ou da superclasse."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Tanto `this()` como `super()` exigem ser estritamente a primeira linha de código dentro de um construtor. Como só pode haver uma primeira linha, é impossível invocar ambos no mesmo construtor."
             },
             {
                 category: "3. Variáveis e Métodos static",
-                text: "Distinga o contexto de execução de variáveis de instância e de classe. Esclareça os motivos pelos quais a palavra reservada 'this' gera um erro de compilação num método declarado como 'static'.",
+                text: "Distinga o contexto de execução de membros de classe (static) e de instância. Por que razão a palavra reservada 'this' é proibida num método declarado como 'static'?",
                 options: [
-                    "A) O erro ocorre porque um método estático é alocado na Heap e não pode interagir com os atributos da Stack onde reside o this.",
-                    "B) Porque os métodos static pertencem ao escopo da classe (podem correr sem objetos). Logo, não existe uma 'instância atual' para a qual o this possa apontar.",
-                    "C) Porque o uso do this requer obrigatoriamente a presença do modificador final nos argumentos do método estático."
+                    "A) O erro ocorre porque métodos estáticos residem na Stack e não conseguem aceder à Heap.",
+                    "B) Porque métodos static pertencem à classe e podem ser executados sem qualquer objeto instanciado. Logo, não existe nenhuma 'instância atual' para a qual o this possa apontar.",
+                    "C) Porque o uso do this requer obrigatoriamente a presença do modificador final nos argumentos.",
+                    "D) Porque o operador this apenas pode ser utilizado dentro de interfaces."
                 ],
-                correctIndex: 1
+                correctIndex: 1,
+                explanation: "💡 **Explicação 20v:** `this` representa o endereço do próprio objeto em execução na Heap. Como métodos estáticos podem ser chamados diretamente via `Classe.metodo()` sem instanciar nenhum objeto, `this` geraria um erro de compilação."
             },
             {
                 category: "4. Modificador final",
                 text: "Explique o impacto do modificador 'final'. Distinga o seu comportamento quando aplicado a um tipo primitivo versus quando aplicado a uma referência de objeto (ex: um Array).",
                 options: [
-                    "A) Em referências de objetos, o 'final' congela todo o conteúdo na Heap, tornando o array ou objeto totalmente imutável de forma recursiva.",
-                    "B) Em primitivos torna o valor imutável. Em objetos, destrói a referência assim que o escopo de execução termina, invocando o GC.",
-                    "C) Em objetos, impede a reatribuição da variável para outro endereço de memória, mas o estado interno do objeto na Heap continua mutável."
+                    "A) Em referências de objetos, o final congela todo o conteúdo na Heap, tornando o objeto 100% imutável.",
+                    "B) Em primitivos torna o valor imutável. Em objetos, destrói a referência assim que o método termina.",
+                    "C) Em objetos, impede a reatribuição da variável para outro endereço de memória (novo new), mas o estado interno do objeto permanece mutável.",
+                    "D) O modificador final obriga à utilização do método clone() na Heap."
                 ],
-                correctIndex: 2
+                correctIndex: 2,
+                explanation: "💡 **Explicação 20v:** `final` numa variável de referência bloqueia a atribuição do ponteiro (não pode levar `new`), mas o interior do objeto na Heap continua mutável (ex: `arr[0] = 5;` é permitido)."
             },
             {
-                category: "5. Abstratas vs Interfaces",
-                text: "Explique detalhadamente as restrições estruturais impostas pela linguagem Java a Classes Abstratas comparativamente a Interfaces.",
+                category: "5. Classes Abstratas vs Interfaces",
+                text: "Explique as diferenças estruturais entre Classes Abstratas e Interfaces em Java.",
                 options: [
-                    "A) O Java apenas permite que uma classe herde de uma única Classe Abstrata, mas permite que implemente múltiplas Interfaces simultaneamente.",
-                    "B) Uma Interface pode declarar variáveis de instância (estado mutável), enquanto a Classe Abstrata apenas permite métodos abstratos.",
-                    "C) A Classe Abstrata não possui construtores, ao passo que as Interfaces exigem a declaração de um construtor default público."
+                    "A) Java apenas permite herança simples (`extends`) de uma Classe Abstrata, mas permite implementar (`implements`) múltiplas Interfaces.",
+                    "B) Uma Interface pode ter variáveis de instância mutáveis, enquanto a Classe Abstrata apenas aceita constantes.",
+                    "C) A Classe Abstrata não possui construtores, enquanto as Interfaces exigem um construtor público sem argumentos.",
+                    "D) As Classes Abstratas não permitem métodos concretos com implementação."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Classes abstratas utilizam herança simples (`extends`), possuem construtores e estado mutável. Interfaces utilizam herança múltipla (`implements`), não têm construtores e apenas aceitam constantes `public static final`."
             },
             {
-                category: "6. Polimorfismo (Overload vs Override)",
-                text: "Distinga o Polimorfismo de Sobrecarga (Overloading) do Polimorfismo de Sobreposição (Overriding), abordando a fase em que a JVM efetua a vinculação (binding).",
+                category: "6. Polimorfismo (Overloading vs Overriding)",
+                text: "Distinga o Polimorfismo de Sobrecarga (Overloading) do Polimorfismo de Sobreposição (Overriding) e a fase em que a JVM efetua o binding.",
                 options: [
-                    "A) O Overloading requer herança e anotação @Override. O Overriding ocorre na mesma classe com parâmetros distintos.",
-                    "B) O Overloading resolve-se estaticamente em tempo de compilação. O Overriding resolve-se dinamicamente em runtime, avaliando a instância real na Heap.",
-                    "C) Ambos os mecanismos são resolvidos em runtime, no entanto, apenas o Overloading permite alterar a visibilidade (ex: protected para public)."
+                    "A) O Overloading requer herança e anotação @Override. O Overriding ocorre na mesma classe.",
+                    "B) O Overloading resolve-se em tempo de compilação (Static Binding). O Overriding resolve-se em tempo de execução (Dynamic Binding) consoante o objeto real na Heap.",
+                    "C) Ambos os mecanismos resolvem-se exclusivamente em tempo de compilação.",
+                    "D) O Overriding proíbe a alteração dos parâmetros do método."
                 ],
-                correctIndex: 1
+                correctIndex: 1,
+                explanation: "💡 **Explicação 20v:** Overloading é vinculação estática (compilação) na mesma classe com parâmetros distintos. Overriding é vinculação dinâmica em runtime na subclasse dependendo da instância real na Heap."
             },
             {
                 category: "7. Upcasting e Downcasting",
-                text: "Aborde o conceito de conversão de tipos (casting). Discuta os riscos associados ao Downcasting explícito e justifique a utilização do operador instanceof.",
+                text: "Aborde a conversão de tipos (casting). Discuta os riscos do Downcasting e a importância do operador instanceof.",
                 options: [
-                    "A) O Downcasting cria um novo objeto na memória com as propriedades da subclasse, consumindo demasiados recursos do sistema.",
-                    "B) O compilador valida o Downcasting, tornando impossível o lançamento de erros em runtime sem aviso prévio.",
-                    "C) O Downcasting pode gerar uma ClassCastException em runtime caso a instância real na memória não corresponda à subclasse esperada. O instanceof atua como guarda de segurança."
+                    "A) O Downcasting cria um novo objeto na memória Heap com as propriedades da subclasse.",
+                    "B) O compilador valida todo o Downcasting, sendo impossível haver erro em runtime.",
+                    "C) O Downcasting pode lançar uma ClassCastException em runtime se o objeto real na Heap não for da subclasse. O instanceof atua como guarda de segurança.",
+                    "D) O Upcasting é perigoso e exige o bloco try-catch obrigatório."
                 ],
-                correctIndex: 2
+                correctIndex: 2,
+                explanation: "💡 **Explicação 20v:** Downcasting é a conversão explícita de superclasse para subclasse. Se o objeto na Heap não for da subclasse indicada, lança `ClassCastException`. O `instanceof` previne essa exceção."
             },
             {
                 category: "8. Identidade vs Igualdade",
-                text: "Distinga a identidade física (operador ==) da igualdade lógica (método equals()). Qual a consequência direta de omitir a redefinição do método equals() de Object?",
+                text: "Distinga a identidade física (operador ==) da igualdade lógica (método equals()). Qual a consequência de omitir a redefinição de equals()?",
                 options: [
-                    "A) O compilador injetará um equals() por defeito que compara reflexivamente todos os atributos da classe, gerando problemas de performance.",
-                    "B) O método herdado comportar-se-á como a identidade (==), considerando objetos como iguais APENAS se partilharem a mesma referência de memória.",
-                    "C) O objeto ficará imune a comparações lógicas, gerando uma UnsupportedOperationException sempre que invocado em coleções."
+                    "A) O compilador injeta um equals() automático que compara todos os atributos da classe.",
+                    "B) O método herdado de Object comportar-se-á como a identidade (==), considerando objetos iguais APENAS se partilharem o mesmo endereço de memória na Heap.",
+                    "C) O programa lança uma UnsupportedOperationException ao comparar dois objetos.",
+                    "D) O operador == passa a comparar o conteúdo das Strings automaticamente."
                 ],
-                correctIndex: 1
+                correctIndex: 1,
+                explanation: "💡 **Explicação 20v:** O método `equals()` herdado de `java.lang.Object` usa internamente `==`. Se não o redefinirmos na nossa classe, dois objetos distintos com atributos idênticos serão considerados erradamente diferentes."
             },
             {
-                category: "9. Exceções e bloco finally",
-                text: "Distinga Checked Exceptions de Unchecked Exceptions. Descreva o papel fulcral do bloco finally no desenho de aplicações Java robustas.",
+                category: "9. Exceções e Bloco finally",
+                text: "Distinga Checked Exceptions de Unchecked Exceptions. Descreva o papel do bloco finally.",
                 options: [
-                    "A) Checked Exceptions (ex: RouteException) exigem tratamento obrigatório (try-catch/throws) pelo compilador. O finally garante execução absoluta de código de limpeza, independentemente de erros.",
-                    "B) Unchecked Exceptions são as únicas que podem originar falhas catastróficas. O bloco finally executa apenas se nenhuma exceção for lançada no try.",
-                    "C) O bloco finally só pode ser acoplado a Checked Exceptions e previne que o Garbage Collector limpe os objetos acidentalmente."
+                    "A) Checked Exceptions exigem tratamento obrigatório (try-catch/throws). O bloco finally executa SEMPRE, mesmo se houver um return no try.",
+                    "B) Unchecked Exceptions exigem declaração throws obrigatoriamente. O finally só executa se não houver erro.",
+                    "C) O bloco finally serve para invocar o Garbage Collector após uma exceção.",
+                    "D) Checked Exceptions herdam diretamente de RuntimeException."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Checked Exceptions (herdam de `Exception`) são verificadas pelo compilador. O bloco `finally` executa garantidamente no final do bloco `try-catch`, mesmo com instrução `return` antecipada."
             },
             {
                 category: "10. Tipos Enumerados (Enum)",
-                text: "Avalie as características estruturais de um Tipo Enumerado (Enum) em Java, detalhando as regras aplicáveis aos seus construtores e herança.",
+                text: "Avalie as caraterísticas de um Enum em Java, detalhando a regra aplicável ao seu construtor.",
                 options: [
-                    "A) Podem possuir atributos e métodos mutáveis, contudo, o seu construtor é estritamente privado para impedir instanciação externa indiscriminada.",
-                    "B) Não aceitam a declaração de atributos internos e a sua principal limitação é não permitirem o uso do switch-case.",
-                    "C) Podem estender qualquer outra classe concreta para reutilizar comportamento, dado que internamente atuam como interfaces marker."
+                    "A) Os construtores de um Enum são obrigatoriamente PRIVADOS, impedindo a criação externa de novos valores.",
+                    "B) Os construtores de um Enum devem ser públicos para permitir a invocação via new.",
+                    "C) Os Enums podem estender qualquer outra classe concreta via extends.",
+                    "D) Os Enums não aceitam atributos nem métodos internos."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** As constantes de um `enum` são instâncias únicas imutáveis. O construtor é obrigatoriamente `private`, impedindo a instanciação com `new` fora da própria declaração do Enum."
             },
             {
                 category: "11. Passagem de Argumentos",
-                text: "Descreva detalhadamente a mecânica de passagem de argumentos (pass-by-value) na linguagem Java aquando da passagem de referências de objetos para métodos mutadores.",
+                text: "Descreva a mecânica de passagem de argumentos (pass-by-value) em Java ao passar referências de objetos para métodos.",
                 options: [
-                    "A) A JVM cria uma shallow copy do objeto na Stack, protegendo o objeto original de alterações.",
-                    "B) O valor do ponteiro de memória é passado. Invocação de métodos (setters) altera a instância original na Heap, mas a reatribuição da variável apenas altera a cópia local.",
-                    "C) A referência é passada estritamente por referência (pass-by-reference), o que significa que o operador 'new' dentro do método sobrepõe o objeto externo."
+                    "A) O valor do endereço de memória é copiado. Reatribuir a variável local no método não afeta o chamador, mas invocar métodos mutadores altera o objeto partilhado na Heap.",
+                    "B) Em Java os objetos são passados estritamente por referência (pass-by-reference), permitindo alterar o ponteiro original.",
+                    "C) A JVM cria uma cópia profunda (deep copy) de todo o objeto na Stack do método.",
+                    "D) Alterar o estado do objeto dentro do método lança uma PassByValueException."
                 ],
-                correctIndex: 1
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Em Java TUDO é passado por valor (*pass-by-value*). Para objetos, copia-se o valor do endereço de memória. Mutar o objeto altera a Heap; reatribuir a variável local não altera o chamador."
             },
             {
                 category: "12. Composição vs Herança",
-                text: "Distinga os paradigmas de Composição ('Tem-Um') e Herança ('É-Um'). Sob que premissas arquiteturais o uso da Herança é fortemente desencorajado?",
+                text: "Distinga Composição ('Tem-Um') de Herança ('É-Um'). Por que razão a literatura recomenda preferir a composição?",
                 options: [
-                    "A) A Herança induz acoplamento forte e consome o único 'slot' de extends do Java. A Composição deve ser privilegiada para maior flexibilidade em tempo de execução.",
-                    "B) A Composição reduz a velocidade de execução devido à alocação dispersa na Heap, devendo a Herança ser o método default.",
-                    "C) A Herança deve ser evitada sempre que existam métodos estáticos no sistema, pois estes não suportam a sobreposição (overriding)."
+                    "A) A Composição reduz o acoplamento, preserva o encapsulamento e evita o problema da superclasse frágil da Herança.",
+                    "B) A Herança consome menos memória RAM do que a Composição.",
+                    "C) A Composição permite utilizar múltiplos extends na mesma classe.",
+                    "D) A Herança é proibida em projetos com mais de 5 classes."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Herança cria acoplamento forte entre superclasse e subclasse. A Composição (*'Favor composition over inheritance'*) mantém os objetos desacoplados e mais flexíveis em runtime."
             },
             {
-                category: "13. Métodos default e o Diamante",
-                text: "Explique a introdução de métodos 'default' nas Interfaces no Java 8. Descreva o comportamento da JVM perante o problema do Diamante (assinaturas conflituosas).",
+                category: "13. Métodos default e Conflito",
+                text: "O que acontece se uma classe implementar duas interfaces que declaram o mesmo método default com a mesma assinatura?",
                 options: [
-                    "A) O problema do Diamante é ignorado pelo Java, executando o primeiro método encontrado no Classloader.",
-                    "B) O compilador exige a utilização de blocos try-catch para capturar AmbiguousMethodException em runtime.",
-                    "C) O compilador recusa compilar a classe até que o programador efetue o @Override explícito do método em conflito, forçando a resolução determinística."
+                    "A) A JVM executa o primeiro método carregado no ClassLoader sem dar erro.",
+                    "B) O compilador recusa compilar por ambiguidade, obrigando a classe a sobrescrever (@Override) explicitamente o método.",
+                    "C) O Java cancela automaticamente a execução de ambas as interfaces.",
+                    "D) É lançada uma AmbiguousMethodException em runtime."
                 ],
-                correctIndex: 2
+                correctIndex: 1,
+                explanation: "💡 **Explicação 20v:** O Problema do Diamante em métodos `default` de interfaces gera erro de compilação por ambiguidade. A classe implementadora tem de resolver a ambiguidade fazendo `@Override` explícito."
             },
             {
                 category: "14. String vs StringBuilder",
-                text: "Avalie criticamente o conceito de imutabilidade associado à classe String. Justifique a obrigatoriedade do uso de StringBuilder em cenários de forte iteração.",
+                text: "Justifique a obrigatoriedade do uso de StringBuilder em cenários de forte concatenação dentro de ciclos.",
                 options: [
-                    "A) O uso de Strings concatenadas em ciclos gera excessivos objetos descartáveis (lixo) na Heap. O StringBuilder atua sobre um buffer mutável sem alocar novos objetos.",
-                    "B) O StringBuilder possui integração direta com o String Pool nativo da Heap, contornando a cache do Garbage Collector.",
-                    "C) A classe String obriga a operações I/O pesadas para gravação em memória, enquanto o StringBuilder apenas usa os registos do processador."
+                    "A) A classe String é imutável. Concatenar Strings em ciclos cria excessivos objetos descartáveis na Heap, sobrecarregando o GC. O StringBuilder usa um buffer mutável.",
+                    "B) O StringBuilder guarda o texto diretamente na memória Stack em vez da Heap.",
+                    "C) Concatenar com '+' em ciclos gera uma StringOverflowException.",
+                    "D) O StringBuilder invalida automaticamente o String Pool da JVM."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Como `String` é imutável, cada `s += "a"` aloca um novo objeto na Heap. O `StringBuilder` manipula um array interno mutável sem alocar novos objetos a cada iteração."
             },
             {
-                category: "15. Memória: GC e NullPointer",
-                text: "Discuta o processo de identificação de objetos inalcançáveis efetuado pelo Garbage Collector. Identifique a causa canónica de uma NullPointerException.",
+                category: "15. Memória: GC e NullPointerException",
+                text: "O que desencadeia a execução do Garbage Collector e qual a causa de uma NullPointerException?",
                 options: [
-                    "A) Um objeto é recolhido pelo GC se os seus atributos internos excederem a Heap. O NPE ocorre se criarmos matrizes bidimensionais não inicializadas.",
-                    "B) O GC elimina objetos sem referências ativas. O NPE ocorre quando acedemos a atributos ou invocamos métodos sobre uma referência vazia (null).",
-                    "C) O NPE decorre de atrasos no Garbage Collector (Memory Leaks temporários) que impedem a libertação da Stack a tempo."
+                    "A) O GC elimina objetos sem referências ativas na Stack (inalcançáveis). O NPE ocorre ao invocar métodos/atributos numa referência que vale null.",
+                    "B) O GC apaga variáveis locais da Stack. O NPE ocorre por falta de memória na RAM.",
+                    "C) O NPE resulta de um atraso do Garbage Collector em apagar o objeto.",
+                    "D) O GC é ativado apenas quando fechamos a aplicação."
                 ],
-                correctIndex: 1
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** O GC limpa objetos inalcançáveis da Heap. A `NullPointerException` acontece quando tentamos aceder a membros (`obj.metodo()`) através de uma variável de referência com valor `null`."
             },
             {
                 category: "16. Serialização e transient",
-                text: "Explique a finalidade do mecanismo de Serialização e elucide o comportamento do processo face ao modificador de campo 'transient'.",
+                text: "Explique o mecanismo de Serialização e a utilidade do modificador transient.",
                 options: [
-                    "A) A serialização transcreve métodos em bytecode para a rede. O 'transient' assinala métodos que não podem ser sobrescritos.",
-                    "B) A serialização converte o estado (Heap) para fluxo de bytes. O modificador 'transient' exclui intencionalmente a variável desse fluxo por razões de segurança ou inutilidade.",
-                    "C) O 'transient' alerta a JVM que o objeto em causa deve ser guardado exclusivamente em bases de dados SQL estáticas."
+                    "A) Serializar converte o estado de um objeto em fluxo de bytes (Serializable). O transient exclui atributos da serialização por segurança ou efemeridade.",
+                    "B) O transient força a gravação do atributo em ficheiros de texto simples.",
+                    "C) Serializar serve apenas para converter código Java em C++.",
+                    "D) Atributos transient são gravados com encriptação AES nativa."
                 ],
-                correctIndex: 1
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Serialização transforma objetos da Heap em bytes para gravar ou enviar pela rede. O modificador `transient` indica ao processo para ignorar esse atributo (ex: passwords)."
             },
             {
                 category: "17. I/O: Byte vs Character Streams",
-                text: "Distinga o processamento orientado a Byte Streams do processamento orientado a Character Streams na biblioteca java.io, especificando a dimensão do fluxo.",
+                text: "Distinga Byte Streams de Character Streams na biblioteca java.io de Java.",
                 options: [
-                    "A) Byte Streams (8-bit) manipulam dados binários crús. Character Streams (16-bit Unicode) gerem ficheiros textuais, garantindo o correto tratamento de codificações internacionais.",
-                    "B) Byte Streams (32-bit) são exclusivos para ficheiros compactados (.zip), ao passo que os Character Streams atuam sobre qualquer ficheiro binário pesado.",
-                    "C) Ambas as bibliotecas atuam a 8-bit, divergindo apenas na presença ou ausência de métodos assíncronos de buffer."
+                    "A) Byte Streams (InputStream/OutputStream) operam a 8 bits em dados binários. Character Streams (Reader/Writer) operam a 16 bits Unicode em texto.",
+                    "B) Byte Streams operam a 32 bits e Character Streams operam a 64 bits.",
+                    "C) Character Streams são exclusivos para ficheiros compactados (.zip).",
+                    "D) Não há diferença; ambas as bibliotecas manipulam texto da mesma forma."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Byte Streams gerem dados binários brutos de 8 bits (imagens, áudio, zip). Character Streams gerem texto de 16 bits Unicode (UTF-8, leituras legíveis)."
             },
             {
-                category: "18. Pacotes (Packages) e Visibilidade",
-                text: "Avalie o impacto arquitetural do modificador de visibilidade por defeito (Package-Private) no contexto de organização modular em Java.",
+                category: "18. Contrato equals() e hashCode()",
+                text: "Qual o contrato fundamental a respeitar ao redefinir equals() e hashCode() para coleções baseadas em Hash (HashSet/HashMap)?",
                 options: [
-                    "A) Torna os membros invisíveis para qualquer classe no sistema, simulando uma classe anónima abstrata.",
-                    "B) Exige que qualquer classe consumidora faça obrigatoriamente a declaração 'import' do membro, independentemente da localização.",
-                    "C) Oculta os membros do exterior da API, limitando o acesso estritamente às classes declaradas dentro do mesmo pacote, garantindo coesão modular."
+                    "A) Se dois objetos forem iguais por equals(), as suas invocações de hashCode() TÊM de devolver o mesmo número inteiro.",
+                    "B) Se dois objetos tiverem o mesmo hashCode(), o método equals() tem de devolver true obrigatoriamente.",
+                    "C) O hashCode() deve devolver o número de atributos privados da classe.",
+                    "D) Negligenciar o hashCode() impede a compilação do projeto."
                 ],
-                correctIndex: 2
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Se `a.equals(b)` der `true`, `a.hashCode()` tem estritamente de ser igual a `b.hashCode()`. Sem isso, estruturas como `HashSet` perdem objetos ou aceitam duplicados lógicos."
             },
             {
-                category: "19. Contrato equals() e hashCode()",
-                text: "No contexto da especificação do protocolo da classe Object, qual é o contrato fundamental que deve ser respeitado ao redefinir o método equals() e o método hashCode()?",
+                category: "19. Inicialização por Defeito",
+                text: "O que acontece ao tentar ler uma variável local não inicializada versus um atributo de instância não inicializado?",
                 options: [
-                    "A) Se dois objetos forem considerados iguais pelo método equals(), as suas invocações do método hashCode() têm obrigatoriamente de devolver o mesmo número inteiro.",
-                    "B) Se dois objetos produzirem o mesmo número inteiro no hashCode(), o método equals() tem de devolver obrigatoriamente true.",
-                    "C) O método hashCode() serve para encriptar a memória da Heap, sendo independente do resultado retornado pelo equals()."
+                    "A) Atributos de instância devolvem o valor por defeito (0, null, false). Variáveis locais geram Erro de Compilação.",
+                    "B) Ambos devolvem null automaticamente.",
+                    "C) Variáveis locais devolvem 0 e atributos de instância geram Erro de Compilação.",
+                    "D) Ambas geram NullPointerException em tempo de execução."
                 ],
-                correctIndex: 0
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Na Heap, atributos de classe/instância recebem inicialização por defeito automática. Na Stack, variáveis locais exigem atribuição explícita antes de qualquer leitura pelo compilador."
             },
             {
-                category: "20. Exceções Personalizadas",
-                text: "Na implementação de um modelo de domínio robusto, qual é a hierarquia de classes correta que uma nova exceção personalizada deve estender para ser classificada obrigatoriamente como uma Checked Exception?",
+                category: "20. Wrappers e Cache Integer",
+                text: "Qual o risco de comparar dois objetos Integer com o operador de identidade == fora da gama [-128, 127]?",
                 options: [
-                    "A) Deve estender diretamente a classe java.lang.RuntimeException para garantir verificação estática pelo compilador.",
-                    "B) Deve estender a classe java.lang.Exception (ou subclasses que não herdem de RuntimeException), forçando a obrigatoriedade de captura ou declaração throws.",
-                    "C) Deve estender a classe java.lang.Error, sinalizando ao sistema um erro de ambiente irrecuperável."
+                    "A) O operador == devolverá false mesmo que os valores numéricos sejam idênticos, pois aponta para objetos diferentes alocados na Heap.",
+                    "B) O código lança uma IntegerOutOfBoundsException.",
+                    "C) A JVM converte os números para float automaticamente.",
+                    "D) Fora dessa gama o operador == funciona melhor do que dentro da gama."
                 ],
-                correctIndex: 1
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** A JVM mantém cache de objetos `Integer` apenas entre -128 e 127. Para números fora desse intervalo (ex: 200), `Integer.valueOf(200)` cria novos objetos na Heap, fazendo `a == b` dar `false`."
+            },
+            {
+                category: "21. Exceções Personalizadas",
+                text: "Que classe deve estender uma nova exceção personalizada para ser classificada obrigatoriamente como Checked Exception?",
+                options: [
+                    "A) Deve estender a classe java.lang.Exception (sem estender RuntimeException).",
+                    "B) Deve estender a classe java.lang.RuntimeException.",
+                    "C) Deve estender a classe java.lang.Throwable diretamente.",
+                    "D) Deve estender a classe java.lang.Error."
+                ],
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Para ser uma Checked Exception (verificada obrigatoriamente pelo compilador), a classe deve herdar de `java.lang.Exception`. Se herdar de `RuntimeException`, torna-se Unchecked."
+            },
+            {
+                category: "22. Arrays de Objetos e Nulls",
+                text: "Ao executar 'Container[] arr = new Container[10];', quantas instâncias da classe Container foram alocadas na Heap?",
+                options: [
+                    "A) Zero instâncias de Container. Foi alocado apenas o array com 10 posições preenchidas a null.",
+                    "B) 10 instâncias da classe Container com os construtores padrão.",
+                    "C) 1 instância de Container contendo 10 atributos internos.",
+                    "D) 10 instâncias na Stack e 1 na Heap."
+                ],
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** Instanciar o array (`new Container[10]`) apenas reserva o espaço para 10 referências preenchidas com `null`. Cada elemento precisa de ser instanciado com `new ContainerImpl(...)`."
+            },
+            {
+                category: "23. Instanciação e GC",
+                text: "O que sucede a um objeto na Heap quando todas as variáveis de referência que apontavam para ele deixam de existir?",
+                options: [
+                    "A) O objeto torna-se inalcançável (unreachable) e fica elegível para remoção pelo Garbage Collector.",
+                    "B) O objeto é guardado no disco rígido automaticamente.",
+                    "C) O objeto permanece na Heap para sempre até desligar o computador.",
+                    "D) É lançada uma MemoryLeakException."
+                ],
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** A inalcançabilidade (*unreachability*) ocorre quando já não existe nenhum caminho na Stack a apontar para o objeto na Heap. O Garbage Collector encarrega-se de libertar a memória RAM."
+            },
+            {
+                category: "24. Visibilidade por Defeito (Package-Private)",
+                text: "Qual o alcance de acessibilidade de uma classe ou membro declarado sem modificador de acesso (default)?",
+                options: [
+                    "A) Visível apenas dentro das classes declaradas no mesmo pacote Java.",
+                    "B) Visível para todas as subclasses do projeto em qualquer pacote.",
+                    "C) Visível apenas dentro da própria classe.",
+                    "D) Visível para todo o projeto desde que se faça o import."
+                ],
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** O visibilidade por defeito (*package-private*) restringe o acesso estritamente ao mesmo pacote Java, ocultando o código para o exterior do pacote."
+            },
+            {
+                category: "25. Regras de Arrays em Exame PP",
+                text: "Nos exames de PP da ESTG, por que razão é exigido o manuseamento manual de arrays nativos com contadores em vez de ArrayList?",
+                options: [
+                    "A) Para avaliar a capacidade do aluno em gerir manualmente alocação de memória, controlo de índices, verificação de nulos e prevenção de NullPointerException.",
+                    "B) Porque o Java deixou de suportar ArrayList nas versões recentes.",
+                    "C) Porque os arrays nativos gastam mais memória do que o ArrayList.",
+                    "D) Porque o ArrayList não permite guardar objetos da classe Container."
+                ],
+                correctIndex: 0,
+                explanation: "💡 **Explicação 20v:** A proibição de Collections no exame visa testar rigorosamente a mestria algorítmica de arrays nativos, gestão manual de tamanho fixo, contadores de elementos e validações de `null`."
             }
         ];
 
@@ -535,6 +610,7 @@
             document.getElementById('q-category').textContent = q.category;
             document.getElementById('q-current').textContent = currentQuestion + 1;
             document.getElementById('q-text').textContent = q.text;
+            document.getElementById('explanation').style.display = 'none';
             
             // Progress
             const progress = ((currentQuestion) / questions.length) * 100;
@@ -563,7 +639,6 @@
             const q = questions[currentQuestion];
             const options = document.querySelectorAll('.option');
             
-            // Disable all options
             options.forEach(opt => opt.classList.add('disabled'));
 
             if (index === q.correctIndex) {
@@ -571,9 +646,13 @@
                 score++;
             } else {
                 element.classList.add('wrong');
-                // Highlight correct one
                 options[q.correctIndex].classList.add('correct');
             }
+
+            // Show educational explanation box
+            const expBox = document.getElementById('explanation');
+            expBox.innerHTML = q.explanation;
+            expBox.style.display = 'block';
 
             document.getElementById('next-btn').classList.add('visible');
             document.getElementById('progress').style.width = (((currentQuestion + 1) / questions.length) * 100) + '%';
@@ -582,10 +661,6 @@
         function nextQuestion() {
             currentQuestion++;
             if (currentQuestion < questions.length) {
-                // Fade out/in effect
-                screens.quiz.classList.remove('view');
-                void screens.quiz.offsetWidth; // trigger reflow
-                screens.quiz.classList.add('view');
                 loadQuestion();
             } else {
                 showResult();
@@ -596,26 +671,27 @@
             screens.quiz.style.display = 'none';
             screens.result.style.display = 'block';
             
-            document.getElementById('score-display').textContent = score + '/20';
+            document.getElementById('score-display').textContent = score + '/25';
             
             const msg = document.getElementById('result-msg');
             const sub = document.getElementById('result-sub');
             
-            if (score === 20) {
-                msg.textContent = "🏆 20 Valores Perfeitos!";
-                sub.textContent = "Mestre da POO. A teoria não tem segredos para si. Está 100% pronto para ir escrever código!";
+            if (score === 25) {
+                msg.textContent = "🏆 20 VALORES PERFEITOS (25/25)!";
+                sub.textContent = "Mestre Supremo da POO! A teoria não tem qualquer segredo para si. Está 100% preparado para o Exame!";
                 document.getElementById('score-display').style.borderColor = "#10b981";
                 document.getElementById('score-display').style.color = "#10b981";
-            } else if (score >= 16) {
-                msg.textContent = "🔥 Excelente Trabalho!";
-                sub.textContent = "Cometeu uns pequenos deslizes, mas o núcleo duro está lá. Revise os que errou e avance para a prática.";
-            } else if (score >= 10) {
-                msg.textContent = "👍 Aprovado, mas com avisos!";
-                sub.textContent = "Passou na teoria, mas cuidado, algumas rasteiras apanharam-no. Leia a Cheatsheet antes de praticar.";
-                document.getElementById('score-display').style.borderColor = "#fdcb6e";
+            } else if (score >= 20) {
+                msg.textContent = "🔥 Excelente Nota (Muito Bom)!";
+                sub.textContent = "Excelente domínio da teoria. Releia os 1 a 2 deslizes e avance com toda a confiança para a prática!";
+                document.getElementById('score-display').style.borderColor = "#6366f1";
+            } else if (score >= 13) {
+                msg.textContent = "👍 Aprovado, mas com Rasteiras!";
+                sub.textContent = "Passou na prova teórica, mas algumas rasteiras apanharam-no. Releia as explicações pedagógicas do resumo!";
+                document.getElementById('score-display').style.borderColor = "#f59e0b";
             } else {
-                msg.textContent = "💀 Toca a rever a Teoria...";
-                sub.textContent = "O lado negro da Força (NullPointerExceptions) dominou este teste. Não avance para a prática sem ler as perguntas com calma.";
+                msg.textContent = "💀 Precisa de Rever a Teoria...";
+                sub.textContent = "As rasteiras de exame dominaram este teste. Não desespere: leia o Resumo de Slides (APP01 a APP12) e tente novamente!";
                 document.getElementById('score-display').style.borderColor = "#ef4444";
                 document.getElementById('score-display').style.color = "#ef4444";
             }
