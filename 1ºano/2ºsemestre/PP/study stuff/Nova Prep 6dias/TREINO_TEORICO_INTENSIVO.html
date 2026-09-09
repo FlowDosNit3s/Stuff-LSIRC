@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treino Teórico Intensivo PP — 25 Perguntas de Exame</title>
+<title>Treino Teórico Intensivo PP — 25 Perguntas de Exame Ilustradas</title>
 <style>
 :root {
     --bg: #0f1117;
@@ -136,12 +136,12 @@ pre {
 }
 code { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; color: var(--green); }
 pre code { color: #e4e6ed; }
-.kw { color: #c792ea; font-weight: bold; } /* Keywords */
-.str { color: #c3e88d; } /* Strings */
-.cm { color: #676e95; font-style: italic; } /* Comments */
-.tp { color: #ffcb6b; font-weight: bold; } /* Types/Classes */
-.fn { color: #82aaff; } /* Functions */
-.num { color: #f78c6c; } /* Numbers */
+.kw { color: #c792ea; font-weight: bold; }
+.str { color: #c3e88d; }
+.cm { color: #676e95; font-style: italic; }
+.tp { color: #ffcb6b; font-weight: bold; }
+.fn { color: #82aaff; }
+.num { color: #f78c6c; }
 
 /* EXAM QUESTION CARD */
 .q-card {
@@ -231,8 +231,8 @@ details > .content h4 { color: var(--blue); margin-top: 15px; margin-bottom: 8px
 <body>
 
 <div class="hero">
-    <h1>🧠 Coleção Definitiva de Teoria (25 Perguntas)</h1>
-    <p>Todos os Exames Modelo & Época Normal 2025/2026 com Resoluções Académicas de 20 Valores</p>
+    <h1>🧠 Coleção Definitiva de Teoria (25 Perguntas Ilustradas)</h1>
+    <p>Todos os Exames Modelo & Época Normal 2025/2026 com Resoluções Académicas de 20v e Excertos de Código Java</p>
     <div class="stats-badge">
         <div>Total: <span>25 Perguntas</span></div>
         <div>Prioridade Alta (🔥): <span>10 Perguntas</span></div>
@@ -277,10 +277,10 @@ details > .content h4 { color: var(--blue); margin-top: 15px; margin-bottom: 8px
     </ul>
     <h4>💻 Exemplo Prático</h4>
 <pre><code><span class="kw">public class</span> <span class="tp">Contentor</span> {
-    <span class="kw">private double</span> capacidade; <span class="cm">// Encapsulado!</span>
+    <span class="kw">private double</span> capacidade; <span class="cm">// Atributo privado encapsulado</span>
 
     <span class="kw">public void</span> <span class="fn">setCapacidade</span>(<span class="kw">double</span> c) {
-        <span class="kw">if</span> (c <= <span class="num">0</span>) <span class="kw">throw new</span> IllegalArgumentException(<span class="str">"Capacidade inválida."</span>);
+        <span class="kw">if</span> (c &lt;= <span class="num">0</span>) <span class="kw">throw new</span> IllegalArgumentException(<span class="str">"Capacidade inválida."</span>);
         <span class="kw">this</span>.capacidade = c; <span class="cm">// Acesso validado defensivamente</span>
     }
 }</code></pre>
@@ -371,7 +371,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
 </div>
 
 <!-- Q5 -->
-<div class="q-card high" data-prob="high" data-text="memoria stack heap garbage collector gc nullpointerexception npe">
+<div class="q-card high" data-prob="high" data-text="memoria stack heap garbage collector gc nullpointerexception npe inalcancavel finalize">
 <div class="exam-q">
     <div class="q-title">
         <span><span class="source-tag">📌 Origem: Exame Modelo 5 (Pergunta Teórica 1)</span><br><strong>5. Memória (Stack/Heap), GC e NullPointerException</strong><br>Discuta o modelo de gestão de memória adotado pela Máquina Virtual Java (JVM), descrevendo minuciosamente o papel da Stack e da Heap. Explique o processo pelo qual o Garbage Collector elimina objetos inalcançáveis e elucide as causas que conduzem a uma <code>NullPointerException</code>.</span>
@@ -384,6 +384,15 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Garbage Collector (GC):</strong> Analisa a Heap periodicamente. Quando deteta objetos sem nenhuma referência ativa na Stack ("inalcançáveis"), liberta a memória RAM automaticamente.</li>
         <li><strong>NullPointerException:</strong> Ocorre quando se tenta aceder a um atributo ou método através de uma referência que contem o valor <code>null</code> (sem objeto associado na Heap).</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">DemoMemoria</span> {
+    <span class="kw">public void</span> <span class="fn">executar</span>() {
+        AidBoxImpl c1 = <span class="kw">new</span> AidBoxImpl(<span class="str">"BOX1"</span>, <span class="num">10.0</span>); <span class="cm">// Instancia 1 na Heap</span>
+        c1 = <span class="kw">null</span>; <span class="cm">// Instancia 1 fica INALCANCAVEL -> Elegivel para Garbage Collector!</span>
+
+        <span class="cm">// System.out.println(c1.getCapacity()); -> LANCA NullPointerException!</span>
+    }
+}</code></pre>
 </div></details>
 </div>
 
@@ -490,6 +499,18 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Classes Abstratas:</strong> Suportam atributos de instância mutáveis, construtores e herança simples (<code>extends</code>). Ideais para partilhar estado e código numa hierarquia de classes estreitamente relacionadas ("É UM").</li>
         <li><strong>Interfaces:</strong> Definem contratos puros ("É CAPAZ DE"). Permitem herança múltipla (<code>implements</code>), apenas contêm constantes <code>public static final</code> e não possuem construtores. Ideais para comportamentos comuns a classes não relacionadas.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="cm">// CLASSE ABSTRATA: Heranca simples com estado e construtores</span>
+<span class="kw">public abstract class</span> <span class="tp">Veiculo</span> {
+    <span class="kw">private</span> String code;
+    <span class="kw">public</span> Veiculo(String code) { <span class="kw">this</span>.code = code; }
+    <span class="kw">public abstract double</span> <span class="fn">getAutonomia</span>();
+}
+
+<span class="cm">// INTERFACE: Contrato puro sem construtores, permite herança múltipla de tipos</span>
+<span class="kw">public interface</span> <span class="tp">Refrigerated</span> {
+    <span class="kw">double</span> <span class="fn">getMinTemp</span>();
+}</code></pre>
 </div></details>
 </div>
 
@@ -506,6 +527,19 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Sobrecarga (Overloading / Polimorfismo Estático):</strong> Métodos com o mesmo nome na mesma classe mas parâmetros diferentes. Resolvido em tempo de <strong>compilação</strong> (Static/Early Binding).</li>
         <li><strong>Sobreposição (Overriding / Polimorfismo Dinâmico):</strong> Subclasse redefine a implementação de um método da superclasse (mesma assinatura). Resolvido em tempo de <strong>execução</strong> (Dynamic/Late Binding) com base no objeto real na Heap.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">Calculadora</span> {
+    <span class="cm">// Overloading (Compilação)</span>
+    <span class="kw">public int</span> <span class="fn">somar</span>(<span class="kw">int</span> a, <span class="kw">int</span> b) { <span class="kw">return</span> a + b; }
+    <span class="kw">public double</span> <span class="fn">somar</span>(<span class="kw">double</span> a, <span class="kw">double</span> b) { <span class="kw">return</span> a + b; }
+}
+
+<span class="kw">public class</span> <span class="tp">TesteRuntime</span> {
+    <span class="kw">public static void</span> <span class="fn">main</span>(String[] args) {
+        Veiculo v = <span class="kw">new</span> Camiao(<span class="str">"C1"</span>);
+        v.exibirInfo(); <span class="cm">// Overriding (Dynamic Dispatch): executa o método de Camiao em runtime!</span>
+    }
+}</code></pre>
 </div></details>
 </div>
 
@@ -523,6 +557,13 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Downcasting:</strong> Tratar superclasse como subclasse. Explícito e arriscado; lança <code>ClassCastException</code> se o objeto na Heap não for da subclasse.</li>
         <li><strong>Operador `instanceof`:</strong> Verifica o tipo real do objeto em runtime antes de fazer downcasting, prevenindo exceções de execução.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code>Veiculo v = <span class="kw">new</span> Camiao(<span class="str">"C1"</span>); <span class="cm">// Upcasting automático</span>
+
+<span class="kw">if</span> (v <span class="kw">instanceof</span> Camiao) {
+    Camiao c = (Camiao) v; <span class="cm">// Downcasting seguro com proteção de instanceof</span>
+    c.getTara();
+}</code></pre>
 </div></details>
 </div>
 
@@ -539,6 +580,11 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>`instanceof`:</strong> Avalia se o objeto é da classe indicada <strong>ou de qualquer uma das suas subclasses/interfaces</strong>. Respeita o polimorfismo.</li>
         <li><strong>`getClass()`:</strong> Devolve a classe concreta exata em runtime. A comparação <code>obj.getClass() == A.class</code> exige igualdade estrita de classe, ignorando subclasses.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code>Veiculo v = <span class="kw">new</span> Camiao(<span class="str">"C1"</span>);
+
+System.out.println(v <span class="kw">instanceof</span> Veiculo); <span class="cm">// TRUE (Camiao E UM Veiculo)</span>
+System.out.println(v.getClass() == Veiculo.class); <span class="cm">// FALSE (Classe exata e Camiao.class!)</span></code></pre>
 </div></details>
 </div>
 
@@ -560,6 +606,13 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
             <br>4. <code>getClass()</code>: Retorna o objeto <code>Class&lt;?&gt;</code> de runtime (método <code>final</code> que não pode ser redefinido).
         </li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">Dominio</span> {
+    @Override
+    <span class="kw">public</span> String <span class="fn">toString</span>() {
+        <span class="kw">return</span> <span class="str">"Representacao Legivel em vez de Dominio@7ad041f3"</span>;
+    }
+}</code></pre>
 </div></details>
 </div>
 
@@ -580,6 +633,12 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Igualdade (`equals()`):</strong> Avalia se dois objetos possuem o mesmo conteúdo ou estado lógico.</li>
         <li><strong>Negligenciar `equals()`:</strong> O método herdado de `Object` usa `==`. Se não for redefinido, dois objetos distintos com dados idênticos serão considerados diferentes.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code>AidBoxImpl b1 = <span class="kw">new</span> AidBoxImpl(<span class="str">"A1"</span>);
+AidBoxImpl b2 = <span class="kw">new</span> AidBoxImpl(<span class="str">"A1"</span>);
+
+System.out.println(b1 == b2); <span class="cm">// FALSE (Objetos distintos na Heap)</span>
+System.out.println(b1.equals(b2)); <span class="cm">// TRUE (Com equals() redefinido para comparar codigos)</span></code></pre>
 </div></details>
 </div>
 
@@ -633,6 +692,15 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Unchecked Exceptions (herdam de `RuntimeException`):</strong> Bugs de programação (ex: `NullPointerException`). Não exigem tratamento obrigatório pelo compilador.</li>
         <li><strong>O bloco `finally`:</strong> Executa <strong>sempre</strong> para libertação de recursos.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="cm">// Checked Exception personalizada</span>
+<span class="kw">public class</span> <span class="tp">RouteException</span> <span class="kw">extends</span> Exception {
+    <span class="kw">public</span> RouteException(String msg) { <span class="kw">super</span>(msg); }
+}
+
+<span class="kw">public void</span> <span class="fn">adicionar</span>() <span class="kw">throws</span> RouteException {
+    <span class="kw">throw new</span> RouteException(<span class="str">"Capacidade excedida."</span>); <span class="cm">// Exige try-catch ou throws!</span>
+}</code></pre>
 </div></details>
 </div>
 
@@ -674,6 +742,11 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Critério para Checked Exception:</strong> Utilizar quando a condição de erro é <strong>externa ao controlo direto da aplicação e realisticamente recuperável</strong> pelo cliente da API (ex: ficheiro não encontrado, falha de rede, saldo insuficiente). Força o chamador a planear uma estratégia de recuperação.</li>
         <li><strong>Critério para Unchecked Exception:</strong> Utilizar quando a condição reflete um <strong>erro de lógica do programador ou violação de pré-condição</strong> (ex: passar `null` a um parâmetro obrigatório, índice fora dos limites do array). Estes erros devem ser corrigidos no código e não capturados.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="cm">// Unchecked: erro de pré-condição / bug de lógica do chamador</span>
+<span class="kw">if</span> (param == <span class="kw">null</span>) {
+    <span class="kw">throw new</span> IllegalArgumentException(<span class="str">"Parametro obrigatorio nao pode ser nulo."</span>);
+}</code></pre>
 </div></details>
 </div>
 
@@ -690,6 +763,14 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>O Essencial:</strong> `enum` define um conjunto finito de valores imutáveis com segurança de tipo em tempo de compilação (<i>type-safety</i>).</li>
         <li><strong>Construtor Privado:</strong> Pode ter atributos e métodos. O construtor deve ser obrigatoriamente <strong>privado</strong> (`private`), impedindo a criação externa de novos valores fora da declaração do Enum.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public enum</span> <span class="tp">EstadoVeiculo</span> {
+    ENABLED(<span class="str">"Ativo"</span>), DISABLED(<span class="str">"Inativo"</span>);
+
+    <span class="kw">private final</span> String label;
+    <span class="kw">private</span> EstadoVeiculo(String l) { <span class="kw">this</span>.label = l; } <span class="cm">// Construtor OBRIGATORIAMENTE privado</span>
+    <span class="kw">public</span> String <span class="fn">getLabel</span>() { <span class="kw">return</span> label; }
+}</code></pre>
 </div></details>
 </div>
 
@@ -706,6 +787,13 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Wrappers & Autoboxing:</strong> Conversão automática entre primitivos e objetos (`int` &lt;-&gt; `Integer`).</li>
         <li><strong>Cache do Integer:</strong> A JVM mantém uma cache na Heap para valores entre <strong>-128 e 127</strong>. Dentro dessa gama, `==` dá `true` porque aponta para a mesma referência. Fora dessa gama (ex: 200), `==` dá `false` mesmo com números iguais. Usar sempre `.equals()`.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code>Integer a = <span class="num">100</span>, b = <span class="num">100</span>;
+System.out.println(a == b); <span class="cm">// TRUE (Cache interna -128..127)</span>
+
+Integer x = <span class="num">200</span>, y = <span class="num">200</span>;
+System.out.println(x == y); <span class="cm">// FALSE (Fora da cache! Referências Heap distintas)</span>
+System.out.println(x.equals(y)); <span class="cm">// TRUE (Comparação lógica)</span></code></pre>
 </div></details>
 </div>
 
@@ -722,6 +810,12 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Byte Streams (`InputStream` / `OutputStream`):</strong> Processam dados em unidades de <strong>8 bits (bytes puros)</strong>. Adequados para dados binários não estruturados como imagens, áudio, ficheiros executáveis ou streams serializados.</li>
         <li><strong>Character Streams (`Reader` / `Writer`):</strong> Processam dados em unidades de <strong>16 bits (caracteres Unicode)</strong> com suporte automático a codificação de carateres (UTF-8). Adequados para ficheiros de texto legível (.txt, .json, .csv).</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="cm">// Byte Stream (8 bits binário)</span>
+<span class="kw">try</span> (java.io.FileInputStream fis = <span class="kw">new</span> java.io.FileInputStream(<span class="str">"foto.png"</span>)) { fis.read(); }
+
+<span class="cm">// Character Stream (16 bits Unicode texto)</span>
+<span class="kw">try</span> (java.io.FileReader fr = <span class="kw">new</span> java.io.FileReader(<span class="str">"resumo.txt"</span>)) { fr.read(); }</code></pre>
 </div></details>
 </div>
 
@@ -739,6 +833,13 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>`transient`:</strong> Omite atributos sensíveis (passwords) ou temporários da serialização.</li>
         <li><strong>`serialVersionUID`:</strong> Identificador estático de versão que garante compatibilidade entre o objeto gravado e a classe atual.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public class</span> <span class="tp">ContaUsuario</span> <span class="kw">implements</span> java.io.Serializable {
+    <span class="kw">private static final long</span> serialVersionUID = 1L; <span class="cm">// Validação de versão</span>
+
+    <span class="kw">private</span> String login;
+    <span class="kw">private transient</span> String passwordHash; <span class="cm">// OMITIDO da serialização por segurança!</span>
+}</code></pre>
 </div></details>
 </div>
 
@@ -756,6 +857,12 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Primitivos:</strong> Copia-se o valor numérico para a Stack. Alterações não afetam o chamador.</li>
         <li><strong>Referências:</strong> Copia-se o endereço de memória. Reatribuir a variável local não altera o chamador, mas invocar métodos mutadores altera o objeto partilhado na Heap!</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code><span class="kw">public static void</span> <span class="fn">modificar</span>(AidBoxImpl b, <span class="kw">int</span> v) {
+    v = <span class="num">999</span>; <span class="cm">// Nao altera a variavel original na Stack do chamador</span>
+    b.setCapacity(<span class="num">500.0</span>); <span class="cm">// Alteracao no objeto na Heap VISIVEL fora!</span>
+    b = <span class="kw">new</span> AidBoxImpl(<span class="str">"OUTRA"</span>, <span class="num">10</span>); <span class="cm">// Reatribuicao local NAO afeta a variavel original</span>
+}</code></pre>
 </div></details>
 </div>
 
@@ -772,6 +879,12 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
         <li><strong>Instanciação:</strong> Executar `new Container[5]` aloca o array preenchido com `null`. Cada posição precisa de ser instanciada individualmente com `new ContainerImpl(...)`.</li>
         <li><strong>Redimensionamento:</strong> Arrays nativos têm tamanho fixo. Para expandir, aloca-se um novo array com maior capacidade e copiam-se os elementos com `for` ou `System.arraycopy()`.</li>
     </ul>
+    <h4>💻 Exemplo Prático</h4>
+<pre><code>Container[] arr = <span class="kw">new</span> Container[<span class="num">5</span>]; <span class="cm">// Reserva posições com NULL</span>
+arr[<span class="num">0</span>] = <span class="kw">new</span> ContainerImpl(<span class="str">"C1"</span>); <span class="cm">// Instanciação do objeto concreto</span>
+
+<span class="cm">// Redimensionamento de Array</span>
+Container[] expandido = java.util.Arrays.copyOf(arr, arr.length * <span class="num">2</span>);</code></pre>
 </div></details>
 </div>
 
@@ -792,7 +905,7 @@ c.setCapacidade(<span class="num">50</span>); <span class="cm">// OK! O estado i
     <h4>💻 Exemplo Prático (Compactação de Array)</h4>
 <pre><code><span class="kw">public</span> Route[] <span class="fn">compactarRotas</span>(Route[] temp, <span class="kw">int</span> count) {
     Route[] result = <span class="kw">new</span> Route[count]; <span class="cm">// Tamanho exato sem nulos!</span>
-    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i < count; i++) {
+    <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; count; i++) {
         result[i] = temp[i]; <span class="cm">// Cópia direta da referência</span>
     }
     <span class="kw">return</span> result;
