@@ -14,5 +14,5 @@ As contribuições são muito bem-vindas! Se tiver material que considere útil 
 
 Junta-te ao servidor do Discord **eL SIRCo** para estares a par do universo de LSIRC, debateres matérias de estudo, partilhares recursos ou esclareceres dúvidas:
 
-* **Convite:** [Entrar no eL SIRCo](https://discord.gg/pEFA96Rqg)
+* **Convite:** [Entrar no eL SIRCo](https://discord.gg/sc2fGkQmb)
 * **Contacto alternativo:** Podes adicionar o utilizador `flow#2312` para ser adicionado.
