@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interativo Mestre — Teoria PP (25 Perguntas Fatais)</title>
+    <title>Quiz Interativo Mestre — Teoria PP (25 Perguntas Ilustradas)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -172,6 +172,20 @@
             animation: fadeIn 0.3s forwards;
         }
         .explanation-box strong { color: var(--accent); }
+        .explanation-box pre {
+            background: #090a0f;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 10px;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+        .explanation-box code {
+            font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+            color: var(--success);
+        }
 
         .controls {
             display: flex;
@@ -240,7 +254,7 @@
         <div class="card" id="start-screen">
             <div class="header">
                 <h1>Quiz Interativo Teórico PP (25 Perguntas)</h1>
-                <p>Mega Quiz de Treino Intensivo com Rasteiras de Exame da Época Normal e Recurso</p>
+                <p>Mega Quiz de Treino Intensivo com Rasteiras de Exame da Época Normal e Recurso com Código Java</p>
             </div>
             <div style="text-align: center;">
                 <button class="btn visible" onclick="startQuiz()" style="padding: 18px 40px; font-size: 1.2rem;">Começar o Modo Try-Hard 🔥 (25 Perguntas)</button>
@@ -297,7 +311,13 @@
                     "D) Porque o Java proíbe a compilação de atributos declarados como public."
                 ],
                 correctIndex: 1,
-                explanation: "💡 **Explicação 20v:** Atributos `public` violam o encapsulamento pois permitem que qualquer classe cliente altere diretamente o estado interno do objeto (ex: atribuir capacidade negativa), contornando as regras de negócio da aplicação."
+                explanation: `💡 <strong>Explicação 20v:</strong> Atributos <code>public</code> violam o encapsulamento pois permitem que qualquer classe cliente altere diretamente o estado interno do objeto (ex: atribuir capacidade negativa), contornando as regras de negócio.<pre><code>public class Contentor {
+    private double capacidade;
+    public void setCapacidade(double c) {
+        if (c &lt;= 0) throw new IllegalArgumentException("Invalido");
+        this.capacidade = c;
+    }
+}</code></pre>`
             },
             {
                 category: "2. Construtores (this e super)",
@@ -309,7 +329,10 @@
                     "D) Servem apenas para invocar métodos estáticos da própria classe ou da superclasse."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Tanto `this()` como `super()` exigem ser estritamente a primeira linha de código dentro de um construtor. Como só pode haver uma primeira linha, é impossível invocar ambos no mesmo construtor."
+                explanation: `💡 <strong>Explicação 20v:</strong> Tanto <code>this()</code> como <code>super()</code> exigem ser estritamente a primeira linha de código dentro de um construtor. Como só pode haver uma primeira linha, é impossível invocar ambos no mesmo construtor.<pre><code>public Camiao(String mat, double tara) {
+    super(mat); // PRIMEIRA LINHA OBRIGATORIA
+    this.tara = tara;
+}</code></pre>`
             },
             {
                 category: "3. Variáveis e Métodos static",
@@ -321,7 +344,10 @@
                     "D) Porque o operador this apenas pode ser utilizado dentro de interfaces."
                 ],
                 correctIndex: 1,
-                explanation: "💡 **Explicação 20v:** `this` representa o endereço do próprio objeto em execução na Heap. Como métodos estáticos podem ser chamados diretamente via `Classe.metodo()` sem instanciar nenhum objeto, `this` geraria um erro de compilação."
+                explanation: `💡 <strong>Explicação 20v:</strong> <code>this</code> representa o endereço do próprio objeto em execução na Heap. Como métodos estáticos podem ser chamados diretamente via <code>Classe.metodo()</code> sem instanciar nenhum objeto, <code>this</code> geraria um erro de compilação.<pre><code>public static int getTotal() {
+    // return this.code; -> ERRO DE COMPILACAO! 'this' proibido.
+    return totalBoxes; // OK
+}</code></pre>`
             },
             {
                 category: "4. Modificador final",
@@ -333,19 +359,22 @@
                     "D) O modificador final obriga à utilização do método clone() na Heap."
                 ],
                 correctIndex: 2,
-                explanation: "💡 **Explicação 20v:** `final` numa variável de referência bloqueia a atribuição do ponteiro (não pode levar `new`), mas o interior do objeto na Heap continua mutável (ex: `arr[0] = 5;` é permitido)."
+                explanation: `💡 <strong>Explicação 20v:</strong> <code>final</code> numa variável de referência bloqueia a atribuição do ponteiro (não pode levar <code>new</code>), mas o interior do objeto na Heap continua mutável.<pre><code>final Contentor c = new Contentor(100);
+// c = new Contentor(200); -> ERRO DE COMPILACAO!
+c.setCapacidade(50); // OK! O estado interno pode mudar.</code></pre>`
             },
             {
-                category: "5. Classes Abstratas vs Interfaces",
+                category: "5. Classes Abstratas vs Interfaces (Época Normal 25/26)",
                 text: "Explique as diferenças estruturais entre Classes Abstratas e Interfaces em Java.",
                 options: [
-                    "A) Java apenas permite herança simples (`extends`) de uma Classe Abstrata, mas permite implementar (`implements`) múltiplas Interfaces.",
+                    "A) Java apenas permite herança simples (extends) de uma Classe Abstrata, mas permite implementar (implements) múltiplas Interfaces.",
                     "B) Uma Interface pode ter variáveis de instância mutáveis, enquanto a Classe Abstrata apenas aceita constantes.",
                     "C) A Classe Abstrata não possui construtores, enquanto as Interfaces exigem um construtor público sem argumentos.",
                     "D) As Classes Abstratas não permitem métodos concretos com implementação."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Classes abstratas utilizam herança simples (`extends`), possuem construtores e estado mutável. Interfaces utilizam herança múltipla (`implements`), não têm construtores e apenas aceitam constantes `public static final`."
+                explanation: `💡 <strong>Explicação 20v:</strong> Classes abstratas possuem herança simples (<code>extends</code>), construtores e estado mutável. Interfaces possuem herança múltipla (<code>implements</code>), não têm construtores e contêm apenas constantes.<pre><code>public abstract class Veiculo { private String code; public Veiculo(String c) { this.code = c; } }
+public interface Refrigerated { double getMinTemp(); }</code></pre>`
             },
             {
                 category: "6. Polimorfismo (Overloading vs Overriding)",
@@ -357,10 +386,11 @@
                     "D) O Overriding proíbe a alteração dos parâmetros do método."
                 ],
                 correctIndex: 1,
-                explanation: "💡 **Explicação 20v:** Overloading é vinculação estática (compilação) na mesma classe com parâmetros distintos. Overriding é vinculação dinâmica em runtime na subclasse dependendo da instância real na Heap."
+                explanation: `💡 <strong>Explicação 20v:</strong> Overloading é ligação estática em compilação na mesma classe. Overriding é ligação dinâmica (<em>Dynamic Binding</em>) em runtime na subclasse dependendo da instância real na Heap.<pre><code>Veiculo v = new Camiao("C1");
+v.exibirInfo(); // Dynamic Dispatch: Executa o metodo de Camiao em runtime!</code></pre>`
             },
             {
-                category: "7. Upcasting e Downcasting",
+                category: "7. Upcasting e Downcasting (Época Normal 25/26)",
                 text: "Aborde a conversão de tipos (casting). Discuta os riscos do Downcasting e a importância do operador instanceof.",
                 options: [
                     "A) O Downcasting cria um novo objeto na memória Heap com as propriedades da subclasse.",
@@ -369,10 +399,12 @@
                     "D) O Upcasting é perigoso e exige o bloco try-catch obrigatório."
                 ],
                 correctIndex: 2,
-                explanation: "💡 **Explicação 20v:** Downcasting é a conversão explícita de superclasse para subclasse. Se o objeto na Heap não for da subclasse indicada, lança `ClassCastException`. O `instanceof` previne essa exceção."
+                explanation: `💡 <strong>Explicação 20v:</strong> Downcasting é a conversão explícita de superclasse para subclasse. Se o objeto na Heap não for da subclasse indicada, lança <code>ClassCastException</code>. O <code>instanceof</code> previne essa exceção.<pre><code>if (v instanceof Camiao) {
+    Camiao c = (Camiao) v; // Downcasting seguro!
+}</code></pre>`
             },
             {
-                category: "8. Identidade vs Igualdade",
+                category: "8. Identidade vs Igualdade (Época Normal 25/26)",
                 text: "Distinga a identidade física (operador ==) da igualdade lógica (método equals()). Qual a consequência de omitir a redefinição de equals()?",
                 options: [
                     "A) O compilador injeta um equals() automático que compara todos os atributos da classe.",
@@ -381,7 +413,9 @@
                     "D) O operador == passa a comparar o conteúdo das Strings automaticamente."
                 ],
                 correctIndex: 1,
-                explanation: "💡 **Explicação 20v:** O método `equals()` herdado de `java.lang.Object` usa internamente `==`. Se não o redefinirmos na nossa classe, dois objetos distintos com atributos idênticos serão considerados erradamente diferentes."
+                explanation: `💡 <strong>Explicação 20v:</strong> O método <code>equals()</code> herdado de <code>java.lang.Object</code> usa internamente <code>==</code>. Se não o redefinirmos na nossa classe, dois objetos distintos com atributos idênticos serão considerados erradamente diferentes.<pre><code>AidBox b1 = new AidBox("A1"); AidBox b2 = new AidBox("A1");
+System.out.println(b1 == b2); // FALSE
+System.out.println(b1.equals(b2)); // TRUE (com equals redefinido)</code></pre>`
             },
             {
                 category: "9. Exceções e Bloco finally",
@@ -393,7 +427,11 @@
                     "D) Checked Exceptions herdam diretamente de RuntimeException."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Checked Exceptions (herdam de `Exception`) são verificadas pelo compilador. O bloco `finally` executa garantidamente no final do bloco `try-catch`, mesmo com instrução `return` antecipada."
+                explanation: `💡 <strong>Explicação 20v:</strong> Checked Exceptions (herdam de <code>Exception</code>) são verificadas pelo compilador. O bloco <code>finally</code> executa garantidamente no final do bloco <code>try-catch</code>, mesmo com instrução <code>return</code> antecipada.<pre><code>try {
+    return 10;
+} finally {
+    System.out.println("Executa SEMPRE antes de sair!");
+}</code></pre>`
             },
             {
                 category: "10. Tipos Enumerados (Enum)",
@@ -405,10 +443,14 @@
                     "D) Os Enums não aceitam atributos nem métodos internos."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** As constantes de um `enum` são instâncias únicas imutáveis. O construtor é obrigatoriamente `private`, impedindo a instanciação com `new` fora da própria declaração do Enum."
+                explanation: `💡 <strong>Explicação 20v:</strong> As constantes de um <code>enum</code> são instâncias únicas imutáveis. O construtor é obrigatoriamente <code>private</code>, impedindo a instanciação com <code>new</code> fora da própria declaração.<pre><code>public enum State {
+    ENABLED("Ativo");
+    private final String label;
+    private State(String l) { this.label = l; } // PRIVADO
+}</code></pre>`
             },
             {
-                category: "11. Passagem de Argumentos",
+                category: "11. Passagem de Argumentos (Época Normal 25/26)",
                 text: "Descreva a mecânica de passagem de argumentos (pass-by-value) em Java ao passar referências de objetos para métodos.",
                 options: [
                     "A) O valor do endereço de memória é copiado. Reatribuir a variável local no método não afeta o chamador, mas invocar métodos mutadores altera o objeto partilhado na Heap.",
@@ -417,7 +459,10 @@
                     "D) Alterar o estado do objeto dentro do método lança uma PassByValueException."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Em Java TUDO é passado por valor (*pass-by-value*). Para objetos, copia-se o valor do endereço de memória. Mutar o objeto altera a Heap; reatribuir a variável local não altera o chamador."
+                explanation: `💡 <strong>Explicação 20v:</strong> Em Java TUDO é passado por valor (<em>pass-by-value</em>). Para objetos, copia-se o valor do endereço de memória. Mutar o objeto altera a Heap; reatribuir a variável local não altera o chamador.<pre><code>public static void alterar(AidBox b) {
+    b.setCapacidade(500.0); // Mutacao altera Heap!
+    b = new AidBox("OUTRA"); // Reatribuicao NAO afeta o chamador!
+}</code></pre>`
             },
             {
                 category: "12. Composição vs Herança",
@@ -429,7 +474,10 @@
                     "D) A Herança é proibida em projetos com mais de 5 classes."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Herança cria acoplamento forte entre superclasse e subclasse. A Composição (*'Favor composition over inheritance'*) mantém os objetos desacoplados e mais flexíveis em runtime."
+                explanation: `💡 <strong>Explicação 20v:</strong> Herança cria acoplamento forte entre superclasse e subclasse. A Composição (<em>'Favor composition over inheritance'</em>) mantém os objetos desacoplados e mais flexíveis em runtime.<pre><code>public class Camiao {
+    private Motor motor; // Composicao: Camiao TEM UM Motor
+    public Camiao(Motor m) { this.motor = m; }
+}</code></pre>`
             },
             {
                 category: "13. Métodos default e Conflito",
@@ -441,7 +489,10 @@
                     "D) É lançada uma AmbiguousMethodException em runtime."
                 ],
                 correctIndex: 1,
-                explanation: "💡 **Explicação 20v:** O Problema do Diamante em métodos `default` de interfaces gera erro de compilação por ambiguidade. A classe implementadora tem de resolver a ambiguidade fazendo `@Override` explícito."
+                explanation: `💡 <strong>Explicação 20v:</strong> O Problema do Diamante em métodos <code>default</code> de interfaces gera erro de compilação por ambiguidade. A classe implementadora tem de resolver a ambiguidade fazendo <code>@Override</code> explícito.<pre><code>public class Impl implements InterfaceA, InterfaceB {
+    @Override
+    public void log() { InterfaceA.super.log(); } // Resolucao
+}</code></pre>`
             },
             {
                 category: "14. String vs StringBuilder",
@@ -453,7 +504,9 @@
                     "D) O StringBuilder invalida automaticamente o String Pool da JVM."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Como `String` é imutável, cada `s += "a"` aloca um novo objeto na Heap. O `StringBuilder` manipula um array interno mutável sem alocar novos objetos a cada iteração."
+                explanation: `💡 <strong>Explicação 20v:</strong> Como <code>String</code> é imutável, cada <code>s += "a"</code> aloca um novo objeto na Heap. O <code>StringBuilder</code> manipula um array interno mutável sem alocar novos objetos a cada iteração.<pre><code>StringBuilder sb = new StringBuilder();
+for (int i=0; i&lt;100; i++) sb.append(i);
+String res = sb.toString();</code></pre>`
             },
             {
                 category: "15. Memória: GC e NullPointerException",
@@ -465,7 +518,8 @@
                     "D) O GC é ativado apenas quando fechamos a aplicação."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** O GC limpa objetos inalcançáveis da Heap. A `NullPointerException` acontece quando tentamos aceder a membros (`obj.metodo()`) através de uma variável de referência com valor `null`."
+                explanation: `💡 <strong>Explicação 20v:</strong> O GC limpa objetos inalcançáveis da Heap. A <code>NullPointerException</code> acontece quando tentamos aceder a membros (<code>obj.metodo()</code>) através de uma variável de referência com valor <code>null</code>.<pre><code>AidBox b = null;
+// b.getCapacity(); -> LANCA NullPointerException!</code></pre>`
             },
             {
                 category: "16. Serialização e transient",
@@ -477,7 +531,10 @@
                     "D) Atributos transient são gravados com encriptação AES nativa."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Serialização transforma objetos da Heap em bytes para gravar ou enviar pela rede. O modificador `transient` indica ao processo para ignorar esse atributo (ex: passwords)."
+                explanation: `💡 <strong>Explicação 20v:</strong> Serialização transforma objetos da Heap em bytes para gravar ou enviar pela rede. O modificador <code>transient</code> indica ao processo para ignorar esse atributo (ex: passwords).<pre><code>public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private transient String password; // Omitido da serializacao!
+}</code></pre>`
             },
             {
                 category: "17. I/O: Byte vs Character Streams",
@@ -489,7 +546,8 @@
                     "D) Não há diferença; ambas as bibliotecas manipulam texto da mesma forma."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Byte Streams gerem dados binários brutos de 8 bits (imagens, áudio, zip). Character Streams gerem texto de 16 bits Unicode (UTF-8, leituras legíveis)."
+                explanation: `💡 <strong>Explicação 20v:</strong> Byte Streams gerem dados binários brutos de 8 bits (imagens, áudio, zip). Character Streams gerem texto de 16 bits Unicode (UTF-8, leituras legíveis).<pre><code>FileInputStream fis = new FileInputStream("foto.png"); // 8 bits
+FileReader fr = new FileReader("texto.txt"); // 16 bits Unicode</code></pre>`
             },
             {
                 category: "18. Contrato equals() e hashCode()",
@@ -501,7 +559,8 @@
                     "D) Negligenciar o hashCode() impede a compilação do projeto."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Se `a.equals(b)` der `true`, `a.hashCode()` tem estritamente de ser igual a `b.hashCode()`. Sem isso, estruturas como `HashSet` perdem objetos ou aceitam duplicados lógicos."
+                explanation: `💡 <strong>Explicação 20v:</strong> Se <code>a.equals(b)</code> der <code>true</code>, <code>a.hashCode()</code> tem estritamente de ser igual a <code>b.hashCode()</code>. Sem isso, estruturas como <code>HashSet</code> perdem objetos ou aceitam duplicados lógicos.<pre><code>@Override public boolean equals(Object o) { ... }
+@Override public int hashCode() { return Objects.hash(code); }</code></pre>`
             },
             {
                 category: "19. Inicialização por Defeito",
@@ -513,7 +572,8 @@
                     "D) Ambas geram NullPointerException em tempo de execução."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Na Heap, atributos de classe/instância recebem inicialização por defeito automática. Na Stack, variáveis locais exigem atribuição explícita antes de qualquer leitura pelo compilador."
+                explanation: `💡 <strong>Explicação 20v:</strong> Na Heap, atributos de classe/instância recebem inicialização por defeito automática. Na Stack, variáveis locais exigem atribuição explícita antes de qualquer leitura pelo compilador.<pre><code>private int attr; // 0 por defeito
+void test() { int x; /* System.out.println(x); -> ERRO COMPILACAO */ }</code></pre>`
             },
             {
                 category: "20. Wrappers e Cache Integer",
@@ -525,7 +585,9 @@
                     "D) Fora dessa gama o operador == funciona melhor do que dentro da gama."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** A JVM mantém cache de objetos `Integer` apenas entre -128 e 127. Para números fora desse intervalo (ex: 200), `Integer.valueOf(200)` cria novos objetos na Heap, fazendo `a == b` dar `false`."
+                explanation: `💡 <strong>Explicação 20v:</strong> A JVM mantém cache de objetos <code>Integer</code> apenas entre -128 e 127. Para números fora desse intervalo (ex: 200), <code>Integer.valueOf(200)</code> cria novos objetos na Heap, fazendo <code>a == b</code> dar <code>false</code>.<pre><code>Integer x = 200, y = 200;
+System.out.println(x == y); // FALSE! (Instancias distintas na Heap)
+System.out.println(x.equals(y)); // TRUE</code></pre>`
             },
             {
                 category: "21. Exceções Personalizadas",
@@ -537,7 +599,9 @@
                     "D) Deve estender a classe java.lang.Error."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Para ser uma Checked Exception (verificada obrigatoriamente pelo compilador), a classe deve herdar de `java.lang.Exception`. Se herdar de `RuntimeException`, torna-se Unchecked."
+                explanation: `💡 <strong>Explicação 20v:</strong> Para ser uma Checked Exception (verificada obrigatoriamente pelo compilador), a classe deve herdar de <code>java.lang.Exception</code>. Se herdar de <code>RuntimeException</code>, torna-se Unchecked.<pre><code>public class RouteException extends Exception {
+    public RouteException(String msg) { super(msg); }
+}</code></pre>`
             },
             {
                 category: "22. Arrays de Objetos e Nulls",
@@ -549,7 +613,8 @@
                     "D) 10 instâncias na Stack e 1 na Heap."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** Instanciar o array (`new Container[10]`) apenas reserva o espaço para 10 referências preenchidas com `null`. Cada elemento precisa de ser instanciado com `new ContainerImpl(...)`."
+                explanation: `💡 <strong>Explicação 20v:</strong> Instanciar o array (<code>new Container[10]</code>) apenas reserva o espaço para 10 referências preenchidas com <code>null</code>. Cada elemento precisa de ser instanciado com <code>new ContainerImpl(...)</code>.<pre><code>Container[] arr = new Container[10]; // Reserva posicoes com NULL
+arr[0] = new ContainerImpl("C1"); // Instancia o objeto individual</code></pre>`
             },
             {
                 category: "23. Instanciação e GC",
@@ -561,7 +626,8 @@
                     "D) É lançada uma MemoryLeakException."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** A inalcançabilidade (*unreachability*) ocorre quando já não existe nenhum caminho na Stack a apontar para o objeto na Heap. O Garbage Collector encarrega-se de libertar a memória RAM."
+                explanation: `💡 <strong>Explicação 20v:</strong> A inalcançabilidade (<em>unreachability</em>) ocorre quando já não existe nenhum caminho na Stack a apontar para o objeto na Heap. O Garbage Collector encarrega-se de libertar a memória RAM.<pre><code>AidBox b1 = new AidBox("B1");
+b1 = null; // Objeto B1 fica inalcancavel -&gt; Garbage Collector limpa!</code></pre>`
             },
             {
                 category: "24. Visibilidade por Defeito (Package-Private)",
@@ -573,7 +639,9 @@
                     "D) Visível para todo o projeto desde que se faça o import."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** O visibilidade por defeito (*package-private*) restringe o acesso estritamente ao mesmo pacote Java, ocultando o código para o exterior do pacote."
+                explanation: `💡 <strong>Explicação 20v:</strong> O visibilidade por defeito (<em>package-private</em>) restringe o acesso estritamente ao mesmo pacote Java, ocultando o código para o exterior do pacote.<pre><code>class InternalHelper { // Sem modificador = package-private
+    void doWork() {} // Acessivel apenas no mesmo pacote
+}</code></pre>`
             },
             {
                 category: "25. Regras de Arrays em Exame PP",
@@ -585,7 +653,8 @@
                     "D) Porque o ArrayList não permite guardar objetos da classe Container."
                 ],
                 correctIndex: 0,
-                explanation: "💡 **Explicação 20v:** A proibição de Collections no exame visa testar rigorosamente a mestria algorítmica de arrays nativos, gestão manual de tamanho fixo, contadores de elementos e validações de `null`."
+                explanation: `💡 <strong>Explicação 20v:</strong> A proibição de Collections no exame visa testar rigorosamente a mestria algorítmica de arrays nativos, gestão manual de tamanho fixo, contadores de elementos e validações de <code>null</code>.<pre><code>Route[] compact = new Route[count]; // Tamanho exato sem buracos null
+for (int i=0; i&lt;count; i++) compact[i] = temp[i];</code></pre>`
             }
         ];
 
@@ -649,7 +718,7 @@
                 options[q.correctIndex].classList.add('correct');
             }
 
-            // Show educational explanation box
+            // Show educational explanation box with code snippet
             const expBox = document.getElementById('explanation');
             expBox.innerHTML = q.explanation;
             expBox.style.display = 'block';
