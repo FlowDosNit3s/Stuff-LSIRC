@@ -481,19 +481,29 @@ c.setCapacidade(<span class="num">500.0</span>); <span class="cm">// PERMITIDO! 
 <details><summary></summary><div class="content">
     <h4>✍️ Resposta Tipo de Exame (Essencial)</h4>
     <ul>
-        <li><strong>Herança ("É UM"):</strong> Acoplamento forte via <code>extends</code>. Usada apenas quando existe uma hierarquia conceptual indiscutível.</li>
-        <li><strong>Composição ("TEM UM"):</strong> A classe guarda referências para instâncias de outras classes. Proporciona baixo acoplamento e flexibilidade em runtime.</li>
-        <li><strong>Regra do Professor:</strong> Preferir composição sobre herança (<i>"Favor composition over inheritance"</i>).</li>
+        <li><strong>Herança ("É UM" / White-Box):</strong> Reutilização estática em tempo de compilação via <code>extends</code>. Origina <strong>alto acoplamento</strong> (a subclasse depende intimamente da implementação interna da superclasse).</li>
+        <li><strong>Composição ("TEM UM" / Black-Box):</strong> Reutilização dinâmica em tempo de execução agregando referências para outros objetos. Origina <strong>baixo acoplamento</strong> e permite trocar comportamentos em runtime.</li>
+        <li><strong>Premissas Arquiteturais para Herança Apropriada:</strong>
+            <br>1. Relação <i>"É-UM"</i> estrita e conceptualmente inquestionável.
+            <br>2. Cumprimento rigoroso do <strong>Princípio da Substituição de Liskov (LSP)</strong>: a subclasse tem de poder substituir a superclasse em qualquer ponto do programa sem alterar o comportamento correto.
+            <br>3. Necessidade de partilhar estado (atributos) e métodos comuns e estáveis na hierarquia.
+        </li>
+        <li><strong>Comparação & Diretiva de Desenho:</strong> Nunca usar herança apenas para reaproveitar métodos se não existir uma relação <i>"É-UM"</i>. A composição deve ser preferida (<i>"Favor composition over inheritance"</i>) por evitar o problema da superclasse frágil e permitir alterar componentes dinamicamente.</li>
     </ul>
     <h4>💻 Excerto de Código Java (Simples & Tema Unificado)</h4>
-<pre><code><span class="cm">// COMPOSIÇÃO: Um Camiao TEM UM Motor (Baixo acoplamento)</span>
-<span class="kw">public class</span> <span class="tp">Camiao</span> {
-    <span class="kw">private</span> Motor motor;
-    <span class="kw">public</span> Camiao(Motor m) { <span class="kw">this</span>.motor = m; }
+<pre><code><span class="cm">// HERANÇA APROPRIADA: Camiao É UM Veiculo (respeita Liskov / relação "É-UM")</span>
+<span class="kw">public class</span> <span class="tp">Camiao</span> <span class="kw">extends</span> Veiculo {
+    <span class="kw">public</span> Camiao(String m) { <span class="kw">super</span>(m); }
 }
 
-<span class="cm">// HERANÇA: Um Camiao É UM Veiculo (Hierarquia estrita)</span>
-<span class="kw">public class</span> <span class="tp">Camiao</span> <span class="kw">extends</span> Veiculo { ... }</code></pre>
+<span class="cm">// COMPOSIÇÃO APROPRIADA: Camiao TEM UM Motor (Baixo acoplamento / flexibilidade)</span>
+<span class="kw">public class</span> <span class="tp">Camiao</span> <span class="kw">extends</span> Veiculo {
+    <span class="kw">private</span> Motor motor; <span class="cm">// Composição: não estende Motor!</span>
+    <span class="kw">public</span> Camiao(String m, Motor motor) {
+        <span class="kw">super</span>(m);
+        <span class="kw">this</span>.motor = motor;
+    }
+}</code></pre>
 </div></details>
 </div>
 
@@ -508,8 +518,10 @@ c.setCapacidade(<span class="num">500.0</span>); <span class="cm">// PERMITIDO! 
 <details><summary></summary><div class="content">
     <h4>✍️ Resposta Tipo de Exame (Essencial)</h4>
     <ul>
-        <li><strong>Classes Abstratas:</strong> Permitem atributos de instância mutáveis, construtores e herança simples (<code>extends</code>). Partilha de estado entre classes intimamente relacionadas.</li>
-        <li><strong>Interfaces:</strong> Contratos puros de comportamento ("É CAPAZ DE"). Permitem herança múltipla de tipos (<code>implements</code>), contêm apenas constantes <code>public static final</code> e não têm construtores.</li>
+        <li><strong>Classes Abstratas:</strong> Permitem atributos de instância mutáveis, construtores e herança simples (<code>extends</code>). Servem para partilha de estado e código entre classes intimamente relacionadas.</li>
+        <li><strong>Interfaces:</strong> Contratos puros de comportamento ("É CAPAZ DE"). Permitem herança múltipla de tipos (<code>implements</code>), contêm apenas constantes <code>public static final</code> e não têm construtores nem atributos de instância.</li>
+        <li><strong>Quando preferir Classe Abstrata:</strong> Quando existe uma relação estrita <i>"É-UM"</i> e necessidade de partilhar estado (atributos), construtores ou métodos <code>protected</code>/concretos comuns.</li>
+        <li><strong>Quando preferir Interface:</strong> Quando se pretende definir um contrato de comportamento (<i>"É-CAPAZ-DE"</i>) comum a classes não relacionadas na hierarquia, ou quando é necessária herança múltipla de tipos.</li>
     </ul>
     <h4>💻 Excerto de Código Java (Simples & Tema Unificado)</h4>
 <pre><code><span class="cm">// CLASSE ABSTRATA: com estado e construtor</span>
@@ -537,8 +549,9 @@ c.setCapacidade(<span class="num">500.0</span>); <span class="cm">// PERMITIDO! 
 <details><summary></summary><div class="content">
     <h4>✍️ Resposta Tipo de Exame (Essencial)</h4>
     <ul>
-        <li><strong>Overloading (Sobrecarga / Estático):</strong> Métodos com o mesmo nome e parâmetros diferentes na mesma classe. Resolvido em tempo de <strong>compilação</strong>.</li>
-        <li><strong>Overriding (Sobreposição / Dinâmico):</strong> Redefinição de um método herdado da superclasse. Resolvido em tempo de <strong>execução</strong> (<i>Dynamic Dispatch</i>) com base no objeto real na Heap.</li>
+        <li><strong>Conceito de Polimorfismo:</strong> Capacidade de uma referência do tipo genérico (superclasse/interface) assumir múltiplos comportamentos em runtime dependendo do objeto concreto instanciado na Heap.</li>
+        <li><strong>Overloading (Sobrecarga / Binding Estático):</strong> Métodos com o mesmo nome e parâmetros diferentes na mesma classe. Resolvido em tempo de <strong>compilação</strong> (Static Binding) com base no tipo declarado dos argumentos.</li>
+        <li><strong>Overriding (Sobreposição / Binding Dinâmico):</strong> Redefinição de um método herdado da superclasse mantendo a mesma assinatura. Resolvido em tempo de <strong>execução</strong> (Dynamic Binding / Dispatch) pela JVM com base no tipo real do objeto na Heap.</li>
     </ul>
     <h4>💻 Excerto de Código Java (Simples & Tema Unificado)</h4>
 <pre><code><span class="kw">public class</span> <span class="tp">Camiao</span> <span class="kw">extends</span> Veiculo {
@@ -645,16 +658,22 @@ System.out.println(v.getClass() == Veiculo.class); <span class="cm">// FALSE (Cl
 <details><summary></summary><div class="content">
     <h4>✍️ Resposta Tipo de Exame (Essencial)</h4>
     <ul>
-        <li><strong>Identidade (<code>==</code>):</strong> Avalia se duas variáveis apontam para o mesmo endereço de memória na Heap.</li>
+        <li><strong>Identidade (<code>==</code>):</strong> Avalia se duas variáveis apontam exatamente para o mesmo endereço de memória física na Heap.</li>
         <li><strong>Igualdade (<code>equals()</code>):</strong> Avalia se dois objetos possuem o mesmo conteúdo/estado lógico.</li>
-        <li><strong>Omissão de <code>equals()</code>:</strong> Herda o método de <code>Object</code> (que usa <code>==</code>), tratando instâncias distintas com dados idênticos como desiguais.</li>
+        <li><strong>Omissão de <code>equals()</code>:</strong> Herda o método de <code>Object</code> (que usa <code>==</code>), tratando instâncias distintas com dados lógicos idênticos como desiguais.</li>
     </ul>
     <h4>💻 Excerto de Código Java (Simples & Tema Unificado)</h4>
-<pre><code>Camiao c1 = <span class="kw">new</span> Camiao(<span class="str">"AA-00-11"</span>);
-Camiao c2 = <span class="kw">new</span> Camiao(<span class="str">"AA-00-11"</span>);
+<pre><code><span class="kw">public class</span> <span class="tp">Camiao</span> {
+    <span class="kw">private</span> String matricula;
 
-System.out.println(c1 == c2); <span class="cm">// FALSE (Objetos distintos na Heap)</span>
-System.out.println(c1.equals(c2)); <span class="cm">// TRUE (Com equals redefinido para comparar matricula)</span></code></pre>
+    @Override
+    <span class="kw">public boolean</span> <span class="fn">equals</span>(Object obj) {
+        <span class="kw">if</span> (<span class="kw">this</span> == obj) <span class="kw">return true</span>; <span class="cm">// 1. Identidade física (mesmo endereço na Heap)</span>
+        <span class="kw">if</span> (obj == <span class="kw">null</span> || !(obj <span class="kw">instanceof</span> Camiao)) <span class="kw">return false</span>; <span class="cm">// 2. Nulo e Tipo</span>
+        Camiao other = (Camiao) obj; <span class="cm">// 3. Downcasting explícito</span>
+        <span class="kw">return this</span>.matricula != <span class="kw">null</span> && <span class="kw">this</span>.matricula.equals(other.matricula); <span class="cm">// 4. Igualdade lógica</span>
+    }
+}</code></pre>
 </div></details>
 </div>
 
@@ -703,9 +722,10 @@ System.out.println(c1.equals(c2)); <span class="cm">// TRUE (Com equals redefini
 <details><summary></summary><div class="content">
     <h4>✍️ Resposta Tipo de Exame (Essencial)</h4>
     <ul>
-        <li><strong>Checked Exceptions (herdam de <code>Exception</code>):</strong> Erros de ambiente recuperáveis. Compilador obriga a tratar (<code>try-catch</code>) ou declarar (<code>throws</code>).</li>
-        <li><strong>Unchecked Exceptions (herdam de <code>RuntimeException</code>):</strong> Bugs de lógica. Trata-se opcionalmente.</li>
-        <li><strong>Bloco <code>finally</code>:</strong> Executa sempre, garantindo a libertação de recursos.</li>
+        <li><strong>Paradigma de Gestão de Erros:</strong> Separa a deteção do erro do seu tratamento. Quando ocorre uma anomalia, cria-se e lança-se (<code>throw</code>) um objeto de exceção que interrompe o fluxo normal e desempilha a Stack até encontrar um manipulador (<code>catch</code>) adequado.</li>
+        <li><strong>Checked Exceptions (herdam de <code>Exception</code>):</strong> Erros de ambiente recuperáveis (ex: falha de I/O). O compilador obriga a tratar (<code>try-catch</code>) ou declarar (<code>throws</code>).</li>
+        <li><strong>Unchecked Exceptions (herdam de <code>RuntimeException</code>):</strong> Bugs de lógica e violação de pré-condições (ex: <code>NullPointerException</code>). Tratam-se opcionalmente sem obrigatoriedade no compilador.</li>
+        <li><strong>Arquitetura <code>try-catch-finally</code>:</strong> <code>try</code> delimita o código suscetível a erros; <code>catch</code> trata exceções específicas; <code>finally</code> executa incondicionalmente para libertar recursos.</li>
     </ul>
     <h4>💻 Excerto de Código Java (Simples & Tema Unificado)</h4>
 <pre><code><span class="cm">// Exceção Checked personalizada</span>
